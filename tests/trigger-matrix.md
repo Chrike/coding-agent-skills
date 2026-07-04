@@ -17,6 +17,10 @@ The prompt fragments are authoritative for default behavior, and skill descripti
 | Continue this paused task using the current issue or work-item draft. | Base default behavior |
 | What is the current goal and why are you doing this? | Base default behavior |
 | We are still inspecting these files; do not start rewriting yet. | Base default behavior |
+| You have enough context now. Make the requested code change instead of giving me another plan. | Base default behavior |
+| Fix only the reported bug. Do not clean up neighboring code or add helper layers. | Base default behavior |
+| What did you actually finish, what failed, and what is still unverified? | Base default behavior |
+| If you can complete the remaining in-scope work now, do it. Only stop if you need input that only I can provide. | Base default behavior |
 
 ## Workflow Skill Cases
 
@@ -25,6 +29,8 @@ The prompt fragments are authoritative for default behavior, and skill descripti
 | This test is flaky; diagnose it. | `debug-systematically` |
 | Add regression tests for this bug. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
+| Red-team this patch and try to prove it wrong. | `review-and-finish` |
+| Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
 | Finish this branch. | `finish-branch` |
 | Plan this refactor. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
@@ -36,9 +42,17 @@ The prompt fragments are authoritative for default behavior, and skill descripti
 | Prompt | Expected routing |
 | --- | --- |
 | Manually invoke `agent-workflow` for frontend and backend slices. | `agent-workflow` |
+| Manually invoke `agent-workflow` for two independent slices plus a fresh-context verifier. | `agent-workflow` |
+| Use `agent-workflow` to split this into independent subproblems first, then parallelize only the truly independent ones. | `agent-workflow` |
 | Manually invoke `issue-workflow` to turn this into a PRD. | `issue-workflow` |
 | Manually invoke `decision-map` for this vague multi-session direction. | `decision-map` |
 | Manually invoke `memory-handoff` to prepare for context compression. | `memory-handoff` |
+| Manually invoke `markdown-memory` to record the lesson from this repeated review mistake. | `markdown-memory` |
+| Before we pause, update the handoff and also record this repeated mistake as a lesson. | `memory-handoff` plus `markdown-memory` |
+| Manually invoke `skill-refactorer` to rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
+| Use `skill-refactorer` to refactor this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
+| Manually invoke `effort-calibrator` for this Claude batch route. | `effort-calibrator` |
+| Use `effort-calibrator` to review whether this Fable coding workload should stay at `xhigh`. | `effort-calibrator` |
 
 ## Shared Default Rule Smoke Cases
 
@@ -53,12 +67,16 @@ These validate prompt-fragment behavior without restating the prompt layer.
 | We are only inspecting; do not rewrite yet. | Stay in inspection mode. |
 | Is this done? | Name verification evidence or state the gap. |
 | What are you doing right now, and what is the next step? | Answer directly from current verified state, then continue with the requested stage. |
+| What did you actually finish, what failed, and what is still unverified? | Report outcome first and keep done, failed, skipped, and unverified claims aligned with current-session evidence. |
+| Summarize this finished work for someone who did not watch the run. | Open with the outcome in plain language instead of internal shorthand or working-note references. |
+| Do not give me arrow-chain notes or working shorthand; explain the result in full sentences. | Use reader-facing summary language rather than working-note shorthand. |
 | Continue from this handoff file. | Read the named artifact first and follow the latest user request. |
 | We already reviewed this. Continue with the next step. | Move to the next requested action instead of repeating the review. |
 | Start the changes based on the conclusion above. | Use the settled conclusion and begin the requested action. |
 | Implement the approved plan above. | Use the approved plan as execution context instead of reopening planning. |
 | Start the reviewed fix above. | Use the reviewed conclusion as execution context instead of reopening review. |
 | You already have enough context. Stop planning and implement the next step. | Leave the preparation loop and execute the requested next action. |
+| I only want your diagnosis of this deploy regression and the next action you recommend. Do not change anything yet. | Investigate and report findings without making state-changing edits. |
 | We already cancelled the runtime-support track. Continue with prompt refactor only. | Keep the cancelled direction closed unless the user reopens it. |
 | Handle these three prompt-file follow-ups in one pass. | Keep going through the requested batch until it is complete or blocked. |
 

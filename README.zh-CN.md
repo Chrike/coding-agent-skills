@@ -10,7 +10,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 本仓库包含：
 
-- 位于 `skills/` 下的可安装运行时技能
+- 位于 `skills/` 下的运行时技能源码目录
 - 位于 `prompts/` 下的常驻指令源片段
 - 位于 `tests/` 下的维护与验证材料
 
@@ -39,36 +39,55 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 这些是用于高成本、有副作用、持久性或低频操作的显式命令工作流。它们适用于有意调用的场景，而非日常的自动路由。
 
-| 技能             | 适用场景                                          |
-| ---------------- | ------------------------------------------------- |
-| `finish-branch`  | 显式提交、推送、合并、PR 准备、丢弃变更、分支收尾 |
-| `agent-workflow` | 显式子代理、并行代理、委派实现                    |
-| `issue-workflow` | PRD、Issue 草稿、可录入跟踪系统的工作项、分诊     |
-| `memory-handoff` | 上下文压缩、交接、状态恢复                        |
-| `decision-map`   | 跨会话持久化决策图                                |
+| 技能                | 适用场景                                                     |
+| ------------------- | ------------------------------------------------------------ |
+| `finish-branch`     | 显式提交、推送、合并、PR 准备、丢弃变更、分支收尾            |
+| `agent-workflow`    | 显式子代理、并行切片、fresh-context verification、委派整合   |
+| `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、分诊                |
+| `memory-handoff`    | 上下文压缩、交接、状态恢复                                   |
+| `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
+| `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
+| `effort-calibrator` | 针对 Claude 或 Fable 工作负载的显式 effort 选档、复核与校准 |
+| `decision-map`      | 跨会话持久化决策图                                           |
 
 ## 安装
 
 仅安装 `skills/` 中实际需要的运行时技能目录。
 
-常见目标位置：
+在本仓库中，`skills/` 与 `prompts/` 都是源码目录，而不是宿主运行时路径。
 
-- Claude Code：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
-- Codex：项目级 `.agents/skills/` 或用户级 `~/.agents/skills/`
+已确认的宿主落点：
 
-将 `prompts/` 作为 `AGENTS.md`、`CLAUDE.md` 等常驻指令文件的源材料。
+- Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
+- Codex 常驻指令文件：`AGENTS.md`
+
+将 `prompts/` 作为宿主常驻指令文件的源材料。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系；对 Codex，则是整理到 `AGENTS.md`。
 
 将 `tests/` 保留为维护与验证材料，而不是运行时技能。
 不要将 `tests/` 复制到 `.claude/`、`.agents/` 或其他运行时安装目录中。
 
 ## 仓库分层
 
-- `skills/` 存放可安装的运行时技能。
+- `skills/` 存放本仓库中的运行时技能源码目录。
 - `skills.sh.json` 只控制 skills.sh 页面分组展示，不影响运行时行为或 skill 路由。
-- `prompts/` 存放常驻默认行为的源片段。
+- `prompts/` 存放宿主常驻默认行为文件的源片段。
 - `tests/` 存放用于维护本套件的路由与边界检查。
+- 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何吸收决策都应先完成评估。
 - 手动工作流技能包含 `agents/openai.yaml`，用于关闭 Codex 的隐式调用。
 - 如果摘要说明与技能正文或提示词片段漂移，应更新摘要，而不是在 README 中再写一套规范。
+
+## 当前十项吸收映射
+
+当前这 10 项能力的落点如下：
+
+- `grounded-progress` 与 `regrounding-summary` 已吸收到 `prompts/CLAUDE.fragment.md` 和 `prompts/AGENTS.fragment.md`，负责汇报与总结纪律。
+- `autonomous-continuation` 与 `act-when-ready` 已吸收到 prompt 片段，负责执行节奏与继续推进边界。
+- `scope-guard` 与 `no-gold-plating` 已吸收到 prompt 片段，负责默认层的范围控制与改动克制。
+- `subagent-orchestration` 已并入 `skills/agent-workflow/SKILL.md`。
+- `markdown-memory` 已落到 `skills/markdown-memory/SKILL.md`。
+- `skill-refactorer` 已落到 `skills/skill-refactorer/SKILL.md`。
+- `effort-calibrator` 已落到 `skills/effort-calibrator/SKILL.md`。
+- 外部参考材料仍然只用于吸收判断，不属于当前 runtime 安装面。
 
 ## 推荐起步
 
@@ -76,7 +95,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 ### 核心自动集合
 
-1. 来自 `prompts/` 的基础默认行为
+1. 由 `prompts/` 组装到宿主常驻指令文件中的基础默认行为
 2. `debug-systematically`
 3. `test-strategy`
 4. `review-and-finish`
@@ -97,6 +116,9 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `agent-workflow`
 - `issue-workflow`
 - `memory-handoff`
+- `markdown-memory`
+- `skill-refactorer`
+- `effort-calibrator`
 - `decision-map`
 
 ## 自定义

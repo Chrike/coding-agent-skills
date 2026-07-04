@@ -16,12 +16,15 @@
     },
     {
       "title": "Manual Workflow Skills",
-      "description": "Explicit workflows for branch actions, delegation, durable state, and other heavier or lower-frequency operations.",
+      "description": "Explicit workflows for branch actions, delegation, durable state, maintenance, effort calibration, and other heavier or lower-frequency operations.",
       "skills": [
         "finish-branch",
         "agent-workflow",
         "issue-workflow",
         "memory-handoff",
+        "markdown-memory",
+        "skill-refactorer",
+        "effort-calibrator",
         "decision-map"
       ]
     }

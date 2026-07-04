@@ -20,14 +20,17 @@ This file explains how the suite fits together after removing the runtime router
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Tests, TDD, mocks, flaky tests, regression coverage | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check | `review-and-finish` |
+| Explicit review, feedback, done/fixed/passing check, or external-facing ready/finalize/send gate | `review-and-finish` |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
-| Explicit delegated-agent or parallel-slice workflow | `agent-workflow` |
+| Explicit delegated-agent, parallel-slice, or fresh-context-verifier workflow | `agent-workflow` |
 | Explicit PRD, issue breakdown, tracker-ready work-item, or triage workflow | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
+| Explicit durable lesson, correction, or confirmed-approach memory workflow | `markdown-memory` |
+| Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
+| Explicit Claude or Fable effort selection, review, or recalibration workflow | `effort-calibrator` |
 | Explicit durable multi-session decision frontier | `decision-map` |
 
 ## Composition Order
@@ -40,7 +43,8 @@ When more than one skill clearly applies, prefer the smallest composition that r
 | Architecture question plus implementation plan | `design-codebase` then `plan-work` |
 | Review plus branch finish | `review-and-finish` then `finish-branch` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
-| Planned slices plus delegated implementation | task skill or `plan-work` then `agent-workflow` |
+| Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
+| Planned slices plus delegated workflow | task skill or `plan-work` then `agent-workflow` |
 
 ## Meta Review
 

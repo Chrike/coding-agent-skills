@@ -21,6 +21,13 @@ Choose the active mode from the user's latest request. Do not blend review, comp
 
 When reviewing, lead with findings ordered by severity. Use file and line references when available. Keep summary secondary.
 
+Default to a failure-path-first review posture:
+
+- start by asking how the artifact could be wrong, incomplete, unsafe, or over-claimed
+- prefer concrete failure paths, boundary cases, trust assumptions, and omitted constraints over surface polish comments
+- drop findings that you cannot ground in the current code, artifact, or reproducible scenario
+- keep review and repair separate unless the user explicitly asks for both
+
 Use [review-template.md](references/review-template.md) for fuller review shape.
 
 ## Feedback Handling
@@ -34,3 +41,12 @@ Use [feedback-handling.md](references/feedback-handling.md) for review-comment w
 For explicit done/fixed/passing requests, verify with a fresh command or observation when practical and proportionate, then report the actual result, including skipped checks.
 
 Do not treat "tests pass" as automatic proof that the work is done. Check the result against the user's request, review feedback, or stated acceptance context as well.
+
+For explicit ready/final/finalize/send/ship-style checks on an external-facing artifact, use a light delivery gate:
+
+1. State the acceptance context you are checking against.
+2. Verify each criterion concretely against the artifact or current evidence.
+3. Report `PASS` only when all checked criteria are satisfied.
+4. Report `BLOCK` when a required criterion is missing, unsupported, or unverified.
+
+Do not turn ordinary status checks into a delivery gate, and do not invent a heavier workflow when the user only asked whether ordinary work is done.

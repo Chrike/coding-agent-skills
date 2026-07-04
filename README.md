@@ -10,7 +10,7 @@ The goal is to keep ordinary coding fast while still giving the agent clear work
 
 This repository contains:
 
-- installable runtime skills under `skills/`
+- runtime skill source folders under `skills/`
 - source fragments for always-on instructions under `prompts/`
 - maintenance and validation material under `tests/`
 
@@ -39,36 +39,55 @@ These can be selected by the agent when the request clearly matches.
 
 These are explicit command workflows for high-cost, side-effecting, durable, or rarely needed actions. They are useful when intentionally invoked, not as everyday automatic routing.
 
-| Skill            | Use when                                                     |
-| ---------------- | ------------------------------------------------------------ |
-| `finish-branch`  | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
-| `agent-workflow` | Explicit subagents, parallel agents, delegated implementation |
-| `issue-workflow` | PRDs, issue drafts, tracker-ready work items, triage         |
-| `memory-handoff` | Context compression, handoff, resume state                   |
-| `decision-map`   | Durable multi-session decision maps                          |
+| Skill                | Use when                                                     |
+| -------------------- | ------------------------------------------------------------ |
+| `finish-branch`      | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
+| `agent-workflow`     | Explicit subagents, parallel slices, fresh-context verification, delegated integration |
+| `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, triage         |
+| `memory-handoff`     | Context compression, handoff, resume state                   |
+| `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
+| `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
+| `effort-calibrator`  | Explicit effort selection, review, and recalibration for Claude or Fable workloads |
+| `decision-map`       | Durable multi-session decision maps                          |
 
 ## Installation
 
 Install only the runtime skill folders you want from `skills/`.
 
-Common target locations:
+In this repository, `skills/` and `prompts/` are source directories rather than host runtime paths.
 
-- Claude Code: project `.claude/skills/` or user `~/.claude/skills/`
-- Codex: project `.agents/skills/` or user `~/.agents/skills/`
+Known host targets:
 
-Use `prompts/` as source material for your always-on instruction file such as `AGENTS.md` or `CLAUDE.md`.
+- Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
+- Codex always-on instructions: `AGENTS.md`
+
+Use `prompts/` as source material when assembling your host's always-on instruction file. For Claude Code, that means `CLAUDE.md`-based instructions; for Codex, that means `AGENTS.md`.
 
 Keep `tests/` as maintenance and validation material rather than runtime skills.
 Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targets.
 
 ## Repository Layout
 
-- `skills/` contains installable runtime skills.
+- `skills/` contains runtime skill source folders for this repository.
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
-- `prompts/` contains source fragments for always-on default behavior.
+- `prompts/` contains source fragments for always-on default behavior in host instruction files.
 - `tests/` contains routing and boundary checks used to maintain the suite.
+- external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any absorption decision.
 - Manual workflow skills include `agents/openai.yaml` to disable implicit Codex invocation.
 - If summary text drifts from the prompt fragments or skill bodies, update the summaries instead of creating a second spec in the README.
+
+## Current Absorption Map
+
+The current ten-capability absorption lands as follows:
+
+- `grounded-progress` and `regrounding-summary` land in `prompts/CLAUDE.fragment.md` and `prompts/AGENTS.fragment.md` as reporting and summary discipline.
+- `autonomous-continuation` and `act-when-ready` land in the prompt fragments as execution-flow defaults.
+- `scope-guard` and `no-gold-plating` land in the prompt fragments as default scope and change-discipline rules.
+- `subagent-orchestration` lands in `skills/agent-workflow/SKILL.md`.
+- `markdown-memory` lands in `skills/markdown-memory/SKILL.md`.
+- `skill-refactorer` lands in `skills/skill-refactorer/SKILL.md`.
+- `effort-calibrator` lands in `skills/effort-calibrator/SKILL.md`.
+- external reference material remains comparison input for absorption decisions; it is not part of the current runtime install surface.
 
 ## Recommended Start
 
@@ -76,7 +95,7 @@ Start with the smallest set that matches your actual workflow.
 
 ### Core Automatic Set
 
-1. Base default behavior from `prompts/`
+1. Base always-on behavior assembled from `prompts/` into your host instruction file
 2. `debug-systematically`
 3. `test-strategy`
 4. `review-and-finish`
@@ -97,6 +116,9 @@ Add these only if you want explicit command workflows for heavier actions:
 - `agent-workflow`
 - `issue-workflow`
 - `memory-handoff`
+- `markdown-memory`
+- `skill-refactorer`
+- `effort-calibrator`
 - `decision-map`
 
 ## Customization
