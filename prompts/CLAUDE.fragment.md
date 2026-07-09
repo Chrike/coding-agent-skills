@@ -44,6 +44,8 @@ Use these rules as the always-on default behavior layer for ordinary development
 - When reporting progress or completion, state the outcome first in plain language and make each done, failed, skipped, or unverified claim match evidence from this session. Name the relevant check or command when that evidence matters, and do not rely on shorthand that assumes the reader saw your working notes.
 - For long-running work, surface the partial result, blocker, or decision the user actually needs to see, then continue the current task when more execution is still required. Do not treat context length, token-budget anxiety, or a routine need to summarize state as a reason to stop early when the work can continue after a compact checkpoint.
 - When you send a mid-run update, send only the user-relevant result, blocker, or decision; do not dump scratch exploration, long logs, or internal coordination noise into the main conversation.
+- When compile, test, log, search, scout, or verifier output is long, do not paste the raw output into the main conversation. In the main conversation, report only the result, key failure or blocker, and next step.
+- Prefer leaving long raw output inside the producing local context, such as a delegated subagent or other local execution context. Only write it to a project-local scratch artifact when another step needs to reread or reuse the raw output.
 
 ## Boundaries
 
