@@ -11,7 +11,7 @@ The goal is to keep ordinary coding fast while still giving the agent clear work
 This repository contains:
 
 - runtime skill source folders under `skills/`
-- source fragments for always-on instructions under `prompts/`
+- the maintained always-on instruction prompt under `prompts/`
 - maintenance and validation material under `tests/`
 
 The suite is designed around a simple rule:
@@ -34,6 +34,7 @@ These can be selected by the agent when the request clearly matches.
 | `plan-work`            | Explicit planning, approach comparison, roadmap, task breakdown, vertical slices |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
+| `agent-workflow`       | Decompose-first orchestration, independent subproblem fan-out, scout/divergent exploration, per-item batch pipelines, fresh-context verification, high-stakes judged delivery, or cross-model review for high-risk artifacts |
 
 ### Manual Workflow Skills
 
@@ -42,7 +43,6 @@ These are explicit command workflows for high-cost, side-effecting, durable, or 
 | Skill                | Use when                                                     |
 | -------------------- | ------------------------------------------------------------ |
 | `finish-branch`      | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
-| `agent-workflow`     | Explicit subagents, parallel slices, fresh-context verification, delegated integration |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, triage         |
 | `memory-handoff`     | Context compression, handoff, resume state                   |
 | `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
@@ -61,7 +61,8 @@ Known host targets:
 - Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
 - Codex always-on instructions: `AGENTS.md`
 
-Use `prompts/` as source material when assembling your host's always-on instruction file. For Claude Code, that means `CLAUDE.md`-based instructions; for Codex, that means `AGENTS.md`.
+Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
+For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
 
 Keep `tests/` as maintenance and validation material rather than runtime skills.
 Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targets.
@@ -70,19 +71,19 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 
 - `skills/` contains runtime skill source folders for this repository.
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
-- `prompts/` contains source fragments for always-on default behavior in host instruction files.
+- `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `tests/` contains routing and boundary checks used to maintain the suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any absorption decision.
 - Manual workflow skills include `agents/openai.yaml` to disable implicit Codex invocation.
-- If summary text drifts from the prompt fragments or skill bodies, update the summaries instead of creating a second spec in the README.
+- If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
 
 ## Current Absorption Map
 
 The current ten-capability absorption lands as follows:
 
-- `grounded-progress` and `regrounding-summary` land in `prompts/CLAUDE.fragment.md` and `prompts/AGENTS.fragment.md` as reporting and summary discipline.
-- `autonomous-continuation` and `act-when-ready` land in the prompt fragments as execution-flow defaults.
-- `scope-guard` and `no-gold-plating` land in the prompt fragments as default scope and change-discipline rules.
+- `grounded-progress` and `regrounding-summary` land in `prompts/CLAUDE.fragment.md` as reporting and summary discipline.
+- `autonomous-continuation` and `act-when-ready` land in the maintained prompt file as execution-flow defaults.
+- `scope-guard` and `no-gold-plating` land in the maintained prompt file as default scope and change-discipline rules.
 - `subagent-orchestration` lands in `skills/agent-workflow/SKILL.md`.
 - `markdown-memory` lands in `skills/markdown-memory/SKILL.md`.
 - `skill-refactorer` lands in `skills/skill-refactorer/SKILL.md`.
@@ -95,25 +96,25 @@ Start with the smallest set that matches your actual workflow.
 
 ### Core Automatic Set
 
-1. Base always-on behavior assembled from `prompts/` into your host instruction file
+1. Base always-on behavior assembled from `prompts/CLAUDE.fragment.md` into your host instruction file
 2. `debug-systematically`
 3. `test-strategy`
 4. `review-and-finish`
 
 ### Optional Automatic Skills
 
-Add these if you regularly ask for explicit planning, design, or reassessment:
+Add these if you regularly ask for explicit planning, design, reassessment, or orchestration:
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `agent-workflow`
 
 ### Optional Manual Workflows
 
 Add these only if you want explicit command workflows for heavier actions:
 
 - `finish-branch`
-- `agent-workflow`
 - `issue-workflow`
 - `memory-handoff`
 - `markdown-memory`

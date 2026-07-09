@@ -15,6 +15,17 @@ Use architecture language to improve leverage, locality, and testability without
 - If the design question needs runnable feedback, suggest a throwaway prototype; build it only when the user asks or agrees.
 - If the user asks for broad planning, use the planning workflow instead of duplicating it here.
 
+## Design Runbook
+
+When this skill is active, drive the design pass in this order:
+
+1. Read the current callers, dependencies, tests, and any directly relevant docs before proposing structure.
+2. State the design goal in one sentence.
+3. Name the current seam, leak, shallow module, or interface pain that is making the work harder.
+4. Compare 2-3 concrete placements or interface shapes when the answer is non-obvious.
+5. Recommend one option and explain why it improves leverage, locality, or testability for the current goal.
+6. Call out migration impact, verification approach, and what should stay out of scope.
+
 ## Vocabulary
 
 Use these terms consistently:
@@ -28,6 +39,8 @@ Use these terms consistently:
 - **Locality**: changes, bugs, and tests concentrate in one place.
 
 ## Design Checks
+
+Use these checks to support the runbook rather than replace it:
 
 - Deletion test: if deleting the module makes complexity vanish, it was probably shallow. If complexity spreads across callers, it was earning its interface.
 - Interface test surface: callers and tests should cross the same seam.
