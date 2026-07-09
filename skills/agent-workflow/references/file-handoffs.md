@@ -2,6 +2,14 @@
 
 Use this after `agent-workflow` is already active when prompts or reports would become too long for clean controller-to-agent exchange.
 
+## Priority
+
+Use these handoffs in this order:
+
+1. Keep raw long output inside the producing subagent or other local execution context when no other step needs the full text.
+2. Use a project-local scratch file only when the controller or another slice must reread or reuse the raw output.
+3. Return only condensed findings to the main conversation.
+
 ## Good uses
 
 Use project-local files for:

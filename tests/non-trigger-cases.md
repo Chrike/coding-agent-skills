@@ -49,6 +49,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | `reliability-check`, `issue-workflow`, `decision-map` | reference-vs-instruction handling should stay in the default layer unless the user explicitly asks for corrective reassessment or a durable artifact workflow |
 | Update the handoff with the latest checkpoint before we compress. | `agent-workflow`, `review-and-finish` | explicit checkpoint and compression work should stay in `memory-handoff` |
 | We are still implementing this slice; give me the current partial result and blocker only. | `agent-workflow`, `review-and-finish` | mid-run status reporting should stay in the default layer unless the user explicitly asks for delegation |
+| The build or test output is very long; summarize only the key failure, blocker, and next step instead of pasting the full log. | `memory-handoff`, `decision-map`, `issue-workflow`, `agent-workflow` | routine long command output handling should stay in the default layer unless the user explicitly asks for delegation or durable tracking |
 
 ## Review / Branch Split Must Not Collapse
 
