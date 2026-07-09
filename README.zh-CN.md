@@ -20,6 +20,16 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 它并不试图将每个编码任务都变成正式流程。
 
+## 能力边界
+
+本套件按运行时角色分层，而不是按某个能力最初来自哪里分层。
+
+- `prompts/` 承载面向日常开发工作的常驻默认行为层。
+- `skills/` 承载具名工作流边界，只有当请求明确需要时才应加载。
+- 手动工作流保持显式调用，用于高成本、有副作用、持久性或低频操作。
+- `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
+- 外部分析、审查记录、迁移说明及其他参考材料可以帮助维护判断，但除非用户明确指定它们是当前指令源，否则它们不应变成主动运行时指令。
+
 ## 技能列表
 
 ### 自动工作流技能
@@ -47,7 +57,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `memory-handoff`    | 上下文压缩、交接、状态恢复                                   |
 | `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
 | `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
-| `effort-calibrator` | 针对 Claude 或 Fable 工作负载的显式 effort 选档、复核与校准 |
+| `effort-calibrator` | 针对受支持的 `output_config.effort` 工作负载进行显式 effort 选档、复核与校准 |
 | `decision-map`      | 跨会话持久化决策图                                           |
 
 ## 安装
@@ -72,22 +82,33 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `skills.sh.json` 只控制 skills.sh 页面分组展示，不影响运行时行为或 skill 路由。
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `tests/` 存放用于维护本套件的路由与边界检查。
-- 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何吸收决策都应先完成评估。
+- 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
 - 手动工作流技能包含 `agents/openai.yaml`，用于关闭 Codex 的隐式调用。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
 
-## 当前十项吸收映射
+## 能力地图
 
-当前这 10 项能力的落点如下：
+当前运行时表面的组织方式如下：
 
-- `grounded-progress` 与 `regrounding-summary` 已吸收到 `prompts/CLAUDE.fragment.md`，负责汇报与总结纪律。
-- `autonomous-continuation` 与 `act-when-ready` 已吸收到维护中的 prompt 文件，负责执行节奏与继续推进边界。
-- `scope-guard` 与 `no-gold-plating` 已吸收到维护中的 prompt 文件，负责默认层的范围控制与改动克制。
-- `subagent-orchestration` 已并入 `skills/agent-workflow/SKILL.md`。
-- `markdown-memory` 已落到 `skills/markdown-memory/SKILL.md`。
-- `skill-refactorer` 已落到 `skills/skill-refactorer/SKILL.md`。
-- `effort-calibrator` 已落到 `skills/effort-calibrator/SKILL.md`。
-- 外部参考材料仍然只用于吸收判断，不属于当前 runtime 安装面。
+- `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
+- `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
+- `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
+- `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
+- `agent-workflow` 负责任务委派 orchestration、scout、逐项 pipeline 与 fresh-context verification。
+- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer`、`effort-calibrator` 与 `decision-map` 保持显式调用，因为它们更偏向有副作用、持久化、维护导向或低频工作流。
+
+## 当前运行时角色映射
+
+当前维护中的运行时角色落点如下：
+
+- 汇报与总结纪律落在 `prompts/CLAUDE.fragment.md`。
+- 执行节奏与 act-when-ready 边界落在维护中的 prompt 文件。
+- 默认层的范围控制与改动克制规则落在维护中的 prompt 文件。
+- 委派式 orchestration 落在 `skills/agent-workflow/SKILL.md`。
+- 持久化 markdown lessons 落在 `skills/markdown-memory/SKILL.md`。
+- prompt 与 skill 维护清理落在 `skills/skill-refactorer/SKILL.md`。
+- effort 选档与校准落在 `skills/effort-calibrator/SKILL.md`。
+- 外部参考材料仍然只用于维护判断，不属于当前 runtime 安装面。
 
 ## 推荐起步
 

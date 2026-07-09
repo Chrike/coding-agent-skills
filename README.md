@@ -20,6 +20,16 @@ The suite is designed around a simple rule:
 
 It does not try to turn every coding task into a formal process.
 
+## Capability Boundaries
+
+This suite separates runtime responsibilities by role, not by where an idea originally came from.
+
+- `prompts/` holds the always-on default behavior layer for ordinary development work.
+- `skills/` holds named workflow boundaries that should load only when the request clearly needs them.
+- Manual workflows stay explicit for higher-cost, side-effecting, durable, or lower-frequency actions.
+- `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
+- External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
+
 ## Skills
 
 ### Automatic Workflow Skills
@@ -47,7 +57,7 @@ These are explicit command workflows for high-cost, side-effecting, durable, or 
 | `memory-handoff`     | Context compression, handoff, resume state                   |
 | `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
 | `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
-| `effort-calibrator`  | Explicit effort selection, review, and recalibration for Claude or Fable workloads |
+| `effort-calibrator`  | Explicit effort selection, review, and recalibration for supported `output_config.effort` workloads |
 | `decision-map`       | Durable multi-session decision maps                          |
 
 ## Installation
@@ -73,22 +83,33 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `tests/` contains routing and boundary checks used to maintain the suite.
-- external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any absorption decision.
+- external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
 - Manual workflow skills include `agents/openai.yaml` to disable implicit Codex invocation.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
 
-## Current Absorption Map
+## Capability Map
 
-The current ten-capability absorption lands as follows:
+The current runtime surface is organized as follows:
 
-- `grounded-progress` and `regrounding-summary` land in `prompts/CLAUDE.fragment.md` as reporting and summary discipline.
-- `autonomous-continuation` and `act-when-ready` land in the maintained prompt file as execution-flow defaults.
-- `scope-guard` and `no-gold-plating` land in the maintained prompt file as default scope and change-discipline rules.
-- `subagent-orchestration` lands in `skills/agent-workflow/SKILL.md`.
-- `markdown-memory` lands in `skills/markdown-memory/SKILL.md`.
-- `skill-refactorer` lands in `skills/skill-refactorer/SKILL.md`.
-- `effort-calibrator` lands in `skills/effort-calibrator/SKILL.md`.
-- external reference material remains comparison input for absorption decisions; it is not part of the current runtime install surface.
+- `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
+- `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
+- `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
+- `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
+- `agent-workflow` covers delegated orchestration, scout work, per-item pipelines, and fresh-context verification.
+- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, `effort-calibrator`, and `decision-map` stay explicit because they are side-effecting, durable, maintenance-oriented, or lower-frequency workflows.
+
+## Current Runtime Role Mapping
+
+The current maintained runtime roles land as follows:
+
+- Reporting and summary discipline lives in `prompts/CLAUDE.fragment.md`.
+- Execution-flow defaults and act-when-ready behavior live in the maintained prompt file.
+- Default scope control and change-discipline rules live in the maintained prompt file.
+- Delegated orchestration lives in `skills/agent-workflow/SKILL.md`.
+- Durable markdown lessons live in `skills/markdown-memory/SKILL.md`.
+- Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
+- Effort selection and recalibration live in `skills/effort-calibrator/SKILL.md`.
+- External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
 
 ## Recommended Start
 

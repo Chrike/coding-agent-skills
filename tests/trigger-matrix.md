@@ -27,6 +27,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | The goal is clear; only the implementation detail is still open, so choose a reasonable default and continue. | Base default behavior |
 | Before changing this config, check that the current evidence supports that exact action rather than a nearby guess. | Base default behavior |
 | The context is getting long, but the task is still executable. Keep going instead of stopping early just to hand off. | Base default behavior |
+| This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | Base default behavior |
 
 ## Workflow Skill Cases
 

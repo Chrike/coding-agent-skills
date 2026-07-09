@@ -1,6 +1,6 @@
 ---
 name: effort-calibrator
-description: Manual-only. Use when the user explicitly invokes this skill to choose, review, or recalibrate Claude or Fable `output_config.effort` settings for a concrete route, workload, eval result, latency target, or token budget. Keep ordinary implementation, generic cost-cutting, and default model behavior in the base flow.
+description: Manual-only. Use when the user explicitly invokes this skill to choose, review, or recalibrate supported `output_config.effort` settings for a concrete route, workload, eval result, latency target, or token budget. Keep ordinary implementation, generic cost-cutting, and default model behavior in the base flow.
 disable-model-invocation: true
 ---
 
@@ -17,7 +17,7 @@ Choose or review effort settings only when the user explicitly wants an effort d
 
 ## Canonical Effort Levels
 
-For the Claude or Fable workloads this skill is meant to calibrate, use the current supported effort levels:
+For the workloads this skill is meant to calibrate, use the current supported effort levels:
 
 - `low`
 - `medium`
