@@ -26,6 +26,18 @@ Turn product, bug, refactor, or triage discussion into durable work items only w
 | QA / bug report session | User-facing bug issue with expected/actual behavior and reproduction steps. |
 | Refactor request | Safe incremental plan with tiny working slices and testing decisions. |
 
+## Drafting Workflow
+
+When this skill is active, draft in this order:
+
+1. Identify the artifact type: PRD, issue breakdown, agent-ready brief, triage result, QA bug report, or refactor work item.
+2. Read the current request and preserve only the decisions and facts that materially shape the artifact.
+3. Ask only for missing facts that would change scope, ownership, acceptance criteria, or publication target.
+4. Draft the artifact in the project's domain language.
+5. Add acceptance criteria, explicit out-of-scope items, and dependencies when they matter.
+6. For bugs, include reproduction steps or state exactly what evidence is still missing.
+7. Before publishing, confirm the external action and target system.
+
 ## Drafting Rules
 
 - Use the project's domain language when known.

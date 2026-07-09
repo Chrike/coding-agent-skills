@@ -11,7 +11,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 本仓库包含：
 
 - 位于 `skills/` 下的运行时技能源码目录
-- 位于 `prompts/` 下的常驻指令源片段
+- 位于 `prompts/` 下的常驻默认行为提示词源码
 - 位于 `tests/` 下的维护与验证材料
 
 该套件围绕一条简单规则设计：
@@ -34,6 +34,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `plan-work`            | 显式规划、方案对比、路线图、任务拆解、垂直切片               |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计                 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
+| `agent-workflow`       | decompose-first orchestration、独立子问题 fan-out、scout/divergent exploration、逐项 batch pipeline、fresh-context verification、高风险 judged delivery、或高风险 artifact 的 cross-model review |
 
 ### 手动工作流技能
 
@@ -42,7 +43,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | 技能                | 适用场景                                                     |
 | ------------------- | ------------------------------------------------------------ |
 | `finish-branch`     | 显式提交、推送、合并、PR 准备、丢弃变更、分支收尾            |
-| `agent-workflow`    | 显式子代理、并行切片、fresh-context verification、委派整合   |
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、分诊                |
 | `memory-handoff`    | 上下文压缩、交接、状态恢复                                   |
 | `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
@@ -61,7 +61,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
 - Codex 常驻指令文件：`AGENTS.md`
 
-将 `prompts/` 作为宿主常驻指令文件的源材料。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系；对 Codex，则是整理到 `AGENTS.md`。
+将 `prompts/CLAUDE.fragment.md` 作为宿主常驻指令文件的维护源码。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系。
 
 将 `tests/` 保留为维护与验证材料，而不是运行时技能。
 不要将 `tests/` 复制到 `.claude/`、`.agents/` 或其他运行时安装目录中。
@@ -70,19 +70,19 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 - `skills/` 存放本仓库中的运行时技能源码目录。
 - `skills.sh.json` 只控制 skills.sh 页面分组展示，不影响运行时行为或 skill 路由。
-- `prompts/` 存放宿主常驻默认行为文件的源片段。
+- `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `tests/` 存放用于维护本套件的路由与边界检查。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何吸收决策都应先完成评估。
 - 手动工作流技能包含 `agents/openai.yaml`，用于关闭 Codex 的隐式调用。
-- 如果摘要说明与技能正文或提示词片段漂移，应更新摘要，而不是在 README 中再写一套规范。
+- 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
 
 ## 当前十项吸收映射
 
 当前这 10 项能力的落点如下：
 
-- `grounded-progress` 与 `regrounding-summary` 已吸收到 `prompts/CLAUDE.fragment.md` 和 `prompts/AGENTS.fragment.md`，负责汇报与总结纪律。
-- `autonomous-continuation` 与 `act-when-ready` 已吸收到 prompt 片段，负责执行节奏与继续推进边界。
-- `scope-guard` 与 `no-gold-plating` 已吸收到 prompt 片段，负责默认层的范围控制与改动克制。
+- `grounded-progress` 与 `regrounding-summary` 已吸收到 `prompts/CLAUDE.fragment.md`，负责汇报与总结纪律。
+- `autonomous-continuation` 与 `act-when-ready` 已吸收到维护中的 prompt 文件，负责执行节奏与继续推进边界。
+- `scope-guard` 与 `no-gold-plating` 已吸收到维护中的 prompt 文件，负责默认层的范围控制与改动克制。
 - `subagent-orchestration` 已并入 `skills/agent-workflow/SKILL.md`。
 - `markdown-memory` 已落到 `skills/markdown-memory/SKILL.md`。
 - `skill-refactorer` 已落到 `skills/skill-refactorer/SKILL.md`。
@@ -95,25 +95,25 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 ### 核心自动集合
 
-1. 由 `prompts/` 组装到宿主常驻指令文件中的基础默认行为
+1. 由 `prompts/CLAUDE.fragment.md` 组装到宿主常驻指令文件中的基础默认行为
 2. `debug-systematically`
 3. `test-strategy`
 4. `review-and-finish`
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计或重新评估，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估或 orchestration，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `agent-workflow`
 
 ### 可选手动工作流
 
 仅在您需要针对较重操作的显式命令工作流时添加：
 
 - `finish-branch`
-- `agent-workflow`
 - `issue-workflow`
 - `memory-handoff`
 - `markdown-memory`

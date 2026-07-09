@@ -11,7 +11,8 @@
         "review-and-finish",
         "plan-work",
         "design-codebase",
-        "reliability-check"
+        "reliability-check",
+        "agent-workflow"
       ]
     },
     {
@@ -19,7 +20,6 @@
       "description": "Explicit workflows for branch actions, delegation, durable state, maintenance, effort calibration, and other heavier or lower-frequency operations.",
       "skills": [
         "finish-branch",
-        "agent-workflow",
         "issue-workflow",
         "memory-handoff",
         "markdown-memory",

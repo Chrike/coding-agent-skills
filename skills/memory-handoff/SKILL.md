@@ -1,6 +1,6 @@
 ---
 name: memory-handoff
-description: Manual-only. Use when the user explicitly invokes this skill to prepare for context compression, resume after compression, create or update a handoff, preserve project state for another session, or recover the current task from a user-named handoff or memory file.
+description: Manual-only. Use for explicit handoff, compression, checkpoint-update, or resume-from-checkpoint requests, including natural-language requests that clearly ask for those actions. Use it to create or update a handoff and preserve project state for another session.
 disable-model-invocation: true
 ---
 
@@ -10,34 +10,41 @@ Preserve enough state to continue accurately without turning every task into doc
 
 ## First Decision
 
-- If the user asks to compress context, update the named handoff file or existing project handoff note before they compress.
-- If resuming after compression, read the named handoff or memory file first and continue from the latest user intent.
+- If the user asks to compress context, update the named handoff file or existing project handoff note with the latest checkpoint before they compress.
+- If the user explicitly asks to update the latest checkpoint or resume from a checkpoint, use this skill.
+- If resuming from a checkpoint after compression, use this skill.
 - If the task is ordinary coding and no handoff/resume is involved, do not use this skill.
 - If existing artifacts already capture a detail, link to them instead of duplicating it.
 
 ## Update Memory
 
-When preparing a handoff, write a compact project-local update that includes:
+When preparing a handoff, write a compact project-local handoff note that includes:
 
-1. Current objective in one sentence.
+1. Current goal in one sentence.
 2. Latest user intent, including corrections or changed priorities.
-3. Files changed or created, with paths.
-4. Current status: completed, in progress, blocked, or deliberately deferred.
-5. Next concrete action.
-6. Explicit "do not do" items that prevent drift.
+3. Active constraints that still affect execution.
+4. Decisions already made.
+5. Verified facts or evidence worth carrying forward.
+6. Files changed or created, with paths.
+7. Active subagents or delegated work, if any.
+8. Open blockers or unresolved questions.
+9. Last successful checkpoint.
+10. Next highest-value action.
+11. Explicit "do not do" items that prevent drift.
 
-Prefer the existing handoff file, task note, or user-named handoff or memory file when one exists.
+Prefer the existing handoff note or user-named handoff or memory file when one exists.
 
 ## Resume From Memory
 
 Before acting after a resume:
 
-1. Read the handoff or memory file the user names. If none is named, use the existing handoff file or task note only when there is a single obvious candidate; otherwise state the candidate before relying on it.
+1. Read the handoff or memory file the user names. If none is named, use the existing handoff note only when there is a single obvious candidate; otherwise state the candidate before relying on it.
 2. Read any directly referenced planning/review file needed for the current next step.
-3. Identify the newest user request and let it override older plans.
+3. Restore the latest checkpoint first: current goal, constraints, verified facts, open blockers, ruled-out causes, and next highest-value action.
 4. State the current objective briefly, then continue.
 
 Do not restart audits, re-argue settled decisions, or act on an older plan if the handoff or memory file records a correction.
+Do not repopulate the active conversation with narrative session history when the checkpoint already captures the operational state.
 
 ## Handoff Shape
 

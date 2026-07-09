@@ -3,7 +3,7 @@
 Use this file to pressure-test whether the active development workflow split still behaves as intended.
 
 It is not a runtime skill.
-The prompt fragments are authoritative for default behavior, and skill descriptions/bodies are authoritative for routing. This file validates those contracts.
+The maintained prompt file is authoritative for default behavior, and skill descriptions/bodies are authoritative for routing. This file validates those contracts.
 
 ## Default Behavior Cases
 
@@ -21,6 +21,12 @@ The prompt fragments are authoritative for default behavior, and skill descripti
 | Fix only the reported bug. Do not clean up neighboring code or add helper layers. | Base default behavior |
 | What did you actually finish, what failed, and what is still unverified? | Base default behavior |
 | If you can complete the remaining in-scope work now, do it. Only stop if you need input that only I can provide. | Base default behavior |
+| Do not use the smallest patch; solve the same bug with a more maintainable approach. | Base default behavior |
+| Summarize all the user questions from above, not your own answers. | Base default behavior |
+| This is not a new task; only change the output format to a table. | Base default behavior |
+| The goal is clear; only the implementation detail is still open, so choose a reasonable default and continue. | Base default behavior |
+| Before changing this config, check that the current evidence supports that exact action rather than a nearby guess. | Base default behavior |
+| The context is getting long, but the task is still executable. Keep going instead of stopping early just to hand off. | Base default behavior |
 
 ## Workflow Skill Cases
 
@@ -36,74 +42,54 @@ The prompt fragments are authoritative for default behavior, and skill descripti
 | Where should this interface live? | `design-codebase` |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |
+| Break this into independent subproblems first, then parallelize only the real slices. | `agent-workflow` |
+| Scout multiple independent explanations for this failure before implementing. | `agent-workflow` |
+| Run this batch as per-item extract/transform/verify instead of one big pass. | `agent-workflow` |
+| This is a high-stakes final artifact; use multiple candidates plus judges. | `agent-workflow` |
+| Add a cross-model reviewer for this high-risk artifact. | `agent-workflow` |
+| Add an independent delegated verifier during implementation and report mismatches before we continue. | `agent-workflow` |
+| The plan is already approved; now split the independent slices and delegate the real ones. | `agent-workflow` |
 
 ## Manual Workflow Cases
 
 | Prompt | Expected routing |
 | --- | --- |
-| Manually invoke `agent-workflow` for frontend and backend slices. | `agent-workflow` |
-| Manually invoke `agent-workflow` for two independent slices plus a fresh-context verifier. | `agent-workflow` |
-| Use `agent-workflow` to split this into independent subproblems first, then parallelize only the truly independent ones. | `agent-workflow` |
 | Manually invoke `issue-workflow` to turn this into a PRD. | `issue-workflow` |
 | Manually invoke `decision-map` for this vague multi-session direction. | `decision-map` |
 | Manually invoke `memory-handoff` to prepare for context compression. | `memory-handoff` |
+| Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
+| Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
 | Manually invoke `markdown-memory` to record the lesson from this repeated review mistake. | `markdown-memory` |
 | Before we pause, update the handoff and also record this repeated mistake as a lesson. | `memory-handoff` plus `markdown-memory` |
 | Manually invoke `skill-refactorer` to rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
 | Use `skill-refactorer` to refactor this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
-| Manually invoke `effort-calibrator` for this Claude batch route. | `effort-calibrator` |
-| Use `effort-calibrator` to review whether this Fable coding workload should stay at `xhigh`. | `effort-calibrator` |
+| Manually invoke `effort-calibrator` for this batch route. | `effort-calibrator` |
+| Use `effort-calibrator` to review whether this coding workload should stay at the current effort level. | `effort-calibrator` |
 
 ## Shared Default Rule Smoke Cases
 
-These validate prompt-fragment behavior without restating the prompt layer.
+These are representative checks that default-layer handling still happens in the right place.
 
 | Prompt | Expected behavior |
 | --- | --- |
-| What does this file say? | Read the file before claiming. |
-| These two similarly named files may not mean the same thing. Decide only after reading them. | Read current content instead of inferring from filenames or memory. |
-| Here is another model's review; apply it. | Treat it as reference input and verify before changing code. |
-| This example is only to clarify the intent, not the implementation direction. | Use it to understand intent without turning the example itself into requested work. |
-| We are only inspecting; do not rewrite yet. | Stay in inspection mode. |
-| Is this done? | Name verification evidence or state the gap. |
-| What are you doing right now, and what is the next step? | Answer directly from current verified state, then continue with the requested stage. |
-| What did you actually finish, what failed, and what is still unverified? | Report outcome first and keep done, failed, skipped, and unverified claims aligned with current-session evidence. |
-| Summarize this finished work for someone who did not watch the run. | Open with the outcome in plain language instead of internal shorthand or working-note references. |
-| Do not give me arrow-chain notes or working shorthand; explain the result in full sentences. | Use reader-facing summary language rather than working-note shorthand. |
-| Continue from this handoff file. | Read the named artifact first and follow the latest user request. |
-| We already reviewed this. Continue with the next step. | Move to the next requested action instead of repeating the review. |
-| Start the changes based on the conclusion above. | Use the settled conclusion and begin the requested action. |
-| Implement the approved plan above. | Use the approved plan as execution context instead of reopening planning. |
-| Start the reviewed fix above. | Use the reviewed conclusion as execution context instead of reopening review. |
-| You already have enough context. Stop planning and implement the next step. | Leave the preparation loop and execute the requested next action. |
-| I only want your diagnosis of this deploy regression and the next action you recommend. Do not change anything yet. | Investigate and report findings without making state-changing edits. |
-| We already cancelled the runtime-support track. Continue with prompt refactor only. | Keep the cancelled direction closed unless the user reopens it. |
-| Handle these three prompt-file follow-ups in one pass. | Keep going through the requested batch until it is complete or blocked. |
+| What does this file say? | Reads the file before making source claims. |
+| This example is only to clarify the intent, not the implementation direction. | Uses the example to infer intent without treating it as the task. |
+| We are only inspecting; do not rewrite yet. | Stays in inspection. |
+| Is this done? | Answers with current verification evidence or the remaining gap. |
+| Continue from this issue or work-item draft. | Reads the named artifact first and follows the latest request. |
+| You already have enough context. Stop planning and implement the next step. | Leaves preparation and executes the next action. |
 
 ## Maintenance / Meta Cases
 
 | Prompt | Expected routing |
 | --- | --- |
-| Which workflow should handle this? | Answer from `routing-contract.md` and the skill descriptions |
-| Review the trigger boundaries. | Use `routing-contract.md` plus the trigger and non-trigger tests |
+| Which workflow should handle this? | Routes from `routing-contract.md` and the skill descriptions without inventing a new router layer. |
+| Review the trigger boundaries. | Checks the routing contract and the trigger tests rather than inventing new trigger rules. |
 
 ## Failure Signals
 
 - ordinary coding requires `agent-workflow`
-- manual-only workflows trigger from ordinary natural-language prompts
-- ordinary coding becomes planning or review chatter
-- filenames or old summaries substitute for current source reads
-- settled review or planning conclusions are re-opened without new evidence, contradiction, or a new request
-- "continue", "start", or "execute" after a completed analysis still loops back into repeated summary
-- the agent answers a direct status or stage question indirectly and resumes old analysis instead
-- examples used for clarification get misread as implementation instructions
+- orchestration triggers from vague size alone instead of a clearer split, scout, pipeline, verification, or high-stakes shape
+- durable manual-only workflows trigger from ordinary natural-language prompts
 - approved plans or reviewed fixes fail to guide execution directly
-- the agent stays in planning or review loops after enough context exists to execute
-- cancelled directions get revived without an explicit user request
-- a requested batch is broken into unnecessary stop-and-wait cycles
 - the base default behavior layer drifts apart from the workflow skills that assume it
-- default behavior rules start creeping back into workflow skills unnecessarily
-- completion claims appear without evidence
-- duplicate durable artifacts are created for the same tracked work
-- tracked work stays falsely in progress after completion, pause, or mainline switch
-- output shifts toward long process narration instead of code or findings
