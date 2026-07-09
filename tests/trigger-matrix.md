@@ -39,6 +39,21 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
 | Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
 | Finish this branch. | `finish-branch` |
+| Commit these changes. | `finish-branch` |
+| Push this branch. | `finish-branch` |
+| Draft an issue for this bug. | `issue-workflow` |
+| Turn this into a PRD. | `issue-workflow` |
+| Break this PRD into issues. | `issue-workflow` |
+| Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
+| Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
+| Record this repeated mistake as a lesson. | `markdown-memory` |
+| Check the lesson memory for this pitfall. | `markdown-memory` |
+| Rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
+| Tighten this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
+| Review whether this coding workload should stay at the current effort level. | `effort-calibrator` |
+| Recalibrate effort for this batch route. | `effort-calibrator` |
+| Make a decision map for this vague multi-session direction. | `decision-map` |
+| Track the open decision frontier for this long-running direction. | `decision-map` |
 | Plan this refactor. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
@@ -51,21 +66,17 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Add an independent delegated verifier during implementation and report mismatches before we continue. | `agent-workflow` |
 | The plan is already approved; now split the independent slices and delegate the real ones. | `agent-workflow` |
 
-## Manual Workflow Cases
+## Explicit-Intent Workflow Cases
 
 | Prompt | Expected routing |
 | --- | --- |
-| Manually invoke `issue-workflow` to turn this into a PRD. | `issue-workflow` |
-| Manually invoke `decision-map` for this vague multi-session direction. | `decision-map` |
-| Manually invoke `memory-handoff` to prepare for context compression. | `memory-handoff` |
-| Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
-| Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
-| Manually invoke `markdown-memory` to record the lesson from this repeated review mistake. | `markdown-memory` |
-| Before we pause, update the handoff and also record this repeated mistake as a lesson. | `memory-handoff` plus `markdown-memory` |
-| Manually invoke `skill-refactorer` to rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
-| Use `skill-refactorer` to refactor this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
-| Manually invoke `effort-calibrator` for this batch route. | `effort-calibrator` |
-| Use `effort-calibrator` to review whether this coding workload should stay at the current effort level. | `effort-calibrator` |
+| Prepare a PR for this branch. | `finish-branch` |
+| Triage this issue report and give me a tracker-ready draft. | `issue-workflow` |
+| Update the handoff before we pause. | `memory-handoff` |
+| Remember this correction as a durable lesson. | `markdown-memory` |
+| Clean up this outdated prompt file without changing its intended boundary. | `skill-refactorer` |
+| Choose the right effort for this workload. | `effort-calibrator` |
+| Set up a durable decision map for this unresolved direction. | `decision-map` |
 
 ## Shared Default Rule Smoke Cases
 
@@ -91,6 +102,6 @@ These are representative checks that default-layer handling still happens in the
 
 - ordinary coding requires `agent-workflow`
 - orchestration triggers from vague size alone instead of a clearer split, scout, pipeline, verification, or high-stakes shape
-- durable manual-only workflows trigger from ordinary natural-language prompts
+- explicit-intent workflows trigger from ordinary natural-language prompts that do not actually ask for branch actions, durable artifacts, maintenance, or calibration work
 - approved plans or reviewed fixes fail to guide execution directly
 - the base default behavior layer drifts apart from the workflow skills that assume it

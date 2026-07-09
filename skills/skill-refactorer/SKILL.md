@@ -1,18 +1,17 @@
 ---
 name: skill-refactorer
-description: Manual-only. Use when the user explicitly asks to refactor, migrate, or clean up an existing prompt, SKILL.md, or CLAUDE fragment to remove outdated procedure text, duplicated standing rules, or outdated trigger boundaries while preserving durable intent. Keep ordinary implementation, review, and planning in their own flows.
-disable-model-invocation: true
+description: Use when the user clearly asks to refactor, migrate, rewrite, or clean up an existing prompt, SKILL.md, or CLAUDE fragment while preserving the intended boundary. Keep ordinary implementation, review, and planning in their own flows.
 ---
 
 # Skill Refactorer
 
-Preserve durable intent while removing outdated procedure text.
+Preserve durable intent while removing outdated procedure text. Requests like “rewrite this SKILL.md,” “clean up this CLAUDE fragment,” or “tighten this prompt boundary” count.
 
 ## First Decision
 
-- Use this skill only when the user explicitly asks to maintain or migrate prompt or skill text.
+- Use this skill when the user clearly asks to maintain or migrate prompt or skill text.
 - Do not use it for ordinary code implementation, ordinary refactors, ordinary review, or ordinary planning.
-- If the user is designing a new skill, comparing workflow structures, or asking for an implementation plan, use `plan-work` or another actually installed workflow that owns that design work instead.
+- If the user is designing a new skill, comparing workflow structures, or asking for an implementation plan, use `plan-work` or another installed workflow that owns that design work instead.
 - If the user is explicitly challenging evidence, source use, or whether the right files were read, use `reliability-check` instead.
 - If the user wants review findings or completion verification for code or document changes, use `review-and-finish` instead.
 
@@ -42,6 +41,7 @@ Refactoring targets usually include:
 2. Check which behaviors are already covered by standing instructions or another workflow instead of repeating them here.
 3. Rewrite the target into a shorter durable form that keeps the intent but drops obsolete procedure text.
 4. Tighten the frontmatter description so it carries the trigger boundary, and keep the body focused on what to do after activation.
+5. Move optional heuristics or extended maintenance guidance into `references/` when they would otherwise bloat the main skill file.
 
 ## Output Shape
 
@@ -52,6 +52,8 @@ When reporting the refactor, keep it compact:
 - what structure or boundary changed
 
 If the rewritten file still feels bloated, re-check whether duplicated default rules or outdated procedure text remain.
+
+Use [compression-checklist.md](references/compression-checklist.md) for extended cleanup heuristics when needed.
 
 ## Boundaries
 

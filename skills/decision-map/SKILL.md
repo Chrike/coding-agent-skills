@@ -1,17 +1,16 @@
 ---
 name: decision-map
-description: Manual-only. Use when the user explicitly invokes this skill to turn a loose idea, ambiguous direction, or long-running design question into a multi-session decision map with sequenced tickets, tracked open questions, and frontier-first resolution.
-disable-model-invocation: true
+description: Use when the user clearly asks for a multi-session decision map, tracked decision frontier, or durable map of unresolved long-running direction. Keep ordinary planning and one-session design comparison in lighter flows.
 ---
 
 # Decision Map
 
-Turn long-running uncertainty into a compact frontier map only when ordinary planning is not enough.
+Turn long-running uncertainty into a compact frontier map when the user clearly asks for a decision map, tracked frontier, or durable multi-session direction artifact. Requests like “make a decision map for this,” “track the open frontier,” or “set up a multi-session decision map” count.
 
 ## First Decision
 
 - Do not use this for ordinary implementation plans, small refactors, or one-session approach comparison.
-- Use this only when the user explicitly wants a durable multi-session decision workflow, decision map, or resume-by-ticket artifact.
+- Use this only when the user clearly wants a durable multi-session decision workflow, decision map, or resume-by-ticket artifact.
 - If the path is already clear after discussion, skip the decision map and use `plan-work` or direct implementation instead.
 - Keep the map compact because the whole artifact may need to be reread in later sessions.
 
@@ -31,7 +30,7 @@ Use small, numbered tickets. Size each ticket so one agent session can reasonabl
 
 | Type | Use It For | Output |
 | --- | --- | --- |
-| Research | reading docs, APIs, or external/local references to answer an open question | short linked note or summary |
+| Research | reading docs, APIs, or external or local references to answer an open question | short linked note or summary |
 | Prototype | testing a design or behavior hypothesis in code | throwaway prototype artifact and short conclusion |
 | Discuss | resolving uncertainty through focused analysis with the user | concise decision note in the map |
 
