@@ -1,16 +1,15 @@
 ---
 name: markdown-memory
-description: Manual-only. Use when the user explicitly invokes this skill to record, update, prune, or consult durable markdown lessons about repeated mistakes, corrections, or confirmed approaches that are not already captured well in repo docs or ordinary task state. Keep it separate from compression handoff state and decision-frontier planning.
-disable-model-invocation: true
+description: Use when the user clearly asks to record, update, prune, or consult durable lessons about repeated mistakes, corrections, or confirmed approaches that are not already captured well elsewhere. Keep it separate from handoff state and decision-frontier planning.
 ---
 
 # Markdown Memory
 
-Maintain durable markdown lessons only when they add future value without turning normal work into note-taking.
+Maintain durable markdown lessons only when they add future value without turning normal work into note-taking. Requests like “record this lesson,” “remember this repeated mistake,” or “check the lesson memory about X” count.
 
 ## First Decision
 
-- Use this skill only when the user explicitly asks to record, update, prune, or consult lesson memory.
+- Use this skill when the user clearly asks to record, update, prune, or consult lesson memory.
 - If the user is preparing for context compression, handing off current task state, or resuming from a handoff, use `memory-handoff` instead.
 - If the user is mapping open questions, ticket dependencies, or a decision frontier, use `decision-map` instead.
 - If the repo, docs, code comments, or an existing lesson already capture the point clearly, do not create a new lesson.

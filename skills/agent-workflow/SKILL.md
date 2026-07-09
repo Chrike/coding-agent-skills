@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when the task clearly requires decompose-first orchestration, independent subproblem fan-out, divergent exploration or scout slices, explicit delegated fresh-context verification during execution, per-item pipeline work, high-stakes multi-candidate review, or an explicit delegation request. Keep ordinary implementation in the default flow.
+description: Use when the task clearly requires decompose-first orchestration, independent subproblem fan-out, scout slices, per-item pipelines, explicit delegated fresh-context verification, high-stakes multi-candidate review, or another explicit delegation request. Keep ordinary implementation in the default flow.
 ---
 
 # Agent Workflow
@@ -11,7 +11,7 @@ Coordinate delegated agent work only when it saves time or context. Keep ordinar
 
 Use this skill when any of these are true:
 
-- the user explicitly invokes it, or explicitly asks you to delegate, parallelize, scout, or add an independent verifier
+- the user explicitly asks you to delegate, parallelize, scout, or add an independent verifier
 - the task clearly needs decompose-first orchestration across independent subproblems
 - the task needs divergent exploration or scout slices that would otherwise pollute the active conversation
 - the task is a batch of similar items that should run through the same per-item pipeline instead of being piled into one controller pass
@@ -54,15 +54,6 @@ Before dispatching, do one quick split check:
 - Let fan-out width follow the number of truly independent subproblems you can name, not a fixed agent count.
 - If failures may share one root cause, the task needs one coherent design decision, or coordination costs more than doing the work, keep it in one controller flow.
 
-High-value patterns:
-
-- at least two truly independent slices can run in parallel and reduce wall-clock time
-- a fresh-context verifier can check completed output against the spec without inheriting the controller's assumptions
-- a repeated per-item workflow can run as an item pipeline instead of being aggregated into one large controller pass
-- a high-stakes single artifact can justify multiple candidates plus independent judges
-- the work can be split cleanly enough that delegation reduces coordination noise instead of creating more of it
-- dependent slices can be handled in sequence with short carry-forward summaries instead of forcing fake parallelism
-
 ## Controller Contract
 
 Before dispatching:
@@ -90,49 +81,15 @@ After agents return:
 4. Run focused verification that covers the combined result.
 5. Report what each agent did and what you verified.
 
-## Scout / Divergent Exploration
+## Specialized Patterns
 
-When the problem is still open-ended, dispatch scout slices before implementation:
+Use these references when the delegated shape is clear enough that the controller needs a narrower operating pattern:
 
-- split scouts by orthogonal lenses such as failure path, architecture option, source type, or subsystem boundary
-- require scouts to rank sources or evidence instead of dumping raw search output
-- require scouts to separate source-backed facts, working assumptions, stale or version-sensitive material, unresolved questions, and recommended next probes
-- dedupe overlapping findings before escalating into implementation work
-- keep scout output to evidence, unresolved questions, and recommended next probes; scouts do not write the final conclusion for the controller
-- stop after consecutive dry rounds when new scouts are no longer producing materially new evidence
-
-## Pipeline Processing
-
-When the task is a batch of similar items, run each item through the same small pipeline instead of stuffing the whole batch into one controller thread.
-
-- keep the per-item stages explicit, such as extract -> transform -> verify
-- let each item complete or fail independently instead of waiting for a global barrier that is not required by the task
-- report item-level outcomes rather than one vague batch summary
-- do not silently drop failed verification; keep the failed item visible with its evidence and next action
-
-## Fresh-Context Verification
-
-Use a separate delegated verifier whenever milestone risk or blind-spot cost justifies it, not only at final completion.
-
-- Run a verifier at meaningful milestones or after a small batch of dependent slices before compounding more work on top.
-- Give the verifier the specification, changed output, verification scope, and expected report format.
-- Do not give the verifier your original reasoning unless the task truly requires it.
-- The verifier checks for mismatches against the spec; it does not re-implement the task.
-- The verifier reports blocker, mismatch, or no issue found; it does not claim absolute correctness.
-- If a verifier finds a blocker that invalidates later work, fix or re-scope before further fan-out.
-- Do not turn every tiny delegated step into implementer plus verifier by default.
-
-## Independent Review Panel
-
-Use multiple independent candidates plus independent reviewers only for a high-stakes single artifact where one answer matters more than speed.
-
-- generate multiple independent candidates only when the artifact is important enough to justify the extra cost
-- judge candidates against an explicit rubric, not against vibe or familiarity
-- synthesize from the strongest candidate after the reviewers score it; do not average incompatible answers into mush
-- do not turn ordinary implementation or low-risk review into a default multi-candidate ceremony
-- treat any extra reviewer as another lens on possible defects, not as a final arbiter over current code or evidence
-- if extra review conflicts with stronger local evidence, verify against the artifact instead of deferring to labels or prestige
-- do not gate ordinary delivery on extra reviewer coverage by default
+- Divergent exploration or evidence gathering: read [scout-slices.md](references/scout-slices.md).
+- Repeated per-item stages: read [pipeline-processing.md](references/pipeline-processing.md).
+- Separate milestone verifier or blind-spot check: read [fresh-context-verification.md](references/fresh-context-verification.md).
+- High-stakes multiple candidates plus judges: read [review-panel.md](references/review-panel.md).
+- Long briefs, long reports, or scratch artifacts: read [file-handoffs.md](references/file-handoffs.md).
 
 ## Budget And Escalation
 
@@ -141,17 +98,6 @@ Scale orchestration to task risk and independence.
 - stay solo when the task is atomic after a quick read or when coordination would cost more than the work
 - escalate only as far as the task actually needs
 - hand off to explicit human review when the remaining decision is policy, taste, irreversible product scope, or missing user-only information
-
-## File Handoffs
-
-Use files when prompts or reports would become long:
-
-- task brief: exact requirements and ownership
-- report: findings, evidence, confidence, open issues, changed paths, commands, and recommended next action
-- review notes: controller decisions, checkpoints, and unresolved items
-
-When intermediate context would pollute the active conversation, prefer project-local scratch files for long briefs, scout reports, long reports, or batch verification output, then have the controller read and condense them.
-Prefer project-local scratch paths that are easy to remove. Create durable notes only when the work is long-running, likely to hit context compression, or the user asks.
 
 ## Optional Isolation
 

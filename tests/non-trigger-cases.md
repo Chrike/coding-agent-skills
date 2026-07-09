@@ -6,7 +6,7 @@ This file contains negative routing examples for ordinary work.
 
 ## Heavy Skills Must Not Trigger By Default
 
-These prompt shapes should not trigger the named skills unless the user explicitly asks for that workflow:
+These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:
 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ These prompt shapes should keep `review-and-finish` and `finish-branch` separate
 | Review these changes. | `finish-branch` | review should not imply commit/push/merge |
 | Can I call this done? | `finish-branch` | completion verification is not branch cleanup |
 | Finish this branch. | `review-and-finish` | branch-ending actions should route to `finish-branch`, not review |
-| Commit these changes. | `review-and-finish` | explicit side effect should route to manual-only `finish-branch` |
+| Commit these changes. | `review-and-finish` | explicit side effect should route to `finish-branch`, not completion review |
 
 ## Corrective / Meta Skills Must Stay Explicit
 

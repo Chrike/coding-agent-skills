@@ -16,8 +16,8 @@
       ]
     },
     {
-      "title": "Manual Workflow Skills",
-      "description": "Explicit workflows for branch actions, delegation, durable state, maintenance, effort calibration, and other heavier or lower-frequency operations.",
+      "title": "Explicit-Intent Workflow Skills",
+      "description": "Runtime skills for branch actions, durable artifacts, maintenance, and calibration work that should route from clear natural-language intent rather than requiring users to remember skill names.",
       "skills": [
         "finish-branch",
         "issue-workflow",

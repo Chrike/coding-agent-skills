@@ -1,16 +1,15 @@
 ---
 name: effort-calibrator
-description: Manual-only. Use when the user explicitly invokes this skill to choose, review, or recalibrate supported `output_config.effort` settings for a concrete route, workload, eval result, latency target, or token budget. Keep ordinary implementation, generic cost-cutting, and default model behavior in the base flow.
-disable-model-invocation: true
+description: Use when the user clearly asks to choose, review, or recalibrate `output_config.effort` for a specific route, workload, latency target, eval result, or token budget. Keep ordinary implementation and generic cost or latency complaints in the base flow.
 ---
 
 # Effort Calibrator
 
-Choose or review effort settings only when the user explicitly wants an effort decision.
+Choose or review effort settings only when the user clearly asks for an effort decision. Requests like “what effort should this workload use,” “review whether this should stay at the current effort,” or “recalibrate effort for this batch” count.
 
 ## First Decision
 
-- Use this skill only when the user explicitly asks to choose, review, or recalibrate effort.
+- Use this skill only when the user clearly asks to choose, review, or recalibrate effort.
 - Do not use it for ordinary implementation, ordinary review, or ordinary planning.
 - Do not turn a generic complaint about cost or latency into an automatic effort change.
 - Keep model selection, prompt design, and task routing in their own workflows; this skill only handles effort decisions.
@@ -27,17 +26,6 @@ For the workloads this skill is meant to calibrate, use the current supported ef
 
 Apply the setting through `output_config.effort`.
 
-## Baseline Recommendations
-
-Start from workload shape, not from habit:
-
-| Workload | Start at |
-| --- | --- |
-| routine transforms, classification, short rewrite | `low` or `medium` |
-| general analysis, writing, most app routes | `high` |
-| coding, agentic, or tool-heavy work | `high`, escalating to `xhigh` for harder cases |
-| only when evals still show headroom and cost is secondary | `max` |
-
 ## Review Existing Setting
 
 Before recommending a change, identify:
@@ -47,20 +35,6 @@ Before recommending a change, identify:
 - whether the problem is latency, token cost, shallow reasoning, or over-deliberation
 - whether there are evals, failure examples, or observed regressions
 
-## Adjustment Signals
-
-Lower effort when:
-
-- results are already correct but the response is slower than the work warrants
-- interactive latency matters more than marginal quality gains
-- the model is over-deliberating before simple actions
-
-Raise effort when:
-
-- first-shot correctness matters more than turnaround
-- failures look like shallow reasoning rather than missing information
-- the workload benefits from stronger self-verification
-
 ## Recommendation Output
 
 Keep the recommendation short and concrete:
@@ -69,6 +43,8 @@ Keep the recommendation short and concrete:
 - recommended setting
 - why
 - what to verify next
+
+Use [baseline-workloads.md](references/baseline-workloads.md) for example workload-to-effort starting points when the direct request does not already fix the answer.
 
 ## Boundaries
 

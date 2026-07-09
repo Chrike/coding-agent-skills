@@ -26,7 +26,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
 | Decompose-first orchestration, scout/divergent exploration, per-item batch pipeline, fresh-context verifier workflow, high-stakes judged delivery, or explicit delegated-agent work | `agent-workflow` |
-| Manual-only PRD, issue breakdown, tracker-ready work-item, or triage workflow | `issue-workflow` |
+| Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
 | Explicit durable lesson, correction, or confirmed-approach memory workflow | `markdown-memory` |

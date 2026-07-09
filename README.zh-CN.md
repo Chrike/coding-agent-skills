@@ -26,7 +26,8 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 - `prompts/` 承载面向日常开发工作的常驻默认行为层。
 - `skills/` 承载具名工作流边界，只有当请求明确需要时才应加载。
-- 手动工作流保持显式调用，用于高成本、有副作用、持久性或低频操作。
+- 显式意图工作流应从清晰的自然语言意图路由，而不是要求用户记住 skill 名称后手动调用。
+- 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护，而不是再堆一层运行时路由。
 - `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
 - 外部分析、审查记录、迁移说明及其他参考材料可以帮助维护判断，但除非用户明确指定它们是当前指令源，否则它们不应变成主动运行时指令。
 
@@ -46,15 +47,15 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
 | `agent-workflow`       | decompose-first orchestration、独立子问题 fan-out、scout/divergent exploration、逐项 batch pipeline、fresh-context verification、高风险 judged delivery、或高风险 artifact 的 cross-model review |
 
-### 手动工作流技能
+### 显式意图工作流技能
 
-这些是用于高成本、有副作用、持久性或低频操作的显式命令工作流。它们适用于有意调用的场景，而非日常的自动路由。
+这些技能面向不属于日常编码流的请求，但仍应从清晰的自然语言意图路由，而不是要求用户先记住 skill 名称再手动调用。
 
 | 技能                | 适用场景                                                     |
 | ------------------- | ------------------------------------------------------------ |
 | `finish-branch`     | 显式提交、推送、合并、PR 准备、丢弃变更、分支收尾            |
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、分诊                |
-| `memory-handoff`    | 上下文压缩、交接、状态恢复                                   |
+| `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
 | `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
 | `effort-calibrator` | 针对受支持的 `output_config.effort` 工作负载进行显式 effort 选档、复核与校准 |
@@ -83,7 +84,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `tests/` 存放用于维护本套件的路由与边界检查。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
-- 手动工作流技能包含 `agents/openai.yaml`，用于关闭 Codex 的隐式调用。
+- 某些 skill 只有在仍需宿主侧调用保护时才会保留 `agents/openai.yaml` 宿主策略文件。应将它们视为宿主兼容性细节，而不是第二套工作流语义来源。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
 
 ## 能力地图
@@ -95,7 +96,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `agent-workflow` 负责任务委派 orchestration、scout、逐项 pipeline 与 fresh-context verification。
-- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer`、`effort-calibrator` 与 `decision-map` 保持显式调用，因为它们更偏向有副作用、持久化、维护导向或低频工作流。
+- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer`、`effort-calibrator` 与 `decision-map` 覆盖分支动作、持久化工件、维护或校准类的显式意图请求。
 
 ## 当前运行时角色映射
 
@@ -130,9 +131,9 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `reliability-check`
 - `agent-workflow`
 
-### 可选手动工作流
+### 可选显式意图工作流
 
-仅在您需要针对较重操作的显式命令工作流时添加：
+如果您希望分支动作、持久化工件、维护或校准类工作可以通过自然语言路由，而不要求用户记住 skill 名称，可添加以下技能：
 
 - `finish-branch`
 - `issue-workflow`

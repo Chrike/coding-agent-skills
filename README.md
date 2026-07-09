@@ -26,7 +26,8 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 
 - `prompts/` holds the always-on default behavior layer for ordinary development work.
 - `skills/` holds named workflow boundaries that should load only when the request clearly needs them.
-- Manual workflows stay explicit for higher-cost, side-effecting, durable, or lower-frequency actions.
+- Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
+- High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill instead of forcing a second runtime router layer.
 - `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
 - External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
 
@@ -46,15 +47,15 @@ These can be selected by the agent when the request clearly matches.
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
 | `agent-workflow`       | Decompose-first orchestration, independent subproblem fan-out, scout/divergent exploration, per-item batch pipelines, fresh-context verification, high-stakes judged delivery, or cross-model review for high-risk artifacts |
 
-### Manual Workflow Skills
+### Explicit-Intent Workflow Skills
 
-These are explicit command workflows for high-cost, side-effecting, durable, or rarely needed actions. They are useful when intentionally invoked, not as everyday automatic routing.
+These skills are for requests that are not ordinary coding flow, but still should route from clear natural-language intent instead of requiring the user to manually invoke a skill by name.
 
 | Skill                | Use when                                                     |
 | -------------------- | ------------------------------------------------------------ |
 | `finish-branch`      | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, triage         |
-| `memory-handoff`     | Context compression, handoff, resume state                   |
+| `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
 | `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
 | `effort-calibrator`  | Explicit effort selection, review, and recalibration for supported `output_config.effort` workloads |
@@ -84,7 +85,7 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `tests/` contains routing and boundary checks used to maintain the suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
-- Manual workflow skills include `agents/openai.yaml` to disable implicit Codex invocation.
+- Some skills may include `agents/openai.yaml` host-policy files when a host-specific invocation guard is still needed. Treat them as host-side compatibility details, not as a second source of workflow semantics.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
 
 ## Capability Map
@@ -96,7 +97,7 @@ The current runtime surface is organized as follows:
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `agent-workflow` covers delegated orchestration, scout work, per-item pipelines, and fresh-context verification.
-- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, `effort-calibrator`, and `decision-map` stay explicit because they are side-effecting, durable, maintenance-oriented, or lower-frequency workflows.
+- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, `effort-calibrator`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, maintenance, or calibration work.
 
 ## Current Runtime Role Mapping
 
@@ -108,7 +109,7 @@ The current maintained runtime roles land as follows:
 - Delegated orchestration lives in `skills/agent-workflow/SKILL.md`.
 - Durable markdown lessons live in `skills/markdown-memory/SKILL.md`.
 - Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
-- Effort selection and recalibration live in `skills/effort-calibrator/SKILL.md`.
+- Effort selection and recalibration lives in `skills/effort-calibrator/SKILL.md`.
 - External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
 
 ## Recommended Start
@@ -131,9 +132,9 @@ Add these if you regularly ask for explicit planning, design, reassessment, or o
 - `reliability-check`
 - `agent-workflow`
 
-### Optional Manual Workflows
+### Optional Explicit-Intent Workflows
 
-Add these only if you want explicit command workflows for heavier actions:
+Add these if you want natural-language routing for branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
 
 - `finish-branch`
 - `issue-workflow`
