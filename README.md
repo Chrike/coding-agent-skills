@@ -45,7 +45,6 @@ These can be selected by the agent when the request clearly matches.
 | `plan-work`            | Explicit planning, approach comparison, roadmap, task breakdown, vertical slices |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
-| `agent-workflow`       | Decompose-first orchestration, independent subproblem fan-out, scout/divergent exploration, per-item batch pipelines, fresh-context verification, high-stakes judged delivery, or cross-model review for high-risk artifacts |
 
 ### Explicit-Intent Workflow Skills
 
@@ -93,7 +92,6 @@ The current runtime surface is organized as follows:
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
-- `agent-workflow` covers delegated orchestration, scout work, per-item pipelines, and fresh-context verification.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
 
 ## Current Runtime Role Mapping
@@ -103,7 +101,6 @@ The current maintained runtime roles land as follows:
 - Reporting and summary discipline lives in `prompts/CLAUDE.fragment.md`.
 - Execution-flow defaults and act-when-ready behavior live in the maintained prompt file.
 - Default scope control and change-discipline rules live in the maintained prompt file.
-- Delegated orchestration lives in `skills/agent-workflow/SKILL.md`.
 - Durable markdown lessons live in `skills/markdown-memory/SKILL.md`.
 - Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
 - External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
@@ -126,7 +123,6 @@ Add these if you regularly ask for explicit planning, design, reassessment, or o
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
-- `agent-workflow`
 
 ### Optional Explicit-Intent Workflows
 

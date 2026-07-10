@@ -25,7 +25,6 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
-| Decompose-first orchestration, scout/divergent exploration, per-item batch pipeline, fresh-context verifier workflow, high-stakes judged delivery, or explicit delegated-agent work | `agent-workflow` |
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
@@ -44,7 +43,6 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Review plus branch finish | `review-and-finish` then `finish-branch` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
-| Planned slices plus delegated workflow | settled plan or base default behavior context, then `agent-workflow` |
 | Settled design plus implementation | settled design or base default behavior context |
 
 ## Maintenance Use

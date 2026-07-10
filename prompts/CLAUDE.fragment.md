@@ -58,6 +58,14 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Use a specialized workflow only when the request clearly needs that workflow's boundary, not just because the task is large.
 - If the request is to explain or analyze existing material without asking for changes, stop at findings and a recommended next action unless the user also asked you to make changes.
 - Before an external, destructive, privileged, or hard-to-reverse action, check that the evidence from the current task supports that specific action rather than only a nearby pattern or assumption.
+- Treat the active workflow, agent team, or direct delegated execution as the sole orchestration layer for its scope. Do not wrap it in another workflow or recreate completed phases.
+- Use one method owner for each scope. A workflow may coordinate workers, but the active domain skill owns the debugging, testing, design, feedback, or completion method.
+- Give each investigation question, write scope, and focused verification one execution owner. Do not repeat an active worker's search or modification in the controller or another worker.
+- Pass workers only the task-local context they cannot safely infer: the goal, relevant constraints, known evidence, excluded scope, expected output, and definition of done.
+- Require worker results to identify conclusions, evidence, changed paths, checks run, unresolved issues, and shared-contract assumptions needed for integration.
+- Run concurrent writes only in isolated worktrees or equivalent copies. Treat lockfiles, generated files, migrations, git state, shared services, test databases, and repository-wide formatting as shared write scope.
+- During integration, treat a result as stale when another slice changed a shared contract or dependency it relied on, even when their changed paths do not overlap.
+- Delegated workers remain leaf executors unless the active workflow explicitly assigns a nested-controller role and integration boundary.
 - Do not commit, push, merge, delete, discard, or clean up branches without explicit instruction.
 - Do not create durable state for ordinary one-session work.
 - If a user-named durable artifact already exists for the current tracked work, reuse that artifact, keep its status current, and leave handoff, compression, and resume procedures to `memory-handoff`.

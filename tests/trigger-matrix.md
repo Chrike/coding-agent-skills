@@ -57,13 +57,6 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |
-| Break this into independent subproblems first, then parallelize only the real slices. | `agent-workflow` |
-| Scout multiple independent explanations for this failure before implementing. | `agent-workflow` |
-| Run this batch as per-item extract/transform/verify instead of one big pass. | `agent-workflow` |
-| This is a high-stakes final artifact; use multiple candidates plus judges. | `agent-workflow` |
-| Add a cross-model reviewer for this high-risk artifact. | `agent-workflow` |
-| Add an independent delegated verifier during implementation and report mismatches before we continue. | `agent-workflow` |
-| The plan is already approved; now split the independent slices and delegate the real ones. | `agent-workflow` |
 
 ## Explicit-Intent Workflow Cases
 
@@ -99,7 +92,7 @@ These are representative checks that default-layer handling still happens in the
 
 ## Failure Signals
 
-- ordinary coding requires `agent-workflow`
+- ordinary coding should stay in the base default behavior layer
 - orchestration triggers from vague size alone instead of a clearer split, scout, pipeline, verification, or high-stakes shape
 - explicit-intent workflows trigger from ordinary natural-language prompts that do not actually ask for branch actions, durable artifacts, maintenance, or calibration work
 - approved plans or reviewed fixes fail to guide execution directly

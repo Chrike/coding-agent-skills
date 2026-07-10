@@ -77,7 +77,6 @@ This skill does not replace:
 - `plan-work` for ordinary implementation planning
 - `design-codebase` for architecture or seam decisions
 - `debug-systematically` for diagnosing unclear bugs before a report is ready
-- `agent-workflow` for running delegated implementation
 - `review-and-finish` for code review or explicit review feedback handling
 - `finish-branch` for commits, PR creation, or branch wrap-up
 

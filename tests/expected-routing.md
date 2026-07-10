@@ -25,7 +25,6 @@ Use this file as a compact contract for representative routing decisions across 
 | Plan this refactor. | `plan-work` | explicit planning request |
 | Where should this interface live? | `design-codebase` | explicit design question |
 | You are hallucinating; reread the files and reassess. | `reliability-check` | explicit corrective reassessment |
-| Break this into independent subproblems first, then parallelize only the real slices. | `agent-workflow` | explicit orchestration request |
 
 ## Explicit-Intent And Routing-Meta Examples
 

@@ -45,7 +45,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `plan-work`            | 显式规划、方案对比、路线图、任务拆解、垂直切片               |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计                 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
-| `agent-workflow`       | decompose-first orchestration、独立子问题 fan-out、scout/divergent exploration、逐项 batch pipeline、fresh-context verification、高风险 judged delivery、或高风险 artifact 的 cross-model review |
 
 ### 显式意图工作流技能
 
@@ -92,7 +91,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
-- `agent-workflow` 负责任务委派 orchestration、scout、逐项 pipeline 与 fresh-context verification。
 - `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
 
 ## 当前运行时角色映射
@@ -102,7 +100,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - 汇报与总结纪律落在 `prompts/CLAUDE.fragment.md`。
 - 执行节奏与 act-when-ready 边界落在维护中的 prompt 文件。
 - 默认层的范围控制与改动克制规则落在维护中的 prompt 文件。
-- 委派式 orchestration 落在 `skills/agent-workflow/SKILL.md`。
 - 持久化 markdown lessons 落在 `skills/markdown-memory/SKILL.md`。
 - prompt 与 skill 维护清理落在 `skills/skill-refactorer/SKILL.md`。
 - 外部参考材料仍然只用于维护判断，不属于当前 runtime 安装面。
@@ -125,7 +122,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
-- `agent-workflow`
 
 ### 可选显式意图工作流
 
