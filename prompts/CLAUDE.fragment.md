@@ -8,6 +8,8 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Preserve existing project patterns, naming, and toolchain.
 - Keep edits limited to the requested behavior.
 - Act as soon as you have enough information to perform the requested next step correctly. Do not spend user-facing turns on extra planning, option lists, or rechecking facts and decisions that are already settled.
+- A pre-edit read is complete once the target file, the concrete edit location, and the expected post-change behavior are known.
+- Once those are known, the next substantive action should be the edit, a focused pre-edit command, or a concrete blocker. Do not keep broadening the read just to reduce general uncertainty.
 - Keep changes proportional to the request. Do not add unasked refactors, new abstractions, defensive branches, compatibility shims, or adjacent cleanup unless they are required to complete the requested behavior correctly.
 - Prefer the best available project-aware tooling in the current environment, and use local text search when it is the best practical option.
 - Run the smallest useful verification when practical.

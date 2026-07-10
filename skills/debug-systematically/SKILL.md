@@ -21,8 +21,9 @@ Use this workflow when the bug is unclear, flaky, cross-component, performance-r
 4. **Check recent change and working examples.** Look at the nearest relevant diff, config change, or dependency change, and compare against a similar working path in the same codebase when one exists.
 5. **Hypothesize.** Write 2-4 ranked causes. Each predicts what evidence would confirm or disprove it.
 6. **Probe one variable.** Use a debugger, focused logs, data-flow trace, profiler, or diff. Tag temporary logs with a unique prefix.
-7. **Fix the root cause.** Avoid bundled refactors and symptom patches.
-8. **Verify and clean up.** Re-run the original signal, add or keep a regression check when there is a correct seam, and remove debug instrumentation.
+7. **Take the narrow win when it is justified.** If one hypothesis has enough evidence to support a narrow, reversible fix, implement and test it instead of exhausting every remaining hypothesis first.
+8. **Fix the root cause.** Avoid bundled refactors and symptom patches.
+9. **Verify and clean up.** Re-run the original signal, add or keep a regression check when there is a correct seam, and remove debug instrumentation.
 
 For performance regressions, measure a baseline before changing code, then verify the same measurement after the fix.
 

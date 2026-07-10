@@ -21,6 +21,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Start implementing the approved plan above. | `plan-work`, `reliability-check` | settled planning should not restart before new evidence appears |
 | Start the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should guide execution instead of reopening adjacent workflows |
 | You already have enough context. Stop planning and implement the next step. | `plan-work`, `reliability-check` | sufficient context should lead to execution rather than another planning loop |
+| The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | `plan-work`, `reliability-check`, `design-codebase` | once execution context is concrete, ordinary work should act rather than reopening planning, reassessment, or redesign |
 | Continue this paused task using the current issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing tracked state should be reused instead of reopening artifact workflows |
 | What is the current goal and why are you doing this? | `reliability-check` | ordinary status questions should not become corrective workflows by default |
 | Explain what this old SKILL.md does. | `skill-refactorer` | explanation alone should stay in the default layer unless the user explicitly asks for migration or maintenance |

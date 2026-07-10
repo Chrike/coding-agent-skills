@@ -36,6 +36,12 @@ Treat external feedback as input to evaluate, not orders to obey. Clarify unclea
 
 Use [feedback-handling.md](references/feedback-handling.md) for review-comment workflows.
 
+## Exit To Implementation
+
+- If review findings or feedback triage were already completed and the latest request is to implement the settled result, exit this workflow and continue in the base implementation flow.
+- Do not repeat review intake or re-verify the same settled findings unless relevant code changed, new evidence contradicts a finding, or the user explicitly asks for another review.
+- During implementation, verify the applied change rather than reopening the settled decision to make that change.
+
 ## Completion Claims
 
 For explicit done/fixed/passing requests, verify with a fresh command or observation when practical and proportionate, then report the actual result, including skipped checks.

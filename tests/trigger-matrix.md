@@ -91,6 +91,7 @@ These are representative checks that default-layer handling still happens in the
 | Is this done? | Answers with current verification evidence or the remaining gap. |
 | Continue from this issue or work-item draft. | Reads the named artifact first and follows the latest request. |
 | You already have enough context. Stop planning and implement the next step. | Leaves preparation and executes the next action. |
+| The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | Leaves broad reading and executes the edit or a focused pre-edit step. |
 
 ## Maintenance / Meta Cases
 
