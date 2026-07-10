@@ -57,6 +57,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Plan this refactor. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
+| Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |
 | Break this into independent subproblems first, then parallelize only the real slices. | `agent-workflow` |
 | Scout multiple independent explanations for this failure before implementing. | `agent-workflow` |

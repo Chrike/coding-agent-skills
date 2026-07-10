@@ -37,6 +37,13 @@ Reassess the current state when the user explicitly challenges reliability. Use 
    - stale state
 6. Continue from the corrected current state. If the current request still requires execution and no user-only blocker remains, resume the work immediately; otherwise state the next concrete action or blocker.
 
+## Exit Rule
+
+- Perform one reassessment pass for the named reliability concern.
+- After stating the correction, exit this workflow and immediately resume the current requested stage when execution is still required.
+- Do not activate this workflow again for the same concern unless the user provides new evidence or explicitly requests another reassessment.
+- A complaint that execution is slow is not by itself a request to reread the same evidence.
+
 ## Boundaries
 
 This skill does not replace:

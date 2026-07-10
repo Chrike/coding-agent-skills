@@ -71,6 +71,7 @@ These skills should not appear unless the user clearly asks for their layer:
 | `reliability-check` | ordinary implementation, ordinary review, ordinary planning | corrective layer should not become universal preflight |
 | `reliability-check` | ordinary status questions about current goal or progress | direct state answers should come from the default layer unless the user explicitly flags drift or reassessment |
 | `reliability-check` | ordinary stage reminders such as staying in inspection before implementation | preventive stage alignment should come from the default layer unless the user explicitly asks for correction |
+| `reliability-check` | the same reliability concern after the correction was already stated once | one reassessment pass should be enough unless the user supplies new evidence |
 | `memory-handoff` | small tasks without compression/resume/handoff | do not turn every task into note-taking |
 | `markdown-memory` | small tasks, ordinary implementation, or resume/handoff requests | durable lesson memory should stay explicit and separate from task-state handoff |
 | `skill-refactorer` | ordinary implementation refactors, ordinary review, or ordinary planning | prompt and skill maintenance should stay explicit and separate from daily execution workflows |
