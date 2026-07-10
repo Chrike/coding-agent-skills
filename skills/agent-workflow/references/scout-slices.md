@@ -10,6 +10,16 @@ Scout before implementation when:
 - you need multiple orthogonal explanations before choosing a direction
 - a direct implementation attempt would pollute the main conversation with too much exploratory output
 
+## Ownership Before Launch
+
+- Use one Explore delegation for one focused search question.
+- Use multiple scouts only when their primary questions are orthogonal.
+- Give each scout a distinct question, subsystem, source boundary, failure path, or architecture option.
+- Do not assign the same primary files, search terms, or evidence question to multiple scouts merely to increase confidence.
+- Include already-checked paths and explicitly excluded paths in each brief.
+- The controller must not search a scout's assigned scope while that scout is active.
+- If overlap becomes apparent after launch, narrow or stop one scout instead of allowing both to finish the same investigation.
+
 ## How to split scout work
 
 Split scouts by orthogonal lenses such as:

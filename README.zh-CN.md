@@ -2,7 +2,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 # 编码代理技能集
 
-一套面向 Claude Code 和 Codex 辅助开发的轻量级技能套件。
+一套面向 Claude Code 辅助开发的轻量级技能套件。
 
 目标是在保持日常编码高效的同时，为代理提供清晰的工作流，以便在实际需要时进行调试、测试、规划、评审、交接、可靠性修正及任务委派。
 
@@ -58,7 +58,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
 | `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
-| `effort-calibrator` | 针对受支持的 `output_config.effort` 工作负载进行显式 effort 选档、复核与校准 |
 | `decision-map`      | 跨会话持久化决策图                                           |
 
 ## 安装
@@ -70,7 +69,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 已确认的宿主落点：
 
 - Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
-- Codex 常驻指令文件：`AGENTS.md`
 
 将 `prompts/CLAUDE.fragment.md` 作为宿主常驻指令文件的维护源码。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系。
 
@@ -84,7 +82,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `tests/` 存放用于维护本套件的路由与边界检查。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
-- 某些 skill 只有在仍需宿主侧调用保护时才会保留 `agents/openai.yaml` 宿主策略文件。应将它们视为宿主兼容性细节，而不是第二套工作流语义来源。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
 
 ## 能力地图
@@ -96,7 +93,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `agent-workflow` 负责任务委派 orchestration、scout、逐项 pipeline 与 fresh-context verification。
-- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer`、`effort-calibrator` 与 `decision-map` 覆盖分支动作、持久化工件、维护或校准类的显式意图请求。
+- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
 
 ## 当前运行时角色映射
 
@@ -108,7 +105,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - 委派式 orchestration 落在 `skills/agent-workflow/SKILL.md`。
 - 持久化 markdown lessons 落在 `skills/markdown-memory/SKILL.md`。
 - prompt 与 skill 维护清理落在 `skills/skill-refactorer/SKILL.md`。
-- effort 选档与校准落在 `skills/effort-calibrator/SKILL.md`。
 - 外部参考材料仍然只用于维护判断，不属于当前 runtime 安装面。
 
 ## 推荐起步
@@ -140,7 +136,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `memory-handoff`
 - `markdown-memory`
 - `skill-refactorer`
-- `effort-calibrator`
 - `decision-map`
 
 ## 自定义

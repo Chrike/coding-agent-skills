@@ -4,7 +4,7 @@ Use this when the first interface idea feels plausible but the trade-off is impo
 
 ## Lightweight Version
 
-Produce 2-3 genuinely different interface options:
+Produce the smallest useful set of genuinely different interface options:
 
 1. **Minimal interface**: smallest caller surface, maximum hidden behavior.
 2. **Flexible interface**: supports known variation without exposing internals.

@@ -24,7 +24,7 @@ Each map should capture:
 4. A short answer or outcome for each resolved ticket.
 5. Links to supporting artifacts instead of copying large notes into the map.
 
-Use small, numbered tickets. Size each ticket so one agent session can reasonably resolve it.
+Use small, numbered tickets. Size each ticket as one coherent decision question with a clear evidence and output contract. Do not size tickets according to a fixed model, context window, or session capacity.
 
 ## Ticket Types
 

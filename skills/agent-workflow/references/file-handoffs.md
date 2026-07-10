@@ -20,7 +20,12 @@ Use project-local files for:
 
 ## Controller rules
 
+- use an existing ignored temporary or scratch location when available
 - prefer project-local scratch paths that are easy to remove
+- do not create tracked documentation merely to exchange transient agent data
+- scratch handoffs are not durable project memory
 - when intermediate context would pollute the active conversation, prefer scratch files for long briefs, scout reports, long reports, or batch verification output
 - have the controller read and condense the artifact instead of forwarding it raw
+- remove transient handoff files after integration unless another active slice still needs them
+- do not create a handoff file when the result is already short enough to pass directly
 - create durable notes only when the work is long-running, likely to hit context compression, or the user asks

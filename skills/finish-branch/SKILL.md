@@ -10,7 +10,7 @@ Use this when the request clearly names a branch-ending action. Clear natural-la
 ## First Decision
 
 - If the user asks generally to finish or wrap up a branch, inspect the current branch state and present concise options.
-- If the user asks for a specific branch action, perform only that action after focused safety checks.
+- If the user asks for a specific branch action, treat that explicit request as authorization for that action and perform only that action after focused safety checks.
 - If the user is asking for code review or completion verification rather than a branch action, use `review-and-finish` instead.
 - Do not infer commit, push, merge, discard, or PR creation from vague readiness or status questions.
 
@@ -33,11 +33,19 @@ When the user asks generally to finish a branch, present concise options:
 
 Ask which option they want. Do not choose for them.
 
+## Action Semantics
+
+- "Prepare a PR" means inspect branch state and draft the likely PR title, body, and target, but do not create a remote PR unless the user explicitly asks.
+- "Create" or "open" a PR means create the remote PR after the target branch and repository are clear.
+- An explicit commit or push request authorizes that specific action after focused safety checks; do not ask again only because the action is outward-facing.
+- Before merge, confirm the source branch, target branch, and merge method.
+- Require separate explicit confirmation for force-push.
+- Require typed confirmation before destructive discard or delete.
+
 ## Safety Rules
 
-- Do not commit without explicit request and reviewed diff.
+- Before committing, inspect the diff for scope, unintended changes, generated files, and obvious sensitive material. This is a focused branch safety check, not a separate formal code-review workflow.
 - Do not push, merge, force-push, delete, discard, or clean up worktrees without explicit confirmation.
-- Require typed confirmation before destructive discard or delete.
 - Preserve harness-managed or unknown worktrees.
 - Prefer the shell, command style, and project-local checks already used by the repository.
 - If tests fail, do not present the work as ready to merge.

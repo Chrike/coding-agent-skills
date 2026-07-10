@@ -10,6 +10,7 @@ Preserve enough state to continue accurately when the user asks for compression,
 ## First Decision
 
 - If the user asks to compress context, update the named handoff file or existing project handoff note with the latest checkpoint before they compress.
+- If no named or repository-standard handoff artifact exists, return a compact checkpoint in chat unless the user explicitly asks to create a persistent file.
 - If the user clearly asks to update the latest checkpoint or resume from a checkpoint, use this skill.
 - If resuming from a checkpoint after compression, use this skill.
 - If the task is ordinary coding and no handoff or resume intent is present, do not use this skill.
@@ -18,7 +19,7 @@ Preserve enough state to continue accurately when the user asks for compression,
 
 ## Update Memory
 
-When preparing a handoff, write a compact project-local handoff note that includes:
+When preparing a handoff in an existing or explicitly requested artifact, write a compact handoff note that includes:
 
 1. Current goal in one sentence.
 2. Latest user intent, including corrections or changed priorities.

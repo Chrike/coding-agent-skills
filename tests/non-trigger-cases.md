@@ -19,14 +19,13 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Continue with the changes based on the plan above. | `plan-work`, `reliability-check` | settled planning should guide execution instead of reopening analysis |
 | Start implementing the reviewed fix. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |
 | Start implementing the approved plan above. | `plan-work`, `reliability-check` | settled planning should not restart before new evidence appears |
+| Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |
 | Start the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should guide execution instead of reopening adjacent workflows |
 | You already have enough context. Stop planning and implement the next step. | `plan-work`, `reliability-check` | sufficient context should lead to execution rather than another planning loop |
 | The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | `plan-work`, `reliability-check`, `design-codebase` | once execution context is concrete, ordinary work should act rather than reopening planning, reassessment, or redesign |
 | Continue this paused task using the current issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing tracked state should be reused instead of reopening artifact workflows |
 | What is the current goal and why are you doing this? | `reliability-check` | ordinary status questions should not become corrective workflows by default |
 | Explain what this old SKILL.md does. | `skill-refactorer` | explanation alone should stay in the default layer unless the user explicitly asks for migration or maintenance |
-| This route feels a bit slow. | `effort-calibrator` | generic latency complaints should not auto-route into an explicit effort-calibration workflow |
-| Make this cheaper if you can. | `effort-calibrator` | generic cost-cutting should stay in the base flow unless the user explicitly asks for effort calibration |
 | What are you doing right now, and what is the next step? | `reliability-check`, `plan-work` | direct status-and-next-step questions should stay in the default layer |
 | What actually finished, what failed, and what is still unverified? | `reliability-check`, `plan-work` | evidence-backed status reporting should stay in the default layer rather than becoming a corrective or planning workflow |
 | We are still inspecting these files; do not start rewriting yet. | `reliability-check`, `plan-work`, `design-codebase` | stage alignment should stay in the default layer unless the user explicitly asks for corrective reassessment or a new workflow |
@@ -38,6 +37,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | If you can finish the remaining in-scope edits now, do that; only stop if you need input I have not provided. | `plan-work`, `memory-handoff` | ordinary execution should continue instead of stopping on a self-created checkpoint or handoff |
 | Implement this large feature end to end. | `agent-workflow` | implementation size alone should not escalate into orchestration without a clearer split shape |
 | Review this finished patch and tell me if it matches the spec. | `agent-workflow` | ordinary completion and review checks should stay in `review-and-finish` unless the user explicitly asks for delegated fresh-context verification |
+| This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
 | Red-team this patch and try to prove it wrong. | `agent-workflow` | adversarial review posture should still stay inside `review-and-finish` unless the user explicitly asks for delegated fresh-context verification |
 | Tell me whether this draft is actually ready to send. | `finish-branch`, `agent-workflow` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
 | Add an independent verifier before we continue, but do not reopen planning. | `plan-work`, `review-and-finish` | explicit delegated verification should route to `agent-workflow`, but settled planning should stay settled |
@@ -76,7 +76,6 @@ These skills should not appear unless the user clearly asks for their layer:
 | `memory-handoff` | small tasks without compression/resume/handoff | do not turn every task into note-taking |
 | `markdown-memory` | small tasks, ordinary implementation, or resume/handoff requests | durable lesson memory should stay explicit and separate from task-state handoff |
 | `skill-refactorer` | ordinary implementation refactors, ordinary review, or ordinary planning | prompt and skill maintenance should stay explicit and separate from daily execution workflows |
-| `effort-calibrator` | ordinary implementation, generic latency complaints, or generic cost-cutting requests | effort control should stay an explicit calibration workflow rather than a default throttle layer |
 | `decision-map` | one-session ambiguity, normal refactors, approach comparison | durable artifacts should stay rare |
 
 ## Default Layer Must Not Drift Back Into Skills

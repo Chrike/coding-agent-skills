@@ -1,6 +1,6 @@
 ---
 name: test-strategy
-description: Use when adding or changing tests, choosing test seams, practicing TDD, handling mocks or test doubles, improving flaky test design or wait strategy, or deciding how to prove a bug fix with regression coverage.
+description: Use when the primary problem is test design, test seams, regression coverage, mocks, assertions, fixtures, or timing and wait strategy.
 ---
 
 # Test Strategy
@@ -10,6 +10,7 @@ Choose tests that prove behavior without turning every task into strict TDD.
 ## First Decision
 
 - If the user asks for strict TDD, use TDD mode.
+- If the product behavior or root cause is still unclear and a failing or flaky test is only the symptom, use `debug-systematically` first.
 - If adding regression coverage for a bug, choose the narrowest seam that reproduces the real failure pattern.
 - If improving or adding tests, prefer observable behavior through public interfaces.
 - If the task is ordinary implementation and tests are not central, do not force a test-first workflow.

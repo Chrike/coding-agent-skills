@@ -9,14 +9,17 @@ Use this file as a compact contract for representative routing decisions across 
 | Fix this small TypeScript error. | Base default behavior | ordinary coding should stay lightweight |
 | Explain how this service works. | Base default behavior | explanation is not a workflow by itself |
 | Implement the approved steps from this existing plan file. | Base default behavior | settled plans should guide execution directly |
+| Implement the selected design above. | Base default behavior | settled design choices should guide execution directly |
 | Continue this paused task using the current issue or work-item draft. | Base default behavior | existing tracked state should guide execution |
 | You already have enough context. Stop planning and implement the next step. | Base default behavior | sufficient context should lead to execution |
+| Reuse the evidence from this session if it still covers the current code and decision. | Base default behavior | stage changes alone should not force repeated investigation or verification |
 
 ## Automatic Workflow Examples
 
 | Prompt Shape | Expected Routing | Why |
 | --- | --- | --- |
-| This test is flaky; diagnose it. | `debug-systematically` | explicit unclear-bug diagnosis |
+| This test is flaky; diagnose it. | `debug-systematically` | use debugging when the underlying product behavior is still unclear |
+| This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` | use test-strategy when the primary problem is test timing and wait design |
 | Add regression tests for this bug. | `test-strategy` | explicit testing workflow |
 | Review these changes. | `review-and-finish` | explicit review request |
 | Plan this refactor. | `plan-work` | explicit planning request |
@@ -39,7 +42,6 @@ These prompts hit the skills below only when the user clearly asks for that work
 | Resume from the latest checkpoint in the current handoff note. | `memory-handoff` | explicit checkpoint-based resume request |
 | Record this repeated mistake as a durable lesson. | `markdown-memory` | explicit durable lesson request |
 | Rewrite this old SKILL.md for the current suite. | `skill-refactorer` | explicit prompt/skill maintenance request |
-| Review whether this coding workload should stay at the current effort level. | `effort-calibrator` | explicit effort-calibration request |
 | Which workflow should handle this? | routing contract plus prompt and skill descriptions | explicit routing question |
 
 ## Review Split Check

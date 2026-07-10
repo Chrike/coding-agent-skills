@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when the task clearly requires decompose-first orchestration, independent subproblem fan-out, scout slices, per-item pipelines, explicit delegated fresh-context verification, high-stakes multi-candidate review, or another explicit delegation request. Keep ordinary implementation in the default flow.
+description: Use when at least two genuinely independent work slices require coordinated delegation, when a repeated per-item pipeline is the real unit of work, or when the user explicitly requests independent delegated verification, parallel work, or scout exploration. Do not use for one code search, one Explore delegation, ordinary multi-file implementation, or work that remains one coherent task.
 ---
 
 # Agent Workflow
@@ -80,6 +80,49 @@ After agents return:
 3. Integrate deliberately.
 4. Run focused verification that covers the combined result.
 5. Report what each agent did and what you verified.
+
+## Direct Delegation Versus Orchestration
+
+- One focused Explore, Plan, or general-purpose delegation is ordinary task execution, not an orchestration workflow.
+- Do not activate this skill merely because one subagent would keep search results, logs, or file contents out of the main conversation.
+- Use this workflow only when multiple owners, dependencies, integration points, or repeated pipeline stages must be coordinated.
+
+## Method Ownership
+
+- When another workflow skill is active, that skill owns the working method.
+- This skill owns only decomposition, assignment, dependency ordering, and integration.
+- Do not replace the active workflow with a second search, debugging, testing, design, or review procedure.
+- Translate the active workflow's steps into non-overlapping delegated slices instead of running a parallel procedure beside it.
+
+## Single-Owner Execution
+
+- Assign exactly one execution owner to each investigation question, file scope, implementation slice, or focused verification.
+- A delegated owner owns the search, reading, modification, and focused checks inside its assigned scope.
+- The controller must not repeat the same search or investigation while the delegated owner is active.
+- Before delegation, the controller may perform only the minimum scan needed to define ownership boundaries.
+- Pass already-known files, evidence, constraints, and excluded scope into the delegated brief so the owner does not rediscover the same context.
+- After results return, inspect only what is necessary to integrate the result, resolve a contradiction, or verify a load-bearing claim.
+- Do not rerun the entire delegated investigation by default.
+
+Re-check delegated work only when:
+
+- the result lacks evidence required for integration
+- two results contradict each other
+- relevant code changed after the investigation
+- the delegated scope was incomplete
+- independent verification was explicitly part of the task
+
+## Nested Delegation
+
+- Delegated workers must not activate `agent-workflow` or spawn additional agents unless they were explicitly assigned as nested controllers.
+- Ordinary implementation, search, and verification workers remain leaf owners.
+- Use nested delegation only when the parent controller explicitly defines the nested ownership and integration boundary.
+
+## Exit To Base Flow
+
+- Exit this workflow after delegated results are integrated and the combined result has received focused verification.
+- Do not continue spawning agents for ordinary follow-up edits, formatting changes, or small fixes.
+- Re-enter only when a new set of genuinely independent slices or a new delegated verification need appears.
 
 ## Specialized Patterns
 

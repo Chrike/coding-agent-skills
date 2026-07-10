@@ -1,6 +1,6 @@
 ---
 name: review-and-finish
-description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, or handle PR feedback.
+description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback.
 ---
 
 # Review And Finish
@@ -11,7 +11,7 @@ Handle explicit review, review feedback, and completion verification without tur
 
 - User asks for review: inspect the diff/code and report findings first.
 - User shares feedback: verify each item against the codebase before changing it.
-- User asks whether work is done/fixed/passing: verify with a fresh command or state why verification is unavailable.
+- User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the smallest missing check or state why verification is unavailable.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
 - Ordinary small edit: do not auto-review, commit, push, merge, or start branch cleanup.
 
@@ -32,7 +32,7 @@ Use [review-template.md](references/review-template.md) for fuller review shape.
 
 ## Feedback Handling
 
-Treat external feedback as input to evaluate, not orders to obey. Clarify unclear multi-item feedback before partial implementation. Implement verified items one at a time and run focused checks.
+Treat external feedback as input to evaluate, not orders to obey. Clarify unclear multi-item feedback before partial implementation. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
 
 Use [feedback-handling.md](references/feedback-handling.md) for review-comment workflows.
 
@@ -44,11 +44,20 @@ Use [feedback-handling.md](references/feedback-handling.md) for review-comment w
 
 ## Completion Claims
 
-For explicit done/fixed/passing requests, verify with a fresh command or observation when practical and proportionate, then report the actual result, including skipped checks.
+For explicit done/fixed/passing requests, reuse current-session verification when it still covers the final code state and the user's acceptance criteria.
+
+Run a new check only when:
+
+- code changed after the previous check
+- the previous check does not support the completion claim
+- the result is stale or incomplete
+- the user explicitly requests a fresh run
+
+Completion review owns the judgment about whether the evidence is sufficient; it does not automatically rerun every check already performed by `test-strategy` or another execution step.
 
 Do not treat "tests pass" as automatic proof that the work is done. Check the result against the user's request, review feedback, or stated acceptance context as well.
 
-For explicit ready/final/finalize/send/ship-style checks on an external-facing artifact, use a light delivery gate:
+For explicit ready/final/finalize/send/ship-style checks on a development artifact such as a release note, migration guide, API document, PR description, or distributable output, use a light delivery gate:
 
 1. State the acceptance context you are checking against.
 2. Verify each criterion concretely against the artifact or current evidence.

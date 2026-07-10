@@ -50,8 +50,6 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Check the lesson memory for this pitfall. | `markdown-memory` |
 | Rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
 | Tighten this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
-| Review whether this coding workload should stay at the current effort level. | `effort-calibrator` |
-| Recalibrate effort for this batch route. | `effort-calibrator` |
 | Make a decision map for this vague multi-session direction. | `decision-map` |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
 | Plan this refactor. | `plan-work` |
@@ -76,7 +74,6 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Update the handoff before we pause. | `memory-handoff` |
 | Remember this correction as a durable lesson. | `markdown-memory` |
 | Clean up this outdated prompt file without changing its intended boundary. | `skill-refactorer` |
-| Choose the right effort for this workload. | `effort-calibrator` |
 | Set up a durable decision map for this unresolved direction. | `decision-map` |
 
 ## Shared Default Rule Smoke Cases

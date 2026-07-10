@@ -2,7 +2,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 # Coding Agent Skills
 
-A lightweight skill suite for Claude Code and Codex-assisted development.
+A lightweight skill suite for Claude Code-assisted development.
 
 The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
 
@@ -58,7 +58,6 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
 | `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
-| `effort-calibrator`  | Explicit effort selection, review, and recalibration for supported `output_config.effort` workloads |
 | `decision-map`       | Durable multi-session decision maps                          |
 
 ## Installation
@@ -67,10 +66,9 @@ Install only the runtime skill folders you want from `skills/`.
 
 In this repository, `skills/` and `prompts/` are source directories rather than host runtime paths.
 
-Known host targets:
+Known host target:
 
 - Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
-- Codex always-on instructions: `AGENTS.md`
 
 Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
 For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
@@ -85,7 +83,6 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `tests/` contains routing and boundary checks used to maintain the suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
-- Some skills may include `agents/openai.yaml` host-policy files when a host-specific invocation guard is still needed. Treat them as host-side compatibility details, not as a second source of workflow semantics.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
 
 ## Capability Map
@@ -97,7 +94,7 @@ The current runtime surface is organized as follows:
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `agent-workflow` covers delegated orchestration, scout work, per-item pipelines, and fresh-context verification.
-- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, `effort-calibrator`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, maintenance, or calibration work.
+- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
 
 ## Current Runtime Role Mapping
 
@@ -109,7 +106,6 @@ The current maintained runtime roles land as follows:
 - Delegated orchestration lives in `skills/agent-workflow/SKILL.md`.
 - Durable markdown lessons live in `skills/markdown-memory/SKILL.md`.
 - Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
-- Effort selection and recalibration lives in `skills/effort-calibrator/SKILL.md`.
 - External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
 
 ## Recommended Start
@@ -141,7 +137,6 @@ Add these if you want natural-language routing for branch actions, durable artif
 - `memory-handoff`
 - `markdown-memory`
 - `skill-refactorer`
-- `effort-calibrator`
 - `decision-map`
 
 ## Customization

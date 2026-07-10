@@ -11,7 +11,8 @@ Turn product, bug, refactor, or triage discussion into durable work items when t
 
 - Do not use this for ordinary coding, debugging, planning, architecture, or review.
 - Do not create or publish issues because a task is large.
-- Default to local markdown drafts unless the user explicitly asks to publish to a tracker.
+- Return drafts in chat by default.
+- Write a project-local file only when the user asks for persistence or the repository already defines a canonical draft location.
 - Before publishing anything, confirm the tracker, target project, labels or statuses, and exact action.
 
 ## Workflow Types
@@ -58,7 +59,7 @@ Before publishing or modifying tracker state, confirm:
 3. Label or status vocabulary if labels or states are involved.
 4. Whether external PRs are in scope.
 
-If tracker setup is unknown, offer a local markdown draft instead of starting setup.
+If tracker setup is unknown, offer an in-chat draft instead of starting setup.
 
 ## Triage Rules
 

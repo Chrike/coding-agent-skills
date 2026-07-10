@@ -30,5 +30,8 @@ Do not give the verifier the controller's original reasoning unless the task tru
 
 ## Controller rules
 
+- reuse implementation evidence when it identifies the final code state, command or observation, and result
+- do not rerun the implementer's checks merely to reproduce the same evidence
+- run an independent check only when environment independence, stale evidence, a missing acceptance criterion, or a load-bearing assumption requires it
 - if a verifier finds a blocker that invalidates later work, fix or re-scope before further fan-out
 - do not turn every tiny delegated step into implementer plus verifier by default

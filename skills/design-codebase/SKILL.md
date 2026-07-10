@@ -10,7 +10,7 @@ Use architecture language to improve leverage, locality, and testability without
 ## First Decision
 
 - If the user asks for a small bug fix or ordinary implementation, stay in the lightweight development flow.
-- If the user asks where an interface or seam should live, inspect current callers, dependencies, and tests first.
+- If the user asks where an interface or seam should live, inspect the directly affected callers, dependencies, tests, and constraints first.
 - If the user asks to improve architecture, look for shallow modules and leakage across seams before proposing changes.
 - If the design question needs runnable feedback, suggest a throwaway prototype; build it only when the user asks or agrees.
 - If the user asks for broad planning, use the planning workflow instead of duplicating it here.
@@ -19,10 +19,10 @@ Use architecture language to improve leverage, locality, and testability without
 
 When this skill is active, drive the design pass in this order:
 
-1. Read the current callers, dependencies, tests, and any directly relevant docs before proposing structure.
+1. Read the directly affected callers, dependencies, tests, constraints, and any directly relevant docs before proposing structure. Stop broadening the design read once the decision can be made safely.
 2. State the design goal in one sentence.
 3. Name the current seam, leak, shallow module, or interface pain that is making the work harder.
-4. Compare 2-3 concrete placements or interface shapes when the answer is non-obvious.
+4. Compare the smallest useful set of concrete placements or interface shapes when the answer is non-obvious.
 5. Recommend one option and explain why it improves leverage, locality, or testability for the current goal.
 6. Call out migration impact, verification approach, and what should stay out of scope.
 
@@ -40,6 +40,10 @@ Use these terms consistently:
 
 ## Design Checks
 
+- Existing project architecture and explicit user constraints outrank the vocabulary and heuristics in this skill.
+- Treat deep-module, seam, and adapter checks as lenses, not mandatory design goals.
+
+
 Use these checks to support the runbook rather than replace it:
 
 - Deletion test: if deleting the module makes complexity vanish, it was probably shallow. If complexity spreads across callers, it was earning its interface.
@@ -55,6 +59,12 @@ Use these checks to support the runbook rather than replace it:
 - Comparing alternative interfaces: [design-it-twice.md](references/design-it-twice.md)
 - Domain language and ADR guidance: [domain-modeling.md](references/domain-modeling.md)
 - Throwaway design feedback: [prototypes.md](references/prototypes.md)
+
+## Exit To Implementation
+
+- Once the design choice is settled and the user asks to implement it, exit this workflow and continue in the base implementation flow.
+- Do not keep comparing architecture alternatives during implementation unless the selected design becomes concretely invalid.
+- Verify the implementation against the settled interface and invariants rather than reopening the design discussion.
 
 ## Boundaries
 

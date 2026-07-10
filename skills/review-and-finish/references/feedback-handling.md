@@ -10,7 +10,8 @@ Use when the user pastes review comments, PR feedback, static analysis findings,
 - Do not reopen previously settled feedback without a concrete reason.
 - Ask before implementing unclear or conflicting multi-item feedback.
 - Push back with technical reasoning when a suggestion is wrong, unsafe, obsolete, or violates the user's prior direction.
-- Implement verified changes one at a time when risk is meaningful.
+- Batch compatible low-risk feedback items when they share one implementation and verification boundary.
+- Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
 - Run focused checks after changes.
 
 ## Triage

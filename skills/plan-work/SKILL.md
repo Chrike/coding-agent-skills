@@ -13,7 +13,7 @@ Plan only when planning will reduce risk or clarify execution. Keep ordinary edi
 - If the task is a small obvious edit, do not create a plan.
 - A task being large, medium-complexity, or multi-file is not by itself a planning trigger.
 - If requirements are unclear, ask the smallest question that changes scope, risk, or approach.
-- If a decision is non-obvious, compare 2-3 approaches with trade-offs and a recommendation.
+- If a decision is non-obvious, compare the smallest useful set of approaches with trade-offs and a recommendation.
 - If the work is too large for one pass, split it into vertical slices.
 
 ## Planning Loop
@@ -34,6 +34,12 @@ Read [plan-template.md](references/plan-template.md) when producing a durable im
 Read [vertical-slices.md](references/vertical-slices.md) when splitting a feature, refactor, or PRD into independently useful chunks.
 
 Read [design-questions.md](references/design-questions.md) when the request is still too vague to plan safely.
+
+## Exit To Implementation
+
+- When the plan is settled and the user asks to implement it, exit this workflow and continue in the base implementation flow.
+- Do not regenerate, expand, or compare the settled plan unless new evidence changes scope, dependencies, risk, or feasibility.
+- Treat the settled plan as execution context, not as a reason to plan again.
 
 ## Boundaries
 

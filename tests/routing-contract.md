@@ -19,8 +19,8 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | --- | --- |
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
-| Tests, TDD, mocks, flaky tests, regression coverage | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check, or external-facing ready/finalize/send gate | `review-and-finish` |
+| Tests, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage | `test-strategy` |
+| Explicit review, feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `review-and-finish` |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
@@ -31,7 +31,6 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
 | Explicit durable lesson, correction, or confirmed-approach memory workflow | `markdown-memory` |
 | Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
-| Explicit effort selection, review, or recalibration workflow | `effort-calibrator` |
 | Explicit durable multi-session decision frontier | `decision-map` |
 
 ## Expected Composition
@@ -46,6 +45,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Planned slices plus delegated workflow | settled plan or base default behavior context, then `agent-workflow` |
+| Settled design plus implementation | settled design or base default behavior context |
 
 ## Maintenance Use
 
