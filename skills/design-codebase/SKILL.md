@@ -1,6 +1,6 @@
 ---
 name: design-codebase
-description: Use when the user explicitly asks about codebase design, architecture, module interfaces, seams, adapters, deep modules, domain language, architecture options, hard-to-test modules, testability through interfaces, or throwaway prototypes for design questions.
+description: Use when the user asks about codebase design, architecture, module interfaces, seams, adapters, deep modules, domain language, architecture options, hard-to-test modules, testability through interfaces, or throwaway prototypes for design questions, or when an implementation depends on a non-obvious architecture, ownership, interface, or dependency-boundary decision that existing patterns cannot safely settle.
 ---
 
 # Design Codebase
@@ -9,9 +9,10 @@ Use architecture language to improve leverage, locality, and testability without
 
 ## First Decision
 
-- If the user asks for a small bug fix or ordinary implementation, stay in the lightweight development flow.
+- If the user asks for a small bug fix or ordinary implementation and existing patterns make the next safe edit clear, stay in the lightweight development flow.
+- If an implementation depends on a non-obvious architecture, ownership, interface, or dependency-boundary decision that existing patterns cannot safely settle, use this workflow to resolve that decision.
 - If the user asks where an interface or seam should live, inspect the directly affected callers, dependencies, tests, and constraints first.
-- If the user asks to improve architecture, look for shallow modules and leakage across seams before proposing changes.
+- If the user asks to improve architecture, identify the actual design pressure before choosing lenses such as shallow modules or leakage across seams.
 - If the design question needs runnable feedback, suggest a throwaway prototype; build it only when the user asks or agrees.
 - If the user asks for broad planning, use the planning workflow instead of duplicating it here.
 
@@ -19,12 +20,12 @@ Use architecture language to improve leverage, locality, and testability without
 
 When this skill is active, drive the design pass in this order:
 
-1. Read the directly affected callers, dependencies, tests, constraints, and any directly relevant docs before proposing structure. Stop broadening the design read once the decision can be made safely.
-2. State the design goal in one sentence.
-3. Name the current seam, leak, shallow module, or interface pain that is making the work harder.
-4. Compare the smallest useful set of concrete placements or interface shapes when the answer is non-obvious.
-5. Recommend one option and explain why it improves leverage, locality, or testability for the current goal.
-6. Call out migration impact, verification approach, and what should stay out of scope.
+1. Read the directly affected callers, dependencies, tests, operational constraints, and any directly relevant docs before proposing structure. Stop broadening the design read once the decision can be made safely.
+2. State the exact design decision and goal in one sentence.
+3. Derive only the criteria that matter for this decision, such as compatibility, locality, operational simplicity, performance, ownership, failure isolation, testability, migration cost, and reversibility.
+4. Identify the current design pressure without assuming it is a seam, adapter, or module-depth problem.
+5. Compare the smallest useful set of materially distinct options against the derived criteria when the answer is non-obvious.
+6. Recommend one option that best fits the current project and change pressure, then call out migration impact, verification approach, and what should stay out of scope.
 
 ## Vocabulary
 
@@ -41,7 +42,8 @@ Use these terms consistently:
 ## Design Checks
 
 - Existing project architecture and explicit user constraints outrank the vocabulary and heuristics in this skill.
-- Treat deep-module, seam, and adapter checks as lenses, not mandatory design goals.
+- Treat deep-module, seam, adapter, and interface-leakage checks as lenses only when caller complexity, duplicated coordination, or a real dependency boundary demonstrates that pressure.
+- Do not introduce an interface or adapter merely because this skill is active.
 
 
 Use these checks to support the runbook rather than replace it:
@@ -62,7 +64,8 @@ Use these checks to support the runbook rather than replace it:
 
 ## Exit To Implementation
 
-- Once the design choice is settled and the user asks to implement it, exit this workflow and continue in the base implementation flow.
+- When a request includes implementation, treat design as a transient internal phase: once the design choice is settled, exit to implementation automatically unless user-only input, an irreversible trade-off, or a scope change remains.
+- When the user asks only to design, do not implement until they ask.
 - Do not keep comparing architecture alternatives during implementation unless the selected design becomes concretely invalid.
 - Verify the implementation against the settled interface and invariants rather than reopening the design discussion.
 

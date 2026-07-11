@@ -1,6 +1,6 @@
 ---
 name: test-strategy
-description: Use when the primary problem is test design, test seams, regression coverage, mocks, assertions, fixtures, or timing and wait strategy.
+description: Use when the primary problem is test design, test seams, regression coverage, mocks, assertions, fixtures, or timing and wait strategy, or when a requested change needs a non-obvious test level, seam, regression signal, or acceptance proof.
 ---
 
 # Test Strategy
@@ -12,6 +12,7 @@ Choose tests that prove behavior without turning every task into strict TDD.
 - If the user asks for strict TDD, use TDD mode.
 - If the product behavior or root cause is still unclear and a failing or flaky test is only the symptom, use `debug-systematically` first.
 - If adding regression coverage for a bug, choose the narrowest seam that reproduces the real failure pattern.
+- If the needed test level, seam, regression signal, fixture/mocking boundary, or acceptance proof is non-obvious, use this skill to settle it.
 - If improving or adding tests, prefer observable behavior through public interfaces.
 - If the task is ordinary implementation and tests are not central, do not force a test-first workflow.
 
@@ -21,7 +22,7 @@ Choose tests that prove behavior without turning every task into strict TDD.
 - Prefer integration-style tests through public APIs, UI behavior, endpoints, CLI commands, or service boundaries.
 - Keep each test focused on one behavior or one regression.
 - Use existing project test tools, fixtures, naming, and setup patterns.
-- Run the smallest relevant test command first; widen only when risk justifies it.
+- Run the fastest high-signal test command that covers the changed behavior first; widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof.
 - Prefer vertical slices: one behavior, one proving test or small group, then implementation. Do not write all tests first and all code later.
 
 Read [good-tests.md](references/good-tests.md) when the test shape itself is the main question.

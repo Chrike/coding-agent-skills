@@ -13,6 +13,7 @@ Turn long-running uncertainty into a compact frontier map when the user clearly 
 - Use this only when the user clearly wants a durable multi-session decision workflow, decision map, or resume-by-ticket artifact.
 - If the path is already clear after discussion, skip the decision map and use `plan-work` or direct implementation instead.
 - Keep the map compact because the whole artifact may need to be reread in later sessions.
+- Update a user-named or repository-standard map when one exists. If no authoritative path exists, propose the map and suggested path in chat before creating a durable file. Do not invent a new decision directory or duplicate map without explicit agreement; ask which map is authoritative when multiple plausible maps exist.
 
 ## What The Map Tracks
 
@@ -34,7 +35,7 @@ Use small, numbered tickets. Size each ticket as one coherent decision question 
 | Prototype | testing a design or behavior hypothesis in code | throwaway prototype artifact and short conclusion |
 | Discuss | resolving uncertainty through focused analysis with the user | concise decision note in the map |
 
-Prefer `Discuss` unless research or a prototype is actually needed.
+Prefer research, code inspection, or existing evidence when they can resolve the uncertainty. Propose a reversible prototype when it would discriminate between options, and build it only when the user asks or agrees. Use `Discuss` when the remaining choice depends on product intent, value judgment, taste, policy, or other user-only information.
 
 ## Workflow
 
@@ -43,7 +44,7 @@ Prefer `Discuss` unless research or a prototype is actually needed.
 3. Resolve trivial decisions inline instead of turning everything into tickets.
 4. Create only the frontier tickets needed to move the decision forward.
 5. Record blockers or dependencies between tickets.
-6. Stop after creating or updating the map unless the user explicitly asks to resolve a ticket now.
+6. If the user asks to progress or resolve the frontier, continue through newly unblocked tickets until the frontier is resolved, a user-only decision is reached, or a real blocker appears. Otherwise stop after creating or updating the map.
 
 When resuming:
 
@@ -51,7 +52,7 @@ When resuming:
 2. Resolve the named ticket or the current frontier item.
 3. Record the answer compactly.
 4. Add, update, or delete downstream tickets if the frontier changed.
-5. Stop after the ticket update unless the user asks to continue.
+5. If the user asked to progress or resolve the frontier, continue through newly unblocked tickets until the frontier is resolved, a user-only decision is reached, or a real blocker appears. Otherwise stop after the ticket update.
 
 ## Boundaries
 

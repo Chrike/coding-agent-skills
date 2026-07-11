@@ -1,6 +1,6 @@
 ---
 name: plan-work
-description: Use when the user explicitly asks for planning, an implementation plan, approach comparison, task breakdown, roadmap, step-by-step plan, or splitting a feature/refactor into clear implementation slices before coding.
+description: Use when the user asks for planning, an implementation plan, approach comparison, task breakdown, roadmap, step-by-step plan, or splitting a feature/refactor into clear implementation slices before coding, or when a requested implementation has unresolved approach, dependency, sequencing, migration, compatibility, or scope decisions that cannot be safely inferred.
 ---
 
 # Plan Work
@@ -10,8 +10,9 @@ Plan only when planning will reduce risk or clarify execution. Keep ordinary edi
 ## First Decision
 
 - If the user asks only to plan, do not implement until they ask.
-- If the task is a small obvious edit, do not create a plan.
+- If the task is a small obvious edit or the next safe implementation step is already clear, do not create a plan.
 - A task being large, medium-complexity, or multi-file is not by itself a planning trigger.
+- If a requested implementation has unresolved approach, dependency, sequencing, migration, compatibility, or scope decisions that cannot be safely inferred, use this workflow to settle only those decisions.
 - If requirements are unclear, ask the smallest question that changes scope, risk, or approach.
 - If a decision is non-obvious, compare the smallest useful set of approaches with trade-offs and a recommendation.
 - If the work is too large for one pass, split it into vertical slices.
@@ -37,7 +38,8 @@ Read [design-questions.md](references/design-questions.md) when the request is s
 
 ## Exit To Implementation
 
-- When the plan is settled and the user asks to implement it, exit this workflow and continue in the base implementation flow.
+- When a request includes implementation, treat planning as a transient internal phase: once the needed decisions are settled, exit to implementation automatically unless user-only input, an irreversible trade-off, or a scope change remains.
+- When the user asks only to plan, do not implement until they ask.
 - Do not regenerate, expand, or compare the settled plan unless new evidence changes scope, dependencies, risk, or feasibility.
 - Treat the settled plan as execution context, not as a reason to plan again.
 

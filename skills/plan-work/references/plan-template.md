@@ -44,8 +44,8 @@ Use this for durable plans, handoffs, or work that spans sessions. Keep it speci
 
 ## Verification
 
-- Focused check:
-- Broader check, if risk justifies it:
+- Fastest high-signal check that directly covers the changed behavior:
+- Broader check when affected surface, risk, acceptance criteria, or remaining evidence gaps require it:
 ```
 
 ## Self-Check

@@ -15,7 +15,7 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Re-read or rerun only when the evidence is stale, incomplete, contradictory, or does not support the next concrete action.
 - Keep changes proportional to the request. Do not add unasked refactors, new abstractions, defensive branches, compatibility shims, or adjacent cleanup unless they are required to complete the requested behavior correctly.
 - Prefer the best available project-aware tooling in the current environment, and use local text search when it is the best practical option.
-- Run the smallest useful verification when practical.
+- Start with the fastest high-signal verification that directly covers the changed behavior, then widen based on affected surface, risk, acceptance criteria, and remaining evidence gaps. Do not make a completion claim broader than the evidence supports.
 - Report what changed and what was verified. Say plainly when checks were skipped.
 
 ## Content And Interpretation

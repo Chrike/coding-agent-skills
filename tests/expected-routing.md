@@ -26,8 +26,11 @@ Use this file as a compact contract for representative routing decisions across 
 | Review these changes. | `review-and-finish` | explicit natural-language review request |
 | Address this PR feedback. | `review-and-finish` | explicit review feedback handling |
 | Can I call this done? | `review-and-finish` | explicit completion verification |
+| This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` | a substantial/high-risk completed change needs focused readiness evidence |
 | Plan this refactor. | `plan-work` | explicit planning request |
+| Implement this migration; the compatibility and rollout sequence are unresolved. | `plan-work`, then implementation | resolve only the load-bearing plan before coding |
 | Where should this interface live? | `design-codebase` | explicit design question |
+| Implement this feature; existing patterns do not settle its ownership boundary. | `design-codebase`, then implementation | resolve the non-obvious design decision before coding |
 | You are hallucinating; reread the files and reassess. | `reliability-check` | explicit corrective reassessment |
 | Investigate these independent subsystems in parallel. | `agent-workflow` | multi-agent method for genuinely independent slices |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` | repeated per-item pipeline needs orchestration method |

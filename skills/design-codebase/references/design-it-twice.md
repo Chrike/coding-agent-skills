@@ -4,23 +4,23 @@ Use this when the first interface idea feels plausible but the trade-off is impo
 
 ## Lightweight Version
 
-Produce the smallest useful set of genuinely different interface options:
+Produce the smallest useful set of genuinely different options, usually two. Use only lenses that create real alternatives for the current decision, such as:
 
-1. **Minimal interface**: smallest caller surface, maximum hidden behavior.
-2. **Flexible interface**: supports known variation without exposing internals.
-3. **Common-path interface**: optimizes the most frequent caller and pushes rare cases behind options or adapters.
+- **Minimal caller surface**: hide behavior behind the smallest useful interface.
+- **Known variation**: support demonstrated variation without exposing internals.
+- **Common-path optimization**: optimize the frequent caller while isolating rare cases.
+- **Migration safety**, **operational simplicity**, **performance**, or **future change cost**.
 
-For each option, show:
+For each option, show only the decision-relevant details:
 
-- Interface shape and caller example.
-- What implementation details move behind the seam.
-- Dependency strategy and adapters, if any.
-- Trade-offs in depth, locality, migration cost, and testability.
+- Caller/interface shape and seam impact when those are part of the decision.
+- Dependency strategy or adapters when a real dependency boundary exists.
+- Operational, performance, migration, ownership, reversibility, locality, testability, or other derived trade-offs that distinguish the options.
 
 Finish with a recommendation. Be opinionated; do not leave the user with an unranked menu.
 
 ## Full Version
 
-If the user explicitly asks for independent exploration or a larger architecture comparison, use separate agents or sessions only when available and worthwhile. Give each pass a different design constraint, then compare results using the same depth/locality/seam criteria.
+If the user explicitly asks for independent exploration or a larger architecture comparison, use separate agents or sessions only when available and worthwhile. Give each pass a different design constraint, then compare results against the decision-derived criteria; use depth, locality, or seam only when they apply.
 
 Do not spawn agents, create branches, or write durable reports by default.

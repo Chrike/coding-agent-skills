@@ -19,12 +19,12 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | --- | --- |
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
-| Tests, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `review-and-finish` |
+| Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy` |
+| Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a substantial/high-risk completed change needing focused readiness evidence | `review-and-finish` |
 | Explicit bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
-| Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
-| Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
+| Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
+| Explicit architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
 | Two or more independent work slices, repeated per-item pipeline, scout slices, or independent verification requiring coordinated multi-agent execution | `agent-workflow` |
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
@@ -41,7 +41,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Case | Expected order |
 | --- | --- |
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
-| Architecture question plus implementation plan | `design-codebase` then `plan-work` |
+| Implementation with both an unresolved architecture boundary and migration, compatibility, sequencing, or scope decisions | `design-codebase` then `plan-work`, then implementation (resolve the design boundary before planning dependent rollout work) |
 | Review plus branch finish | `review-and-finish` then `finish-branch` |
 | Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |

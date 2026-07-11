@@ -46,4 +46,4 @@ Require scouts to return:
 - dedupe overlapping findings before escalating into implementation work
 - keep scout output to evidence, unresolved questions, and recommended next probes
 - scouts do not write the final conclusion for the controller
-- stop after two consecutive dry rounds with no materially new evidence
+- stop when another scout round is unlikely to change the implementation direction, scope, risk judgment, verification plan, or need for user input; do not launch another round merely to increase confidence without a distinct unresolved evidence question

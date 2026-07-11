@@ -9,7 +9,7 @@ Use for business logic, state transitions, or data shape.
 - State the question at the top of the prototype.
 - Use the project's existing language and task runner.
 - Keep state in memory unless persistence is the question.
-- Put reusable logic behind a small pure interface; keep terminal/browser shell throwaway.
+- Keep the core experiment easy to inspect; introduce a reusable interface only when reuse or interface shape is the question being tested. Keep terminal/browser shell throwaway.
 - Surface the full relevant state after each action.
 - Provide one project-local command to run it.
 
@@ -19,7 +19,7 @@ Use when the question is visual structure or interaction shape.
 
 - Prefer variants inside an existing page or route.
 - Use `?variant=` or the project's equivalent to switch options.
-- Create 2 structurally different variants by default when visual comparison matters. Use 3 only when the design space is genuinely broad.
+- Create the smallest number of variants needed to answer the design question. Use multiple variants only when they represent materially different unresolved directions.
 - Keep real data fetching when useful, but avoid real mutations.
 - Remove losing variants and any switcher when a direction is chosen.
 

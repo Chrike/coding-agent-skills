@@ -13,7 +13,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Fix this small TypeScript error. | `issue-workflow`, `decision-map` | ordinary coding should stay light |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
-| Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map` | small implementation should not become durable workflow |
+| Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map`, `plan-work`, `design-codebase`, `test-strategy`, `review-and-finish` | a clear direct edit should not become a planning, design, test-design, or review workflow |
 | Implement the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff` | existing durable plan should guide execution without reopening adjacent workflows |
 | Continue with the changes based on the plan above. | `plan-work`, `reliability-check` | settled planning should guide execution instead of reopening analysis |
 | Start implementing the reviewed fix. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |

@@ -9,8 +9,7 @@ Preserve enough state to continue accurately when the user asks for compression,
 
 ## First Decision
 
-- If the user asks to compress context, update the named handoff file or existing project handoff note with the latest checkpoint before they compress.
-- If no named or repository-standard handoff artifact exists, return a compact checkpoint in chat unless the user explicitly asks to create a persistent file.
+- If the user asks to compress context, update the named handoff file or repository-standard handoff note with the latest checkpoint before they compress. When no named or repository-standard artifact exists, return a compact checkpoint in chat unless the user explicitly asks to create or update a persistent file. When multiple plausible handoff artifacts exist and none is named, ask which one is authoritative; do not silently choose, merge, or update one.
 - If the user clearly asks to update the latest checkpoint or resume from a checkpoint, use this skill.
 - If resuming from a checkpoint after compression, use this skill.
 - If the task is ordinary coding and no handoff or resume intent is present, do not use this skill.
@@ -33,13 +32,13 @@ When preparing a handoff in an existing or explicitly requested artifact, write 
 10. Next highest-value action.
 11. Explicit do-not-do items that prevent drift.
 
-Prefer the existing handoff note or user-named handoff or memory file when one exists.
+Prefer the user-named or repository-standard handoff or memory file when one is authoritative. When neither exists, return the checkpoint in chat unless the user explicitly requests persistent storage. When multiple plausible artifacts exist, ask which one is authoritative rather than silently choosing, merging, or updating one.
 
 ## Resume From Memory
 
 Before acting after a resume:
 
-1. Read the handoff or memory file the user names. If none is named, use the existing handoff note only when there is a single obvious candidate; otherwise state the candidate before relying on it.
+1. Read the handoff or memory file the user names. If none is named, use an existing handoff only when there is a single obvious candidate. When multiple plausible candidates exist, ask which artifact is authoritative; do not silently choose, merge, or update one.
 2. Read any directly referenced planning or review file needed for the current next step.
 3. Restore the latest checkpoint first: current goal, constraints, verified facts, open blockers, ruled-out causes, and next highest-value action.
 4. State the current objective briefly, then continue.

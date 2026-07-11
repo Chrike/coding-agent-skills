@@ -35,7 +35,10 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | --- | --- |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | Add regression tests for this bug. | `test-strategy` |
+| Implement this change; the correct regression seam and acceptance signal are unclear. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
+| This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` |
+| This completed permission migration is ready; verify the final claim before calling it done. | `review-and-finish` |
 | `/code-review` | bundled review command |
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
 | Address this PR feedback. | `review-and-finish` |

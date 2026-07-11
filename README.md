@@ -40,10 +40,10 @@ These can be selected by the agent when the request clearly matches.
 | Skill                  | Use when                                                     |
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
-| `test-strategy`        | Tests, TDD, mocks, flaky tests, regression coverage          |
-| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback |
-| `plan-work`            | Explicit planning, approach comparison, roadmap, task breakdown, vertical slices |
-| `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes |
+| `test-strategy`        | Test design, TDD, mocks, flaky tests, regression coverage, or a non-obvious test seam/level/acceptance signal |
+| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a substantial/high-risk completed change |
+| `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
+| `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
 | `agent-workflow`       | Multi-agent decomposition, ownership, evidence, verification, and integration method |
 
@@ -111,7 +111,7 @@ The current runtime surface is organized as follows:
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
-- `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
+- `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
 

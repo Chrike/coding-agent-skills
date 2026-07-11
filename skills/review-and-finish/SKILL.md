@@ -1,6 +1,6 @@
 ---
 name: review-and-finish
-description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback. Do not use for an explicitly invoked bundled `/code-review`.
+description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback, or when a substantial or high-risk completed change needs a focused readiness check before a done claim. Do not use for an explicitly invoked bundled `/code-review`.
 ---
 
 # Review And Finish
@@ -12,7 +12,8 @@ Handle explicit review, review feedback, and completion verification without tur
 - User asks for review: inspect the diff/code and report findings first.
 - If the user explicitly invokes a bundled review command such as `/code-review`, let that host-provided review workflow own the fresh review pass instead of duplicating it here.
 - User shares feedback: verify and triage each item against the codebase before changing it. For an assessment-only request, report the judgment without modifying code; for an implementation request, proceed under Feedback Handling.
-- User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the smallest missing check or state why verification is unavailable.
+- User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the fastest high-signal missing check, then widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof, or state why verification is unavailable.
+- A substantial or high-risk completed change needs a focused readiness check before a done claim; do not add this independent review for ordinary low-risk edits when direct verification already covers the claim.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
 - Ordinary small edit: do not auto-review, commit, push, merge, or start branch cleanup.
 

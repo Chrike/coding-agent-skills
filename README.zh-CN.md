@@ -40,10 +40,10 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | 技能                   | 适用场景                                                     |
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | 原因不明的 Bug、不稳定行为、回归问题、性能瓶颈、反复修复失败 |
-| `test-strategy`        | 测试、TDD、Mock、不稳定测试、回归覆盖                        |
-| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈              |
-| `plan-work`            | 显式规划、方案对比、路线图、任务拆解、垂直切片               |
-| `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计                 |
+| `test-strategy`        | 测试设计、TDD、Mock、不稳定测试、回归覆盖，或非显而易见的测试层级/接缝/验收信号 |
+| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或重大/高风险完成变更的聚焦就绪证据 |
+| `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
+| `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
 | `agent-workflow`       | 多代理拆分、所有权、证据、验证与集成方法                     |
 
@@ -110,7 +110,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
-- `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
+- `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
 
