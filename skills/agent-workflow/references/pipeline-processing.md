@@ -21,6 +21,7 @@ Keep the per-item stages explicit, such as:
 ## Controller rules
 
 - Extract shared schemas, conventions, and acceptance criteria once, then pass the same compact contract to each item.
+- When a domain method applies, include its compact method capsule with the shared contract instead of making each worker rediscover it.
 - Run item checks per item and aggregate verification once after integration.
 - Report item-level outcomes rather than one vague batch summary.
 - Do not silently drop failed verification.

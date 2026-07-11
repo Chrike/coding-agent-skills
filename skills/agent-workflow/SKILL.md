@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or independent verification require coordinated multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation or coherent single-owner work.
+description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or independent verification require coordinated multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation, coherent single-owner work, merely because Ultracode is enabled, or when a workflow for the same scope is already running.
 ---
 
 # Agent Workflow
@@ -27,6 +27,8 @@ Stay solo when any of these apply:
 - one focused Explore, Plan, or general-purpose delegation is enough
 - coordination would cost more than the work
 
+An explicit request to parallelize starts this fit check; it does not override the stay-solo conditions. Parallel execution still requires independent ownership, safe write isolation when needed, and a clear integration path.
+
 A dependency between phases is not a reason to avoid orchestration when it can be represented as an explicit staged handoff.
 
 Do not trigger multi-agent work only because intermediate output would be long, Ultracode is enabled, or a host multi-agent substrate is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
@@ -51,6 +53,7 @@ Fan-out width follows the number of truly independent subproblems, not a fixed a
 
 - Concurrent read-only slices may share a workspace.
 - Concurrent write slices require isolated worktrees or equivalent copies.
+- If safe isolation is unavailable or not authorized, serialize write slices in the current workspace rather than weaken the isolation rule to preserve parallelism.
 - Treat lockfiles, generated output, migrations, repository-wide formatting, git state, shared services, and test databases as shared write scope.
 
 ## Controller Contract
@@ -62,6 +65,7 @@ Before dispatching:
 - Every worker brief must state:
   - whether the worker is a leaf executor or nested controller
   - the active domain method it must follow when one applies; otherwise, the task-specific procedure and acceptance contract
+  - a compact domain-method capsule with the applicable steps and acceptance rules; preload broader references only when the worker genuinely needs them
   - its permitted read and write scope
   - the isolation boundary in effect
   - whether further delegation is allowed
@@ -77,7 +81,7 @@ Execution substrate rules:
 - Express independent slices as one concurrent phase when the active execution substrate supports safe parallelism.
 - Use direct subagents, an agent team, or a dynamic workflow according to the host-selected execution layer.
 - Do not create a second orchestration layer when a dynamic workflow has already been selected for the same scope.
-- If independent agents are unavailable, do not simulate delegation. Either produce task briefs for the user to run, or execute the slices sequentially in the controller flow.
+- If independent agents are unavailable, do not simulate delegation. Execute the slices sequentially in the controller flow; produce task briefs only when the user asks for them or execution is impossible.
 
 After results return:
 

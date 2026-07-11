@@ -47,6 +47,10 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |
 | Compare these independent architecture options. | `design-codebase` + `agent-workflow` |
+| Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
+| Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
+| Assess these review comments only; do not change code. | `review-and-finish` assessment without implementation |
+| Independent agents are unavailable; continue this independent investigation. | `agent-workflow` with sequential controller execution |
 | Ultracode is preparing a workflow for these independent subsystems. | `agent-workflow` method for that workflow |
 | A workflow for this scope is already running. | continue active workflow; no new orchestration layer |
 | Ultracode is enabled; fix this one coherent bug. | `debug-systematically` or base default behavior |

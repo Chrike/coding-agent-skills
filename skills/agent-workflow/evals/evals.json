@@ -1,0 +1,40 @@
+{
+  "skill_name": "agent-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Ultracode is preparing one workflow to inspect three independent subsystems for separate compatibility failures. Define the execution approach without creating a competing orchestration layer.",
+      "expected_output": "Uses the prepared host workflow as the sole execution layer, assigns distinct subsystem scopes, passes evidence and result contracts to workers, and defines integration.",
+      "assertions": [
+        "The response treats the prepared host workflow as the sole orchestration layer.",
+        "Each subsystem has a distinct owner or non-overlapping scope.",
+        "Worker briefs include scope, relevant evidence, and a compact result contract.",
+        "The response includes an integration step.",
+        "The response does not propose a competing workflow or agent team."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Parallelize this cache invalidation investigation. The symptoms span three files, but all evidence points to one unresolved shared root cause.",
+      "expected_output": "Performs the orchestration fit check, then keeps the shared-root diagnosis under one coherent debugging owner instead of forcing parallel slices.",
+      "assertions": [
+        "The response does not treat the request to parallelize as overriding the solo-fit conditions.",
+        "The response does not split the shared-root investigation across competing owners.",
+        "The response uses one coherent debugging method or base-flow investigation.",
+        "The response does not create parallel write slices."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Use TDD to implement three independent adapters. Worktree isolation is unavailable in this environment.",
+      "expected_output": "Combines the TDD method with orchestration, passes each worker a compact red-green-refactor-style method capsule and acceptance rules, and serializes writes in the current workspace.",
+      "assertions": [
+        "The response composes test-strategy with agent-workflow rather than inventing a separate testing procedure.",
+        "Each worker receives a compact TDD method capsule with relevant acceptance rules.",
+        "The response does not perform concurrent writes without safe isolation.",
+        "The response serializes write slices in the current workspace.",
+        "The final verification reuses valid per-slice evidence and adds only the missing aggregate check."
+      ]
+    }
+  ]
+}

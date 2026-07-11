@@ -5,10 +5,11 @@ Use when the user pastes review comments, PR feedback, static analysis findings,
 ## Rules
 
 - On initial feedback intake, read all feedback once before changing code.
-- Verify external feedback against the current codebase.
+- Verify and triage external feedback against the current codebase.
+- For an assessment-only or triage-only request, report source-backed judgments without changing code.
 - After triage is settled, read newly added feedback and re-check only items affected by changed code or contradictory new evidence.
 - Do not reopen previously settled feedback without a concrete reason.
-- Implement clear, independent feedback items without waiting on an unrelated unclear item.
+- When implementation is requested, implement clear, independent feedback items without waiting on an unrelated unclear item.
 - Ask first only when the unclear item changes shared scope, architecture, ordering, or the validity of another item.
 - Push back with technical reasoning when a suggestion is wrong, unsafe, obsolete, or violates the user's prior direction.
 - Batch compatible low-risk feedback items when they share one implementation and verification boundary.
