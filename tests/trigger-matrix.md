@@ -43,6 +43,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Investigate these independent subsystems in parallel. | `agent-workflow` |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` |
 | Add an independent verifier before we continue. | `agent-workflow` |
+| Verify the integrated result independently against its untested rollback path. | `agent-workflow` with a distinct verification evidence question |
 | Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` |
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |

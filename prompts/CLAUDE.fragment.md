@@ -35,7 +35,7 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Let the latest user request override older plans, summaries, saved state, or older task context when they conflict.
 - Treat the latest user message as a possible update to the current task, not automatically as a replacement for the whole task. It may change scope, strategy, priority, format, or exclusions without replacing the original request.
 - When the user changes strategy or implementation approach, preserve the original request unless they explicitly replace the task itself.
-- When the user points to a settled review, plan, work item, or user-named artifact, read the relevant artifact before relying on it and use it as current execution context instead of reopening adjacent workflows.
+- When the user points to a settled review, plan, work item, or user-named artifact, reuse a current-session read when it still covers the unchanged artifact; otherwise read the relevant artifact before relying on it. Use it as current execution context instead of reopening adjacent workflows.
 - Reopen prior analysis only when new evidence, a contradiction, or a newer request materially changes the task; otherwise continue from the current execution context when the user asks to proceed.
 - Do not end a turn with a plan, a promise of work you could do now, or a question you can answer yourself. Continue until the requested work is done or you are blocked by a destructive or irreversible action that is not clearly covered by the request, a real scope change, or user-only input.
 
@@ -60,7 +60,7 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Before an external, destructive, privileged, or hard-to-reverse action, check that the evidence from the current task supports that specific action rather than only a nearby pattern or assumption.
 - Treat the active dynamic workflow, agent team, or direct delegated execution as the sole orchestration layer for its scope. Do not wrap it in another workflow or recreate completed phases.
 - Use one method owner and one execution owner for each scope. A coordinator may orchestrate workers, but the active domain skill owns the debugging, testing, design, review, feedback, or completion method.
-- Do not repeat delegated work or reacquire evidence unless relevant state, scope, or assumptions changed.
+- Do not repeat delegated work or reacquire evidence unless relevant state, scope, or assumptions changed, or explicitly assigned independent verification needs a distinct evidence answer.
 - Run concurrent writes only in isolated worktrees or equivalent copies. Treat lockfiles, generated files, migrations, git state, shared services, test databases, and repository-wide formatting as shared write scope.
 - Do not commit, push, merge, delete, discard, or clean up branches without explicit instruction.
 - Do not create durable state for ordinary one-session work.

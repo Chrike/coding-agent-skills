@@ -5,7 +5,7 @@ description: Use when two or more genuinely independent work slices, a repeated 
 
 # Agent Workflow
 
-Provide the project's multi-agent orchestration method. The host-selected execution substrate may be direct subagents, an agent team, or a dynamic workflow. This skill owns decomposition, ownership, evidence, verification, and integration; it does not own the host runtime that launches workers.
+Provide the project's multi-agent orchestration method. The host-selected execution substrate may be direct subagents, an agent team, or a dynamic workflow. This skill owns decomposition, ownership, evidence handoff, verification coordination, and integration; it does not own the domain method or the host runtime that launches workers.
 
 ## Activation Gate
 

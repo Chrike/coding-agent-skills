@@ -41,6 +41,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Add an independent verifier before we continue, but do not reopen planning. | `plan-work`, `review-and-finish` | explicit independent verification should use `agent-workflow`, while settled planning stays settled |
 | Use one focused Explore for this single search question. | `agent-workflow` | one focused delegation is ordinary execution, not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
+| The shared root cause is still unclear; fan out scouts immediately. | `agent-workflow` | unresolved shared-root diagnosis must start with `debug-systematically`, not scout fan-out |
 | Ultracode is enabled; fix this one coherent bug. | `agent-workflow` | host multi-agent substrate alone is not an orchestration trigger |
 | A workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
