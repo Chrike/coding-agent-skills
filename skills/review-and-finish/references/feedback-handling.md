@@ -20,7 +20,7 @@ Use when the user pastes review comments, PR feedback, static analysis findings,
 
 | Feedback Type | Action |
 | --- | --- |
-| Clear bug/security issue | Fix and verify. |
+| Clear bug/security issue | Report it; fix and verify only when implementation is requested. |
 | Unclear request | Clarify the unclear item before changing it; proceed with separate clear items when they are independent. |
 | Style preference | Apply only if it matches repo/user conventions. |
 | Scope expansion | Confirm before implementing. |
