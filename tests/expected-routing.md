@@ -22,7 +22,9 @@ Use this file as a compact contract for representative routing decisions across 
 | Claude Code itself is misbehaving; inspect the session logs. | bundled `/debug` | host runtime issues should use the host debug command rather than the project debugging skill |
 | This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` | use test-strategy when the primary problem is test timing and wait design |
 | Add regression tests for this bug. | `test-strategy` | explicit testing workflow |
-| Review these changes. | `review-and-finish` | explicit natural-language review request |
+| Review these changes. | host review workflow | fresh natural-language review should stay with the host review engine |
+| Address this PR feedback. | `feedback-and-completion` | explicit review feedback handling |
+| Can I call this done? | `feedback-and-completion` | explicit completion verification |
 | Plan this refactor. | `plan-work` | explicit planning request |
 | Where should this interface live? | `design-codebase` | explicit design question |
 | You are hallucinating; reread the files and reassess. | `reliability-check` | explicit corrective reassessment |
@@ -45,10 +47,12 @@ These prompts hit the skills below only when the user clearly asks for that work
 | Which workflow should handle this? | routing contract plus prompt and skill descriptions | explicit routing question |
 | `/code-review` | bundled review command | explicit bundled review commands should stay with the host review engine |
 
-## Review Split Check
+## Feedback / Host-Review Split Check
 
 | Prompt Shape | Expected Routing | Why |
 | --- | --- | --- |
-| Review these changes. | `review-and-finish` | explicit natural-language review request |
+| Review these changes. | host review workflow | fresh natural-language review should stay with the host review engine |
+| Address this PR feedback. | `feedback-and-completion` | explicit review feedback handling |
+| Can I call this done? | `feedback-and-completion` | explicit completion verification |
 | Finish this branch. | `finish-branch` | explicit branch-ending action |
-| Review these changes, then help me finish the branch. | `review-and-finish` then `finish-branch` | review and branch wrap-up remain separate and ordered |
+| Address this PR feedback, then help me finish the branch. | `feedback-and-completion` then `finish-branch` | feedback handling and branch wrap-up remain separate and ordered |

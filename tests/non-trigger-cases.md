@@ -11,15 +11,15 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
 | Fix this small TypeScript error. | `issue-workflow`, `decision-map` | ordinary coding should stay light |
-| Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
+| Change this label in a Vue component. | `plan-work`, `design-codebase`, `feedback-and-completion`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
 | Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map` | small implementation should not become durable workflow |
 | Implement the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff` | existing durable plan should guide execution without reopening adjacent workflows |
 | Continue with the changes based on the plan above. | `plan-work`, `reliability-check` | settled planning should guide execution instead of reopening analysis |
-| Start implementing the reviewed fix. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |
+| Start implementing the reviewed fix. | `feedback-and-completion`, `reliability-check` | settled review should not restart before new evidence appears |
 | Start implementing the approved plan above. | `plan-work`, `reliability-check` | settled planning should not restart before new evidence appears |
 | Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |
-| Start the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should guide execution instead of reopening adjacent workflows |
+| Start the reviewed fix above. | `feedback-and-completion`, `reliability-check` | settled review should guide execution instead of reopening adjacent workflows |
 | You already have enough context. Stop planning and implement the next step. | `plan-work`, `reliability-check` | sufficient context should lead to execution rather than another planning loop |
 | The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | `plan-work`, `reliability-check`, `design-codebase` | once execution context is concrete, ordinary work should act rather than reopening planning, reassessment, or redesign |
 | Continue this paused task using the current issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing tracked state should be reused instead of reopening artifact workflows |
@@ -32,34 +32,35 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | We already cancelled that older direction. Continue with the current task only. | `reliability-check`, `decision-map` | settled cancellations should hold without reopening adjacent tracks |
 | Handle these remaining prompt-file fixes in one pass. | `plan-work` | ordinary batched execution should not escalate into a new workflow |
 | You already have enough context. Make the requested patch now instead of outlining more options. | `plan-work`, `reliability-check` | enough context should lead to execution instead of more planning or corrective reassessment |
-| Keep this fix limited to the reported bug; do not refactor nearby code. | `review-and-finish`, `plan-work`, `design-codebase` | scope control for a small fix should stay in the default layer instead of escalating into review, planning, or redesign |
+| Keep this fix limited to the reported bug; do not refactor nearby code. | `feedback-and-completion`, `plan-work`, `design-codebase` | scope control for a small fix should stay in the default layer instead of escalating into feedback, planning, or redesign |
 | If you can finish the remaining in-scope edits now, do that; only stop if you need input I have not provided. | `plan-work`, `memory-handoff` | ordinary execution should continue instead of stopping on a self-created checkpoint or handoff |
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
 | Claude Code itself is misbehaving; inspect the session logs. | `debug-systematically` | host runtime issues should not route into the project debugging skill; they should use bundled `/debug` instead |
-| `/code-review` | `review-and-finish` | an explicit bundled review command should not re-enter the project review skill; it should stay with the host review engine |
-| Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
-| Add an independent verifier before we continue, but do not reopen planning. | `plan-work`, `review-and-finish` | explicit delegated verification should be handled by the active workflow model, but settled planning should stay settled |
+| `/code-review` | `feedback-and-completion` | an explicit bundled review command should not re-enter the project feedback skill; it should stay with the host review engine |
+| Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `feedback-and-completion` unless the user explicitly asks for branch actions or delegated verification |
+| Add an independent verifier before we continue, but do not reopen planning. | `plan-work`, `feedback-and-completion` | explicit delegated verification should be handled by the active workflow model, but settled planning should stay settled |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
 | Summarize all the user questions from above, not your own answers. | `reliability-check`, `issue-workflow` | summary-object correction should stay in the default layer rather than becoming corrective analysis or artifact drafting |
 | This is not a new task; only change the output format to a table. | `plan-work`, `reliability-check` | a format correction should not be misread as task replacement or corrective workflow |
 | The goal is clear; only the implementation detail is still open, so pick a reasonable default and continue. | `plan-work`, `reliability-check`, `design-codebase` | implementation-detail ambiguity alone should not force a planning, corrective, or redesign workflow |
 | The context is getting long, but the task is still executable, so keep going instead of stopping early to hand off. | `memory-handoff`, `decision-map` | context length alone should not trigger a handoff or durable state workflow when execution can continue |
-| Before changing this config, check that the evidence supports that exact action first. | `reliability-check`, `review-and-finish` | evidence-before-action should stay in the default layer unless the user explicitly asks for reassessment or review |
+| Before changing this config, check that the evidence supports that exact action first. | `reliability-check`, `feedback-and-completion` | evidence-before-action should stay in the default layer unless the user explicitly asks for reassessment or completion review |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | `reliability-check`, `issue-workflow`, `decision-map` | reference-vs-instruction handling should stay in the default layer unless the user explicitly asks for corrective reassessment or a durable artifact workflow |
-| Update the handoff with the latest checkpoint before we compress. | `review-and-finish` | explicit checkpoint and compression work should stay in `memory-handoff` |
-| We are still implementing this slice; give me the current partial result and blocker only. | `review-and-finish` | mid-run status reporting should stay in the default layer unless the user explicitly asks for delegation |
+| Update the handoff with the latest checkpoint before we compress. | `feedback-and-completion` | explicit checkpoint and compression work should stay in `memory-handoff` |
+| We are still implementing this slice; give me the current partial result and blocker only. | `feedback-and-completion` | mid-run status reporting should stay in the default layer unless the user explicitly asks for delegation |
 | The build or test output is very long; summarize only the key failure, blocker, and next step instead of pasting the full log. | `memory-handoff`, `decision-map`, `issue-workflow` | routine long command output handling should stay in the default layer unless the user explicitly asks for durable tracking |
 
-## Review / Branch Split Must Not Collapse
+## Feedback / Branch Split Must Not Collapse
 
-These prompt shapes should keep `review-and-finish` and `finish-branch` separate:
+These prompt shapes should keep `feedback-and-completion`, host review, and `finish-branch` separate:
 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
-| Review these changes. | `finish-branch` | review should not imply commit/push/merge |
+| Review these changes. | `feedback-and-completion`, `finish-branch` | fresh review belongs to the host review workflow and must not become feedback handling or branch wrap-up |
+| Address this PR feedback. | `finish-branch` | feedback handling should not imply commit/push/merge |
 | Can I call this done? | `finish-branch` | completion verification is not branch cleanup |
-| Finish this branch. | `review-and-finish` | branch-ending actions should route to `finish-branch`, not review |
-| Commit these changes. | `review-and-finish` | explicit side effect should route to `finish-branch`, not completion review |
+| Finish this branch. | `feedback-and-completion` | branch-ending actions should route to `finish-branch`, not completion review |
+| Commit these changes. | `feedback-and-completion` | explicit side effect should route to `finish-branch`, not completion review |
 
 ## Corrective / Meta Skills Must Stay Explicit
 

@@ -77,7 +77,7 @@ This skill does not replace:
 - `plan-work` for ordinary implementation planning
 - `design-codebase` for architecture or seam decisions
 - `debug-systematically` for diagnosing unclear bugs before a report is ready
-- `review-and-finish` for code review or explicit review feedback handling
+- `feedback-and-completion` for explicit review feedback handling or completion verification
 - `finish-branch` for commits, PR creation, or branch wrap-up
 
 If the user asks to implement an issue or PRD, use the relevant task skill instead of continuing to refine tracker artifacts.

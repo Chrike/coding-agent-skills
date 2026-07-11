@@ -51,7 +51,7 @@ This skill does not replace:
 - the ordinary implementation flow for straightforward work.
 - `debug-systematically` for code bugs and root-cause diagnosis.
 - `test-strategy` for testing choices and regression proof.
-- `review-and-finish` for explicit code review, feedback handling, or completion verification.
+- `feedback-and-completion` for explicit review feedback handling or completion verification.
 - `finish-branch` for explicit branch-ending actions.
 - `plan-work` for requested implementation planning.
 - `memory-handoff` for routine compression and resume.

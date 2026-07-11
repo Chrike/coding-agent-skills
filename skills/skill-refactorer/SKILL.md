@@ -13,7 +13,7 @@ Preserve durable intent while removing outdated procedure text. Requests like â€
 - Do not use it for ordinary code implementation, ordinary refactors, ordinary review, or ordinary planning.
 - If the user is designing a new skill, comparing workflow structures, or asking for an implementation plan, use `plan-work` or another installed workflow that owns that design work instead.
 - If the user is explicitly challenging evidence, source use, or whether the right files were read, use `reliability-check` instead.
-- If the user wants review findings or completion verification for code or document changes, use `review-and-finish` instead.
+- If the user wants feedback handling or completion verification for code or document changes, use `feedback-and-completion` instead.
 
 ## What To Preserve
 

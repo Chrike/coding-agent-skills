@@ -20,7 +20,8 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Tests, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `review-and-finish` |
+| Explicit review feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `feedback-and-completion` |
+| Fresh code, diff, branch, or PR review, or bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
@@ -40,7 +41,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | --- | --- |
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
 | Architecture question plus implementation plan | `design-codebase` then `plan-work` |
-| Review plus branch finish | `review-and-finish` then `finish-branch` |
+| Feedback or completion check plus branch finish | `feedback-and-completion` then `finish-branch` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Settled design plus implementation | settled design or base default behavior context |

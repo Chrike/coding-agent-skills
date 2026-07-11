@@ -41,7 +41,7 @@ These can be selected by the agent when the request clearly matches.
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
 | `test-strategy`        | Tests, TDD, mocks, flaky tests, regression coverage          |
-| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback |
+| `feedback-and-completion` | Review feedback handling, done/fixed/passing verification, delivery readiness |
 | `plan-work`            | Explicit planning, approach comparison, roadmap, task breakdown, vertical slices |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
@@ -89,7 +89,7 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 The current runtime surface is organized as follows:
 
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
-- `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
+- `debug-systematically`, `test-strategy`, and `feedback-and-completion` cover core coding execution workflows.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
@@ -114,7 +114,7 @@ Start with the smallest set that matches your actual workflow.
 1. Base always-on behavior assembled from `prompts/CLAUDE.fragment.md` into your host instruction file
 2. `debug-systematically`
 3. `test-strategy`
-4. `review-and-finish`
+4. `feedback-and-completion`
 
 ### Optional Automatic Skills
 
