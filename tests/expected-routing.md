@@ -32,6 +32,10 @@ Use this file as a compact contract for representative routing decisions across 
 | Investigate these independent subsystems in parallel. | `agent-workflow` | multi-agent method for genuinely independent slices |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` | repeated per-item pipeline needs orchestration method |
 | Add an independent verifier before we continue. | `agent-workflow` | explicit independent verification coordination |
+| Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` | domain method plus multi-agent orchestration |
+| Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` | domain method plus multi-agent orchestration |
+| Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` | domain method plus multi-agent orchestration |
+| Compare these independent architecture options. | `design-codebase` + `agent-workflow` | domain method plus multi-agent orchestration |
 
 ## Explicit-Intent And Routing-Meta Examples
 
@@ -68,4 +72,6 @@ These prompts hit the skills below only when the user clearly asks for that work
 | --- | --- | --- |
 | Investigate these independent subsystems in parallel. | `agent-workflow` method plus host-selected execution substrate | project method owns decomposition and integration; host owns launch substrate |
 | Use one focused Explore for this single search question. | Base default behavior | one focused delegation must not activate orchestration |
-| Ultracode already selected a multi-agent workflow for this scope. | `agent-workflow` method without a second orchestration layer | do not wrap an already-selected dynamic workflow |
+| Ultracode is preparing a workflow for these independent subsystems. | `agent-workflow` method supplies that workflow; no second layer | method informs the workflow while it is still being prepared |
+| A workflow for this scope is already running. | continue the active workflow; do not invoke a new orchestration workflow | do not wrap an already-running dynamic workflow |
+| Ultracode is enabled; fix this one coherent bug. | `debug-systematically` or base flow; `agent-workflow` must not trigger | Ultracode alone is not an orchestration trigger |

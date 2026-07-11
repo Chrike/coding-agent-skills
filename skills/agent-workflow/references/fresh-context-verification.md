@@ -16,8 +16,12 @@ Give the verifier:
 
 - the specification
 - changed output or artifact
+- the relevant final code, commit, or worktree state
+- existing verification evidence when the verifier is judging completeness
 - verification scope
 - expected report format
+
+Omit existing evidence only when blind or environment-independent execution is the specific verification goal.
 
 Do not give the verifier the controller's original reasoning unless the task truly requires it.
 

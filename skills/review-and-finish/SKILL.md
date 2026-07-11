@@ -35,7 +35,7 @@ When the user provides external feedback or asks whether current work is done, f
 
 ## Feedback Handling
 
-Treat external feedback as input to evaluate, not orders to obey. Clarify unclear multi-item feedback before partial implementation. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
+Treat external feedback as input to evaluate, not orders to obey. Implement clear, independent feedback items without waiting on an unrelated unclear item. Ask first only when the unclear item changes shared scope, architecture, ordering, or the validity of another item. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
 
 Use [feedback-handling.md](references/feedback-handling.md) for review-comment workflows.
 

@@ -19,6 +19,8 @@ Use this workflow when the bug is unclear, flaky, cross-component, performance-r
 
 ## Core Loop
 
+Use this as a diagnostic decision loop, not mandatory ceremony. Skip a step when reliable current evidence already answers the decision that step would support.
+
 1. **Build a feedback signal.** Prefer a failing test, focused CLI command, HTTP request, browser script, fixture replay, or small harness. The signal catches the user's symptom, not merely "runs."
 2. **Run it red.** Confirm the signal reproduces the reported failure. For flaky bugs, raise the reproduction rate until it is debuggable.
 3. **Minimize.** Remove inputs, steps, config, and callers one at a time until the remaining repro is load-bearing.

@@ -75,6 +75,25 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 将 `tests/` 保留为维护与验证材料，而不是运行时技能。
 不要将 `tests/` 复制到 `.claude/`、`.agents/` 或其他运行时安装目录中。
 
+### 推荐的宿主 skill 可见性配置
+
+当完整安装本 skill suite，并以 Ultracode 作为主要多代理执行载体时，建议在 Claude Code 的宿主本地设置中，将可能重叠的 bundled skills 设为仅用户可调用：
+
+```json
+{
+  "skillOverrides": {
+    "batch": "user-invocable-only",
+    "code-review": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "loop": "user-invocable-only"
+  }
+}
+```
+
+`user-invocable-only` 会让 Claude 不再自动选择这些 skill，但仍保留在 `/` 菜单中供用户明确调用。保持 `/debug` 的宿主默认可见性：Claude Code 自身运行时问题继续走 bundled debug，项目产品行为调试继续走 `debug-systematically`。
+
+这是完整 suite 的推荐宿主配置，不是对所有安装强制写入仓库的设置。
+
 ## 仓库分层
 
 - `skills/` 存放本仓库中的运行时技能源码目录。

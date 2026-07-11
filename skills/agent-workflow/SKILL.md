@@ -7,7 +7,7 @@ description: Use when two or more genuinely independent work slices, a repeated 
 
 Provide the project's multi-agent orchestration method. The host-selected execution substrate may be direct subagents, an agent team, or a dynamic workflow. This skill owns decomposition, ownership, evidence, verification, and integration; it does not own the host runtime that launches workers.
 
-## First Decision
+## Activation Gate
 
 Use this skill when any of these are true:
 
@@ -17,16 +17,23 @@ Use this skill when any of these are true:
 - the task is a high-stakes single artifact that justifies multiple independent candidates plus independent reviewers
 - independent verification is needed during execution, not only as an ordinary end-of-task status check
 
-Keep the work in one controller flow when any of these apply:
+Stay solo when any of these apply:
 
 - the task is still atomic after a quick read
 - the split exists only because the task is long or multi-file
 - subtasks share the same files, hidden state, unresolved architecture, or root cause
-- one subtask depends on an answer another subtask has not produced yet
+- every useful slice depends on the same unresolved decision, root cause, or shared design choice, so no slice can make independent progress yet
 - clean ownership boundaries or a safe integration path cannot be named
 - one focused Explore, Plan, or general-purpose delegation is enough
+- coordination would cost more than the work
 
-Do not trigger multi-agent work only because intermediate output would be long. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
+A dependency between phases is not a reason to avoid orchestration when it can be represented as an explicit staged handoff.
+
+Do not trigger multi-agent work only because intermediate output would be long, Ultracode is enabled, or a host multi-agent substrate is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
+
+One focused Explore, Plan, or general-purpose delegation is ordinary task execution, not this workflow. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
+
+Hand off to explicit human review when the remaining decision is policy, taste, irreversible product scope, or missing user-only information.
 
 ## Decomposition Contract
 
@@ -40,22 +47,11 @@ Before multi-agent execution:
 
 Fan-out width follows the number of truly independent subproblems, not a fixed agent count.
 
-## Delegation Fit
-
-Delegate only when all are true:
-
-1. There are at least two independent work slices or investigations.
-2. Each slice has a clear owner: files, module, subsystem, failing test, or question.
-3. Each slice can make progress from a focused prompt and project files.
-4. The controller can review and integrate the results.
-
-Write-scope rules:
+## Write-Scope Rules
 
 - Concurrent read-only slices may share a workspace.
 - Concurrent write slices require isolated worktrees or equivalent copies.
 - Treat lockfiles, generated output, migrations, repository-wide formatting, git state, shared services, and test databases as shared write scope.
-
-If failures may share one root cause, the task needs one coherent design decision, or coordination costs more than the work, keep it in one controller flow.
 
 ## Controller Contract
 
@@ -63,6 +59,13 @@ Before dispatching:
 
 - State the slices and ownership boundaries.
 - Pass only task-local context workers cannot safely infer: goal, inputs, constraints, known evidence, excluded scope, expected output, and definition of done.
+- Every worker brief must state:
+  - whether the worker is a leaf executor or nested controller
+  - the active domain method it must follow when one applies; otherwise, the task-specific procedure and acceptance contract
+  - its permitted read and write scope
+  - the isolation boundary in effect
+  - whether further delegation is allowed
+- When using a dynamic workflow, encode these contracts in each `agent()` prompt or structured input. Do not assume main-session skill content is inherited by workflow workers.
 - Require every slice to return a compact result: conclusion or completed work, evidence, confidence, open issues, artifact pointer, and recommended next action.
 - For coding slices, also require changed paths, checks run, and result summary.
 - For scout slices, require ranked evidence paths, concise conclusions, and unresolved blockers.
@@ -82,14 +85,8 @@ After results return:
 2. Check changed paths and shared-contract assumptions for overlap or conflicts.
 3. Treat a result as stale when another slice changed a shared contract or dependency it relied on.
 4. Integrate deliberately.
-5. Run focused verification that covers the combined result.
-6. Report what each owner did and what was verified.
-
-## Direct Delegation Versus Orchestration
-
-- One focused Explore, Plan, or general-purpose delegation is ordinary task execution, not this workflow.
-- Use this skill only when multiple owners, dependencies, integration points, or repeated pipeline stages must be coordinated.
-- Do not wrap an already-selected dynamic workflow or agent team in another orchestration layer.
+5. Ensure the applicable domain method, or the task-specific acceptance contract when no domain method applies, covers the integrated result. Reuse valid per-slice evidence and run only the missing aggregate check.
+6. Report the integrated outcome, material evidence, failures, and unresolved gaps. Identify individual owners only when traceability matters.
 
 ## Method Ownership
 
@@ -119,6 +116,7 @@ Re-check delegated work only when:
 ## Nested Delegation And Exit
 
 - Ordinary workers remain leaf executors.
+- Put the leaf-or-controller decision in the delegated prompt itself. Before restricting a leaf worker's agent or skill delegation tools, include or preload every domain method and reference the worker must use.
 - Workers must not activate `agent-workflow` or spawn additional agents unless they were explicitly assigned as nested controllers with a defined integration boundary.
 - Exit after delegated results are integrated and the combined result has focused verification.
 - Do not continue spawning agents for ordinary follow-up edits, formatting, or small fixes.
@@ -133,12 +131,6 @@ Use these references when the delegated shape is clear:
 - Separate milestone verifier: [fresh-context-verification.md](references/fresh-context-verification.md)
 - High-stakes candidates plus judges: [review-panel.md](references/review-panel.md)
 - Long briefs or reports: [file-handoffs.md](references/file-handoffs.md)
-
-## Budget And Escalation
-
-- Stay solo when the task is atomic after a quick read or coordination would cost more than the work.
-- Escalate only as far as independence and risk require.
-- Hand off to explicit human review when the remaining decision is policy, taste, irreversible product scope, or missing user-only information.
 
 ## Optional Isolation
 

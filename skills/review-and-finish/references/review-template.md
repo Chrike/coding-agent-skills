@@ -7,7 +7,9 @@ Use when the user asks for a code review, PR review, branch review, or review si
 1. Identify the scope: changed files, diff range, pasted code, or user-specified files.
 2. Read the relevant code and requirements if available.
 3. Prioritize bugs, regressions, missing requirements, data loss, security, and test gaps.
-4. Avoid style nits unless they affect correctness, maintainability, or documented standards.
+4. Determine whether each finding was introduced or exposed by the reviewed change. Report unrelated pre-existing debt separately.
+5. Group findings that share one root cause instead of reporting the same issue at every affected call site.
+6. Avoid style nits unless they affect correctness, maintainability, or documented standards.
 
 ## Output
 

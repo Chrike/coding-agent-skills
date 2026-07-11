@@ -28,4 +28,6 @@ Use project-local files for:
 - have the controller read and condense the artifact instead of forwarding it raw
 - remove transient handoff files after integration unless another active slice still needs them
 - do not create a handoff file when the result is already short enough to pass directly
-- create durable notes only when the work is long-running, likely to hit context compression, or the user asks
+- this pattern owns only transient handoff state
+- do not create durable notes here
+- when the user asks for a checkpoint, compression-safe handoff, or durable resume state, use `memory-handoff`

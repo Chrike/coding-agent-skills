@@ -76,6 +76,25 @@ For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
 Keep `tests/` as maintenance and validation material rather than runtime skills.
 Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targets.
 
+### Recommended Host Skill Visibility
+
+When this full skill suite is installed and Ultracode is the primary multi-agent substrate, prefer host-local Claude Code settings that keep overlapping bundled skills user-invocable only:
+
+```json
+{
+  "skillOverrides": {
+    "batch": "user-invocable-only",
+    "code-review": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "loop": "user-invocable-only"
+  }
+}
+```
+
+`user-invocable-only` hides those skills from automatic selection while still leaving them available from the `/` menu. Keep `/debug` at its host default so Claude Code runtime issues stay with the bundled debug flow, while project product debugging stays in `debug-systematically`.
+
+This is a recommended host configuration for the full suite, not a repository-enforced setting for every install.
+
 ## Repository Layout
 
 - `skills/` contains runtime skill source folders for this repository.

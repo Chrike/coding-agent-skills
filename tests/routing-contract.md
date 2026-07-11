@@ -44,6 +44,13 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Architecture question plus implementation plan | `design-codebase` then `plan-work` |
 | Review plus branch finish | `review-and-finish` then `finish-branch` |
 | Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
+| Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |
+| Independent TDD adapters | `test-strategy` method with `agent-workflow` |
+| Independent package review | `review-and-finish` method with `agent-workflow` |
+| Independent architecture options | `design-codebase` method with `agent-workflow` |
+| Ultracode preparing workflow for independent slices | `agent-workflow` method into that workflow; no second layer |
+| Workflow already running for the same scope | continue the active workflow; do not invoke a new orchestration workflow |
+| Ultracode enabled for one coherent bug | domain skill or base default behavior; not `agent-workflow` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Settled design plus implementation | settled design or base default behavior context |

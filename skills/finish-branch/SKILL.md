@@ -38,14 +38,14 @@ Ask which option they want. Do not choose for them.
 - "Prepare a PR" means inspect branch state and draft the likely PR title, body, and target, but do not create a remote PR unless the user explicitly asks.
 - "Create" or "open" a PR means create the remote PR after the target branch and repository are clear.
 - An explicit commit or push request authorizes that specific action after focused safety checks; do not ask again only because the action is outward-facing.
-- Before merge, confirm the source branch, target branch, and merge method.
+- Before merge, resolve the source branch, target branch, and merge method. Ask only when one remains missing or ambiguous.
 - Require separate explicit confirmation for force-push.
 - Require typed confirmation before destructive discard or delete.
 
 ## Safety Rules
 
 - Before committing, inspect the diff for scope, unintended changes, generated files, and obvious sensitive material. This is a focused branch safety check, not a separate formal code-review workflow.
-- Do not push, merge, force-push, delete, discard, or clean up worktrees without explicit confirmation.
+- Do not push, merge, force-push, delete, discard, or clean up worktrees unless the current user request explicitly authorizes that exact action.
 - Preserve harness-managed or unknown worktrees.
 - Prefer the shell, command style, and project-local checks already used by the repository.
 - If tests fail, do not present the work as ready to merge.

@@ -43,6 +43,13 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Investigate these independent subsystems in parallel. | `agent-workflow` |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` |
 | Add an independent verifier before we continue. | `agent-workflow` |
+| Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` |
+| Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
+| Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |
+| Compare these independent architecture options. | `design-codebase` + `agent-workflow` |
+| Ultracode is preparing a workflow for these independent subsystems. | `agent-workflow` method for that workflow |
+| A workflow for this scope is already running. | continue active workflow; no new orchestration layer |
+| Ultracode is enabled; fix this one coherent bug. | `debug-systematically` or base default behavior |
 | Finish this branch. | `finish-branch` |
 | Commit these changes. | `finish-branch` |
 | Push this branch. | `finish-branch` |
