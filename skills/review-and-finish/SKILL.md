@@ -10,6 +10,7 @@ Handle explicit review, review feedback, and completion verification without tur
 ## First Decision
 
 - User asks for review: inspect the diff/code and report findings first.
+- If the user explicitly invokes a bundled review command such as `/code-review`, let that host-provided review workflow own the fresh review pass instead of duplicating it here.
 - User shares feedback: verify each item against the codebase before changing it.
 - User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the smallest missing check or state why verification is unavailable.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
@@ -29,6 +30,8 @@ Default to a failure-path-first review posture:
 - keep review and repair separate unless the user explicitly asks for both
 
 Use [review-template.md](references/review-template.md) for fuller review shape.
+
+When the user provides external feedback or asks whether current work is done, fixed, passing, or ready, prefer this skill's feedback and completion flow over opening a fresh review pass.
 
 ## Feedback Handling
 

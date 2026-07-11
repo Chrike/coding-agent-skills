@@ -36,6 +36,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | This test is flaky; diagnose it. | `debug-systematically` |
 | Add regression tests for this bug. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
+| `/code-review` | bundled review command |
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
 | Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
 | Finish this branch. | `finish-branch` |

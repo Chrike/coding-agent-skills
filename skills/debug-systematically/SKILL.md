@@ -13,6 +13,8 @@ Do not use the full workflow for obvious compile errors, typos, missing imports,
 
 If the primary problem is test design, test seams, fixtures, mocks, assertions, or wait strategy rather than unclear product behavior, use `test-strategy` instead.
 
+If the problem concerns Claude Code installation, session behavior, tool execution, or runtime logs rather than project code, use bundled `/debug` instead.
+
 Use this workflow when the bug is unclear, flaky, cross-component, performance-related, a regression, or has survived previous fixes.
 
 ## Core Loop
