@@ -20,12 +20,13 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Tests, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage | `test-strategy` |
-| Explicit review feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `feedback-and-completion` |
-| Fresh code, diff, branch, or PR review, or bundled `/code-review` | host review workflow |
+| Explicit review, feedback, done/fixed/passing check, or development-artifact ready/finalize/send gate | `review-and-finish` |
+| Explicit bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
+| Two or more independent work slices, repeated per-item pipeline, scout slices, or independent verification requiring coordinated multi-agent execution | `agent-workflow` |
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
@@ -41,7 +42,8 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | --- | --- |
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
 | Architecture question plus implementation plan | `design-codebase` then `plan-work` |
-| Feedback or completion check plus branch finish | `feedback-and-completion` then `finish-branch` |
+| Review plus branch finish | `review-and-finish` then `finish-branch` |
+| Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Settled design plus implementation | settled design or base default behavior context |

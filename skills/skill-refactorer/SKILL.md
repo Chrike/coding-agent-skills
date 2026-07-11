@@ -13,7 +13,7 @@ Preserve durable intent while removing outdated procedure text. Requests like â€
 - Do not use it for ordinary code implementation, ordinary refactors, ordinary review, or ordinary planning.
 - If the user is designing a new skill, comparing workflow structures, or asking for an implementation plan, use `plan-work` or another installed workflow that owns that design work instead.
 - If the user is explicitly challenging evidence, source use, or whether the right files were read, use `reliability-check` instead.
-- If the user wants feedback handling or completion verification for code or document changes, use `feedback-and-completion` instead.
+- If the user wants review findings, feedback handling, or completion verification for code or document changes, use `review-and-finish` instead.
 
 ## What To Preserve
 
@@ -23,13 +23,14 @@ Keep only what still carries durable value in the target:
 - owner preferences that are still genuinely wanted
 - routing boundaries or concrete maintenance facts that the target still depends on
 - domain facts, file paths, schemas, or other concrete project knowledge
+- operational methods, evidence contracts, exit conditions, or integration rules that the host capability does not guarantee
 
 ## What To Remove Or Compress
 
 Refactoring targets usually include:
 
 - standing rules already defined elsewhere in always-on instructions
-- outdated procedure text such as rigid step sequences or repeated reminders
+- outdated step sequences whose decisions are already enforced reliably by the current host or another active workflow
 - repeated warnings that do not add a new boundary
 - frontmatter trigger logic duplicated again in the body
 - outdated caveats tied to constraints that no longer apply

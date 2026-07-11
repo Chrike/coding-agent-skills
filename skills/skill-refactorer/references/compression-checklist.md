@@ -26,4 +26,5 @@ Use this only after `skill-refactorer` is already active and the main file still
 
 ## Final check
 
-If the rewritten main file still reads like a maintenance essay instead of a narrow workflow boundary, compress again.
+- Do not compress a procedure merely because the host has a generic capability with a similar name.
+- If the rewritten main file still reads like a maintenance essay instead of a narrow workflow boundary, compress again.

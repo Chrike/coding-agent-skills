@@ -8,10 +8,11 @@
       "skills": [
         "debug-systematically",
         "test-strategy",
-        "feedback-and-completion",
+        "review-and-finish",
         "plan-work",
         "design-codebase",
-        "reliability-check"
+        "reliability-check",
+        "agent-workflow"
       ]
     },
     {

@@ -1,6 +1,6 @@
 ---
 name: finish-branch
-description: Use when the user clearly asks to commit, push, merge, discard, prepare a PR, or otherwise wrap up branch state. Keep feedback handling and completion checks in `feedback-and-completion`.
+description: Use when the user clearly asks to commit, push, merge, discard, prepare a PR, or otherwise wrap up branch state. Keep review and completion checks in `review-and-finish`.
 ---
 
 # Finish Branch
@@ -11,7 +11,7 @@ Use this when the request clearly names a branch-ending action. Clear natural-la
 
 - If the user asks generally to finish or wrap up a branch, inspect the current branch state and present concise options.
 - If the user asks for a specific branch action, treat that explicit request as authorization for that action and perform only that action after focused safety checks.
-- If the user is asking for feedback handling or completion verification rather than a branch action, use `feedback-and-completion` instead.
+- If the user is asking for code review or completion verification rather than a branch action, use `review-and-finish` instead.
 - Do not infer commit, push, merge, discard, or PR creation from vague readiness or status questions.
 
 ## Before Options

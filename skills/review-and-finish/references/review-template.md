@@ -1,0 +1,35 @@
+# Review Template
+
+Use when the user asks for a code review, PR review, branch review, or review since a ref.
+
+## Process
+
+1. Identify the scope: changed files, diff range, pasted code, or user-specified files.
+2. Read the relevant code and requirements if available.
+3. Prioritize bugs, regressions, missing requirements, data loss, security, and test gaps.
+4. Avoid style nits unless they affect correctness, maintainability, or documented standards.
+
+## Output
+
+Lead with findings:
+
+```md
+Findings
+- [Severity] File:line - Issue. Why it matters. Suggested fix.
+
+Open Questions
+- ...
+
+Summary
+- ...
+```
+
+Severity guidance:
+
+| Severity | Use For |
+| --- | --- |
+| Critical | Broken behavior, data loss, security, dangerous operation. |
+| Important | Missing requirement, likely regression, poor error handling, serious test gap. |
+| Minor | Maintainability, confusing code, low-risk edge case. |
+
+If no issues are found, say that clearly and mention remaining test or verification gaps.

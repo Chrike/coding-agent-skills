@@ -41,10 +41,11 @@ These can be selected by the agent when the request clearly matches.
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
 | `test-strategy`        | Tests, TDD, mocks, flaky tests, regression coverage          |
-| `feedback-and-completion` | Review feedback handling, done/fixed/passing verification, delivery readiness |
+| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback |
 | `plan-work`            | Explicit planning, approach comparison, roadmap, task breakdown, vertical slices |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
+| `agent-workflow`       | Multi-agent decomposition, ownership, evidence, verification, and integration method |
 
 ### Explicit-Intent Workflow Skills
 
@@ -89,7 +90,8 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 The current runtime surface is organized as follows:
 
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
-- `debug-systematically`, `test-strategy`, and `feedback-and-completion` cover core coding execution workflows.
+- `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
+- `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
@@ -114,15 +116,16 @@ Start with the smallest set that matches your actual workflow.
 1. Base always-on behavior assembled from `prompts/CLAUDE.fragment.md` into your host instruction file
 2. `debug-systematically`
 3. `test-strategy`
-4. `feedback-and-completion`
+4. `review-and-finish`
 
 ### Optional Automatic Skills
 
-Add these if you regularly ask for explicit planning, design, reassessment, or orchestration:
+Add these if you regularly ask for explicit planning, design, reassessment, or multi-agent orchestration:
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `agent-workflow`
 
 ### Optional Explicit-Intent Workflows
 

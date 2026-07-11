@@ -41,10 +41,11 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | 原因不明的 Bug、不稳定行为、回归问题、性能瓶颈、反复修复失败 |
 | `test-strategy`        | 测试、TDD、Mock、不稳定测试、回归覆盖                        |
-| `feedback-and-completion` | 评审反馈处理、完成/修复/通过验证、交付就绪判断              |
+| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈              |
 | `plan-work`            | 显式规划、方案对比、路线图、任务拆解、垂直切片               |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计                 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
+| `agent-workflow`       | 多代理拆分、所有权、证据、验证与集成方法                     |
 
 ### 显式意图工作流技能
 
@@ -88,7 +89,8 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 当前运行时表面的组织方式如下：
 
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
-- `debug-systematically`、`test-strategy` 与 `feedback-and-completion` 覆盖核心编码执行工作流。
+- `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
+- `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
@@ -113,15 +115,16 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 1. 由 `prompts/CLAUDE.fragment.md` 组装到宿主常驻指令文件中的基础默认行为
 2. `debug-systematically`
 3. `test-strategy`
-4. `feedback-and-completion`
+4. `review-and-finish`
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计、重新评估或 orchestration，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估或多代理编排，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `agent-workflow`
 
 ### 可选显式意图工作流
 

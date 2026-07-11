@@ -1,21 +1,35 @@
 ---
-name: feedback-and-completion
-description: Use when the user provides review feedback to evaluate or implement, or asks whether current work is done, fixed, passing, or ready. Do not use for a fresh code, diff, branch, or PR review.
+name: review-and-finish
+description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback.
 ---
 
-# Feedback And Completion
+# Review And Finish
 
-Handle review feedback and completion verification without opening a fresh code review or turning those requests into automatic branch actions.
+Handle explicit review, review feedback, and completion verification without turning those requests into automatic branch actions.
 
 ## First Decision
 
-- If the user explicitly invokes a bundled review command such as `/code-review`, or asks for a fresh code, diff, branch, or PR review, let the host review workflow own that pass instead of duplicating it here.
+- User asks for review: inspect the diff/code and report findings first.
+- If the user explicitly invokes a bundled review command such as `/code-review`, let that host-provided review workflow own the fresh review pass instead of duplicating it here.
 - User shares feedback: verify each item against the codebase before changing it.
 - User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the smallest missing check or state why verification is unavailable.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
 - Ordinary small edit: do not auto-review, commit, push, merge, or start branch cleanup.
 
-Choose the active mode from the user's latest request. Do not blend feedback handling, completion verification, and branch actions unless the user explicitly asks for both completion and branch wrap-up, and route the branch part through `finish-branch`.
+Choose the active mode from the user's latest request. Do not blend review, completion verification, and branch actions unless the user explicitly asks for both review and branch wrap-up, and route the branch part through `finish-branch`.
+
+## Review Output
+
+When reviewing, lead with findings ordered by severity. Use file and line references when available. Keep summary secondary.
+
+Default to a failure-path-first review posture:
+
+- start by asking how the artifact could be wrong, incomplete, unsafe, or over-claimed
+- prefer concrete failure paths, boundary cases, trust assumptions, and omitted constraints over surface polish comments
+- drop findings that you cannot ground in the current code, artifact, or reproducible scenario
+- keep review and repair separate unless the user explicitly asks for both
+
+Use [review-template.md](references/review-template.md) for fuller review shape.
 
 When the user provides external feedback or asks whether current work is done, fixed, passing, or ready, prefer this skill's feedback and completion flow over opening a fresh review pass.
 
@@ -27,8 +41,8 @@ Use [feedback-handling.md](references/feedback-handling.md) for review-comment w
 
 ## Exit To Implementation
 
-- If feedback triage was already completed and the latest request is to implement the settled result, exit this workflow and continue in the base implementation flow.
-- Do not repeat feedback intake or re-verify the same settled items unless relevant code changed, new evidence contradicts an item, or the user explicitly asks for another pass.
+- If review findings or feedback triage were already completed and the latest request is to implement the settled result, exit this workflow and continue in the base implementation flow.
+- Do not repeat review intake or re-verify the same settled findings unless relevant code changed, new evidence contradicts a finding, or the user explicitly asks for another review.
 - During implementation, verify the applied change rather than reopening the settled decision to make that change.
 
 ## Completion Claims
