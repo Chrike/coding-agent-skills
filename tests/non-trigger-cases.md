@@ -42,18 +42,22 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Use one focused Explore for this single search question. | `agent-workflow` | one focused delegation is ordinary execution, not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
 | The shared root cause is still unclear; fan out scouts immediately. | `agent-workflow` | unresolved shared-root diagnosis must start with `debug-systematically`, not scout fan-out |
-| Ultracode is enabled; fix this one coherent bug. | `agent-workflow` | host multi-agent substrate alone is not an orchestration trigger |
-| A workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
+| Host multi-agent capability is available; fix this one coherent bug. | `agent-workflow` | host multi-agent capability alone is not an orchestration trigger |
+| A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
 | Summarize all the user questions from above, not your own answers. | `reliability-check`, `issue-workflow` | summary-object correction should stay in the default layer rather than becoming corrective analysis or artifact drafting |
 | This is not a new task; only change the output format to a table. | `plan-work`, `reliability-check` | a format correction should not be misread as task replacement or corrective workflow |
 | The goal is clear; only the implementation detail is still open, so pick a reasonable default and continue. | `plan-work`, `reliability-check`, `design-codebase` | implementation-detail ambiguity alone should not force a planning, corrective, or redesign workflow |
 | The context is getting long, but the task is still executable, so keep going instead of stopping early to hand off. | `memory-handoff`, `decision-map` | context length alone should not trigger a handoff or durable state workflow when execution can continue |
+| This long-running task has many files and agents, but no one asked to pause, checkpoint, hand off, compress, or resume it. | `memory-handoff` | long-running execution alone is not a handoff trigger |
+| Remember my personal preference for this repository in Claude Code. | `markdown-memory` | host auto memory for a personal or host-local learning must not create a project lesson |
+| This completed change has a large diff and took multiple agents, but it affects no behavioral high-risk area. | `review-and-finish` | diff size, duration, and agent count alone do not require a focused readiness check |
 | Before changing this config, check that the evidence supports that exact action first. | `reliability-check`, `review-and-finish` | evidence-before-action should stay in the default layer unless the user explicitly asks for reassessment or completion review |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | `reliability-check`, `issue-workflow`, `decision-map` | reference-vs-instruction handling should stay in the default layer unless the user explicitly asks for corrective reassessment or a durable artifact workflow |
 | Update the handoff with the latest checkpoint before we compress. | `review-and-finish` | explicit checkpoint and compression work should stay in `memory-handoff` |
 | We are still implementing this slice; give me the current partial result and blocker only. | `review-and-finish` | mid-run status reporting should stay in the default layer unless the user explicitly asks for delegation |
 | The build or test output is very long; summarize only the key failure, blocker, and next step instead of pasting the full log. | `memory-handoff`, `decision-map`, `issue-workflow` | routine long command output handling should stay in the default layer unless the user explicitly asks for durable tracking |
+| Prototype this interface only by installing a package, calling an external service, retaining a route or output file, or changing real data. | `design-codebase` automatic prototype | a prototype outside the local throwaway gate requires user agreement |
 
 ## Review / Branch Split Must Not Collapse
 

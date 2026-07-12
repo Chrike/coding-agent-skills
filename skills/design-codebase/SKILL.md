@@ -13,7 +13,7 @@ Use architecture language to improve leverage, locality, and testability without
 - If an implementation depends on a non-obvious architecture, ownership, interface, or dependency-boundary decision that existing patterns cannot safely settle, use this workflow to resolve that decision.
 - If the user asks where an interface or seam should live, inspect the directly affected callers, dependencies, tests, and constraints first.
 - If the user asks to improve architecture, identify the actual design pressure before choosing lenses such as shallow modules or leakage across seams.
-- If the design question needs runnable feedback, suggest a throwaway prototype; build it only when the user asks or agrees.
+- If the design question needs runnable feedback, build one local throwaway prototype without another approval only when it answers one concrete decision question, uses existing project tooling, adds no dependency, runtime, or configuration, makes no external call or mutation, creates no persistent state or artifact, stays within the requested scope, and is fully cleaned up in the same pass. Propose it and get agreement for every other prototype.
 - If the user asks for broad planning, use the planning workflow instead of duplicating it here.
 
 ## Design Runbook
@@ -71,6 +71,6 @@ Use these checks to support the runbook rather than replace it:
 
 ## Boundaries
 
-Do not automatically create glossary files, domain-context files, ADRs, architecture reports, HTML files, prototypes, subagent workflows, or broad refactors.
+Do not automatically create glossary files, domain-context files, ADRs, architecture reports, HTML files, subagent workflows, or broad refactors. The only prototype exception is the local, existing-tooling, no-dependency, no-external-effect, no-persistent-artifact, same-pass-cleanup case above.
 
 Only create durable design artifacts when the user asks, or when a hard-to-reverse and surprising trade-off has been explicitly chosen and the user agrees it should be recorded.

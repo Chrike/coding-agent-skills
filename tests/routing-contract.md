@@ -20,7 +20,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a substantial/high-risk completed change needing focused readiness evidence | `review-and-finish` |
+| Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a behaviorally high-risk completed change needing focused readiness evidence | `review-and-finish` |
 | Explicit bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
@@ -30,7 +30,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
-| Explicit durable lesson, correction, or confirmed-approach memory workflow | `markdown-memory` |
+| Explicit project-versioned, shared, or reviewable lesson, correction, or confirmed-approach workflow | `markdown-memory` |
 | Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
 | Explicit durable multi-session decision frontier | `decision-map` |
 
@@ -48,9 +48,9 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Independent TDD adapters | `test-strategy` method with `agent-workflow` |
 | Independent package review | `review-and-finish` method with `agent-workflow` |
 | Independent architecture options | `design-codebase` method with `agent-workflow` |
-| Ultracode preparing workflow for independent slices | `agent-workflow` method into that workflow; no second layer |
-| Workflow already running for the same scope | continue the active workflow; do not invoke a new orchestration workflow |
-| Ultracode enabled for one coherent bug | domain skill or base default behavior; not `agent-workflow` |
+| Host multi-agent workflow being prepared for independent slices | `agent-workflow` method into that workflow; no second layer |
+| Host multi-agent workflow already running for the same scope | continue the active workflow; do not invoke a new orchestration workflow |
+| Host multi-agent capability available for one coherent bug | domain skill or base default behavior; not `agent-workflow` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Settled design plus implementation | settled design or base default behavior context |

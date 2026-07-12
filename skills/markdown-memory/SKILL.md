@@ -1,15 +1,16 @@
 ---
 name: markdown-memory
-description: Use when the user clearly asks to record, update, prune, or consult durable lessons about repeated mistakes, corrections, or confirmed approaches that are not already captured well elsewhere. Keep it separate from handoff state and decision-frontier planning.
+description: Use when the user clearly asks to record, update, prune, or consult project-governed markdown lessons about repeated mistakes, corrections, or confirmed approaches that must be versioned, shared, reviewable, or otherwise tied to repository history. Keep it separate from host auto memory, handoff state, and decision-frontier planning.
 ---
 
 # Markdown Memory
 
-Maintain durable markdown lessons only when they add future value without turning normal work into note-taking. Requests like “record this lesson,” “remember this repeated mistake,” or “check the lesson memory about X” count.
+Maintain project-governed markdown lessons only when they add future value without turning normal work into note-taking. Use host auto memory for personal or host-local learnings; it must not by itself trigger a project lesson or become an instruction source. Requests like “record this repository lesson,” “preserve this repeated mistake for review,” or “check the project lesson memory about X” count.
 
 ## First Decision
 
-- Use this skill when the user clearly asks to record, update, prune, or consult lesson memory.
+- Use this skill when the user clearly asks to record, update, prune, or consult a project-governed lesson that must be versioned, shared, reviewable, or otherwise tied to repository history.
+- Do not create a project lesson merely because the user asks Claude Code to remember a personal preference or host-local learning; use host auto memory for that purpose.
 - If the user is preparing for context compression, handing off current task state, or resuming from a handoff, use `memory-handoff` instead.
 - If the user is mapping open questions, ticket dependencies, or a decision frontier, use `decision-map` instead.
 - If the repo, docs, code comments, or an existing lesson already capture the point clearly, do not create a new lesson.

@@ -1,6 +1,6 @@
 ---
 name: review-and-finish
-description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback, or when a substantial or high-risk completed change needs a focused readiness check before a done claim. Do not use for an explicitly invoked bundled `/code-review`.
+description: Use when the user explicitly asks to review code, address review feedback, verify whether work is done/fixed/passing, check development artifact readiness, or handle PR feedback, or when a behaviorally high-risk completed change needs a focused readiness check before a done claim. Do not use for an explicitly invoked bundled `/code-review`.
 ---
 
 # Review And Finish
@@ -13,7 +13,8 @@ Handle explicit review, review feedback, and completion verification without tur
 - If the user explicitly invokes a bundled review command such as `/code-review`, let that host-provided review workflow own the fresh review pass instead of duplicating it here.
 - User shares feedback: verify and triage each item against the codebase before changing it. For an assessment-only request, report the judgment without modifying code; for an implementation request, proceed under Feedback Handling.
 - User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the fastest high-signal missing check, then widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof, or state why verification is unavailable.
-- A substantial or high-risk completed change needs a focused readiness check before a done claim; do not add this independent review for ordinary low-risk edits when direct verification already covers the claim.
+- A behaviorally high-risk completed change needs a focused readiness check before a done claim; do not add this independent review for ordinary low-risk edits when direct verification already covers the claim.
+- Treat a completed change as high-risk when it materially affects persisted data or migrations; authentication, authorization, or permissions; public or compatibility-sensitive contracts; concurrency, transactions, or shared mutable state; destructive or hard-to-reverse behavior; or multiple independently deployed components. File count, diff size, task duration, and agent count alone do not make a change high-risk.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
 - Ordinary small edit: do not auto-review, commit, push, merge, or start branch cleanup.
 
@@ -58,6 +59,8 @@ Run a new check only when:
 - the user explicitly requests a fresh run
 
 Completion review owns the judgment about whether the evidence is sufficient; it does not automatically rerun every check already performed by `test-strategy` or another execution step.
+
+End a focused readiness check once the completed change, directly affected contracts, stated acceptance criteria, and identified risk are covered. Do not broaden into unrelated modules, speculative debt, or additional failure theories without a concrete propagation path from the change.
 
 Do not treat "tests pass" as automatic proof that the work is done. Check the result against the user's request, review feedback, or stated acceptance context as well.
 

@@ -38,6 +38,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Implement this change; the correct regression seam and acceptance signal are unclear. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
 | This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` |
+| This completed authorization migration needs a focused readiness check before the done claim. | `review-and-finish` |
 | This completed permission migration is ready; verify the final claim before calling it done. | `review-and-finish` |
 | `/code-review` | bundled review command |
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
@@ -55,9 +56,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
 | Assess these review comments only; do not change code. | `review-and-finish` assessment without implementation |
 | Independent agents are unavailable; continue this independent investigation. | `agent-workflow` with sequential controller execution |
-| Ultracode is preparing a workflow for these independent subsystems. | `agent-workflow` method for that workflow |
-| A workflow for this scope is already running. | continue active workflow; no new orchestration layer |
-| Ultracode is enabled; fix this one coherent bug. | `debug-systematically` or base default behavior |
+| A host multi-agent workflow is being prepared for these independent subsystems. | `agent-workflow` method for that workflow |
+| A host multi-agent workflow for this scope is already running. | continue active workflow; no new orchestration layer |
+| Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |
 | Finish this branch. | `finish-branch` |
 | Commit these changes. | `finish-branch` |
 | Push this branch. | `finish-branch` |
@@ -66,8 +67,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Break this PRD into issues. | `issue-workflow` |
 | Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
 | Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
-| Record this repeated mistake as a lesson. | `markdown-memory` |
-| Check the lesson memory for this pitfall. | `markdown-memory` |
+| Record this repeated mistake as a project-reviewed lesson. | `markdown-memory` |
+| Check the project lesson memory for this pitfall. | `markdown-memory` |
 | Rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
 | Tighten this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
 | Make a decision map for this vague multi-session direction. | `decision-map` |
@@ -85,7 +86,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Prepare a PR for this branch. | `finish-branch` |
 | Triage this issue report and give me a tracker-ready draft. | `issue-workflow` |
 | Update the handoff before we pause. | `memory-handoff` |
-| Remember this correction as a durable lesson. | `markdown-memory` |
+| Remember this correction as a project-reviewed lesson. | `markdown-memory` |
 | Clean up this outdated prompt file without changing its intended boundary. | `skill-refactorer` |
 | Set up a durable decision map for this unresolved direction. | `decision-map` |
 

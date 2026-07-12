@@ -35,7 +35,7 @@ Use small, numbered tickets. Size each ticket as one coherent decision question 
 | Prototype | testing a design or behavior hypothesis in code | throwaway prototype artifact and short conclusion |
 | Discuss | resolving uncertainty through focused analysis with the user | concise decision note in the map |
 
-Prefer research, code inspection, or existing evidence when they can resolve the uncertainty. Propose a reversible prototype when it would discriminate between options, and build it only when the user asks or agrees. Use `Discuss` when the remaining choice depends on product intent, value judgment, taste, policy, or other user-only information.
+Prefer research, code inspection, or existing evidence when they can resolve the uncertainty. Propose a reversible prototype when it would discriminate between options, and build it only when the user asks or agrees. The automatic local prototype exception in `design-codebase` does not apply to a decision-map prototype ticket because this workflow updates a durable multi-session frontier. Use `Discuss` when the remaining choice depends on product intent, value judgment, taste, policy, or other user-only information.
 
 ## Workflow
 

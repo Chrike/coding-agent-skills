@@ -63,4 +63,4 @@ Use bullet lists when they make state easier to scan. Avoid narrative session hi
 
 - Do not store secrets, credentials, private data, or unrelated user information.
 - Do not copy large source content into handoff notes. Reference paths instead.
-- Do not make memory updates a default step for ordinary tasks. Use them at compression points, handoffs, long-running work, or when the user asks.
+- Do not make memory updates a default step for ordinary tasks. Use them at explicit compression, handoff, checkpoint, or resume moments during long-running work, or when the user asks.

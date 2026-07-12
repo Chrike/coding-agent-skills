@@ -41,7 +41,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | 原因不明的 Bug、不稳定行为、回归问题、性能瓶颈、反复修复失败 |
 | `test-strategy`        | 测试设计、TDD、Mock、不稳定测试、回归覆盖，或非显而易见的测试层级/接缝/验收信号 |
-| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或重大/高风险完成变更的聚焦就绪证据 |
+| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据 |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
@@ -56,7 +56,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `finish-branch`     | 显式提交、推送、合并、PR 准备、丢弃变更、分支收尾            |
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、分诊                |
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
-| `markdown-memory`   | 持久化 lessons、重复错误、纠正记录、已验证做法               |
+| `markdown-memory`   | 显式项目版本化、共享或可审阅的 Markdown lessons              |
 | `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
 | `decision-map`      | 跨会话持久化决策图                                           |
 
@@ -77,7 +77,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 ### 推荐的宿主 skill 可见性配置
 
-当完整安装本 skill suite，并以 Ultracode 作为主要多代理执行载体时，建议在 Claude Code 的宿主本地设置中，将可能重叠的 bundled skills 设为仅用户可调用：
+当完整安装本 skill suite，并以宿主多代理工作流作为主要执行载体时，建议在 Claude Code 的宿主本地设置中，将可能重叠的 bundled skills 设为仅用户可调用：
 
 ```json
 {
@@ -121,7 +121,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - 汇报与总结纪律落在 `prompts/CLAUDE.fragment.md`。
 - 执行节奏与 act-when-ready 边界落在维护中的 prompt 文件。
 - 默认层的范围控制与改动克制规则落在维护中的 prompt 文件。
-- 持久化 markdown lessons 落在 `skills/markdown-memory/SKILL.md`。
+- 显式项目版本化、共享或可审阅的 markdown lessons 落在 `skills/markdown-memory/SKILL.md`；宿主 auto memory 仍负责个人或本地学习上下文。
 - prompt 与 skill 维护清理落在 `skills/skill-refactorer/SKILL.md`。
 - 外部参考材料仍然只用于维护判断，不属于当前 runtime 安装面。
 

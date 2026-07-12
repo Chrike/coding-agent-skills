@@ -16,7 +16,7 @@ Do not use long exploratory output alone as the reason to fan out.
 - Use multiple scouts only when their primary questions are orthogonal.
 - Give each scout a distinct question, subsystem, source boundary, failure path, or architecture option.
 - Do not assign the same primary files, search terms, or evidence question to multiple scouts merely to increase confidence.
-- Include already-checked paths and explicitly excluded paths in each brief.
+- Include already-checked paths and explicitly excluded paths in each brief when they are needed to prevent duplicate investigation or define the scout boundary.
 - The controller must not search a scout's assigned scope while that scout is active.
 - If overlap becomes apparent after launch, narrow or stop one scout instead of allowing both to finish the same investigation.
 

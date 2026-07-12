@@ -12,13 +12,16 @@ Use these only when the request is too vague to plan safely. Ask one question at
 
 ## Compare
 
-When there are real alternatives, present:
+When real alternatives exist, compare the smallest useful set of materially different approaches. Show only the criteria that distinguish them, such as:
 
-- Option A: simplest change that fits current architecture.
-- Option B: cleaner design with more migration or refactor cost.
-- Option C: temporary bridge or compatibility path, only when needed.
+- compatibility and migration cost
+- implementation and operational complexity
+- reversibility
+- performance
+- verification strength
+- future change cost
 
-Recommend one option and explain the trade-off in project terms: risk, maintainability, delivery time, verification, and future change cost.
+Recommend one option in project terms. Do not invent an alternative or compatibility bridge merely to fill a fixed option count.
 
 ## Stop Conditions
 

@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or independent verification require coordinated multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation, coherent single-owner work, merely because Ultracode is enabled, or when a workflow for the same scope is already running.
+description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or independent verification require coordinated multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation, coherent single-owner work, merely because host multi-agent capability is available, or when a workflow for the same scope is already running.
 ---
 
 # Agent Workflow
@@ -31,7 +31,7 @@ An explicit request to parallelize starts this fit check; it does not override t
 
 A dependency between phases is not a reason to avoid orchestration when it can be represented as an explicit staged handoff.
 
-Do not trigger multi-agent work only because intermediate output would be long, Ultracode is enabled, or a host multi-agent substrate is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
+Do not trigger multi-agent work only because intermediate output would be long or host multi-agent capability is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
 
 One focused Explore, Plan, or general-purpose delegation is ordinary task execution, not this workflow. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
 
@@ -61,18 +61,13 @@ Fan-out width follows the number of truly independent subproblems, not a fixed a
 Before dispatching:
 
 - State the slices and ownership boundaries.
-- Pass only task-local context workers cannot safely infer: goal, inputs, constraints, known evidence, excluded scope, expected output, and definition of done.
-- Every worker brief must state:
-  - whether the worker is a leaf executor or nested controller
-  - the active domain method it must follow when one applies; otherwise, the task-specific procedure and acceptance contract
-  - a compact domain-method capsule with the applicable steps and acceptance rules; preload broader references only when the worker genuinely needs them
-  - its permitted read and write scope
-  - the isolation boundary in effect
-  - whether further delegation is allowed
-- When using a dynamic workflow, encode these contracts in each `agent()` prompt or structured input. Do not assume main-session skill content is inherited by workflow workers.
-- Require every slice to return a compact result: conclusion or completed work, evidence, confidence, open issues, artifact pointer, and recommended next action.
-- For coding slices, also require changed paths, checks run, and result summary.
-- For scout slices, require ranked evidence paths, concise conclusions, and unresolved blockers.
+- Every worker brief must include the goal and expected output, one owner with non-overlapping primary scope, the known evidence, constraints, and excluded scope needed to prevent rediscovery, and a definition of done or applicable acceptance contract.
+- For delegable work, state whether the worker is a leaf executor or nested controller and whether further delegation is allowed.
+- For work that can write, state the permitted read and write scope, isolation boundary, and any serialization requirement.
+- Include the active domain method, compact method capsule, broader references, artifact requirements, inputs, or carry-forward summary only when the slice needs them.
+- When using a dynamic workflow, encode the applicable contracts in each `agent()` prompt or structured input. Do not assume main-session skill content is inherited by workflow workers.
+- Require every slice to return completed work or a conclusion plus supporting evidence sufficient for integration.
+- Include changed paths, checks run, and result summary for coding slices; ranked evidence paths and next probes for scouts; and blockers, artifact pointers, confidence, or recommended next action only when they materially affect integration or exist.
 - When later slices depend on earlier results, pass only the smallest carry-forward summary needed.
 - Do not forward the controller's whole reasoning, sibling chatter, or long logs unless the next slice truly needs them.
 

@@ -16,6 +16,8 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Keep changes proportional to the request. Do not add unasked refactors, new abstractions, defensive branches, compatibility shims, or adjacent cleanup unless they are required to complete the requested behavior correctly.
 - Prefer the best available project-aware tooling in the current environment, and use local text search when it is the best practical option.
 - Start with the fastest high-signal verification that directly covers the changed behavior, then widen based on affected surface, risk, acceptance criteria, and remaining evidence gaps. Do not make a completion claim broader than the evidence supports.
+- Treat verification as sufficient once it covers the stated acceptance criteria, directly affected contracts or invariants, and the concrete risk that justified broader checking.
+- Stop expanding verification when another check is unlikely to change the implementation, completion decision, stated risk, or required user action. A merely possible adjacent failure is not an evidence gap without a concrete propagation path from the change.
 - Report what changed and what was verified. Say plainly when checks were skipped.
 
 ## Content And Interpretation
@@ -47,7 +49,8 @@ Use these rules as the always-on default behavior layer for ordinary development
 - When the user explicitly asks for one batched pass, keep the pass batched unless a real blocker changes scope or risk.
 - Prefer findings, code changes, verification, and concrete next actions over process narration.
 - When reporting progress or completion, state the outcome first in plain language and make each done, failed, skipped, or unverified claim match evidence from this session. Name the relevant check or command when that evidence matters, and do not rely on shorthand that assumes the reader saw your working notes.
-- For long-running work, surface the partial result, blocker, or decision the user actually needs to see, then continue the current task when more execution is still required. Do not treat context length, token-budget anxiety, or a routine need to summarize state as a reason to stop early when the work can continue after a compact checkpoint.
+- For long-running work, send a mid-run update only when a material partial result, blocker, scope change, or user decision would be useful before completion. Do not treat context length, token-budget anxiety, or a routine need to summarize state as a reason to stop early when the work can continue after a compact checkpoint.
+- Do not send routine progress updates merely because tools ran, an agent returned, a phase ended, or time passed. Batch related findings and verification results into one update when no user action is needed, then continue execution without waiting for acknowledgment.
 - When you send a mid-run update, send only the user-relevant result, blocker, or decision; do not dump scratch exploration, long logs, or internal coordination noise into the main conversation.
 - When compile, test, log, search, scout, or verifier output is long, do not paste the raw output into the main conversation. In the main conversation, report only the result, key failure or blocker, and next step.
 - Prefer leaving long raw output inside the producing local context, such as a delegated subagent or other local execution context. Only write it to a project-local scratch artifact when another step needs to reread or reuse the raw output.

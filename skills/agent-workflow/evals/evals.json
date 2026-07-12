@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Ultracode is preparing one workflow to inspect three independent subsystems for separate compatibility failures. Define the execution approach without creating a competing orchestration layer.",
-      "expected_output": "Uses the prepared host workflow as the sole execution layer, assigns distinct subsystem scopes, passes evidence and result contracts to workers, and defines integration.",
+      "prompt": "A host multi-agent workflow is being prepared to inspect three independent subsystems for separate compatibility failures. Define the execution approach without creating a competing orchestration layer.",
+      "expected_output": "Uses the prepared host workflow as the sole execution layer, assigns distinct subsystem scopes, passes the core brief and evidence contracts to workers, and defines integration without requiring irrelevant empty result fields.",
       "assertions": [
         "The response treats the prepared host workflow as the sole orchestration layer.",
         "Each subsystem has a distinct owner or non-overlapping scope.",
-        "Worker briefs include scope, relevant evidence, and a compact result contract.",
+        "Worker briefs include the goal, scope, relevant evidence or constraints, and a definition of done or acceptance contract.",
+        "The response requires completed work or a conclusion plus supporting integration evidence without demanding non-applicable empty fields.",
         "The response includes an integration step.",
         "The response does not propose a competing workflow or agent team."
       ]
@@ -34,6 +35,17 @@
         "The response does not perform concurrent writes without safe isolation.",
         "The response serializes write slices in the current workspace.",
         "The final verification reuses valid per-slice evidence and adds only the missing aggregate check."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Assign one read-only scout to identify rollback paths. No files will change and no handoff artifact is needed.",
+      "expected_output": "Defines one owner, the focused evidence question, and a concise evidence-bearing result without demanding changed paths, checks, artifact pointers, confidence, or recommended next action that do not apply.",
+      "assertions": [
+        "The response assigns one non-overlapping owner and a focused definition of done.",
+        "The response requires a conclusion plus supporting evidence sufficient for integration.",
+        "The response does not require changed paths or checks for a read-only scout.",
+        "The response does not require an artifact pointer, confidence, or recommended next action when none materially affects integration."
       ]
     }
   ]

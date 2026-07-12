@@ -2,6 +2,19 @@
 
 Build a prototype only when a design question needs runnable feedback. Prototype code is temporary and exists to answer one question.
 
+## Automatic Local Prototype Gate
+
+Build one local throwaway prototype without another approval only when all of these are true:
+
+- it is the fastest discriminating method for one concrete design question
+- it uses only the repository's existing language, runner, and installed tooling
+- it adds no dependency, runtime, framework, configuration, or package installation
+- it makes no network call, external-service access, external mutation, paid-resource use, or destructive data action
+- it creates no persistent project state or durable artifact
+- it stays within the requested scope and is fully removed in the same pass
+
+Propose the prototype and obtain agreement whenever any condition is not true.
+
 ## Logic Prototype
 
 Use for business logic, state transitions, or data shape.

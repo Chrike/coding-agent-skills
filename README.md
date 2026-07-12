@@ -41,7 +41,7 @@ These can be selected by the agent when the request clearly matches.
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
 | `test-strategy`        | Test design, TDD, mocks, flaky tests, regression coverage, or a non-obvious test seam/level/acceptance signal |
-| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a substantial/high-risk completed change |
+| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
@@ -56,7 +56,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `finish-branch`      | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, triage         |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
-| `markdown-memory`    | Durable lessons, repeated mistakes, corrections, confirmed approaches |
+| `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown lessons |
 | `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
 | `decision-map`       | Durable multi-session decision maps                          |
 
@@ -78,7 +78,7 @@ Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targe
 
 ### Recommended Host Skill Visibility
 
-When this full skill suite is installed and Ultracode is the primary multi-agent substrate, prefer host-local Claude Code settings that keep overlapping bundled skills user-invocable only:
+When this full skill suite is installed and a host multi-agent workflow is the primary execution substrate, prefer host-local Claude Code settings that keep overlapping bundled skills user-invocable only:
 
 ```json
 {
@@ -122,7 +122,7 @@ The current maintained runtime roles land as follows:
 - Reporting and summary discipline lives in `prompts/CLAUDE.fragment.md`.
 - Execution-flow defaults and act-when-ready behavior live in the maintained prompt file.
 - Default scope control and change-discipline rules live in the maintained prompt file.
-- Durable markdown lessons live in `skills/markdown-memory/SKILL.md`.
+- Explicit project-versioned, shared, or reviewable markdown lessons live in `skills/markdown-memory/SKILL.md`; host auto memory remains host-managed context for personal or local learnings.
 - Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
 - External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
 
