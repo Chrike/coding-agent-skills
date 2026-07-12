@@ -16,6 +16,7 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Keep changes proportional to the request. Do not add unasked refactors, new abstractions, defensive branches, compatibility shims, or adjacent cleanup unless they are required to complete the requested behavior correctly.
 - Prefer the best available project-aware tooling in the current environment, and use local text search when it is the best practical option.
 - Start with the fastest high-signal verification that directly covers the changed behavior, then widen based on affected surface, risk, acceptance criteria, and remaining evidence gaps. Do not make a completion claim broader than the evidence supports.
+- First complete the verification required by the stated acceptance criteria, directly affected contracts or invariants, and identified behavioral risks. Only then use the marginal-value stop rule to decide whether additional checks are justified.
 - Treat verification as sufficient once it covers the stated acceptance criteria, directly affected contracts or invariants, and the concrete risk that justified broader checking.
 - Stop expanding verification when another check is unlikely to change the implementation, completion decision, stated risk, or required user action. A merely possible adjacent failure is not an evidence gap without a concrete propagation path from the change.
 - Report what changed and what was verified. Say plainly when checks were skipped.

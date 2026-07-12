@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or independent verification require coordinated multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation, coherent single-owner work, merely because host multi-agent capability is available, or when a workflow for the same scope is already running.
+description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or multiple coordinated verification questions require multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation or verifier, coherent single-owner work, merely because host multi-agent capability is available, or when a workflow for the same scope is already running.
 ---
 
 # Agent Workflow
@@ -11,11 +11,11 @@ Provide the project's multi-agent orchestration method. The host-selected execut
 
 Use this skill when any of these are true:
 
-- the user explicitly asks to parallelize, scout, or add an independent verifier
+- the user explicitly asks to parallelize, scout, or coordinate multiple independent verifiers
 - the task has multiple independent questions or write scopes that can make progress without the whole chat history
 - the task is a batch of similar items that should run through the same per-item pipeline
 - the task is a high-stakes single artifact that justifies multiple independent candidates plus independent reviewers
-- independent verification is needed during execution, not only as an ordinary end-of-task status check
+- verification needs multiple independent evidence questions, verifier owners, staged handoffs, or integration across delegated slices
 
 Stay solo when any of these apply:
 
@@ -24,7 +24,7 @@ Stay solo when any of these apply:
 - subtasks share the same files, hidden state, unresolved architecture, or root cause
 - every useful slice depends on the same unresolved decision, root cause, or shared design choice, so no slice can make independent progress yet
 - clean ownership boundaries or a safe integration path cannot be named
-- one focused Explore, Plan, or general-purpose delegation is enough
+- one focused Explore, Plan, general-purpose delegation, or verifier is enough
 - coordination would cost more than the work
 
 An explicit request to parallelize starts this fit check; it does not override the stay-solo conditions. Parallel execution still requires independent ownership, safe write isolation when needed, and a clear integration path.
@@ -33,7 +33,7 @@ A dependency between phases is not a reason to avoid orchestration when it can b
 
 Do not trigger multi-agent work only because intermediate output would be long or host multi-agent capability is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
 
-One focused Explore, Plan, or general-purpose delegation is ordinary task execution, not this workflow. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
+One focused Explore, Plan, general-purpose delegation, or verifier is ordinary task execution, not this workflow. Use direct focused verification for one defined evidence question; use this workflow only when verification needs multiple coordinated questions, owners, stages, or integration. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
 
 Hand off to explicit human review when the remaining decision is policy, taste, irreversible product scope, or missing user-only information.
 

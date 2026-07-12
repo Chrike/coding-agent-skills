@@ -26,6 +26,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | This is not a new task; only change the output format to a table. | Base default behavior |
 | The goal is clear; only the implementation detail is still open, so choose a reasonable default and continue. | Base default behavior |
 | Before changing this config, check that the current evidence supports that exact action rather than a nearby guess. | Base default behavior |
+| The focused test passes, but an acceptance criterion, directly affected contract, or identified behavioral risk remains uncovered. | Base default behavior; complete the required verification before deciding whether to stop expanding checks |
 | The context is getting long, but the task is still executable. Keep going instead of stopping early just to hand off. | Base default behavior |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | Base default behavior |
 
@@ -46,8 +47,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
 | Investigate these independent subsystems in parallel. | `agent-workflow` |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` |
-| Add an independent verifier before we continue. | `agent-workflow` |
-| Verify the integrated result independently against its untested rollback path. | `agent-workflow` with a distinct verification evidence question |
+| Add one focused verifier before we continue. | direct focused delegation under the active domain method |
+| Verify the integrated result independently against its untested rollback path. | direct focused delegation under the active domain method |
+| Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` |
 | Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` |
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |

@@ -26,7 +26,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
-| Two or more independent work slices, repeated per-item pipeline, scout slices, or independent verification requiring coordinated multi-agent execution | `agent-workflow` |
+| Two or more independent work slices, repeated per-item pipeline, scout slices, or multiple coordinated verification questions requiring integration | `agent-workflow` |
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
 | Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
@@ -46,6 +46,8 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |
 | Independent TDD adapters | `test-strategy` method with `agent-workflow` |
+| One focused verifier for one evidence question | direct delegation under the active domain method; not `agent-workflow` |
+| Multiple orthogonal verifier scopes requiring coordinated integration | active domain method with `agent-workflow` |
 | Independent package review | `review-and-finish` method with `agent-workflow` |
 | Independent architecture options | `design-codebase` method with `agent-workflow` |
 | Host multi-agent workflow being prepared for independent slices | `agent-workflow` method into that workflow; no second layer |

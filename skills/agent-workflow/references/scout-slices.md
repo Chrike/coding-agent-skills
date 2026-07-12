@@ -33,9 +33,11 @@ Split scouts by orthogonal lenses such as:
 
 Require scouts to return:
 
-- ranked sources or evidence paths
-- concise conclusions
-- source-backed facts
+- the most relevant evidence paths
+- a concise conclusion supported by that evidence
+
+Include only when it exists or materially affects integration:
+
 - working assumptions
 - stale or version-sensitive material
 - unresolved questions
@@ -44,6 +46,6 @@ Require scouts to return:
 ## Controller rules
 
 - dedupe overlapping findings before escalating into implementation work
-- keep scout output to evidence, unresolved questions, and recommended next probes
+- keep scout output to evidence plus any unresolved questions or recommended next probes that materially affect integration
 - scouts do not write the final conclusion for the controller
 - stop when another scout round is unlikely to change the implementation direction, scope, risk judgment, verification plan, or need for user input; do not launch another round merely to increase confidence without a distinct unresolved evidence question

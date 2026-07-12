@@ -35,7 +35,8 @@ Use this file as a compact contract for representative routing decisions across 
 | You are hallucinating; reread the files and reassess. | `reliability-check` | explicit corrective reassessment |
 | Investigate these independent subsystems in parallel. | `agent-workflow` | multi-agent method for genuinely independent slices |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` | repeated per-item pipeline needs orchestration method |
-| Add an independent verifier before we continue. | `agent-workflow` | explicit independent verification coordination |
+| Add one focused verifier before we continue. | direct focused delegation under the active domain method | one defined evidence question does not need multi-agent orchestration |
+| Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` | multiple orthogonal verification scopes need coordinated integration |
 | Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` | domain method plus multi-agent orchestration |
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` | domain method plus multi-agent orchestration |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` | domain method plus multi-agent orchestration |

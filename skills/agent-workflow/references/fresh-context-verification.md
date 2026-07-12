@@ -1,6 +1,6 @@
 # Fresh-Context Verification
 
-Use this after `agent-workflow` is already active when milestone risk or blind-spot cost justifies a separate delegated verifier.
+Use this only after `agent-workflow` is already active, when milestone risk or blind-spot cost justifies a separate verifier within an existing multi-slice workflow. One focused verifier for one defined evidence question is ordinary direct delegation, not a reason to activate orchestration.
 
 ## When to use
 

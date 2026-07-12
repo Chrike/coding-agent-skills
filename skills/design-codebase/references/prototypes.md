@@ -4,7 +4,7 @@ Build a prototype only when a design question needs runnable feedback. Prototype
 
 ## Automatic Local Prototype Gate
 
-Build one local throwaway prototype without another approval only when all of these are true:
+Build the smallest local throwaway experiment needed to answer one concrete design question without another approval only when all of these are true:
 
 - it is the fastest discriminating method for one concrete design question
 - it uses only the repository's existing language, runner, and installed tooling

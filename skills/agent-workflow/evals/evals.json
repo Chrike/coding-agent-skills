@@ -40,12 +40,33 @@
     {
       "id": 4,
       "prompt": "Assign one read-only scout to identify rollback paths. No files will change and no handoff artifact is needed.",
-      "expected_output": "Defines one owner, the focused evidence question, and a concise evidence-bearing result without demanding changed paths, checks, artifact pointers, confidence, or recommended next action that do not apply.",
+      "expected_output": "Defines one owner, the focused evidence question, and a concise evidence-bearing result without demanding changed paths, checks, assumptions, stale material, unresolved questions, next probes, artifact pointers, confidence, or recommended next action that do not apply.",
       "assertions": [
         "The response assigns one non-overlapping owner and a focused definition of done.",
-        "The response requires a conclusion plus supporting evidence sufficient for integration.",
+        "The response requires relevant evidence paths and a conclusion supported by that evidence.",
         "The response does not require changed paths or checks for a read-only scout.",
-        "The response does not require an artifact pointer, confidence, or recommended next action when none materially affects integration."
+        "The response does not require assumptions, stale material, unresolved questions, next probes, an artifact pointer, confidence, or recommended next action when none materially affects integration."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Add one fresh-context verifier to check whether the new authorization endpoint enforces its stated permission rule.",
+      "expected_output": "Uses one direct focused verifier under the active review or completion method, without creating a multi-agent decomposition, worker contracts, or a competing orchestration layer.",
+      "assertions": [
+        "The response treats the work as one focused direct delegation rather than agent-workflow.",
+        "The verifier receives one defined evidence question and the final artifact or code needed to answer it.",
+        "The response does not propose multiple owners, a team, or an orchestration controller."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Assign authorization, compatibility, and rollback verification to separate owners, then integrate their evidence before the release decision.",
+      "expected_output": "Uses coordinated multi-agent verification with non-overlapping evidence scopes, integration, and only the aggregate verification still missing after valid per-slice evidence is reused.",
+      "assertions": [
+        "The response assigns distinct authorization, compatibility, and rollback evidence scopes to separate owners.",
+        "The response defines an integration step and guards against duplicated review-everything work.",
+        "The response reuses valid per-slice evidence and runs only any missing aggregate verification.",
+        "The response retains the applicable owner, isolation, and integration protections."
       ]
     }
   ]

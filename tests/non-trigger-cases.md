@@ -38,7 +38,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Claude Code itself is misbehaving; inspect the session logs. | `debug-systematically` | host runtime issues should not route into the project debugging skill; they should use bundled `/debug` instead |
 | `/code-review` | `review-and-finish` | an explicit bundled review command should stay with the host review engine instead of re-entering the project review skill |
 | Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
-| Add an independent verifier before we continue, but do not reopen planning. | `plan-work`, `review-and-finish` | explicit independent verification should use `agent-workflow`, while settled planning stays settled |
+| Add one focused verifier before we continue, but do not reopen planning. | `agent-workflow`, `plan-work` | one defined evidence question is direct delegation while settled planning stays settled |
 | Use one focused Explore for this single search question. | `agent-workflow` | one focused delegation is ordinary execution, not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
 | The shared root cause is still unclear; fan out scouts immediately. | `agent-workflow` | unresolved shared-root diagnosis must start with `debug-systematically`, not scout fan-out |

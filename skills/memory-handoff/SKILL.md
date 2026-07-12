@@ -9,36 +9,38 @@ Preserve enough state to continue accurately when the user asks for compression,
 
 ## First Decision
 
-- If the user asks to compress context, update the named handoff file or repository-standard handoff note with the latest checkpoint before they compress. When no named or repository-standard artifact exists, return a compact checkpoint in chat unless the user explicitly asks to create or update a persistent file. When multiple plausible handoff artifacts exist and none is named, ask which one is authoritative; do not silently choose, merge, or update one.
-- If the user clearly asks to update the latest checkpoint or resume from a checkpoint, use this skill.
-- If resuming from a checkpoint after compression, use this skill.
+- If the user clearly asks to compress context, update a handoff or checkpoint, or resume from one, use this skill.
 - If the task is ordinary coding and no handoff or resume intent is present, do not use this skill.
 - Do not create or update handoff notes just because the conversation is long.
 - If existing artifacts already capture a detail, link to them instead of duplicating it.
 
+## Artifact Authority
+
+- Use the user-named or repository-standard handoff artifact when one is authoritative.
+- When no authoritative persistent artifact exists, return the checkpoint in chat unless the user explicitly requests persistent storage.
+- When multiple plausible handoff artifacts exist and none is named, ask which one is authoritative; do not silently choose, merge, or update one.
+
 ## Update Memory
 
-When preparing a handoff in an existing or explicitly requested artifact, write a compact handoff note that includes:
+When preparing a handoff in an existing or explicitly requested artifact, write a compact handoff note with:
 
-1. Current goal in one sentence.
-2. Latest user intent, including corrections or changed priorities.
-3. Active constraints that still affect execution.
-4. Decisions already made.
-5. Verified facts or evidence worth carrying forward.
-6. Files changed or created, with paths.
-7. Active subagents or delegated work, if any.
-8. Open blockers or unresolved questions.
-9. Last successful checkpoint.
-10. Next highest-value action.
-11. Explicit do-not-do items that prevent drift.
+- current goal and latest user intent
+- active constraints and settled decisions
+- changed paths and verified evidence
+- next highest-value action
 
-Prefer the user-named or repository-standard handoff or memory file when one is authoritative. When neither exists, return the checkpoint in chat unless the user explicitly requests persistent storage. When multiple plausible artifacts exist, ask which one is authoritative rather than silently choosing, merging, or updating one.
+Include only when present or material:
+
+- active subagents or delegated work
+- blockers or unresolved questions
+- last successful checkpoint
+- explicit do-not-do items that prevent drift
 
 ## Resume From Memory
 
 Before acting after a resume:
 
-1. Read the handoff or memory file the user names. If none is named, use an existing handoff only when there is a single obvious candidate. When multiple plausible candidates exist, ask which artifact is authoritative; do not silently choose, merge, or update one.
+1. Follow the Artifact Authority rules to select the handoff or memory file.
 2. Read any directly referenced planning or review file needed for the current next step.
 3. Restore the latest checkpoint first: current goal, constraints, verified facts, open blockers, ruled-out causes, and next highest-value action.
 4. State the current objective briefly, then continue.

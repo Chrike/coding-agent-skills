@@ -13,13 +13,14 @@ Choose tests that prove behavior without turning every task into strict TDD.
 - If the product behavior or root cause is still unclear and a failing or flaky test is only the symptom, use `debug-systematically` first.
 - If adding regression coverage for a bug, choose the narrowest seam that reproduces the real failure pattern.
 - If the needed test level, seam, regression signal, fixture/mocking boundary, or acceptance proof is non-obvious, use this skill to settle it.
-- If improving or adding tests, prefer observable behavior through public interfaces.
+- If improving or adding tests, prefer observable behavior through public interfaces without forcing unnecessary implementation coupling.
 - If the task is ordinary implementation and tests are not central, do not force a test-first workflow.
 
 ## Testing Defaults
 
 - Test what the system does, not how internal collaborators are called.
-- Prefer integration-style tests through public APIs, UI behavior, endpoints, CLI commands, or service boundaries.
+- Choose the lowest-cost test level that proves observable behavior without unnecessary implementation coupling.
+- Prefer integration-style tests when behavior crosses a meaningful runtime, process, persistence, network, UI, or service boundary; otherwise choose unit, property, type, benchmark, stress, integration, or end-to-end checks by the concrete risk and acceptance signal.
 - Keep each test focused on one behavior or one regression.
 - Use existing project test tools, fixtures, naming, and setup patterns.
 - Run the fastest high-signal test command that covers the changed behavior first; widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof.

@@ -45,7 +45,7 @@ These can be selected by the agent when the request clearly matches.
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
-| `agent-workflow`       | Multi-agent decomposition, ownership, evidence, verification, and integration method |
+| `agent-workflow`       | Coordinated multi-agent decomposition, evidence, verification, and integration for independent slices |
 
 ### Explicit-Intent Workflow Skills
 
