@@ -34,4 +34,4 @@ Severity guidance:
 | Important | Missing requirement, likely regression, poor error handling, serious test gap. |
 | Minor | Maintainability, confusing code, low-risk edge case. |
 
-If no issues are found, say that clearly and mention remaining test or verification gaps.
+If no issues are found, say that clearly and mention only concrete remaining verification gaps against the stated acceptance context, if any.

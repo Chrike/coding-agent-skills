@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or multiple coordinated verification questions require multi-agent execution. Defines decomposition, ownership, evidence, verification, and integration contracts across direct subagents, agent teams, and dynamic workflows. Do not use for one focused delegation or verifier, coherent single-owner work, merely because host multi-agent capability is available, or when a workflow for the same scope is already running.
+description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or multiple coordinated verification questions require multi-agent execution. Do not use for one focused delegation or verifier, coherent single-owner work, merely because host multi-agent capability is available, or when an orchestration layer for the same scope is already running.
 ---
 
 # Agent Workflow

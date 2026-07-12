@@ -27,6 +27,7 @@ Use this file as a compact contract for representative routing decisions across 
 | Address this PR feedback. | `review-and-finish` | explicit review feedback handling |
 | Can I call this done? | `review-and-finish` | explicit completion verification |
 | This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` | a behaviorally high-risk completed change needs focused readiness evidence |
+| Add one fresh-context verifier to determine whether the final authorization change satisfies the stated permission contract. | `review-and-finish` with one direct focused verifier | one bounded acceptance-evidence question belongs to the active review/completion method; it does not require `agent-workflow` |
 | Plan this refactor. | `plan-work` | explicit planning request |
 | Implement this migration; the compatibility and rollout sequence are unresolved. | `plan-work`, then implementation | resolve only the load-bearing plan before coding |
 | Where should this interface live? | `design-codebase` | explicit design question |

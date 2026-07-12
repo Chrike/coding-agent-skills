@@ -19,8 +19,9 @@ Choose tests that prove behavior without turning every task into strict TDD.
 ## Testing Defaults
 
 - Test what the system does, not how internal collaborators are called.
-- Choose the lowest-cost test level that proves observable behavior without unnecessary implementation coupling.
-- Prefer integration-style tests when behavior crosses a meaningful runtime, process, persistence, network, UI, or service boundary; otherwise choose unit, property, type, benchmark, stress, integration, or end-to-end checks by the concrete risk and acceptance signal.
+- Choose the test level with the best evidence-to-cost ratio for the stated behavior, acceptance criteria, and concrete risk.
+- Prefer the most direct proof available. Escalate to broader or more realistic boundaries only when a narrower check cannot cover the behavior, contract, or risk being claimed.
+- Use unit, property, type, benchmark, stress, integration, or end-to-end checks according to the evidence each claim requires.
 - Keep each test focused on one behavior or one regression.
 - Use existing project test tools, fixtures, naming, and setup patterns.
 - Run the fastest high-signal test command that covers the changed behavior first; widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof.

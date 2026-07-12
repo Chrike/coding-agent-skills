@@ -4,7 +4,7 @@ Use this when the first interface idea feels plausible but the trade-off is impo
 
 ## Lightweight Version
 
-Produce the smallest useful set of genuinely different options, usually two. Use only lenses that create real alternatives for the current decision, such as:
+Produce only the materially distinct options needed to expose the real trade-off. Do not target a fixed option count. Use only lenses that create real alternatives for the current decision, such as:
 
 - **Minimal caller surface**: hide behavior behind the smallest useful interface.
 - **Known variation**: support demonstrated variation without exposing internals.

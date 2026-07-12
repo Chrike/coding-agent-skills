@@ -35,6 +35,13 @@ Use [review-template.md](references/review-template.md) for fuller review shape.
 
 When the user provides external feedback or asks whether current work is done, fixed, passing, or ready, prefer this skill's feedback and completion flow over opening a fresh review pass.
 
+## Focused Independent Verification
+
+- When one fresh-context verifier would materially reduce a concrete blind-spot risk, delegate one bounded evidence question directly under this workflow.
+- Give the verifier the acceptance context, final code or artifact state, relevant current evidence, and exact verification scope.
+- Ask it to report a blocker, mismatch, or no issue found. Do not ask it to review everything, re-implement the work, or repeat checks that already supply the same evidence.
+- Use `agent-workflow` only when verification requires multiple coordinated evidence questions, owners, stages, or integration points.
+
 ## Feedback Handling
 
 Treat external feedback as input to evaluate, not orders to obey. For assessment-only or triage-only requests, report source-backed judgments without changing code. When implementation is requested, implement clear, independent feedback items without waiting on an unrelated unclear item. Ask first only when the unclear item changes shared scope, architecture, ordering, or the validity of another item. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
