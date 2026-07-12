@@ -25,7 +25,7 @@ Stay solo when any of these apply:
 - every useful slice depends on the same unresolved decision, root cause, or shared design choice, so no slice can make independent progress yet
 - clean ownership boundaries or a safe integration path cannot be named
 - one focused Explore, Plan, general-purpose delegation, or verifier is enough
-- coordination would cost more than the work
+- coordination overhead, context-transfer loss, integration risk, or duplicated work would outweigh the expected gain in quality, evidence coverage, diversity, or turnaround
 
 An explicit request to parallelize starts this fit check; it does not override the stay-solo conditions. Parallel execution still requires independent ownership, safe write isolation when needed, and a clear integration path.
 
@@ -116,10 +116,15 @@ Re-check delegated work only when:
 
 - Ordinary workers remain leaf executors.
 - Put the leaf-or-controller decision in the delegated prompt itself. Before restricting a leaf worker's agent or skill delegation tools, include or preload every domain method and reference the worker must use.
+- A worker may become a nested controller only when its assigned scope contains genuinely independent bounded child slices and its parent explicitly assigns both decomposition and integration responsibility.
+- Keep controller depth bounded to main controller → optional nested controller → leaf workers. Nested controllers must not create another controller layer.
+- Before launching children, every controller must define bounded child scopes, one owner for each scope, the evidence or artifact each child must return, the integration owner, and the stop condition.
+- Fan-out width follows the number of genuinely independent child scopes; do not target a fixed worker count.
 - Workers must not activate `agent-workflow` or spawn additional agents unless they were explicitly assigned as nested controllers with a defined integration boundary.
+- Stop spawning once the assigned evidence and acceptance contracts are satisfied and no material contradiction remains. Return shared unresolved questions to the controller instead of recursively fanning out.
+- Launch another round only for a distinct unresolved question that could materially change implementation, scope, risk, verification, or required user action.
+- Do not continue spawning agents for ordinary follow-up edits, formatting, small fixes, duplicated confidence checks, or work already covered by current evidence.
 - Exit after delegated results are integrated and the combined result has focused verification.
-- Do not continue spawning agents for ordinary follow-up edits, formatting, or small fixes.
-- Re-enter only when a new set of genuinely independent slices or a new delegated verification need appears.
 
 ## Specialized Patterns
 

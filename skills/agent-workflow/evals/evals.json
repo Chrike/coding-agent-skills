@@ -68,6 +68,29 @@
         "The response reuses valid per-slice evidence and runs only any missing aggregate verification.",
         "The response retains the applicable owner, isolation, and integration protections."
       ]
+    },
+    {
+      "id": 7,
+      "prompt": "Delegate this large compatibility investigation. One subsystem owner must further split its scope into four independent protocol checks.",
+      "expected_output": "Allows one explicitly bounded nested controller with four leaf workers, defines integration and stop conditions, and prevents those leaf workers from spawning further controllers.",
+      "assertions": [
+        "The top-level controller may assign one nested controller with bounded decomposition and integration responsibility.",
+        "The nested controller defines distinct child scopes, owners, expected evidence, an integration owner, and a stop condition.",
+        "The four child workers remain leaf executors.",
+        "No third controller layer is created.",
+        "The workflow stops after the required evidence is integrated and verified."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Use one subagent to inspect a very large test log and return only the failures relevant to this change.",
+      "expected_output": "Uses one focused direct delegation to isolate high-volume disposable output, returns a bounded evidence summary, and does not activate multi-agent orchestration.",
+      "assertions": [
+        "The response permits one focused subagent with one bounded evidence question.",
+        "Verbose raw output remains outside the main context while the result returns relevant evidence.",
+        "The response does not create an agent-workflow or additional agents.",
+        "The main conversation remains responsible for the final decision."
+      ]
     }
   ]
 }

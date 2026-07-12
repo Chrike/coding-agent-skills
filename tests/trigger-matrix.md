@@ -60,6 +60,11 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Independent agents are unavailable; continue this independent investigation. | `agent-workflow` with sequential controller execution |
 | A host multi-agent workflow is being prepared for these independent subsystems. | `agent-workflow` method for that workflow |
 | A host multi-agent workflow for this scope is already running. | continue active workflow; no new orchestration layer |
+| Use one subagent to analyze this large disposable log and return only the change-relevant failures. | one focused direct delegation; the main conversation integrates the result |
+| Split this broad investigation into six independent evidence areas and synthesize them. | `agent-workflow`; parallel leaf workers are allowed when scopes are orthogonal and integration is defined |
+| One delegated subsystem contains four further independent checks. | one explicitly bounded nested controller may launch leaf workers; no deeper controller layer |
+| The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round |
+| A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved |
 | Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |
 | Finish this branch. | `finish-branch` |
 | Commit these changes. | `finish-branch` |
