@@ -24,7 +24,7 @@ Turn product, bug, refactor, or triage discussion into durable work items when t
 | Agent-ready brief | Behavioral current or desired state, key interfaces, acceptance criteria, out of scope. |
 | Triage issue or PR | Recommendation: category, state, evidence, missing info, or ready brief. |
 | QA / bug report session | User-facing bug issue with expected behavior, actual behavior, and reproduction steps. |
-| Refactor request | Safe incremental plan with tiny working slices and testing decisions. |
+| Refactor request | Safe incremental plan with the smallest independently useful and verifiable slices, including relevant testing decisions. |
 
 ## Drafting Workflow
 

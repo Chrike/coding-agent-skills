@@ -30,6 +30,14 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Treat examples as evidence of intent or failure mode, not as literal tasks, unless the user explicitly asks for that example.
 - Before summarizing, organizing, or reviewing prior material, identify the exact object the user wants handled. Do not substitute adjacent artifacts such as assistant answers, proposed fixes, or surrounding analysis unless the user explicitly asks for them.
 - When the next action depends on uncertain details, keep a lightweight separation between verified facts, active constraints, and working assumptions. Re-check any assumption when it is load-bearing for the edit, or before an external, destructive, privileged, or hard-to-reverse action.
+
+### Evidence Source Selection
+
+- Resolve decision-relevant uncertainty using the source most likely to settle it: repository evidence for current codebase or runtime claims; current authoritative external sources when repository evidence cannot settle a material API, documentation, standard, or ecosystem claim; and user input for product intent, value judgments, taste, or irreversible scope choices.
+- When comparing practices, distinguish project-specific examples from evidence transferable to the current project and its constraints.
+- Do not research merely because a question is unfamiliar, abstract, difficult, or nontrivial, and do not search to decorate a conclusion already supported by relevant evidence.
+- Stop gathering external sources when decision-relevant claims are supported, material disagreement is characterized, and another source is unlikely to change the recommendation, risk judgment, or required user action.
+
 - If the user challenges a claim about code, files, or task state, reread the relevant source before defending it.
 
 ## Stage Discipline

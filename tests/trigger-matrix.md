@@ -105,6 +105,11 @@ These are representative checks that default-layer handling still happens in the
 | Continue from this issue or work-item draft. | Reads the named artifact first and follows the latest request. |
 | You already have enough context. Stop planning and implement the next step. | Leaves preparation and executes the next action. |
 | The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | Leaves broad reading and executes the edit or a focused pre-edit step. |
+| Recommend an approach for integrating this unfamiliar external API. | Reads current authoritative API documentation before making version- or behavior-dependent claims. |
+| Compare how established coding-agent projects handle quality, latency, and parallelism. | Researches relevant implementations and evidence, distinguishes transferable patterns from project-specific choices, then synthesizes a recommendation. |
+| This local regression appears only under the repository's current configuration. | Inspects repository code, configuration, and executable evidence first; does not substitute generic web advice for local diagnosis. |
+| Which product trade-off should we prefer? | Uses external evidence only to inform the choice; does not replace user intent or value judgment with popularity or precedent. |
+| The decision-relevant external claims are supported and further sources are unlikely to change the recommendation. | Stops researching and proceeds with synthesis or execution. |
 
 ## Maintenance / Meta Cases
 
