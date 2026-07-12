@@ -50,13 +50,16 @@ Do not repopulate the active conversation with narrative session history when th
 
 ## Handoff Shape
 
-Keep handoffs short and operational:
+Keep handoffs short and operational. Include the applicable state:
 
 - what the project is trying to accomplish
 - what has already been decided
 - what was changed
-- what remains unclear
 - what to do next
+
+Include only when present or material:
+
+- what remains unclear
 - what not to do
 
 Use bullet lists when they make state easier to scan. Avoid narrative session history.

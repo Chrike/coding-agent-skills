@@ -38,8 +38,10 @@ When the user provides external feedback or asks whether current work is done, f
 ## Focused Independent Verification
 
 - When one fresh-context verifier would materially reduce a concrete blind-spot risk, delegate one bounded evidence question directly under this workflow.
-- Give the verifier the acceptance context, final code or artifact state, relevant current evidence, and exact verification scope.
-- Ask it to report a blocker, mismatch, or no issue found. Do not ask it to review everything, re-implement the work, or repeat checks that already supply the same evidence.
+- Give the verifier the acceptance context, final code or artifact state, and exact verification scope.
+- Pass relevant current evidence when the verifier is judging completeness. Omit it only when blind or environment-independent execution is the defined verification goal.
+- Ask it to report a blocker, mismatch, or no issue found. Do not ask it to review everything or re-implement the work.
+- Reuse checks that already provide sufficient evidence. Repeat an equivalent check only when independent execution, environment independence, stale evidence, a missing acceptance criterion, or a load-bearing assumption is itself the evidence question.
 - Use `agent-workflow` only when verification requires multiple coordinated evidence questions, owners, stages, or integration points.
 
 ## Feedback Handling

@@ -67,7 +67,7 @@ Before dispatching:
 - Include the active domain method, compact method capsule, broader references, artifact requirements, inputs, or carry-forward summary only when the slice needs them.
 - When using a dynamic workflow, encode the applicable contracts in each `agent()` prompt or structured input. Do not assume main-session skill content is inherited by workflow workers.
 - Require every slice to return completed work or a conclusion plus supporting evidence sufficient for integration.
-- Include changed paths, checks run, and result summary for coding slices; ranked evidence paths and next probes for scouts; and blockers, artifact pointers, confidence, or recommended next action only when they materially affect integration or exist.
+- Include changed paths, checks run, and result summary for coding slices; the most relevant evidence paths and a concise evidence-backed conclusion for scouts; and next probes, blockers, artifact pointers, confidence, or a recommended next action only when they exist or materially affect integration.
 - When later slices depend on earlier results, pass only the smallest carry-forward summary needed.
 - Do not forward the controller's whole reasoning, sibling chatter, or long logs unless the next slice truly needs them.
 
