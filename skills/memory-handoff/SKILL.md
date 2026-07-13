@@ -35,6 +35,7 @@ Include only when present or material:
 - blockers or unresolved questions
 - last successful checkpoint
 - explicit do-not-do items that prevent drift
+- current working hypotheses, material failed attempts, and ruled-out causes or alternatives when they constrain the next step
 
 ## Resume From Memory
 
@@ -42,7 +43,7 @@ Before acting after a resume:
 
 1. Follow the Artifact Authority rules to select the handoff or memory file.
 2. Read any directly referenced planning or review file needed for the current next step.
-3. Restore the latest checkpoint first: current goal, constraints, verified facts, open blockers, ruled-out causes, and next highest-value action.
+3. Restore the latest checkpoint first: current goal, constraints, verified facts, the current working hypothesis when material, open blockers, material failed attempts, ruled-out causes, and the next highest-value action.
 4. State the current objective briefly, then continue.
 
 Do not restart audits, re-argue settled decisions, or act on an older plan if the handoff or memory file records a correction.
