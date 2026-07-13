@@ -33,20 +33,10 @@ When this skill is active, draft in this order:
 1. Identify the artifact type: PRD, issue breakdown, agent-ready brief, triage result, QA bug report, or refactor work item.
 2. Read the current request and preserve only the decisions and facts that materially shape the artifact.
 3. Ask only for missing facts that would change scope, ownership, acceptance criteria, or publication target.
-4. Draft the artifact in the project's domain language.
-5. Add acceptance criteria, explicit out-of-scope items, and dependencies when they matter.
+4. Draft the artifact in the project's domain language. Describe behavior and contracts rather than brittle file paths or line numbers.
+5. Use independently verifiable vertical slices when breaking work into issues. Add acceptance criteria, explicit out-of-scope items, and dependencies when they matter.
 6. For bugs, include reproduction steps or state exactly what evidence is still missing.
 7. Before publishing, confirm the external action and target system.
-
-## Drafting Rules
-
-- Use the project's domain language when known.
-- Describe behavior and contracts, not brittle file paths or line numbers.
-- Prefer vertical slices: each issue should be independently verifiable or demoable.
-- Include acceptance criteria that can be checked.
-- Include explicit out-of-scope items.
-- Preserve useful decisions from the conversation; ask only for missing facts that change the work item.
-- For bugs, include reproduction steps or state exactly what is still missing.
 
 ## Publishing Rules
 
