@@ -91,6 +91,18 @@
         "The response does not create an agent-workflow or additional agents.",
         "The main conversation remains responsible for the final decision."
       ]
+    },
+    {
+      "id": 9,
+      "prompt": "A later implementation slice depends on accepted evidence and a selected compatibility decision from the previous slice. One failed approach and one unresolved contradiction still constrain the next step; several other discarded experiments do not. Define the handoff.",
+      "expected_output": "Passes only the smallest material carry-forward state needed to continue, preserving the load-bearing evidence, decision, failed path, and contradiction while omitting raw history and unrelated attempts.",
+      "assertions": [
+        "The accepted evidence needed by the next slice is preserved.",
+        "The active hypothesis or selected decision is preserved.",
+        "The material failed or ruled-out path is preserved because it constrains the next slice.",
+        "The unresolved contradiction is preserved because it may change the next decision.",
+        "Unrelated failed attempts, raw transcripts, sibling chatter, and long logs are omitted."
+      ]
     }
   ]
 }
