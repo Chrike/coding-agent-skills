@@ -43,7 +43,7 @@ Before acting after a resume:
 
 1. Follow the Artifact Authority rules to select the handoff or memory file.
 2. Read any directly referenced planning or review file needed for the current next step.
-3. Restore the latest checkpoint first: current goal, constraints, verified facts, the current working hypothesis when material, open blockers, material failed attempts, ruled-out causes, and the next highest-value action.
+3. Restore the latest checkpoint first: current goal, constraints, verified facts, any current working hypotheses that remain material, open blockers, material failed attempts, ruled-out causes or alternatives, and the next highest-value action.
 4. State the current objective briefly, then continue.
 
 Do not restart audits, re-argue settled decisions, or act on an older plan if the handoff or memory file records a correction.

@@ -64,7 +64,7 @@ Before dispatching:
 - Every worker brief must include the goal and expected output, one owner with non-overlapping primary scope, the known evidence, constraints, and excluded scope needed to prevent rediscovery, and a definition of done or applicable acceptance contract.
 - For delegable work, state whether the worker is a leaf executor or nested controller and whether further delegation is allowed.
 - For work that can write, state the permitted read and write scope, isolation boundary, and any serialization requirement.
-- Include the active domain method, compact method capsule, broader references, artifact requirements, inputs, or carry-forward summary only when the slice needs them.
+- Include the active domain method, compact method capsule, broader references, artifact requirements, inputs, or carry-forward state only when the slice needs them.
 - When using a dynamic workflow, encode the applicable contracts in each `agent()` prompt or structured input. Do not assume main-session skill content is inherited by workflow workers.
 - Require every slice to return completed work or a conclusion plus supporting evidence sufficient for integration.
 - Include changed paths, checks run, and result summary for coding slices; the most relevant evidence paths and a concise evidence-backed conclusion for scouts; and next probes, blockers, artifact pointers, confidence, or a recommended next action only when they exist or materially affect integration.
