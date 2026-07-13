@@ -119,7 +119,6 @@ Re-check delegated work only when:
 - A worker may become a nested controller only when its assigned scope contains genuinely independent bounded child slices and its parent explicitly assigns both decomposition and integration responsibility.
 - Keep controller depth bounded to main controller → optional nested controller → leaf workers. Nested controllers must not create another controller layer.
 - Before launching children, every controller must define bounded child scopes, one owner for each scope, the evidence or artifact each child must return, the integration owner, and the stop condition.
-- Fan-out width follows the number of genuinely independent child scopes; do not target a fixed worker count.
 - Workers must not activate `agent-workflow` or spawn additional agents unless they were explicitly assigned as nested controllers with a defined integration boundary.
 - Stop spawning once the assigned evidence and acceptance contracts are satisfied and no material contradiction remains. Return shared unresolved questions to the controller instead of recursively fanning out.
 - Launch another round only for a distinct unresolved question that could materially change implementation, scope, risk, verification, or required user action.
