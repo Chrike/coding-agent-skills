@@ -26,6 +26,8 @@ Use project-local files for:
 - do not create tracked documentation merely to exchange transient agent data
 - scratch handoffs are not durable project memory
 - have the controller read and condense the artifact instead of forwarding it raw
+- when another active slice may need exact rereading, carry the supported claim with a pointer to the full evidence, its producer scope, and the relevant code or state version
+- dereference the full evidence only when the current decision needs exact detail, the condensed claim is disputed, or the evidence may be stale
 - remove transient handoff files after integration unless another active slice still needs them
 - do not create a handoff file when the result is already short enough to pass directly
 - this pattern owns only transient handoff state

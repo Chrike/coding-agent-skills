@@ -20,6 +20,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | You have enough context now. Make the requested code change instead of giving me another plan. | Base default behavior |
 | Fix only the reported bug. Do not clean up neighboring code or add helper layers. | Base default behavior |
 | What did you actually finish, what failed, and what is still unverified? | Base default behavior |
+| The existing verification still covers the final code and acceptance criteria. Reuse it instead of rerunning the same check. | Base default behavior |
 | If you can complete the remaining in-scope work now, do it. Only stop if you need input that only I can provide. | Base default behavior |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | Base default behavior |
 | Summarize all the user questions from above, not your own answers. | Base default behavior |
@@ -40,6 +41,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` |
 | Implement this change; the correct regression seam and acceptance signal are unclear. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
+| Review these changes, then commit and push them if the review passes. | `review-and-finish` then `finish-branch` |
 | This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` |
 | This completed authorization migration needs a focused readiness check before the done claim. | `review-and-finish` |
 | This completed permission migration is ready; verify the final claim before calling it done. | `review-and-finish` |
@@ -51,6 +53,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` |
 | Add one focused verifier before we continue. | direct focused delegation under the active domain method |
 | Verify the integrated result independently against its untested rollback path. | direct focused delegation under the active domain method |
+| A workflow already owns this scope, and completion needs one fresh verifier. | Keep the workflow as the sole execution owner; route the bounded verification need through its controller instead of starting a sibling delegation. |
 | Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` |
 | Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` |
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
@@ -65,6 +68,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Use one subagent to analyze this large disposable log and return only the change-relevant failures. | one focused direct delegation; the main conversation integrates the result |
 | Split this broad investigation into six independent evidence areas and synthesize them. | `agent-workflow`; parallel leaf workers are allowed when scopes are orthogonal and integration is defined |
 | One delegated subsystem contains four further independent checks. | one explicitly bounded nested controller may launch leaf workers; no deeper controller layer |
+| A workflow-owned leaf discovers shared or out-of-scope questions that require further delegation, but it was not authorized as a nested controller. | Return those questions to the assigned controller; do not start another workflow, team, or agent tree. |
 | A later dependent slice needs accepted evidence, the active hypothesis, and ruled-out paths from the previous slice. | Pass only the smallest material carry-forward state needed for the next decision; preserve those items only when they constrain the slice. |
 | The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round |
 | A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved |
@@ -86,7 +90,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Add a prototype ticket to this decision map. | `decision-map`; obtain user agreement before building the prototype |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
 | Plan this refactor. | `plan-work` |
+| Implement this migration, but a load-bearing compatibility and sequencing decision cannot be safely inferred. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
+| Implement this integration, but ownership of the dependency boundary is non-obvious and existing patterns do not safely settle it. | `design-codebase` |
 | Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |

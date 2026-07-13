@@ -22,7 +22,7 @@ Preserve enough state to continue accurately when the user asks for compression,
 
 ## Update Memory
 
-When preparing a handoff in an existing or explicitly requested artifact, write a compact, operational handoff note with:
+When preparing a handoff or checkpoint, write a compact, operational note with:
 
 - current goal and latest user intent
 - active constraints and settled decisions
