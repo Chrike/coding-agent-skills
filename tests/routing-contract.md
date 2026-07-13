@@ -51,6 +51,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Independent architecture options | `design-codebase` method with `agent-workflow` |
 | Host multi-agent workflow being prepared for independent slices | `agent-workflow` method into that workflow; no second layer |
 | Host multi-agent workflow already running for the same scope | continue the active workflow; do not invoke a new orchestration workflow |
+| Explicit installed `/adaptive-long-horizon` command for a bounded read-only evidence task | the saved workflow is the sole outer execution owner for its session-local run; supply `agent-workflow` method contracts into its leaf prompts without starting a sibling controller |
 | Host multi-agent capability available for one coherent bug | domain skill or base default behavior; not `agent-workflow` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |

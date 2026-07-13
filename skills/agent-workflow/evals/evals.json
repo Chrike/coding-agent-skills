@@ -71,13 +71,15 @@
     },
     {
       "id": 7,
-      "prompt": "Delegate this large compatibility investigation. One subsystem owner must further split its scope into four independent protocol checks.",
-      "expected_output": "Allows one explicitly bounded nested controller with four leaf workers, defines integration and stop conditions, and prevents those leaf workers from spawning further controllers.",
+      "prompt": "A dynamic workflow already owns this large compatibility investigation. It explicitly authorizes one subsystem owner as a nested controller to split four independent protocol checks. Define the execution and return path.",
+      "expected_output": "Keeps the dynamic workflow as the sole outer orchestration owner, gives the authorized nested controller bounded decomposition and integration responsibility for four leaf workers, returns evidence leaf to nested controller to workflow, and creates neither a sibling workflow or agent team nor a third controller layer.",
       "assertions": [
-        "The top-level controller may assign one nested controller with bounded decomposition and integration responsibility.",
-        "The nested controller defines distinct child scopes, owners, expected evidence, an integration owner, and a stop condition.",
-        "The four child workers remain leaf executors.",
-        "No third controller layer is created.",
+        "The active dynamic workflow remains the sole outer orchestration owner.",
+        "The workflow explicitly assigns one nested controller bounded decomposition and integration responsibility.",
+        "The nested controller defines four distinct child scopes, owners, expected evidence, and a stop condition.",
+        "The four child workers remain leaf executors and do not delegate further.",
+        "Evidence returns from leaves to the nested controller and then to the active workflow for integration.",
+        "No sibling workflow, agent team, or third controller layer is created.",
         "The workflow stops after the required evidence is integrated and verified."
       ]
     },
@@ -125,6 +127,20 @@
         "The verifier receives one bounded evidence question and the relevant final artifact or code.",
         "No separate direct delegation starts beside the active workflow.",
         "A worker without delegation authority returns the verification need to its controller."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "An active orchestration has a producer's long raw evidence. A later active slice may need exact rereading, while the main conversation needs only a condensed supported claim. Define the transient handoff lifecycle through integration.",
+      "expected_output": "Prefers host-managed or producer-local state, creates an ignored project-local scratch artifact only when the named active consumer genuinely needs exact rereading, carries a condensed claim with a pointer, producer scope, and relevant code or state version, dereferences only for exact-detail need, dispute, or possible staleness, and removes the workflow-created transient artifact after integration when no active consumer remains.",
+      "assertions": [
+        "Raw long evidence stays outside the main conversation and no pointer is created merely because output is large.",
+        "Host-managed state and producer-local context are preferred before a project-local scratch artifact.",
+        "A scratch artifact is project-local, ignored, transient, and created only for a named active consumer that needs exact rereading.",
+        "The condensed claim identifies the full evidence pointer, producer scope, and relevant code or state version.",
+        "Full evidence is dereferenced only when exact detail is needed, the claim is disputed, or the evidence may be stale.",
+        "No tracked documentation or durable memory is created for the handoff.",
+        "The workflow-created transient artifact is removed after integration unless another active slice still needs it."
       ]
     }
   ]
