@@ -63,6 +63,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Use one subagent to analyze this large disposable log and return only the change-relevant failures. | one focused direct delegation; the main conversation integrates the result |
 | Split this broad investigation into six independent evidence areas and synthesize them. | `agent-workflow`; parallel leaf workers are allowed when scopes are orthogonal and integration is defined |
 | One delegated subsystem contains four further independent checks. | one explicitly bounded nested controller may launch leaf workers; no deeper controller layer |
+| A later dependent slice needs accepted evidence, the active hypothesis, and ruled-out paths from the previous slice. | Pass only the smallest material carry-forward state needed for the next decision; preserve those items only when they constrain the slice. |
 | The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round |
 | A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved |
 | Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |
@@ -73,6 +74,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Turn this into a PRD. | `issue-workflow` |
 | Break this PRD into issues. | `issue-workflow` |
 | Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
+| Update the checkpoint before compression; the current hypothesis, failed attempts, and ruled-out causes materially constrain the next step. | `memory-handoff`; preserve that material state with verified evidence and the next highest-value action. |
 | Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
 | Record this repeated mistake as a project-reviewed lesson. | `markdown-memory` |
 | Check the project lesson memory for this pitfall. | `markdown-memory` |
