@@ -114,17 +114,6 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
 
-## 当前运行时角色映射
-
-当前维护中的运行时角色落点如下：
-
-- 汇报与总结纪律落在 `prompts/CLAUDE.fragment.md`。
-- 执行节奏与 act-when-ready 边界落在维护中的 prompt 文件。
-- 默认层的范围控制与改动克制规则落在维护中的 prompt 文件。
-- 显式项目版本化、共享或可审阅的 markdown lessons 落在 `skills/markdown-memory/SKILL.md`；宿主 auto memory 仍负责个人或本地学习上下文。
-- prompt 与 skill 维护清理落在 `skills/skill-refactorer/SKILL.md`。
-- 外部参考材料仍然只用于维护判断，不属于当前 runtime 安装面。
-
 ## 推荐起步
 
 从匹配您实际工作流的最小集合开始。

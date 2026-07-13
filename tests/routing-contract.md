@@ -28,8 +28,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
 | Two or more independent work slices, repeated per-item pipeline, scout slices, or multiple coordinated verification questions requiring integration | `agent-workflow` |
 | Explicit PRD, issue draft, tracker-ready work-item, or triage workflow from clear natural-language intent | `issue-workflow` |
-| Explicit handoff, compression, or resume-state workflow | `memory-handoff` |
-| Explicit checkpoint update or resume-from-checkpoint workflow | `memory-handoff` |
+| Explicit handoff, compression, checkpoint update, or resume-state workflow | `memory-handoff` |
 | Explicit project-versioned, shared, or reviewable lesson, correction, or confirmed-approach workflow | `markdown-memory` |
 | Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
 | Explicit durable multi-session decision frontier | `decision-map` |

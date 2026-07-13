@@ -22,7 +22,7 @@ Preserve enough state to continue accurately when the user asks for compression,
 
 ## Update Memory
 
-When preparing a handoff in an existing or explicitly requested artifact, write a compact handoff note with:
+When preparing a handoff in an existing or explicitly requested artifact, write a compact, operational handoff note with:
 
 - current goal and latest user intent
 - active constraints and settled decisions
@@ -37,6 +37,8 @@ Include only when present or material:
 - explicit do-not-do items that prevent drift
 - current working hypotheses, material failed attempts, and ruled-out causes or alternatives when they constrain the next step
 
+Use bullets when they make the state easier to scan. Avoid narrative session history.
+
 ## Resume From Memory
 
 Before acting after a resume:
@@ -48,22 +50,6 @@ Before acting after a resume:
 
 Do not restart audits, re-argue settled decisions, or act on an older plan if the handoff or memory file records a correction.
 Do not repopulate the active conversation with narrative session history when the checkpoint already captures the operational state.
-
-## Handoff Shape
-
-Keep handoffs short and operational. Include the applicable state:
-
-- what the project is trying to accomplish
-- what has already been decided
-- what was changed
-- what to do next
-
-Include only when present or material:
-
-- what remains unclear
-- what not to do
-
-Use bullet lists when they make state easier to scan. Avoid narrative session history.
 
 ## Boundaries
 

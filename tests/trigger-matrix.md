@@ -35,7 +35,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Prompt | Expected routing |
 | --- | --- |
 | This test is flaky; diagnose it. | `debug-systematically` |
+| Claude Code itself is misbehaving; inspect the session logs. | bundled `/debug` |
 | Add regression tests for this bug. | `test-strategy` |
+| This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` |
 | Implement this change; the correct regression seam and acceptance signal are unclear. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
 | This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` |
@@ -81,9 +83,11 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
 | Tighten this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
 | Make a decision map for this vague multi-session direction. | `decision-map` |
+| Add a prototype ticket to this decision map. | `decision-map`; obtain user agreement before building the prototype |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
 | Plan this refactor. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
+| Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |
@@ -93,6 +97,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Prompt | Expected routing |
 | --- | --- |
 | Prepare a PR for this branch. | `finish-branch` |
+| Implement the selected design above. | Base default behavior |
 | Triage this issue report and give me a tracker-ready draft. | `issue-workflow` |
 | Update the handoff before we pause. | `memory-handoff` |
 | Remember this correction as a project-reviewed lesson. | `markdown-memory` |

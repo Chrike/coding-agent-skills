@@ -115,17 +115,6 @@ The current runtime surface is organized as follows:
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
 
-## Current Runtime Role Mapping
-
-The current maintained runtime roles land as follows:
-
-- Reporting and summary discipline lives in `prompts/CLAUDE.fragment.md`.
-- Execution-flow defaults and act-when-ready behavior live in the maintained prompt file.
-- Default scope control and change-discipline rules live in the maintained prompt file.
-- Explicit project-versioned, shared, or reviewable markdown lessons live in `skills/markdown-memory/SKILL.md`; host auto memory remains host-managed context for personal or local learnings.
-- Prompt and skill maintenance cleanup lives in `skills/skill-refactorer/SKILL.md`.
-- External reference material remains comparison input for maintenance decisions; it is not part of the current runtime install surface.
-
 ## Recommended Start
 
 Start with the smallest set that matches your actual workflow.
