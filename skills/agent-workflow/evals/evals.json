@@ -103,6 +103,29 @@
         "The unresolved contradiction is preserved because it may change the next decision.",
         "Unrelated failed attempts, raw transcripts, sibling chatter, and long logs are omitted."
       ]
+    },
+    {
+      "id": 10,
+      "prompt": "A dynamic workflow already owns this compatibility audit. One leaf worker can answer local questions inside its assigned scope, but it also discovers shared and out-of-scope questions that require further delegation. It was not authorized as a nested controller. Define what it should do.",
+      "expected_output": "Keeps local investigation inside the assigned leaf scope, returns the shared or out-of-scope delegation needs to its controller, and does not launch another workflow, team, or agent tree.",
+      "assertions": [
+        "The active workflow remains the sole orchestration owner.",
+        "The leaf may resolve local questions that remain inside its assigned scope.",
+        "Shared, out-of-scope, or delegation-requiring questions return to the assigned controller.",
+        "The leaf does not start another workflow, agent team, or agent tree.",
+        "The leaf does not promote itself to a nested controller."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "A dynamic workflow is already integrating a high-risk authorization change. The completion method identifies one fresh, bounded verification question. Define how to obtain that evidence without creating a sibling execution path.",
+      "expected_output": "Keeps the active workflow as the sole execution owner and routes the bounded verification need through its controller; if the current worker cannot delegate, it returns the need to that controller instead of spawning a sibling verifier.",
+      "assertions": [
+        "The active workflow remains the sole orchestration owner.",
+        "The verifier receives one bounded evidence question and the relevant final artifact or code.",
+        "No separate direct delegation starts beside the active workflow.",
+        "A worker without delegation authority returns the verification need to its controller."
+      ]
     }
   ]
 }
