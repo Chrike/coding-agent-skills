@@ -33,7 +33,7 @@ Use when the question is visual structure or interaction shape.
 - Prefer variants inside an existing page or route.
 - Use `?variant=` or the project's equivalent to switch options.
 - Create the smallest number of variants needed to answer the design question. Use multiple variants only when they represent materially different unresolved directions.
-- Keep real data fetching when useful, but avoid real mutations.
+- Reuse existing local or already-approved read-only data paths when useful, but keep network or external-service access behind the approval gate above and avoid real mutations.
 - Remove losing variants and any switcher when a direction is chosen.
 
 ## Cleanup
