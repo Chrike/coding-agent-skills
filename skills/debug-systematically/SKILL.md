@@ -46,5 +46,5 @@ Do not present a confident fix without evidence.
 ## Debug Techniques
 
 - Bad value appears deep in a stack: read [root-cause-tracing.md](references/root-cause-tracing.md).
-- Flaky async behavior or timeout-based tests: if the flakiness is primarily caused by test timing or wait strategy rather than unclear product behavior, use `test-strategy` and read [flaky-tests.md](../test-strategy/references/flaky-tests.md).
+- Flaky async behavior or timeout-based tests: if the flakiness is primarily caused by test timing or wait strategy rather than unclear product behavior, hand off to `test-strategy`. Do not duplicate its test-design procedure here.
 - Invalid data could enter through multiple paths: read [defense-in-depth.md](references/defense-in-depth.md).

@@ -12,6 +12,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 - 位于 `skills/` 下的运行时技能源码目录
 - 位于 `prompts/` 下的常驻默认行为提示词源码
+- 位于 `workflows/` 下的显式选择 saved-workflow 源码
 - 位于 `tests/` 下的维护与验证材料
 
 该套件围绕一条简单规则设计：
@@ -26,6 +27,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 - `prompts/` 承载面向日常开发工作的常驻默认行为层。
 - `skills/` 承载具名工作流边界，只有当请求明确需要时才应加载。
+- `workflows/` 承载显式选择的 saved-workflow 源码，不是宿主发现目录，也不参与普通 skill 路由。
 - 显式意图工作流应从清晰的自然语言意图路由，而不是要求用户记住 skill 名称后手动调用。
 - 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护，而不是再堆一层运行时路由。
 - `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
@@ -64,11 +66,14 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 仅安装 `skills/` 中实际需要的运行时技能目录。
 
-在本仓库中，`skills/` 与 `prompts/` 都是源码目录，而不是宿主运行时路径。
+在本仓库中，`skills/`、`prompts/` 与 `workflows/` 都是源码目录，而不是宿主运行时路径。
 
 已确认的宿主落点：
 
 - Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
+- Claude Code saved workflows：项目级 `.claude/workflows/` 或用户级 `~/.claude/workflows/`
+
+Saved workflow 采用显式选择：将审阅过的源码文件复制到一个明确选择的落点，再调用其已安装名称。它不替代 skill 路由，也不会因为任务长或文件多而自动激活。
 
 将 `prompts/CLAUDE.fragment.md` 作为宿主常驻指令文件的维护源码。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系。
 
@@ -99,6 +104,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `skills/` 存放本仓库中的运行时技能源码目录。
 - `skills.sh.json` 只控制 skills.sh 页面分组展示，不影响运行时行为或 skill 路由。
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
+- `workflows/` 存放显式 saved-workflow 源码；调用前将审阅过的文件复制到 `.claude/workflows/` 或 `~/.claude/workflows/`。
 - `tests/` 存放用于维护本套件的路由与边界检查。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
@@ -110,6 +116,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
+- `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
 - `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
