@@ -5,7 +5,7 @@ description: Use when the user clearly asks to record, update, prune, or consult
 
 # Markdown Memory
 
-Maintain project-governed markdown lessons only when they add future value without turning normal work into note-taking. Use host auto memory for personal or host-local learnings; it must not by itself trigger a project lesson or become an instruction source. Requests like “record this repository lesson,” “preserve this repeated mistake for review,” or “check the project lesson memory about X” count.
+Maintain project-governed markdown lessons only when they add future value. Use host auto memory for personal or host-local learnings; it must not by itself trigger a project lesson or become an instruction source. Requests like “record this repository lesson,” “preserve this repeated mistake for review,” or “check the project lesson memory about X” count.
 
 ## First Decision
 
@@ -49,19 +49,16 @@ Do not create or regenerate an index unless the user asks or the repo already us
 
 ## Workflow
 
-1. Confirm that the request is really about durable lessons rather than handoff state or decision tracking.
-2. Search for an existing related lesson before writing a new one.
-3. Update the existing lesson when possible; otherwise create one compact new lesson file.
-4. Remove or correct lessons that have been disproved or superseded.
+1. Search for an existing related lesson before writing a new one.
+2. Update the existing lesson when possible; otherwise create one compact new lesson file.
+3. Remove or correct lessons that have been disproved or superseded.
 
 ## Consult Memory
 
 - Consult lesson files only when the user explicitly asks, or when the current task points to a named lesson or memory artifact.
 - Read the index first if one exists; open full lesson files only when they are directly relevant.
-- Treat lesson memory as a supporting input, not a replacement for the latest user request or current source reads.
 
 ## Boundaries
 
 - Do not store secrets, credentials, private data, or unrelated personal information.
-- Do not make memory maintenance a default step for ordinary tasks.
 - Do not keep conflicting near-duplicate lessons without clearly updating or replacing the old one.
