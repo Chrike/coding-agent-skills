@@ -6,6 +6,7 @@ const { spawnSync } = require('node:child_process');
 const repoRoot = path.resolve(__dirname, '..', '..');
 const checks = [
   'verify-routing-contract.js',
+  'verify-agent-workflow-evals.js',
   'verify-experiment-layout.js',
   'verify-evidence-loop-reference.js',
   'verify-profile-manifest.js',
