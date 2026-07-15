@@ -180,6 +180,31 @@ Outcome 必须来自独立于候选 skill 的 acceptance oracle。每个 criteri
 
 没有 provider telemetry 或 pinned pricing 时，记录不可用原因，不自行计算或填零。
 
+#### 5.4.1 Metric wrapper conformance
+
+每个 metric wrapper 都必须是一个只包含 `value`、`unit`、`status`、`reason` 四个字段的对象。`status` 只能是 `measured`、`not_collected`、`not_applicable`、`unavailable` 或 `invalid`；`unit` 和 `reason` 必须是非空字符串。
+
+- `measured` 要求 `value` 为有限、非负数；不能用字符串、`null`、`NaN`、`Infinity` 或未声明的单位替代实际测量。
+- 其他状态要求 `value: null`。`0` 不是“没有收集”的合法替代；`unavailable`、`not_collected`、`not_applicable` 和 `invalid` 都必须说明原因。
+- `invalid` metric wrapper 表示该指标记录本身不可用于聚合；它不能被降级为 `not_collected`，也不能被静默删除。若指标在一次已尝试的 collection/execution 中违反 wrapper contract，run 应为 `invalid`，并将对应 metric JSON pointer 放入 `terminal_fields`。
+- metadata-only conformance 可以验证 wrapper 形状和状态语义，但不能把 wrapper 的 `measured` 值解释成真实 telemetry。
+
+## 5.5 Terminal status、尝试边界和关键 provenance
+
+`terminal_status` 是 run 的终止分类，而不是 outcome 质量分数。它必须是 `completed`、`blocked` 或 `invalid` 之一；不能以 `unknown`、`inconclusive` 或空值替代 run 终止状态。
+
+每个 run 必须记录事实性的 `execution_attempted` 和 `collection_attempted` 两个布尔字段；它们不能由 `terminal_status` 反推，也不能省略。两者的组合、终止状态和稳定 reason-code 由第 6.2.1 节固定。
+
+- 在 collection/execution 尚未开始且 prerequisite 不可用或不可核验时，只能产生 `blocked`；不能把缺少材料伪装成 `invalid`。
+- 已经尝试 collection/execution 后发现合同、provenance、pairing、environment 或 metric wrapper 违反要求时，必须产生 `invalid`；不能回写为 `blocked`。
+- 如果尝试字段缺失、互相矛盾或无法判断，记录本身应为 `invalid`，使用 `terminal-semantics-ambiguous`，保留原始记录而不是猜测为 `blocked`。
+
+每个 non-completed run 必须同时包含来自固定 registry 的 `terminal_reason_code`、非空的维护者可读 `terminal_reason`、非空的 canonical `terminal_fields`，以及 `record_preserved: true`。`terminal_fields` 必须是相对于该 run record 根、以 `/` 开头的 JSON Pointer；数组去重并按稳定顺序排列，且必须指向实际缺失、不可核验、不一致或违反 contract 的字段，不能只写 `/terminal_reason` 掩盖根因。paired set 的 propagation fields 以 paired-set record 根为准，并使用 `/members/<record_id>/terminal_status` 等稳定 member pointer。
+
+`blocked` 只表达 prerequisite/attempt 尚未成立，不表达任务失败；`invalid` 表达已经尝试但记录或执行违反了可审计合同。两者都不是 complete outcome，不能进入 complete denominator。原始 run 的 terminal counts 与 paired set 的 complete denominator 必须分开报告，避免一个 paired set 中已完成的成员掩盖另一成员的 blocked/invalid 状态。`raw_run_counts` 必须按 `terminal_status` 和 `terminal_reason_code` 分层；`paired_set_counts` 必须按 propagated paired-set status 分层；`complete_paired_denominator` 只能统计所有成员均为 `completed` 的 paired set，不能用已完成 member run 数代替。被 blocked/invalid paired set 中的 completed member 可以保留在 raw run counts，但不能贡献 paired outcome numerator、paired delta 或 complete paired denominator。
+
+reason-code registry 使用本节定义的连字符形式作为唯一 canonical spelling：`prerequisite-unavailable`、`critical-field-unverifiable`、`contract-field-missing`、`provenance-mismatch`、`pairing-mismatch`、`environment-mismatch`、`metric-wrapper-invalid`、`terminal-semantics-ambiguous`。别名、下划线形式和自由文本不得作为聚合键。`terminal_fields` 的 pointer 也必须使用已登记 schema path；通用 run record 至少包括 `/acceptance_oracle_ref`、`/scenario_revision`、`/prompt_sha256`、`/skill_source/revision`、`/installed_copy/hash`、`/host/runtime_revision`、`/profile/tool_permission_snapshot`、`/pairing/arm_order` 和 `/environment/tool_policy`。metadata-only conformance 可以用 manifest 的 `terminal_field_registry` 冻结其合成 record 的具体嵌套路径，但该 registry 必须是已登记 run-schema path 的明确子集，不能建立第二套终态语义。
+
 ## 6. 记录格式
 
 ### 6.1 Scenario record
@@ -249,6 +274,10 @@ provenance / evaluator version / limitations
 ```
 
 任何 critical 字段缺失时，run 必须为 `invalid` 或 `blocked`，并记录原因；不能用零、空字符串或模型自述补齐。
+
+#### 6.2.1 Terminal status application
+
+Apply the terminal-status, attempt-boundary, reason-code, terminal-field, record-preservation, metric-wrapper, denominator, attrition, and paired-set propagation rules defined in §5.4.1 and §5.5. Do not create a second run-record terminal registry in this section.
 
 ### 6.3 Aggregate record
 

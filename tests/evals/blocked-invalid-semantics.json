@@ -1,0 +1,705 @@
+{
+  "$schema": "outcome-evaluation-v1-blocked-invalid-semantics",
+  "schema_version": "blocked-invalid-semantics-v1",
+  "status": "synthetic-metadata-only",
+  "mode": "metadata-only-conformance-v1",
+  "execution_mode": "synthetic-metadata-only",
+  "actual_execution": false,
+  "ab_comparison": "not_applicable",
+  "runtime_installable": false,
+  "outcome_claims": "none",
+  "record_kind": "synthetic-metadata-case",
+  "forbidden_capabilities": [
+    "model_execution",
+    "host_routing",
+    "skill_activation",
+    "three_arm_ab",
+    "cost_telemetry",
+    "lifecycle_action"
+  ],
+  "execution_policy": {
+    "model_provider_execution": false,
+    "host_runtime_routing": false,
+    "skill_activation": false,
+    "workspace_mutation": false,
+    "ab_arm_execution": false,
+    "telemetry_collection": false,
+    "retries": false,
+    "lifecycle_writes": false
+  },
+  "forbidden_actions": {
+    "promotion": false,
+    "demotion": false,
+    "archive": false,
+    "install": false,
+    "profile": false,
+    "routing": false,
+    "path": false,
+    "git": false
+  },
+  "advisory_status": "inconclusive",
+  "critical_provenance_fields": [
+    "scenario_revision",
+    "prompt_sha256",
+    "acceptance_oracle_hash",
+    "source_revision",
+    "skill_reference_revision",
+    "installed_copy_identity",
+    "model_provider_version",
+    "host_runtime_version",
+    "environment_id",
+    "tool_policy_revision",
+    "profile_id",
+    "workspace_state_id"
+  ],
+  "terminal_field_registry": [
+    "/prerequisites/acceptance_oracle",
+    "/prerequisites/host_substrate",
+    "/provenance_observed/host_runtime_version",
+    "/provenance_observed/source_revision",
+    "/provenance_observed/environment_id",
+    "/contract/acceptance_oracle_ref",
+    "/metrics/tokens_total/status",
+    "/metrics/tokens_total/value"
+  ],
+  "frozen_provenance": {
+    "scenario_revision": 1,
+    "prompt_sha256": "synthetic-prompt-hash-v1",
+    "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+    "source_revision": "synthetic-source-revision-v1",
+    "skill_reference_revision": "synthetic-skill-reference-v1",
+    "installed_copy_identity": "synthetic-installed-copy-v1",
+    "model_provider_version": "synthetic-provider-v1",
+    "host_runtime_version": "synthetic-host-v1",
+    "environment_id": "synthetic-environment-v1",
+    "tool_policy_revision": "synthetic-no-tools-v1",
+    "profile_id": "synthetic-profile-v1",
+    "workspace_state_id": "synthetic-fresh-state-v1"
+  },
+  "records": [
+    {
+      "record_id": "run-completed-control",
+      "paired_set_id": "pair-propagation-001",
+      "scenario_id": "SYN-CONTROL-001",
+      "arm": "baseline",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": 100,
+          "unit": "tokens",
+          "status": "measured",
+          "reason": "synthetic metadata value"
+        },
+        "wall_time_ms": {
+          "value": 12,
+          "unit": "ms",
+          "status": "measured",
+          "reason": "synthetic metadata value"
+        }
+      },
+      "terminal_status": "completed",
+      "terminal_fields": [],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-blocked-prerequisite",
+      "paired_set_id": "pair-blocked-prerequisite-001",
+      "scenario_id": "SYN-BLOCKED-PREREQUISITE-001",
+      "arm": "baseline",
+      "execution_attempted": false,
+      "collection_attempted": false,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "prerequisites": {
+        "acceptance_oracle": null
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "execution was not attempted"
+        }
+      },
+      "terminal_status": "blocked",
+      "terminal_reason_code": "prerequisite-unavailable",
+      "terminal_reason": "The independent acceptance oracle prerequisite is unavailable before collection or execution could start.",
+      "terminal_fields": [
+        "/prerequisites/acceptance_oracle"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-blocked-critical-field",
+      "paired_set_id": "pair-blocked-critical-field-001",
+      "scenario_id": "SYN-BLOCKED-CRITICAL-FIELD-001",
+      "arm": "candidate",
+      "execution_attempted": false,
+      "collection_attempted": false,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": null,
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "execution was not attempted"
+        }
+      },
+      "terminal_status": "blocked",
+      "terminal_reason_code": "critical-field-unverifiable",
+      "terminal_reason": "The frozen host runtime provenance cannot be verified before collection or execution begins.",
+      "terminal_fields": [
+        "/provenance_observed/host_runtime_version"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-invalid-contract-field",
+      "paired_set_id": "pair-invalid-contract-field-001",
+      "scenario_id": "SYN-INVALID-CONTRACT-001",
+      "arm": "candidate",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {},
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "unavailable",
+          "reason": "synthetic telemetry source is not available"
+        }
+      },
+      "terminal_status": "invalid",
+      "terminal_reason_code": "contract-field-missing",
+      "terminal_reason": "Collection or execution was attempted, but the required acceptance oracle reference is missing from the run contract.",
+      "terminal_fields": [
+        "/contract/acceptance_oracle_ref"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-invalid-provenance",
+      "paired_set_id": "pair-invalid-provenance-001",
+      "scenario_id": "SYN-INVALID-PROVENANCE-001",
+      "arm": "candidate",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "different-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "invalid provenance prevents aggregation"
+        }
+      },
+      "terminal_status": "invalid",
+      "terminal_reason_code": "provenance-mismatch",
+      "terminal_reason": "The observed source revision differs from the frozen source revision after execution was attempted.",
+      "terminal_fields": [
+        "/provenance_observed/source_revision"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-invalid-environment-control",
+      "paired_set_id": "pair-invalid-environment-001",
+      "scenario_id": "SYN-INVALID-PAIRING-001",
+      "arm": "baseline",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-control-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "pairing is invalid"
+        }
+      },
+      "terminal_status": "invalid",
+      "terminal_reason_code": "pairing-mismatch",
+      "terminal_reason": "The paired run environment does not match the frozen pairing environment.",
+      "terminal_fields": [
+        "/provenance_observed/environment_id"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-invalid-environment-candidate",
+      "paired_set_id": "pair-invalid-environment-001",
+      "scenario_id": "SYN-INVALID-PAIRING-001",
+      "arm": "candidate",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-candidate-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "pairing is invalid"
+        }
+      },
+      "terminal_status": "invalid",
+      "terminal_reason_code": "pairing-mismatch",
+      "terminal_reason": "The paired run environment does not match the frozen pairing environment.",
+      "terminal_fields": [
+        "/provenance_observed/environment_id"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-invalid-metric-wrapper",
+      "paired_set_id": "pair-invalid-metric-wrapper-001",
+      "scenario_id": "SYN-INVALID-METRIC-001",
+      "arm": "candidate",
+      "execution_attempted": true,
+      "collection_attempted": true,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "measured",
+          "reason": "synthetic wrapper deliberately violates measured-value contract"
+        }
+      },
+      "terminal_status": "invalid",
+      "terminal_reason_code": "metric-wrapper-invalid",
+      "terminal_reason": "The measured metric wrapper has no finite numeric value and cannot be aggregated.",
+      "terminal_fields": [
+        "/metrics/tokens_total/status",
+        "/metrics/tokens_total/value"
+      ],
+      "record_preserved": true
+    },
+    {
+      "record_id": "run-propagated-blocked",
+      "paired_set_id": "pair-propagation-001",
+      "scenario_id": "SYN-PAIRED-PROPAGATION-001",
+      "arm": "candidate",
+      "execution_attempted": false,
+      "collection_attempted": false,
+      "provenance_ref": "frozen-provenance-v1",
+      "provenance_observed": {
+        "scenario_revision": 1,
+        "prompt_sha256": "synthetic-prompt-hash-v1",
+        "acceptance_oracle_hash": "synthetic-oracle-hash-v1",
+        "source_revision": "synthetic-source-revision-v1",
+        "skill_reference_revision": "synthetic-skill-reference-v1",
+        "installed_copy_identity": "synthetic-installed-copy-v1",
+        "model_provider_version": "synthetic-provider-v1",
+        "host_runtime_version": "synthetic-host-v1",
+        "environment_id": "synthetic-environment-v1",
+        "tool_policy_revision": "synthetic-no-tools-v1",
+        "profile_id": "synthetic-profile-v1",
+        "workspace_state_id": "synthetic-fresh-state-v1"
+      },
+      "prerequisites": {
+        "host_substrate": null
+      },
+      "contract": {
+        "acceptance_oracle_ref": "oracle-synthetic-v1"
+      },
+      "metrics": {
+        "tokens_total": {
+          "value": null,
+          "unit": "tokens",
+          "status": "not_collected",
+          "reason": "execution was not attempted"
+        }
+      },
+      "terminal_status": "blocked",
+      "terminal_reason_code": "prerequisite-unavailable",
+      "terminal_reason": "The paired candidate cannot be attempted because its required host substrate is unavailable.",
+      "terminal_fields": [
+        "/prerequisites/host_substrate"
+      ],
+      "record_preserved": true
+    }
+  ],
+  "paired_sets": [
+    {
+      "paired_set_id": "pair-propagation-001",
+      "member_ids": [
+        "run-completed-control",
+        "run-propagated-blocked"
+      ],
+      "terminal_status": "blocked",
+      "terminal_reason_code": "prerequisite-unavailable",
+      "terminal_reason": "A member is blocked, so the paired set cannot enter the complete paired denominator.",
+      "terminal_fields": [
+        "/members/run-propagated-blocked/terminal_status",
+        "/members/run-propagated-blocked/terminal_reason_code"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-blocked-prerequisite-001",
+      "member_ids": [
+        "run-blocked-prerequisite"
+      ],
+      "terminal_status": "blocked",
+      "terminal_reason_code": "prerequisite-unavailable",
+      "terminal_reason": "The singleton paired set inherits its member's unavailable prerequisite.",
+      "terminal_fields": [
+        "/members/run-blocked-prerequisite/terminal_status",
+        "/members/run-blocked-prerequisite/terminal_reason_code"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-blocked-critical-field-001",
+      "member_ids": [
+        "run-blocked-critical-field"
+      ],
+      "terminal_status": "blocked",
+      "terminal_reason_code": "critical-field-unverifiable",
+      "terminal_reason": "The singleton paired set inherits its member's unverifiable pre-attempt provenance.",
+      "terminal_fields": [
+        "/members/run-blocked-critical-field/terminal_status",
+        "/members/run-blocked-critical-field/terminal_fields"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-invalid-contract-field-001",
+      "member_ids": [
+        "run-invalid-contract-field"
+      ],
+      "terminal_status": "invalid",
+      "terminal_reason_code": "contract-field-missing",
+      "terminal_reason": "The singleton paired set inherits its member's missing post-attempt contract field.",
+      "terminal_fields": [
+        "/members/run-invalid-contract-field/terminal_status",
+        "/members/run-invalid-contract-field/terminal_fields"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-invalid-provenance-001",
+      "member_ids": [
+        "run-invalid-provenance"
+      ],
+      "terminal_status": "invalid",
+      "terminal_reason_code": "provenance-mismatch",
+      "terminal_reason": "The singleton paired set inherits its member's post-attempt provenance mismatch.",
+      "terminal_fields": [
+        "/members/run-invalid-provenance/terminal_status",
+        "/members/run-invalid-provenance/terminal_fields"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-invalid-environment-001",
+      "member_ids": [
+        "run-invalid-environment-control",
+        "run-invalid-environment-candidate"
+      ],
+      "terminal_status": "invalid",
+      "terminal_reason_code": "pairing-mismatch",
+      "terminal_reason": "The paired set contains different observed environments and is excluded as invalid.",
+      "terminal_fields": [
+        "/members/run-invalid-environment-control/provenance_observed/environment_id",
+        "/members/run-invalid-environment-candidate/provenance_observed/environment_id"
+      ],
+      "record_preserved": true
+    },
+    {
+      "paired_set_id": "pair-invalid-metric-wrapper-001",
+      "member_ids": [
+        "run-invalid-metric-wrapper"
+      ],
+      "terminal_status": "invalid",
+      "terminal_reason_code": "metric-wrapper-invalid",
+      "terminal_reason": "The singleton paired set inherits its member's invalid metric wrapper.",
+      "terminal_fields": [
+        "/members/run-invalid-metric-wrapper/terminal_status",
+        "/members/run-invalid-metric-wrapper/terminal_fields"
+      ],
+      "record_preserved": true
+    }
+  ],
+  "expected": {
+    "preserved_record_ids": [
+      "run-completed-control",
+      "run-blocked-prerequisite",
+      "run-blocked-critical-field",
+      "run-invalid-contract-field",
+      "run-invalid-provenance",
+      "run-invalid-environment-control",
+      "run-invalid-environment-candidate",
+      "run-invalid-metric-wrapper",
+      "run-propagated-blocked"
+    ],
+    "preserved_paired_set_ids": [
+      "pair-propagation-001",
+      "pair-blocked-prerequisite-001",
+      "pair-blocked-critical-field-001",
+      "pair-invalid-contract-field-001",
+      "pair-invalid-provenance-001",
+      "pair-invalid-environment-001",
+      "pair-invalid-metric-wrapper-001"
+    ],
+    "record_outcomes": {
+      "run-completed-control": {
+        "terminal_status": "completed",
+        "terminal_reason_code": null,
+        "terminal_fields": []
+      },
+      "run-blocked-prerequisite": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "prerequisite-unavailable",
+        "terminal_fields": [
+          "/prerequisites/acceptance_oracle"
+        ]
+      },
+      "run-blocked-critical-field": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "critical-field-unverifiable",
+        "terminal_fields": [
+          "/provenance_observed/host_runtime_version"
+        ]
+      },
+      "run-invalid-contract-field": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "contract-field-missing",
+        "terminal_fields": [
+          "/contract/acceptance_oracle_ref"
+        ]
+      },
+      "run-invalid-provenance": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "provenance-mismatch",
+        "terminal_fields": [
+          "/provenance_observed/source_revision"
+        ]
+      },
+      "run-invalid-environment-control": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "pairing-mismatch",
+        "terminal_fields": [
+          "/provenance_observed/environment_id"
+        ]
+      },
+      "run-invalid-environment-candidate": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "pairing-mismatch",
+        "terminal_fields": [
+          "/provenance_observed/environment_id"
+        ]
+      },
+      "run-invalid-metric-wrapper": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "metric-wrapper-invalid",
+        "terminal_fields": [
+          "/metrics/tokens_total/status",
+          "/metrics/tokens_total/value"
+        ]
+      },
+      "run-propagated-blocked": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "prerequisite-unavailable",
+        "terminal_fields": [
+          "/prerequisites/host_substrate"
+        ]
+      }
+    },
+    "paired_outcomes": {
+      "pair-propagation-001": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "prerequisite-unavailable"
+      },
+      "pair-blocked-prerequisite-001": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "prerequisite-unavailable"
+      },
+      "pair-blocked-critical-field-001": {
+        "terminal_status": "blocked",
+        "terminal_reason_code": "critical-field-unverifiable"
+      },
+      "pair-invalid-contract-field-001": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "contract-field-missing"
+      },
+      "pair-invalid-provenance-001": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "provenance-mismatch"
+      },
+      "pair-invalid-environment-001": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "pairing-mismatch"
+      },
+      "pair-invalid-metric-wrapper-001": {
+        "terminal_status": "invalid",
+        "terminal_reason_code": "metric-wrapper-invalid"
+      }
+    },
+    "aggregate": {
+      "record_total": 9,
+      "record_complete_denominator": 1,
+      "outcome_denominator": 0,
+      "record_blocked": 3,
+      "record_invalid": 5,
+      "record_attrition": 8,
+      "raw_run_reason_counts": {
+        "contract-field-missing": 1,
+        "critical-field-unverifiable": 1,
+        "metric-wrapper-invalid": 1,
+        "pairing-mismatch": 2,
+        "prerequisite-unavailable": 2,
+        "provenance-mismatch": 1
+      },
+      "paired_set_total": 7,
+      "paired_set_complete_denominator": 0,
+      "paired_set_blocked": 3,
+      "paired_set_invalid": 4,
+      "paired_set_attrition": 7,
+      "paired_set_reason_counts": {
+        "contract-field-missing": 1,
+        "critical-field-unverifiable": 1,
+        "metric-wrapper-invalid": 1,
+        "pairing-mismatch": 1,
+        "prerequisite-unavailable": 2,
+        "provenance-mismatch": 1
+      },
+      "advisory_status": "inconclusive"
+    }
+  }
+}
