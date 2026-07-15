@@ -1,11 +1,12 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-15
-- 状态：阶段 2 协议、静态 seed、readiness 与 blocked/invalid metadata conformance 完成；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；只读 host/provider/harness/provenance inventory 与首个产品任务 fixture/oracle 设计门已完成，确认产品任务规格与真实执行前置依赖仍缺失或不可核验；评测扩张与 runtime/lifecycle 状态已冻结，真实 outcome 仍待独立 host substrate/runner
+- 状态：Kernel 与 13 个 playbook 的运行时薄化已完成并提交；阶段 2 非运行时评测基础（协议、static seed、readiness 与 blocked/invalid metadata conformance）已建立并通过；只读 host/provider/harness/provenance inventory 与首个产品任务 fixture/oracle 设计门已完成，确认真实产品任务规格与执行前置依赖仍缺失或不可核验；评测扩张与 runtime/lifecycle 状态已冻结，真实 outcome/A-B 不在当前条件下执行
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
 - 最新功能 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`beb248a`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新交接/冻结 checkpoint：`16e5075`（`Freeze evaluation expansion handoff`）
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -91,16 +92,20 @@
 - `skills/agent-workflow/SKILL.md:59-88, 115-126`：已有 worker contract、证据交接、最小 carry-forward、leaf/controller 深度和停止条件。
 - `skills/agent-workflow/evals/evals.json`：已有 12 组路由/行为合同 eval，但不是 outcome benchmark runner。
 - `tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`：已有路由、组合、sole-owner、verifier、contradiction 和停止边界的维护合同。
+- `tests/evals/verify-scenario-seeds.js`：6 条 static seed 的来源、哈希、基线 revision 和 `outcome_status: unmeasured` 合同通过。
+- `tests/evals/verify-scn-tm-test-pos-001-readiness.js`：readiness slice A1–A6 全部通过，重复 3 次稳定，缺失 readiness timeout 和 fixed-sleep negative control 通过；`outcome_claims: none`。
+- `tests/evals/verify-blocked-invalid-semantics.js`：9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator: 0`、`advisory_status: inconclusive`、`outcome_claims: none`。
+- `git diff --check`：通过；tracked 工作区干净。唯一未跟踪文件 `coding-agent-skills-high-value-refactor-direction.md` 仍是外部参考，不进入提交或 runtime。
 - 当前 Git 基线：`full-suite-v1` → `9a0318a`；pilot 引入于 `373e61c`，证据边界加固于 `93a9951`。
-- 评测结论边界：当前没有真实 outcome/A-B 结果，因此不能声称 adaptive 已优于 `agent-workflow`，也不能据此自动升降级。
+- 评测结论边界：当前没有真实 outcome/A-B 结果，因此不能声称任何 skill 或 adaptive 已获得结果收益，也不能据此自动升降级。
 
 ## 6. 压缩交接
 
 ### 当前目标
 
-在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check、blocked/invalid metadata conformance、host/provider/harness/provenance inventory 和首个产品任务 fixture/oracle 设计门；当前等待真实产品任务规格、独立 acceptance oracle 与可核验执行 substrate。
+在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check、blocked/invalid metadata conformance、host/provider/harness/provenance inventory 和首个产品任务 fixture/oracle 设计门；真实产品任务规格、独立 acceptance oracle 与可核验执行 substrate 在当前项目条件下不存在，因此不进入真实 outcome 执行。
 
-当前工作模式是“运行时薄化已完成，评测扩张冻结，评测执行依赖待补齐”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。现有评测资产保留为 dormant 的非运行时完整性检查，不执行 archive；真实 outcome/A-B 仍保持 blocked，直到真实产品任务规格、独立 task acceptance oracle、host substrate、task harness、model/provider matrix 和 telemetry 可核验。
+当前工作模式是“运行时薄化已完成，阶段 2 非运行时评测基础已建立并冻结”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。现有评测资产保留为 dormant 的非运行时完整性检查，不执行 archive；真实 outcome/A-B 保持 blocked，除非未来外部真实执行条件全部具备；当前不创建或补造这些材料。
 
 ### 已确定选择
 
@@ -133,23 +138,19 @@
 - 已新增 `SCN-TM-TEST-POS-001` 非运行时 readiness slice：manifest、deterministic virtual-step fixture、独立 behavior oracle 和 conformance self-check；6 条 criteria、3 次重复稳定性、缺失 readiness timeout、fixed-sleep negative control、hash/seed 引用检查均通过。
 - readiness self-check 只证明 fixture/oracle readiness，不执行 model、host routing、三臂 A/B、cost/latency telemetry，不改变 `scenario-seeds.json` 的六条 static-seed/unmeasured/blocked-oracle 合同，也不产生 outcome 或 lifecycle claim。
 - 已新增 blocked/invalid metadata-only conformance slice：`tests/evals/blocked-invalid-semantics.json` 与 `verify-blocked-invalid-semantics.js`；补齐 attempt boundary、canonical terminal reason/field、metric wrapper、record preservation、paired propagation、raw/paired denominator 和 attrition 合同。9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator` 保持 0，未执行 model、host、skill、A/B、telemetry 或 lifecycle action。
-- 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check）、Lab、Governance/Distribution/External Reference 的唯一映射。
+- 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check + blocked/invalid metadata conformance）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改现有 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时/评测前置切片均已提交；最新提交为 `5182582`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
-- 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
+- 最新功能 checkpoint 为 `5182582`；最新交接/冻结 checkpoint 为 `16e5075`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
+- 本轮交接前的收束验证已通过：三项 eval conformance 与 `git diff --check` 均通过；tracked 工作区干净。
+- 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件，也不提交。
 
-### 压缩后下一步
+### 压缩后唯一下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；评测扩张与 runtime/lifecycle 状态已冻结，现有资产保留而不 archive。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；本轮收束验证已通过；评测扩张与 runtime/lifecycle 状态已冻结，现有资产保留而不 archive。
 
-上下文压缩后直接从以下步骤恢复：
+上下文压缩后只恢复一个 gated action：先核验完整恢复门——真实产品任务规格（产品 surface、输入/状态迁移、预期结果和回归边界）、独立且预先冻结的 task acceptance oracle、immutable task harness、可核验的 host/provider/tool-policy contract、fresh isolation、provenance/attempt metadata、telemetry 和 pinned pricing 必须全部具备。全部具备后，才运行一个 immutable scenario × 一个 provider × 一个 host 的 advisory-only 三臂 smoke proof；任何一项缺失或不可核验，就继续保持评测与生命周期冻结，只做有界 source-linked maintenance 与三项既有 conformance checks。
 
-1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 synthetic fixture 的 readiness behavior，后者只证明终态 metadata 合同。它们都不是产品任务 acceptance oracle。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent task oracle；metadata `outcome_denominator` 保持 0。
-2. 只读 host/provider/harness/provenance inventory 已完成；本轮首个产品任务 fixture/oracle 设计门也已完成，结论为 `blocked-awaiting-product-task-spec`：canonical trigger row 只有路由意图，仓库没有足够产品 surface、状态迁移、预期功能结果或回归语义来定义真实 task fixture 与独立 acceptance oracle。仓库同时没有 outcome runner、三臂隔离 harness、model/provider matrix、真实 telemetry 或 pinned pricing；`skills-lock.json` 只提供 source/path/hash 元数据，`.claude/settings.local.json` 只提供本地权限事实，当前会话工具和本地代理配置不能证明产品 host contract、有效 provider 身份、worker 隔离或 tool-policy snapshot。前置条件具备前不实现 outcome runner、三臂 A/B、model matrix 或 telemetry stack；具备后先用一个 immutable scenario、一个 provider 和一个 host 做 advisory-only 受限试运行，再考虑扩展。当前冻结 runtime/lifecycle 状态，不 archive 现有评测或运行时资产。
-3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、blocked/invalid conformance、route hit、静态合同或 token reduction 当 outcome 证据。
-4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json`、`tests/evals/blocked-invalid-semantics.json` 及当前 host 能力边界；本轮 inventory 与 `blocked-awaiting-product-task-spec` 设计门结论已写入 ledger 与本节，不要重新审查已确定的重构路线。
-
-独立 task acceptance oracle、immutable task harness 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；readiness behavior oracle 不替代 task acceptance oracle。在此之前只保留有界的 source-linked maintenance 与三项现有 conformance checks，不新增 synthetic eval、runner 或 lifecycle implementation；不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。前置条件具备后，仅先做一个 immutable scenario、一个 provider、一个 host 的 advisory-only 三臂 smoke proof；不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
+当前已验证的 readiness slice 只证明独立 synthetic fixture 的 readiness behavior，blocked/invalid slice 只证明终态 metadata 合同；二者都不是产品任务 acceptance oracle。六条 static seed 继续保持 `static-seed`、`outcome_status: unmeasured`、blocked independent task oracle，metadata `outcome_denominator` 保持 0。不要重新审查已确定的重构路线，不要创建 synthetic product fixture、outcome runner、三臂 A/B、model matrix、telemetry stack、profiles 或第二 runtime entry；不要执行 outcome benefit 声明、promotion、demotion、archive、adaptive 迁移或物理目录迁移。
 
 ### 恢复时禁止漂移
 
