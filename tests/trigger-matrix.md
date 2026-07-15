@@ -3,7 +3,7 @@
 Use this file to pressure-test whether the active development workflow split still behaves as intended.
 
 It is not a runtime skill.
-The maintained prompt file is authoritative for default behavior, and skill descriptions/bodies are authoritative for routing. This file validates those contracts.
+The maintained prompt file `prompts/CLAUDE.fragment.md` is authoritative for default behavior, and each `skills/<name>/SKILL.md` plus its description is authoritative for routing. This file validates those contracts and is not a runtime instruction source.
 
 ## Default Behavior Cases
 

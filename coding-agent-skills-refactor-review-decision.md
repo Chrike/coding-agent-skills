@@ -91,6 +91,7 @@
 - `skills/agent-workflow/SKILL.md:59-88, 115-126`：已有 worker contract、证据交接、最小 carry-forward、leaf/controller 深度和停止条件。
 - `skills/agent-workflow/evals/evals.json`：已有 12 组路由/行为合同 eval，但不是 outcome benchmark runner。
 - `tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`：已有路由、组合、sole-owner、verifier、contradiction 和停止边界的维护合同。
+- `tests/evals/verify-routing-contract.js`：routing contract、trigger matrix 和 non-trigger cases 均覆盖当前 13 个 skill，并通过 canonical Kernel/source-index 一致性检查；该检查仍是非运行时维护合同，不证明 host/model 激活或产品 outcome。
 - `tests/evals/verify-scenario-seeds.js`：6 条 static seed 的来源、哈希、基线 revision 和 `outcome_status: unmeasured` 合同通过。
 - `tests/evals/verify-scn-tm-test-pos-001-readiness.js`：readiness slice A1–A6 全部通过，重复 3 次稳定，缺失 readiness timeout 和 fixed-sleep negative control 通过；`outcome_claims: none`。
 - `tests/evals/verify-blocked-invalid-semantics.js`：9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator: 0`、`advisory_status: inconclusive`、`outcome_claims: none`。
@@ -140,8 +141,8 @@
 - 已新增 blocked/invalid metadata-only conformance slice：`tests/evals/blocked-invalid-semantics.json` 与 `verify-blocked-invalid-semantics.js`；补齐 attempt boundary、canonical terminal reason/field、metric wrapper、record preservation、paired propagation、raw/paired denominator 和 attrition 合同。9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator` 保持 0，未执行 model、host、skill、A/B、telemetry 或 lifecycle action。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check + blocked/invalid metadata conformance）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 已完成唯一 Lab source relocation、profile distribution metadata/installer 和 lifecycle governance boundary；没有创建第二 runtime entry，现有 tests/evals 运行合同保持 non-runtime。
-- 最新功能 checkpoint 为 `5182582`；最新交接/冻结 checkpoint 为 `16e5075`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
-- 本轮结构收口的验证已通过：8 项 repository boundary/conformance checks、两项 Node syntax checks 与 `git diff --check` 均通过；本次交接记录描述的是本轮 implementation snapshot，外部方向文档仍不提交。
+- 最新功能 checkpoint 为 `5182582`；最新结构收口 checkpoint 为 `078db79`；最新交接/冻结 checkpoint 为 `f1407b5`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
+- 本轮结构收口的验证已通过：9 项 repository boundary/conformance checks、维护的 JavaScript syntax checks 与 `git diff --check` 均通过；本次交接记录描述的是本轮 implementation snapshot，外部方向文档仍不提交。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件，也不提交。
 
 ### 压缩后唯一下一步

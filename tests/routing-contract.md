@@ -13,6 +13,26 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 - Each runtime skill's `description` plus `SKILL.md` body defines when that skill should trigger.
 - `tests/` validates those boundaries and must not become a second runtime instruction layer.
 
+## Canonical Skill Sources
+
+The current skill directories are the source index for this maintenance contract. Each entry must point to the skill's only runtime source file; this table does not define routing or duplicate skill content.
+
+| Skill | Canonical source |
+| --- | --- |
+| `agent-workflow` | `skills/agent-workflow/SKILL.md` |
+| `debug-systematically` | `skills/debug-systematically/SKILL.md` |
+| `decision-map` | `skills/decision-map/SKILL.md` |
+| `design-codebase` | `skills/design-codebase/SKILL.md` |
+| `finish-branch` | `skills/finish-branch/SKILL.md` |
+| `issue-workflow` | `skills/issue-workflow/SKILL.md` |
+| `markdown-memory` | `skills/markdown-memory/SKILL.md` |
+| `memory-handoff` | `skills/memory-handoff/SKILL.md` |
+| `plan-work` | `skills/plan-work/SKILL.md` |
+| `reliability-check` | `skills/reliability-check/SKILL.md` |
+| `review-and-finish` | `skills/review-and-finish/SKILL.md` |
+| `skill-refactorer` | `skills/skill-refactorer/SKILL.md` |
+| `test-strategy` | `skills/test-strategy/SKILL.md` |
+
 ## Core Routing
 
 | User Need | Layer |

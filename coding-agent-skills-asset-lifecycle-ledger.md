@@ -142,7 +142,7 @@ adaptive 的通用委派、worker brief、leaf/controller 和集成原则仍由 
 2. 每个 `skills/<name>/SKILL.md` 唯一拥有该 skill 的触发边界和核心方法；同目录 `references/` 只由它按需加载。
 3. `agent-workflow` 唯一拥有通用多代理委派、证据交接、leaf/controller 和停止边界；adaptive 不拥有通用副本。
 4. `experiments/workflows/<name>.js` 唯一拥有 Lab saved-workflow 实现；`experiments/README.md` 只拥有 source/install/pilot 边界说明。
-5. `tests/`、`evals/` 和未来 scenario/outcome 文件只拥有验证资产；它们不得成为运行时 instruction layer。
+5. `tests/`、`evals/` 和未来 scenario/outcome 文件只拥有验证资产；它们不得成为运行时 instruction layer。`tests/evals/verify-routing-contract.js` 只检查维护合同与 canonical source 的一致性，不执行 host/model routing。
 6. `skills.sh.json` 和 `skills-lock.json` 只拥有分发/版本元数据；它们不得定义触发或生命周期。
 7. 本账拥有资产身份、目标层、生命周期和迁移门槛的索引元数据，但不拥有任何运行时规则正文。
 8. 外部分析文件没有 canonical owner；它们不能通过被放入仓库而自动取得指令权。
