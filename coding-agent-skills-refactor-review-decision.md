@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：待提交（`Thin memory-handoff playbook`）；前置 checkpoint 为 `1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`f939ddc`（`Thin memory-handoff playbook`）；前置 checkpoint 为 `1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -127,7 +127,7 @@
 - 已实施 `memory-handoff` 的局部切片：合并 First Decision 中重复的显式触发/长上下文排除措辞，并移除 Boundaries 中重复的普通任务 memory-update 提醒；保留 artifact authority 三分支、操作性 handoff 字段、完整 Resume From Memory 顺序、纠正优先和无历史重放边界，以及秘密/私有数据/大段源码限制；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有前置运行时切片已提交；本轮 memory-handoff 切片与治理更新待 focused verification 后提交。
+- 所有已完成运行时切片均已提交；最新提交为 `f939ddc`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
