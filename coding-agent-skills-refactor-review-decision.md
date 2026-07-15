@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新功能 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`beb248a`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -144,12 +144,12 @@
 
 上下文压缩后直接从以下步骤恢复：
 
-1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 fixture/oracle 的 deterministic behavior，后者只证明终态 metadata 合同。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent oracle；metadata `outcome_denominator` 保持 0。
-2. 下一阶段是补可核验 host execution substrate、immutable task harness、三臂 paired runner、model/provider matrix、run provenance 和 token/tool/wall-time/cost telemetry；先保持 blocked/invalid 边界，再考虑真实 A/B。
+1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 synthetic fixture 的 readiness behavior，后者只证明终态 metadata 合同。它们都不是产品任务 acceptance oracle。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent task oracle；metadata `outcome_denominator` 保持 0。
+2. 下一步先做只读的 host/provider/harness capability 与 provenance inventory，确认外部执行前置条件；在真实产品任务 fixture、独立 task acceptance oracle 和可核验 host contract 具备前，不实现 outcome runner、三臂 A/B、model matrix 或 telemetry stack。前置条件具备后，先用一个 immutable scenario、一个 provider 和一个 host 做受限试运行，再考虑扩展。
 3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、blocked/invalid conformance、route hit、静态合同或 token reduction 当 outcome 证据。
 4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json`、`tests/evals/blocked-invalid-semantics.json` 及当前 host 能力边界；不要重新审查已确定的重构路线。
 
-独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
+独立 task acceptance oracle、immutable task harness 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；readiness behavior oracle 不替代 task acceptance oracle。在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
 
 ### 恢复时禁止漂移
 
@@ -159,4 +159,4 @@
 - 不要把 readiness self-check、blocked/invalid conformance、token 数、触发命中或静态合同当成真实结果收益。
 - 不要把新 readiness slice 误写成 executable outcome scenario；不要悄悄更新 pinned seed revision 或 static corpus schema。
 - 不要在 active workflow 外创建 sibling controller/agent tree。
-- 不要执行 commit、push、merge、删除或分支清理，除非用户另行明确要求。
+- 不要 push、merge、删除或清理分支；普通已验证改动可按已设定的“验证通过后默认提交”偏好提交。外部方向文档仍不提交。
