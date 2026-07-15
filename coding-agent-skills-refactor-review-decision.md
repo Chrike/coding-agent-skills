@@ -117,13 +117,14 @@
 - 已实施首批 playbook 的第二个局部切片：收束 `skills/test-strategy/SKILL.md` 中重复的验收、证据和验证措辞；保留测试层级、可观察行为、TDD、mock 边界、flaky wait strategy、回归 seam 和四个 supporting references。
 - 已实施首批 playbook 的第三个局部切片：收束 `skills/review-and-finish/SKILL.md` 中重复的证据复用、review 输出和 feedback 流程措辞；保留 review/repair 分离、high-risk readiness、fresh verifier、feedback triage、PASS/BLOCK delivery gate 和 `finish-branch` 分界。
 - 已实施首批 playbook 的第四个局部切片：收束 `skills/agent-workflow/SKILL.md` 中与 Kernel 重复的并行适配性、输出膨胀、写入隔离、method ownership、single-owner 和 isolation 表述；保留 decomposition/controller contract、最小证据交接、集成、nested controller 深度和 stop conditions，以及全部五个 supporting references。
+- 已实施下一枚 playbook 的局部切片：收束 `skills/plan-work/SKILL.md` 中重复的规模/文件数触发、计划循环、计划形态和 settled-plan 重新生成措辞；保留 planning trigger、设计/计划组合、vertical slices、依赖/验收/风险和 plan-only/implementation 退出边界，以及全部三个 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；本轮运行时变更仅限 Kernel 压缩与 `debug-systematically` 局部正文压缩，supporting references 未移动或删除。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish` 与 `agent-workflow` 的首批运行时切片已实施。下一步继续按同一 skill/refactor 边界处理下一个高价值 playbook 或 supporting reference，而不是回到审查；每个切片先做 focused contract verification。独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish`、`agent-workflow` 与 `plan-work` 的首批运行时切片已实施。下一步继续按同一 skill/refactor 边界处理下一个高价值 playbook 或 supporting reference，而不是回到审查；每个切片先做 focused contract verification，并按用户设置在验证通过后默认提交。独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
 
 ### 恢复时禁止漂移
 
