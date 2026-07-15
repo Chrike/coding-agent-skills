@@ -5,7 +5,7 @@
 - 状态：资产映射、协议、静态 seed、conformance check、Kernel 压缩与 11 个 playbook 局部压缩已建立；真实 runner/物理迁移尚未开始；本轮已按用户要求暂停后续切片
 - 当前基线：`full-suite-v1` → `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：待提交（`Thin markdown-memory playbook`）；前置 checkpoint 为 `274cfe6`
+- 最新 checkpoint：`530f0a3`（`Thin markdown-memory playbook`）；前置 checkpoint 为 `274cfe6`
 - 决策依据：[`coding-agent-skills-refactor-review-decision.md`](coding-agent-skills-refactor-review-decision.md)
 - 本文性质：非运行时治理索引。本文不承载 prompt、skill、workflow 或测试正文，不增加路由，不改变安装面，也不替代任何 canonical source。
 

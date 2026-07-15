@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：待提交（`Thin markdown-memory playbook`）；前置 checkpoint 为 `274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`530f0a3`（`Thin markdown-memory playbook`）；前置 checkpoint 为 `274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -128,7 +128,7 @@
 - 已实施 `markdown-memory` 的局部切片：收束 intro 中的普通工作提示，移除 Workflow 的重复路由确认、Consult Memory 的重复来源优先提醒和 Boundaries 的重复默认维护提醒；保留 project-lesson 触发、host auto memory 分离、memory-handoff/decision-map 分工、lesson taxonomy、搜索/更新/索引规则、显式咨询、隐私和 near-duplicate 边界；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有前置运行时切片已提交；本轮 markdown-memory 切片与治理更新待 focused verification 后提交。
+- 所有已完成运行时切片均已提交；最新提交为 `530f0a3`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
