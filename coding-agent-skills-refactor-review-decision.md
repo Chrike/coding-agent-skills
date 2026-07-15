@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`004f8b4`（`Thin design playbook`）；前置 checkpoint 为 `2256e90`、`9ae25c3`
+- 最新 checkpoint：`a68bef6`（`Thin reliability-check playbook`）；前置 checkpoint 为 `004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -124,7 +124,7 @@
 - 已实施 `reliability-check` 的局部切片：合并与 Kernel 重复的显式触发/普通任务排除和一次性退出措辞；保留 frontmatter 的详细触发词、named-evidence reassessment、完整 Reliability Loop、correction taxonomy、slow-execution non-trigger、workflow boundaries 和 universal-preflight 禁止边界；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时切片均已提交；本轮 reliability-check 切片与治理更新待本轮 focused verification 后提交。
+- 所有已完成运行时切片均已提交；最新提交为 `a68bef6`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
