@@ -1,9 +1,11 @@
 # coding-agent-skills 资产职责与生命周期账本
 
 - 日期：2026-07-14
-- 阶段：阶段 2 评测基础已启动；Kernel 与首批 playbook 运行时切片已实施
-- 状态：资产映射、协议、静态 seed、conformance check、Kernel 压缩与首批 playbook 局部压缩已建立；真实 runner/物理迁移尚未开始
+- 阶段：阶段 2 评测基础已启动；Kernel 与 6 个 playbook 的运行时薄化切片已实施并提交
+- 状态：资产映射、协议、静态 seed、conformance check、Kernel 压缩与 6 个 playbook 局部压缩已建立；真实 runner/物理迁移尚未开始
 - 当前基线：`full-suite-v1` → `9a0318a`
+- 当前分支：`refactor/kernel-playbooks-thin`
+- 最新 checkpoint：`004f8b4`（`Thin design playbook`）
 - 决策依据：[`coding-agent-skills-refactor-review-decision.md`](coding-agent-skills-refactor-review-decision.md)
 - 本文性质：非运行时治理索引。本文不承载 prompt、skill、workflow 或测试正文，不增加路由，不改变安装面，也不替代任何 canonical source。
 
@@ -145,11 +147,12 @@ adaptive 的通用委派、worker brief、leaf/controller 和集成原则仍由 
 - 确认现有源目录、宿主落点、显式 workflow 复制边界和测试/评测边界。
 - 冻结 adaptive 的现有只读、有界能力，不继续扩展状态机。
 
-### 当前：建立唯一映射
+### 当前：运行时薄化与唯一映射
 
 - 本账为每个运行时资产和主要非运行时资产分配稳定 ID、唯一 owner、目标层和生命周期。
 - 当前路径仍是唯一有效 source path；目标路径只表示迁移方向。
-- 不移动目录、不创建第二套路由、不改变现有 skill 触发语义。
+- Kernel 与 6 个高价值 playbook 已完成局部薄化；每个切片均保持具体方法、supporting references 和触发边界。
+- 不移动目录、不创建第二套路由、不改变现有 skill 触发语义；已验证切片按用户偏好提交。
 
 ### 已完成：阶段 1 验收与阶段 2 协议/静态输入
 
@@ -179,7 +182,7 @@ adaptive 的通用委派、worker brief、leaf/controller 和集成原则仍由 
 - 不因为当前 skill 缺少 outcome 数据就删除、压缩或降级它们。
 - 不把当前 routing/behavior 合同描述成真实结果收益。
 - 不以 `skills-lock.json`、`skills.sh.json` 或 README 摘要代替 canonical source。
-- 不提交、推送、合并、删除或清理分支；本轮只建立治理索引并做文档级验证。
+- 不推送、合并、删除或清理分支；提交只在用户明确授权或已设置的“验证通过后默认提交”偏好覆盖的普通已验证改动范围内执行。外部方向文档仍不提交。
 
 ## 6. 阶段 1 验收
 
