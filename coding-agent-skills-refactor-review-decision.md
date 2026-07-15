@@ -1,11 +1,11 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-14
-- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 11 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner；本轮已按用户要求暂停后续切片
+- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 12 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner；当前继续处理剩余 explicit-intent playbook
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`530f0a3`（`Thin markdown-memory playbook`）；前置 checkpoint 为 `274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`b8ddab2`（`Thin skill-refactorer playbook`）；前置 checkpoint 为 `530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -126,18 +126,19 @@
 - 已实施 `issue-workflow` 的局部切片：合并 Drafting Workflow 中重复的当前请求读取/询问步骤，并移除由 Publishing Rules 唯一拥有的重复外部发布提醒；保留 First Decision 的普通工作/任务规模/草稿持久化边界、全部 artifact 类型、tracker/project/action/label/status/external-PR 发布确认、triage 证据规则和五个 workflow handoff；该 skill 无 supporting references。
 - 已实施 `memory-handoff` 的局部切片：合并 First Decision 中重复的显式触发/长上下文排除措辞，并移除 Boundaries 中重复的普通任务 memory-update 提醒；保留 artifact authority 三分支、操作性 handoff 字段、完整 Resume From Memory 顺序、纠正优先和无历史重放边界，以及秘密/私有数据/大段源码限制；该 skill 无 supporting references。
 - 已实施 `markdown-memory` 的局部切片：收束 intro 中的普通工作提示，移除 Workflow 的重复路由确认、Consult Memory 的重复来源优先提醒和 Boundaries 的重复默认维护提醒；保留 project-lesson 触发、host auto memory 分离、memory-handoff/decision-map 分工、lesson taxonomy、搜索/更新/索引规则、显式咨询、隐私和 near-duplicate 边界；该 skill 无 supporting references。
+- 已实施 `skill-refactorer` 的局部切片：将 First Decision 中与 frontmatter/Kernel 重复的触发和普通工作排除压缩为一条维护路由，保留 `plan-work`、`reliability-check`、`review-and-finish` 相邻 owner 分界；保留 durable-intent、preserve/remove、reference 和 validation-not-runtime 方法；该 skill 的 focused contract 已通过。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时切片均已提交；最新提交为 `530f0a3`。
+- 所有已完成运行时切片均已提交；最新提交为 `b8ddab2`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish`、`agent-workflow`、`plan-work`、`design-codebase`、`reliability-check`、`finish-branch`、`issue-workflow`、`memory-handoff` 与 `markdown-memory` 的运行时薄化切片已实施并提交。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish`、`agent-workflow`、`plan-work`、`design-codebase`、`reliability-check`、`finish-branch`、`issue-workflow`、`memory-handoff`、`markdown-memory` 与 `skill-refactorer` 的运行时薄化切片已实施并提交。
 
 上下文压缩后直接从以下步骤恢复：
 
-1. 上下文压缩后恢复时，继续处理剩余 explicit-intent playbook 中与 Kernel 重复的局部措辞，优先 `skill-refactorer` 或 `decision-map`；每次只处理一个 playbook，保留其触发边界、具体方法和维护/决策职责。
+1. 上下文压缩后恢复时，继续处理剩余 explicit-intent playbook 中与 Kernel 重复的局部措辞，优先 `decision-map`；每次只处理一个 playbook，保留其触发边界、具体方法和维护/决策职责。
 2. 读取当前目标 `SKILL.md` 与其 supporting references，实施最小正文切片；保持 frontmatter、`tests/routing-contract.md`、`tests/trigger-matrix.md` 和 `tests/non-trigger-cases.md` 语义不变。
 3. 运行目标 playbook 的 focused route/reference/conformance 检查、`git diff --check`，更新本文件和 ledger，并按用户已设置的偏好在验证通过后默认提交。
 
