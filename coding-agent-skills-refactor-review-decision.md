@@ -162,3 +162,16 @@
 - 不要把新 readiness slice 误写成 executable outcome scenario；不要悄悄更新 pinned seed revision 或 static corpus schema。
 - 不要在 active workflow 外创建 sibling controller/agent tree。
 - 不要 push、merge、删除或清理分支；普通已验证改动可按已设定的“验证通过后默认提交”偏好提交。外部方向文档仍不提交。
+
+### 压缩后 Goal 执行协议
+
+压缩后直接进入一个连续 Goal，不重新开启架构审查，也不把证据依赖的后续事项拆成新的长期待办。Goal 由维护者按以下顺序收口：
+
+1. 从本文件、账本和当前 Git checkpoint 恢复状态；只检查当前是否仍有仓库内可执行缺口，不重复已经完成的重构、分层、分发、Lab 归位和治理工作。
+2. 对发现的仓库内缺口采取最小实现；每项必须保持唯一 canonical owner、非运行时 eval 边界和现有 `outcome_claims: none` 约束。
+3. 每次实现后运行直接相关的 validator、JavaScript syntax check、`git diff --check`，再运行完整 repository boundary suite；若无新的仓库内缺口，则将主线标记为完成。
+4. 主线完成门槛是：运行时 source 没有第二入口，维护合同和静态 eval 有可执行完整性检查，profiles/installer/Lab/governance 边界通过，真实 outcome/A-B 仍明确 blocked，且没有把外部参考文档纳入提交。
+5. 主线完成后，按用户已授权的顺序执行最终交付：检查最终 diff 与分支/远端状态，提交所有已验证的 tracked 改动；将当前分支合并到目标主分支；推送目标分支及必要的合并结果。合并和推送前仍必须确认目标、远端和待推送提交，避免把外部参考文档或临时文件带入。
+6. 合并推送完成后执行一次性收尾：更新本交接为最终关闭状态，清理本任务产生且已过期的临时计划/交接记忆和验证残留；保留 canonical runtime source、最终治理记录、用户明确保留的外部参考文档和必要的长期项目记忆，不删除仍有审计价值的历史提交或验证资产。
+
+Goal 的停止条件是第 4 项成立；若只缺真实产品任务、独立 acceptance oracle、host/provider/harness、telemetry 或 pricing，则保持 blocked 并结束主线，不创建 synthetic 产品材料或 outcome 基础设施。
