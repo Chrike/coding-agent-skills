@@ -23,7 +23,7 @@
     "revision": "readiness-oracle-v1",
     "sha256": "8a47a390f5ca9a53c56bd38d9674d35d815ae17a72b408b2df08b207720679a3",
     "criteria_sha256": "36bf2b732f40ec9d0d22551aee58f1abf103f7c70659bf05baf11ccf139b718b",
-    "independent": true,
+    "fixture_behavior_only": true,
     "public_fixture_api_only": true
   },
   "repeat_count": 3,

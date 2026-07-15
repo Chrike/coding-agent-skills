@@ -34,7 +34,17 @@ function sha256(value) {
 }
 
 function sourcePathFor(record) {
-  return path.join(repoRoot, record.source.path);
+  if (typeof record.source?.path !== 'string' || record.source.path.trim() === '') {
+    fail(`${record.scenario_id}: source path must be a non-empty string`);
+    return null;
+  }
+  const candidate = path.resolve(repoRoot, record.source.path);
+  const relative = path.relative(repoRoot, candidate);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    fail(`${record.scenario_id}: source path must remain inside the repository: ${record.source.path}`);
+    return null;
+  }
+  return candidate;
 }
 
 function verifyMarkdownSource(record, content) {
@@ -52,13 +62,17 @@ function verifyMarkdownSource(record, content) {
   }
 }
 
-function verifyEvalSource(record, content) {
+function verifyEvalSource(record) {
   if (record.source.locator !== 'evals[0]') {
     fail(`${record.scenario_id}: unsupported eval locator ${record.source.locator}`);
     return;
   }
 
-  const source = readJson(sourcePathFor(record), record.source.path);
+  const sourcePath = sourcePathFor(record);
+  if (!sourcePath) {
+    return;
+  }
+  const source = readJson(sourcePath, record.source.path);
   const prompt = source?.evals?.[0]?.prompt;
   if (prompt !== record.prompt_fixture) {
     fail(`${record.scenario_id}: evals[0].prompt does not match the prompt fixture`);
@@ -119,11 +133,18 @@ if (!seeds) {
       if (record.outcome_status !== 'unmeasured') {
         fail(`${id}: outcome_status must remain unmeasured`);
       }
+      if (record.outcome_execution_eligible !== false) {
+        fail(`${id}: outcome_execution_eligible must remain false for static seeds`);
+      }
+      if (typeof record.eligible_for_routing_screen !== 'boolean') {
+        fail(`${id}: eligible_for_routing_screen must be boolean`);
+      }
       if (record.acceptance_oracle?.status !== 'blocked') {
         fail(`${id}: acceptance oracle must remain blocked until an independent oracle exists`);
       }
-      if (record.acceptance_oracle?.independent !== true) {
-        fail(`${id}: acceptance oracle must explicitly state independent=true`);
+      if (record.acceptance_oracle?.available !== false
+        || record.acceptance_oracle?.independence_required !== true) {
+        fail(`${id}: blocked acceptance oracle must state available=false and independence_required=true`);
       }
       if (typeof record.prompt_fixture !== 'string' || record.prompt_fixture.length === 0) {
         fail(`${id}: prompt_fixture must be non-empty`);
@@ -137,6 +158,9 @@ if (!seeds) {
       }
 
       const sourcePath = sourcePathFor(record);
+      if (!sourcePath) {
+        continue;
+      }
       if (!fs.existsSync(sourcePath)) {
         fail(`${id}: source file does not exist: ${record.source.path}`);
         continue;
@@ -146,7 +170,7 @@ if (!seeds) {
       if (record.source.path.endsWith('.md')) {
         verifyMarkdownSource(record, sourceContent);
       } else if (record.source.path.endsWith('.json')) {
-        verifyEvalSource(record, sourceContent);
+        verifyEvalSource(record);
       } else {
         fail(`${id}: unsupported source type: ${record.source.path}`);
       }

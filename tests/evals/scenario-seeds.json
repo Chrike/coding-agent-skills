@@ -34,11 +34,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "The source row defines routing intent but not an executable product task or independent outcome oracle.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": true
+      "eligible_for_routing_screen": true,
+      "outcome_execution_eligible": false
     },
     {
       "scenario_id": "SCN-TM-TEST-POS-001",
@@ -67,11 +69,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "The source row defines routing intent but not an executable product task or independent outcome oracle.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": true
+      "eligible_for_routing_screen": true,
+      "outcome_execution_eligible": false
     },
     {
       "scenario_id": "SCN-TM-AGENT-POS-001",
@@ -100,11 +104,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "The source row defines an orchestration trigger but not independent subsystem fixtures or an outcome oracle.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": true
+      "eligible_for_routing_screen": true,
+      "outcome_execution_eligible": false
     },
     {
       "scenario_id": "SCN-TM-BASE-NEG-001",
@@ -139,11 +145,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "The source row provides a base-routing expectation but no executable TypeScript fixture or independent correctness oracle.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": true
+      "eligible_for_routing_screen": true,
+      "outcome_execution_eligible": false
     },
     {
       "scenario_id": "SCN-NT-AGENT-NEG-001",
@@ -172,11 +180,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "The source row defines a non-trigger boundary but not an executable multi-file fixture or independent outcome oracle.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": true
+      "eligible_for_routing_screen": true,
+      "outcome_execution_eligible": false
     },
     {
       "scenario_id": "SCN-AW-STATIC-001",
@@ -206,11 +216,13 @@
       "acceptance_oracle": {
         "status": "blocked",
         "reason": "This is a static routing/behavior assertion fixture; it has no independent task outcome oracle and must not be treated as outcome evidence.",
-        "independent": true
+        "available": false,
+        "independence_required": true
       },
       "seed_status": "static-seed",
       "outcome_status": "unmeasured",
-      "eligible_for_initial_screen": false,
+      "eligible_for_routing_screen": false,
+      "outcome_execution_eligible": false,
       "screen_exclusion_reason": "Static eval reference only; retain as a source-linked routing/trajectory seed and do not pool with executable outcome scenarios."
     }
   ]

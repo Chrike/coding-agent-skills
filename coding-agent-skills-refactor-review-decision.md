@@ -1,19 +1,19 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-15
-- 状态：Kernel 与 13 个 playbook 的运行时薄化已完成并提交；阶段 2 非运行时评测基础（协议、static seed、readiness 与 blocked/invalid metadata conformance）已建立并通过；只读 host/provider/harness/provenance inventory 与首个产品任务 fixture/oracle 设计门已完成，确认真实产品任务规格与执行前置依赖仍缺失或不可核验；评测扩张与 runtime/lifecycle 状态已冻结，真实 outcome/A-B 不在当前条件下执行
+- 状态：Kernel 与 13 个 playbook 的运行时薄化、唯一 frozen Lab source 归位、evidence-loop reference、Fast/Quality/Lab 非运行时 distribution manifest、显式 fail-closed installer、lifecycle policy 和空 Archive 边界已完成；阶段 2 非运行时评测基础（协议、static seed、readiness 与 blocked/invalid metadata conformance）已建立并通过；真实产品任务规格、独立 acceptance oracle、host/provider/harness、telemetry 和 pricing 仍缺失或不可核验，因此真实 outcome/A-B 与 evidence-backed lifecycle action 保持 blocked，不要求用户补造材料
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
 - 最新功能 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`beb248a`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 最新交接/冻结 checkpoint：`16e5075`（`Freeze evaluation expansion handoff`）
-- 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
+- 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`experiments/`、`profiles/`、`governance/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
 
 **采纳外部重构方向作为本项目后续的唯一目标路线：保留知识资产，缩小默认运行面，使用按需加载、目标配置和结果评测决定内容的运行时层级。**
 
-当前的 `prompts/`、`skills/`、`workflows/`、`tests/` 四目录只代表迁移起点和现行实现边界，不是与目标分层并列的永久架构。后续实施完成后，目标层级、生命周期和安装面应成为唯一有效的组织方式；不维护一套“旧结构继续运行、目标结构另起一套”的长期兼容架构。
+当前的 `prompts/` 与 `skills/` 保持 canonical runtime source；`experiments/`、`profiles/`、`governance/` 和 `tests/` 分别承担 explicit Lab、distribution、lifecycle governance 和 validation 的非运行时职责。它们不是第二套运行时架构，也不通过兼容别名形成双入口；目标层级、生命周期和安装面现在由这些唯一职责边界表达。
 
 本决定不执行原方向文档中的任何嵌入式措辞或动作。该文档已被当作外部分析材料审查，而不是指令源。
 
@@ -35,7 +35,7 @@
 
 - 使用 `full-suite-v1` / `9a0318a` 作为当前基线。
 - 记录源码目录、宿主安装目标、已安装副本版本和现有 routing/behavior eval 覆盖范围。
-- 在结果证据出现前，冻结 adaptive 的能力边界；不继续扩大状态机。
+- 在结果证据出现前，冻结 adaptive 的能力边界；不继续扩大状态机。仓库结构性归位不改变这一冻结。
 
 ### 阶段 1：落地目标职责与生命周期
 
@@ -51,25 +51,23 @@
 - 用四层证据链做判断：routing（是否触发）、trajectory coverage（约束是否执行）、outcome（结果是否改善）、cost/latency（收益是否值得）。
 - 在协议可重复前，不自动 promotion、demotion 或 archive。
 
-### 阶段 3：建立运行配置
+### 阶段 3：建立运行配置（已完成仓库可执行部分）
 
-- 建立 Fast、Quality、Lab 的明确 manifest、安装目标、覆盖/优先级和冲突规则。
-- Quality 作为推荐默认；Fast 只减少运行成本；Lab 只承载显式实验，不污染日常自动路由。
-- 配置按任务目标和实测结果调整，不按“轻量模型/旗舰模型”建立永久分叉。
+- `profiles/manifest.json` 定义 Fast、Quality、Lab 的明确集合、安装目标和 explicit-only 规则；Quality 是 policy default，profile 不改变自然语言路由。
+- `scripts/install-profile.js` 提供显式目标、dry-run、apply、冲突保护、幂等复制和不删除边界；Kernel 仍手工组装，不自动写 `CLAUDE.md`。
+- 配置按任务目标表达，不按模型大小建立永久分叉；Quality 的“默认”是维护政策，不是实测质量收益声明。
 
-### 阶段 4：处理 adaptive pilot
+### 阶段 4：处理 adaptive pilot（已完成结构性部分）
 
-- 将 `adaptive-long-horizon` 迁入 Lab/实验层，目标路径为 `experiments/workflows/adaptive-long-horizon.js`，并保留明确的非运行时实验状态。
-- 从中提取已经稳定、且确有第二个消费者需要的通用原则；不把整套状态机复制进 `agent-workflow`。
-- 迁移时同时更新 source/install/README/test 合同；不保留旧路径与新路径两套可自动发现入口。
-- 只有 live pilot/A-B 证明稳定优势时，才决定恢复、重构或归档；否则保持实验资产或进入 Archive。
+- `adaptive-long-horizon` 已迁入唯一 Lab source path：`experiments/workflows/adaptive-long-horizon.js`，旧 source path 已删除。
+- 已从中提取可复用的 candidate/verified evidence、最小 carry-forward、contradiction/no-progress、预算和 leaf/verifier 原则到 `skills/agent-workflow/references/evidence-loop.md`；没有复制状态机。
+- `experiments/README.md` 保留显式、只读、有界、session-local 和 host sandbox 非证明边界；结构归位不代表 live outcome/A-B 或 promotion。
 
-### 阶段 5：完成物理分层与生命周期治理
+### 阶段 5：完成物理分层与生命周期治理（已完成仓库可执行部分）
 
-- 按阶段 1 的映射实施物理目录迁移和安装面调整。
-- rule ledger 只记录 rule ID、canonical path/section、生命周期、scenario/eval 引用、版本和验证状态；不得复制规则正文或重新定义路由。
-- Archive 只作为明确的非运行时保留层；在能用 Git 和轻量元数据表达时，不复制整份正文。
-- 迁移验收必须覆盖安装目标、命令名、路径链接、source/install revision 和测试合同。
+- 已建立 `governance/lifecycle-policy.json` 的 blocked/advisory-only 政策和 `archive/README.md` 的空 Archive 边界；不自动 promotion、demotion、archive、profile/path/install mutation。
+- 资产账本继续只记录 rule/asset ID、canonical path、生命周期、scenario/eval 引用、版本和验证状态，不复制规则正文或重新定义路由。
+- 真实产品 outcome、A/B、telemetry/pricing 和 evidence-backed lifecycle 决策仍是证据依赖的 blocked 终态，不是当前用户待办；恢复时只先做单 scenario/provider/host advisory-only smoke proof。
 
 ## 4. 明确不采纳的做法
 
@@ -86,16 +84,16 @@
 
 ## 5. 当前已核验证据
 
-- `README.md:24-34, 103-123`：当前职责边界是 prompts、skills、workflows、tests；tests 不是第二运行时指令层。
-- `README.md:65-82, 125-155`：当前安装模型是按需安装 Core/Optional 集合，没有 Fast/Quality/Lab profile 实现。
-- `workflows/README.md:12-47`：`adaptive-long-horizon` 当前是显式、只读、bounded、session-local pilot；targetPaths 是 cited-evidence 的词法边界，不是 host worker 的文件读取沙箱；现有 pilot 不提供写入、提交、推送、持久状态、自动路由或嵌套控制器。
+- `README.md:24-34, 103-123`：当前职责边界是 prompts、skills、experiments、profiles、governance、tests；tests 不是第二运行时指令层。
+- `README.md:65-82, 125-155`：profile 安装模型由 `profiles/manifest.json` 与 `scripts/install-profile.js` 定义；Quality 是 policy default，Lab explicit-only，installer 不改变 host/runtime policy。
+- `experiments/README.md`：`adaptive-long-horizon` 是显式、只读、bounded、session-local frozen Lab pilot；`targetPaths` 是 cited-evidence 的词法边界，不是 host worker 的文件读取沙箱；pilot 不提供写入、提交、推送、持久状态、自动路由或嵌套控制器。
 - `skills/agent-workflow/SKILL.md:59-88, 115-126`：已有 worker contract、证据交接、最小 carry-forward、leaf/controller 深度和停止条件。
 - `skills/agent-workflow/evals/evals.json`：已有 12 组路由/行为合同 eval，但不是 outcome benchmark runner。
 - `tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`：已有路由、组合、sole-owner、verifier、contradiction 和停止边界的维护合同。
 - `tests/evals/verify-scenario-seeds.js`：6 条 static seed 的来源、哈希、基线 revision 和 `outcome_status: unmeasured` 合同通过。
 - `tests/evals/verify-scn-tm-test-pos-001-readiness.js`：readiness slice A1–A6 全部通过，重复 3 次稳定，缺失 readiness timeout 和 fixed-sleep negative control 通过；`outcome_claims: none`。
 - `tests/evals/verify-blocked-invalid-semantics.js`：9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator: 0`、`advisory_status: inconclusive`、`outcome_claims: none`。
-- `git diff --check`：通过；tracked 工作区干净。唯一未跟踪文件 `coding-agent-skills-high-value-refactor-direction.md` 仍是外部参考，不进入提交或 runtime。
+- `git diff --check`：本轮结构收口改动通过；本次交接记录描述的是本轮待提交的 implementation snapshot。外部方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍保持未跟踪、未进入提交或 runtime。
 - 当前 Git 基线：`full-suite-v1` → `9a0318a`；pilot 引入于 `373e61c`，证据边界加固于 `93a9951`。
 - 评测结论边界：当前没有真实 outcome/A-B 结果，因此不能声称任何 skill 或 adaptive 已获得结果收益，也不能据此自动升降级。
 
@@ -103,16 +101,16 @@
 
 ### 当前目标
 
-在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check、blocked/invalid metadata conformance、host/provider/harness/provenance inventory 和首个产品任务 fixture/oracle 设计门；真实产品任务规格、独立 acceptance oracle 与可核验执行 substrate 在当前项目条件下不存在，因此不进入真实 outcome 执行。
+在不把外部方向文档当指令的前提下，沿已选的目标架构路线完成仓库可执行的重构闭环；阶段 1 的资产职责、唯一 canonical owner、目标层和生命周期映射已落盘，阶段 2 的非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check、blocked/invalid metadata conformance、host/provider/harness/provenance inventory 已完成；profiles/distribution、唯一 frozen Lab source、evidence-loop reference、lifecycle policy 和空 Archive 也已落盘并验证。真实产品任务规格、独立 acceptance oracle 与可核验执行 substrate 在当前项目条件下不存在，因此不进入真实 outcome 执行。
 
-当前工作模式是“运行时薄化已完成，阶段 2 非运行时评测基础已建立并冻结”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。现有评测资产保留为 dormant 的非运行时完整性检查，不执行 archive；真实 outcome/A-B 保持 blocked，除非未来外部真实执行条件全部具备；当前不创建或补造这些材料。
+当前工作模式是“仓库结构、分发与治理收口已完成；真实 outcome/A-B 与 evidence-backed lifecycle 保持 blocked”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。现有评测资产保留为 dormant 的非运行时完整性检查，不 archive；当前不创建或补造真实产品材料。
 
 ### 已确定选择
 
 - 采纳“知识资产与运行时控制面分离、默认面缩小、按需加载、Quality 默认、评测驱动生命周期”的唯一方向。
-- 当前四目录仅是迁移起点；不与目标架构长期并列。
-- adaptive 保持显式只读 pilot，后续迁入 Lab/实验层；不升级为默认能力或 hook。
-- “暂不处理”的事项按第 3 节阶段顺序后续实施；“明确不采纳”的事项按第 4 节排除。
+- `prompts/` 与 `skills/` 保持 canonical runtime source；`experiments/`、`profiles/`、`governance/` 和 `tests/` 分别承担 Lab、distribution、lifecycle governance 和 validation 的非运行时职责。
+- adaptive 已归位为 `experiments/workflows/adaptive-long-horizon.js` 的显式只读 frozen Lab pilot，不升级为默认能力或 hook。
+- profiles/install 与 lifecycle policy 已完成仓库可执行部分；真实 outcome/A-B、promotion/demotion/archive 仍是证据依赖的 blocked 终态，不是用户待办。
 
 ### 本轮变更
 
@@ -135,22 +133,23 @@
 - 已实施 `markdown-memory` 的局部切片：收束 intro 中的普通工作提示，移除 Workflow 的重复路由确认、Consult Memory 的重复来源优先提醒和 Boundaries 的重复默认维护提醒；保留 project-lesson 触发、host auto memory 分离、memory-handoff/decision-map 分工、lesson taxonomy、搜索/更新/索引规则、显式咨询、隐私和 near-duplicate 边界；该 skill 无 supporting references。
 - 已实施 `skill-refactorer` 的局部切片：将 First Decision 中与 frontmatter/Kernel 重复的触发和普通工作排除压缩为一条维护路由，保留 `plan-work`、`reliability-check`、`review-and-finish` 相邻 owner 分界；保留 durable-intent、preserve/remove、reference 和 validation-not-runtime 方法；该 skill 的 focused contract 已通过。
 - 已实施 `decision-map` 的局部切片：合并重复的普通任务/证据/票据规模说明，将 Workflow 与 Resuming 收束为 Frontier Loop，并保留地图权威、跨会话前沿、依赖/阻塞、Research/Prototype/Discuss、原型用户同意和邻接 workflow 分界；该 skill 的 focused contract 已通过。
+- 已实施仓库结构收口：`experiments/workflows/adaptive-long-horizon.js` 唯一 Lab source、`experiments/README.md` Lab contract、`skills/agent-workflow/references/evidence-loop.md` 通用 evidence-loop reference、`profiles/manifest.json` 三 profile metadata、`scripts/install-profile.js` 显式冲突安全 installer、`governance/lifecycle-policy.json` blocked advisory policy、`archive/README.md` 空 Archive boundary，以及各自 conformance checks。
 - 已新增 `SCN-TM-TEST-POS-001` 非运行时 readiness slice：manifest、deterministic virtual-step fixture、独立 behavior oracle 和 conformance self-check；6 条 criteria、3 次重复稳定性、缺失 readiness timeout、fixed-sleep negative control、hash/seed 引用检查均通过。
 - readiness self-check 只证明 fixture/oracle readiness，不执行 model、host routing、三臂 A/B、cost/latency telemetry，不改变 `scenario-seeds.json` 的六条 static-seed/unmeasured/blocked-oracle 合同，也不产生 outcome 或 lifecycle claim。
 - 已新增 blocked/invalid metadata-only conformance slice：`tests/evals/blocked-invalid-semantics.json` 与 `verify-blocked-invalid-semantics.js`；补齐 attempt boundary、canonical terminal reason/field、metric wrapper、record preservation、paired propagation、raw/paired denominator 和 attrition 合同。9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator` 保持 0，未执行 model、host、skill、A/B、telemetry 或 lifecycle action。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check + blocked/invalid metadata conformance）、Lab、Governance/Distribution/External Reference 的唯一映射。
-- 未移动 workflow，未创建运行时目录，未修改现有 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
+- 已完成唯一 Lab source relocation、profile distribution metadata/installer 和 lifecycle governance boundary；没有创建第二 runtime entry，现有 tests/evals 运行合同保持 non-runtime。
 - 最新功能 checkpoint 为 `5182582`；最新交接/冻结 checkpoint 为 `16e5075`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
-- 本轮交接前的收束验证已通过：三项 eval conformance 与 `git diff --check` 均通过；tracked 工作区干净。
+- 本轮结构收口的验证已通过：8 项 repository boundary/conformance checks、两项 Node syntax checks 与 `git diff --check` 均通过；本次交接记录描述的是本轮 implementation snapshot，外部方向文档仍不提交。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件，也不提交。
 
 ### 压缩后唯一下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；本轮收束验证已通过；评测扩张与 runtime/lifecycle 状态已冻结，现有资产保留而不 archive。
+仓库可执行主线已经收口：阶段 1 的映射与运行时薄化、阶段 2 的非运行时协议/静态 seed/readiness/blocked-invalid conformance、profiles/distribution、唯一 frozen Lab source、evidence-loop reference、lifecycle policy 和空 Archive 均已落盘并通过验证。现有资产保留而不 archive，外部方向文档仍只作参考且不提交。
 
-上下文压缩后只恢复一个 gated action：先核验完整恢复门——真实产品任务规格（产品 surface、输入/状态迁移、预期结果和回归边界）、独立且预先冻结的 task acceptance oracle、immutable task harness、可核验的 host/provider/tool-policy contract、fresh isolation、provenance/attempt metadata、telemetry 和 pinned pricing 必须全部具备。全部具备后，才运行一个 immutable scenario × 一个 provider × 一个 host 的 advisory-only 三臂 smoke proof；任何一项缺失或不可核验，就继续保持评测与生命周期冻结，只做有界 source-linked maintenance 与三项既有 conformance checks。
+上下文压缩后不再恢复新的实现批次，也不要求用户补造材料。真实 outcome 分支仅在外部真实条件自然具备时才重新核验完整恢复门——真实产品任务规格、独立且预先冻结的 acceptance oracle、immutable harness、可核验 host/provider/tool-policy、fresh isolation、provenance/attempt metadata、telemetry 和 pinned pricing；全部具备后最多做一个 immutable scenario × provider × host 的 advisory-only 三臂 smoke proof，否则继续保持 blocked。
 
-当前已验证的 readiness slice 只证明独立 synthetic fixture 的 readiness behavior，blocked/invalid slice 只证明终态 metadata 合同；二者都不是产品任务 acceptance oracle。六条 static seed 继续保持 `static-seed`、`outcome_status: unmeasured`、blocked independent task oracle，metadata `outcome_denominator` 保持 0。不要重新审查已确定的重构路线，不要创建 synthetic product fixture、outcome runner、三臂 A/B、model matrix、telemetry stack、profiles 或第二 runtime entry；不要执行 outcome benefit 声明、promotion、demotion、archive、adaptive 迁移或物理目录迁移。
+当前已验证的 readiness slice 只证明 synthetic fixture 的 readiness behavior（fixture behavior oracle，不是独立产品 acceptance oracle），blocked/invalid slice 只证明终态 metadata 合同；六条 static seed 继续保持 `static-seed`、`outcome_status: unmeasured`、blocked unavailable oracle with `independence_required: true`，metadata `outcome_denominator` 保持 0。不要创建 product fixture/oracle、outcome runner、A/B、model matrix、telemetry/pricing platform，也不要执行 outcome benefit、promotion、demotion、archive 或新的 runtime migration。
 
 ### 恢复时禁止漂移
 

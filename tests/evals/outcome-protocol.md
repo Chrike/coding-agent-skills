@@ -8,7 +8,7 @@
 
 ## 1. 当前状态和声明边界
 
-本仓库当前没有 outcome runner、任务 harness、模型矩阵、成本采集器、安装/profile manifest 或自动 promotion/demotion/archive 系统。因此，本文件完成后只能声明：
+本仓库当前没有 outcome runner、任务 harness、模型矩阵、成本采集器或自动 promotion/demotion/archive 系统。仓库现在有 `profiles/manifest.json` 与 `scripts/install-profile.js`，但它们只提供显式、非运行时的 distribution metadata 和复制工具，不提供 host/provider/harness、隔离或 outcome 证据。因此，本文件完成后只能声明：
 
 - outcome/A-B 的测量合同已经定义；
 - 现有 routing/behavior 合同可以作为 scenario seed；
@@ -48,8 +48,8 @@
 
 ### 2.3 不纳入初始比较的内容
 
-- `adaptive-long-horizon` 不是本协议的默认 arm；它仍是显式、只读、有界的 frozen Lab pilot。
-- `Fast`、`Quality`、`Lab` 尚未有 manifest 或安装语义；本协议不把它们当作三个运行时 router。
+- `adaptive-long-horizon` 不是本协议的默认 arm；它仍是位于 `experiments/workflows/adaptive-long-horizon.js` 的显式、只读、有界 frozen Lab pilot。
+- `Fast`、`Quality`、`Lab` 现在有 `profiles/manifest.json` 和显式复制工具，但它们只决定 distribution/install selection，不是三个运行时 router；本协议不把 profile 选择解释成 outcome treatment。
 - 不比较“轻量模型版”和“旗舰模型版”永久规则。模型比较必须在固定 skill treatment 之外单独分层分析。
 
 ## 3. Scenario 来源和身份
@@ -77,7 +77,7 @@ Scenario 记录必须保存：
 - independently authored `acceptance_oracle`；
 - `seed_status`：`static-seed`、`executable-ready` 或 `blocked`。
 
-静态 seed 没有可执行任务 fixture 和独立 acceptance oracle 时，只能用于 routing/trajectory 研究，`outcome` 必须为 `unmeasured`。
+静态 seed 没有可执行任务 fixture 和可用的独立 acceptance oracle 时，只能用于 routing/trajectory 研究，`outcome` 必须为 `unmeasured`；记录应明确 `eligible_for_routing_screen`，并将 `outcome_execution_eligible` 固定为 `false`。`acceptance_oracle.status: blocked` 表示 oracle 尚不可用，`independence_required: true` 表示未来 oracle 的独立性要求，不表示当前已有独立 oracle。
 
 ### 3.1 第一轮隔离筛选集
 
@@ -354,12 +354,13 @@ Apply the terminal-status, attempt-boundary, reason-code, terminal-field, record
 
 ## 9. 明确不在本协议范围内
 
-- 不创建第二套运行时架构、profile router 或 source of truth。
-- 不在本阶段迁移 `adaptive-long-horizon` 到 `experiments/`；它仍留在当前 source path，保持 frozen Lab pilot。
-- 不实现 installer、global deployment、自动 routing、write-enabled pilot、nested controller 或模型 benchmark 平台。
+- 不创建第二套运行时架构、profile router 或 source of truth；`profiles/manifest.json` 只拥有非运行时 distribution metadata。
+- 不把 `experiments/workflows/adaptive-long-horizon.js` 的结构归位解释成 outcome promotion；它仍是 frozen Lab pilot。
+- 不把显式 installer 解释成 global deployment、host enforcement、provider identity、worker isolation 或 outcome runner。
+- 不实现 outcome runner、model matrix、telemetry/pricing platform、自动 routing、write-enabled pilot、nested controller 或 lifecycle controller。
 - 不因一次成功、静态 assertion、trigger hit、token 下降、reviewer confidence 或 verifier `complete` 而改变生命周期。
-- 不把当前四目录改成永久目标结构，也不提前创建 old/new 双入口。
-- 不执行删除、归档、物理搬迁、manifest 修改、commit、push、merge 或分支清理。
+- 不把当前 source roots 改成第二套永久 source of truth，也不保留 adaptive old/new 双入口。
+- 不执行 promotion、demotion、archive、产品 outcome/A-B 或未经维护者审阅的生命周期动作。
 
 ## 10. 协议验收
 

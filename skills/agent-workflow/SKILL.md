@@ -127,6 +127,9 @@ Use these references when the delegated shape is clear:
 - Separate milestone verifier: [fresh-context-verification.md](references/fresh-context-verification.md)
 - High-stakes candidates plus judges: [review-panel.md](references/review-panel.md)
 - Long briefs or reports: [file-handoffs.md](references/file-handoffs.md)
+- Bounded candidate-evidence collection followed by fresh-context verification: [evidence-loop.md](references/evidence-loop.md)
+
+Read `references/evidence-loop.md` when the task needs that bounded evidence shape; this skill remains the owner of decomposition, worker contracts, and integration.
 
 ## Optional Isolation
 

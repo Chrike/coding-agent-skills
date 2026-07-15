@@ -1,0 +1,136 @@
+{
+  "$schema": "coding-agent-skills-profile-manifest-v1",
+  "schema_version": "profile-manifest-v1",
+  "status": "non-runtime-distribution-metadata",
+  "runtime_routing": false,
+  "lifecycle_automation": false,
+  "outcome_claims": "none",
+  "recommended_default": "quality",
+  "kernel": {
+    "source": "prompts/CLAUDE.fragment.md",
+    "installation": "manual-assembly",
+    "automatic_write": false,
+    "destination": "CLAUDE.md"
+  },
+  "non_installable_roots": [
+    "tests",
+    "evals",
+    "profiles",
+    "governance",
+    "archive"
+  ],
+  "skill_sources": {
+    "debug-systematically": {
+      "source": "skills/debug-systematically",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "test-strategy": {
+      "source": "skills/test-strategy",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "review-and-finish": {
+      "source": "skills/review-and-finish",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "agent-workflow": {
+      "source": "skills/agent-workflow",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "plan-work": {
+      "source": "skills/plan-work",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "design-codebase": {
+      "source": "skills/design-codebase",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "reliability-check": {
+      "source": "skills/reliability-check",
+      "runtime_paths": ["SKILL.md"]
+    },
+    "finish-branch": {
+      "source": "skills/finish-branch",
+      "runtime_paths": ["SKILL.md"]
+    },
+    "issue-workflow": {
+      "source": "skills/issue-workflow",
+      "runtime_paths": ["SKILL.md"]
+    },
+    "memory-handoff": {
+      "source": "skills/memory-handoff",
+      "runtime_paths": ["SKILL.md"]
+    },
+    "markdown-memory": {
+      "source": "skills/markdown-memory",
+      "runtime_paths": ["SKILL.md"]
+    },
+    "skill-refactorer": {
+      "source": "skills/skill-refactorer",
+      "runtime_paths": ["SKILL.md", "references"]
+    },
+    "decision-map": {
+      "source": "skills/decision-map",
+      "runtime_paths": ["SKILL.md"]
+    }
+  },
+  "workflow_sources": {
+    "adaptive-long-horizon": {
+      "source": "experiments/workflows/adaptive-long-horizon.js",
+      "destination": "workflows/adaptive-long-horizon.js",
+      "visibility": "explicit-only",
+      "lifecycle": "frozen-lab"
+    }
+  },
+  "profiles": {
+    "fast": {
+      "purpose": "Speed and low orchestration cost for ordinary core development workflows.",
+      "skills": [
+        "debug-systematically",
+        "test-strategy",
+        "review-and-finish"
+      ],
+      "workflows": [],
+      "workflow_visibility": "none"
+    },
+    "quality": {
+      "purpose": "Recommended default distribution for correctness, evidence, and maintainability.",
+      "skills": [
+        "debug-systematically",
+        "test-strategy",
+        "review-and-finish",
+        "agent-workflow",
+        "plan-work",
+        "design-codebase",
+        "reliability-check",
+        "finish-branch",
+        "issue-workflow",
+        "memory-handoff",
+        "markdown-memory",
+        "skill-refactorer",
+        "decision-map"
+      ],
+      "workflows": [],
+      "workflow_visibility": "none"
+    },
+    "lab": {
+      "purpose": "Explicit experiment distribution without changing ordinary routing.",
+      "skills": [
+        "debug-systematically",
+        "test-strategy",
+        "review-and-finish",
+        "agent-workflow",
+        "plan-work",
+        "design-codebase",
+        "reliability-check",
+        "finish-branch",
+        "issue-workflow",
+        "memory-handoff",
+        "markdown-memory",
+        "skill-refactorer",
+        "decision-map"
+      ],
+      "workflows": ["adaptive-long-horizon"],
+      "workflow_visibility": "explicit-only"
+    }
+  }
+}

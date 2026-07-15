@@ -118,11 +118,16 @@ function verifyManifest(manifest, seeds) {
   if (seedRef?.prompt_sha256 !== seed?.prompt_sha256) {
     fail('seed_ref.prompt_sha256 does not match the static seed');
   }
-  if (seed?.seed_status !== 'static-seed' || seed?.outcome_status !== 'unmeasured') {
-    fail('referenced seed must remain static and unmeasured');
+  if (seed?.seed_status !== 'static-seed'
+    || seed?.outcome_status !== 'unmeasured'
+    || seed?.outcome_execution_eligible !== false
+    || typeof seed?.eligible_for_routing_screen !== 'boolean') {
+    fail('referenced seed must remain static, unmeasured, routing-screen-only, and outcome-ineligible');
   }
-  if (seed?.acceptance_oracle?.status !== 'blocked' || seed?.acceptance_oracle?.independent !== true) {
-    fail('referenced seed oracle must remain blocked and independent');
+  if (seed?.acceptance_oracle?.status !== 'blocked'
+    || seed?.acceptance_oracle?.available !== false
+    || seed?.acceptance_oracle?.independence_required !== true) {
+    fail('referenced seed oracle must remain blocked, unavailable, and independence-required');
   }
 
   const fixturePath = resolveRepoPath(manifest.fixture?.path, 'fixture.path');
@@ -133,8 +138,8 @@ function verifyManifest(manifest, seeds) {
   if (oraclePath && manifest.oracle.sha256 !== fileSha256(oraclePath, 'oracle hash')) {
     fail('oracle.sha256 does not match the oracle file');
   }
-  if (manifest.oracle?.independent !== true) {
-    fail('oracle.independent must remain true');
+  if (manifest.oracle?.fixture_behavior_only !== true) {
+    fail('oracle.fixture_behavior_only must remain true');
   }
   if (manifest.oracle?.public_fixture_api_only !== true) {
     fail('oracle.public_fixture_api_only must remain true');

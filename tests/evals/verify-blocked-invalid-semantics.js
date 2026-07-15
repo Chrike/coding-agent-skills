@@ -333,7 +333,7 @@ function validateRecord(record, frozen, expectedOutcome) {
       terminal_reason_code: record.terminal_reason_code ?? null,
       terminal_fields: record.terminal_fields
     };
-    if (JSON.stringify(actualOutcome) !== JSON.stringify(expectedOutcome)) {
+    if (JSON.stringify(canonicalJson(actualOutcome)) !== JSON.stringify(canonicalJson(expectedOutcome))) {
       fail(`${record.record_id}: actual terminal outcome differs from expected synthetic outcome`);
     }
   }
