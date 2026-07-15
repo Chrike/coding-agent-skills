@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：待提交（`Thin finish-branch playbook`）；前置 checkpoint 为 `a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`e38b045`（`Thin finish-branch playbook`）；前置 checkpoint 为 `a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -125,7 +125,7 @@
 - 已实施 `finish-branch` 的局部切片：移除 `Before Options` 中由 Kernel 负责的 verification-freshness 重复步骤；保留分支状态检查、显式 exact-action authorization、选项菜单、PR prepare/create 区分、merge 参数、force-push 与 typed destructive confirmation、worktree 保护和 failed-test merge gate；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有前置运行时切片已提交；本轮 finish-branch 切片与治理更新待 focused verification 后提交。
+- 所有已完成运行时切片均已提交；最新提交为 `e38b045`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
