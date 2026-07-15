@@ -1,11 +1,11 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-14
-- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 7 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner
+- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 8 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`e38b045`（`Thin finish-branch playbook`）；前置 checkpoint 为 `a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：待提交（`Thin issue-workflow playbook`）；前置 checkpoint 为 `f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -123,9 +123,10 @@
 - 已实施 `design-codebase` 的局部切片：收束 `skills/design-codebase/SKILL.md` 中重复的轻量执行边界、设计读取流程和范围措辞；保留 architecture/ownership/interface/dependency decision、真实设计压力、seam/adapter 判定、prototype approval gate、设计比较和 implementation exit，以及全部五个 supporting references。
 - 已实施 `reliability-check` 的局部切片：合并与 Kernel 重复的显式触发/普通任务排除和一次性退出措辞；保留 frontmatter 的详细触发词、named-evidence reassessment、完整 Reliability Loop、correction taxonomy、slow-execution non-trigger、workflow boundaries 和 universal-preflight 禁止边界；该 skill 无 supporting references。
 - 已实施 `finish-branch` 的局部切片：移除 `Before Options` 中由 Kernel 负责的 verification-freshness 重复步骤；保留分支状态检查、显式 exact-action authorization、选项菜单、PR prepare/create 区分、merge 参数、force-push 与 typed destructive confirmation、worktree 保护和 failed-test merge gate；该 skill 无 supporting references。
+- 已实施 `issue-workflow` 的局部切片：合并 Drafting Workflow 中重复的当前请求读取/询问步骤，并移除由 Publishing Rules 唯一拥有的重复外部发布提醒；保留 First Decision 的普通工作/任务规模/草稿持久化边界、全部 artifact 类型、tracker/project/action/label/status/external-PR 发布确认、triage 证据规则和五个 workflow handoff；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时切片均已提交；最新提交为 `e38b045`。
+- 所有前置运行时切片已提交；本轮 issue-workflow 切片与治理更新待 focused verification 后提交。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
