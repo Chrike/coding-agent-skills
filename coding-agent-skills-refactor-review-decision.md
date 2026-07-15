@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：待提交（`Thin issue-workflow playbook`）；前置 checkpoint 为 `f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`a03360d`（`Thin issue-workflow playbook`）；前置 checkpoint 为 `f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -126,7 +126,7 @@
 - 已实施 `issue-workflow` 的局部切片：合并 Drafting Workflow 中重复的当前请求读取/询问步骤，并移除由 Publishing Rules 唯一拥有的重复外部发布提醒；保留 First Decision 的普通工作/任务规模/草稿持久化边界、全部 artifact 类型、tracker/project/action/label/status/external-PR 发布确认、triage 证据规则和五个 workflow handoff；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有前置运行时切片已提交；本轮 issue-workflow 切片与治理更新待 focused verification 后提交。
+- 所有已完成运行时切片均已提交；最新提交为 `a03360d`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
