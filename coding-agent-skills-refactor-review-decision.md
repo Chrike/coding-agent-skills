@@ -1,7 +1,7 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-14
-- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 6 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner
+- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 7 个 playbook 的运行时薄化切片已实施并提交，待独立 oracle/runner
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
@@ -121,20 +121,21 @@
 - 已实施首批 playbook 的第四个局部切片：收束 `skills/agent-workflow/SKILL.md` 中与 Kernel 重复的并行适配性、输出膨胀、写入隔离、method ownership、single-owner 和 isolation 表述；保留 decomposition/controller contract、最小证据交接、集成、nested controller 深度和 stop conditions，以及全部五个 supporting references。
 - 已实施下一枚 playbook 的局部切片：收束 `skills/plan-work/SKILL.md` 中重复的规模/文件数触发、计划循环、计划形态和 settled-plan 重新生成措辞；保留 planning trigger、设计/计划组合、vertical slices、依赖/验收/风险和 plan-only/implementation 退出边界，以及全部三个 supporting references。
 - 已实施 `design-codebase` 的局部切片：收束 `skills/design-codebase/SKILL.md` 中重复的轻量执行边界、设计读取流程和范围措辞；保留 architecture/ownership/interface/dependency decision、真实设计压力、seam/adapter 判定、prototype approval gate、设计比较和 implementation exit，以及全部五个 supporting references。
+- 已实施 `reliability-check` 的局部切片：合并与 Kernel 重复的显式触发/普通任务排除和一次性退出措辞；保留 frontmatter 的详细触发词、named-evidence reassessment、完整 Reliability Loop、correction taxonomy、slow-execution non-trigger、workflow boundaries 和 universal-preflight 禁止边界；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
-- 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与 6 个 playbook 的 supporting references 均未移动或删除。
-- 所有已完成运行时切片均已提交；最新提交为 `004f8b4`。
+- 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
+- 所有已完成运行时切片均已提交；本轮 reliability-check 切片与治理更新待本轮 focused verification 后提交。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish`、`agent-workflow`、`plan-work` 与 `design-codebase` 的运行时薄化切片已实施并提交。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed 和 conformance check 已落盘于 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json` 与 `tests/evals/verify-scenario-seeds.js`；Kernel、`debug-systematically`、`test-strategy`、`review-and-finish`、`agent-workflow`、`plan-work`、`design-codebase` 与 `reliability-check` 的运行时薄化切片已实施并提交。
 
 上下文压缩后直接从以下步骤恢复：
 
-1. 继续处理 `skills/reliability-check/SKILL.md`，只压缩与 Kernel 重复的通用证据/阶段纠偏措辞；保留其显式 reliability/evidence/stage-drift correction trigger、重新读取和纠偏方法、停止边界，不把它变成通用 preflight。
-2. 读取当前 `SKILL.md` 与 supporting references，实施最小正文切片；保持 frontmatter、`tests/routing-contract.md`、`tests/trigger-matrix.md` 和 `tests/non-trigger-cases.md` 语义不变。
-3. 运行 focused route/reference/conformance 检查、`git diff --check`，更新本文件和 ledger，并按用户已设置的偏好在验证通过后默认提交。
+1. 继续处理剩余 explicit-intent playbook 中与 Kernel 重复的局部措辞，优先 `finish-branch`、`issue-workflow`、`memory-handoff`、`markdown-memory`、`skill-refactorer` 或 `decision-map`；每次只处理一个 playbook，保留其触发边界、具体方法和安全/持久化职责。
+2. 读取当前目标 `SKILL.md` 与其 supporting references，实施最小正文切片；保持 frontmatter、`tests/routing-contract.md`、`tests/trigger-matrix.md` 和 `tests/non-trigger-cases.md` 语义不变。
+3. 运行目标 playbook 的 focused route/reference/conformance 检查、`git diff --check`，更新本文件和 ledger，并按用户已设置的偏好在验证通过后默认提交。
 
 独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
 

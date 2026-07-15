@@ -9,10 +9,8 @@ Reassess the current state when the user explicitly challenges reliability. Use 
 
 ## First Decision
 
-- Use this only when the user explicitly challenges reliability, evidence, source use, active stage, stale context, hallucination, guessing, or explicitly asks to reassess one of those reliability concerns.
-- Do not use this merely because a request involves saved state, examples, reviews, plans, or uncertainty.
-- Do not use this for ordinary coding, debugging, test writing, planning, architecture, review, issue drafting, delegation, or handoff unless the user flags reliability trouble.
-- Stop new edits and unrelated tool actions while reassessing; reading the named evidence is allowed.
+- Activate only for an explicit reliability challenge or reassessment request; saved state, examples, reviews, plans, uncertainty, and ordinary task work do not trigger this skill.
+- While reassessing, stop new edits and unrelated actions; reading named evidence is allowed.
 
 ## Reliability Loop
 
@@ -39,9 +37,7 @@ Reassess the current state when the user explicitly challenges reliability. Use 
 
 ## Exit Rule
 
-- Perform one reassessment pass for the named reliability concern.
-- After stating the correction, exit this workflow and immediately resume the current requested stage when execution is still required.
-- Do not activate this workflow again for the same concern unless the user provides new evidence or explicitly requests another reassessment.
+- Perform one reassessment pass, state the correction, then immediately resume the current requested stage if execution remains. Do not reactivate for the same concern without new evidence or an explicit request.
 - A complaint that execution is slow is not by itself a request to reread the same evidence.
 
 ## Boundaries
