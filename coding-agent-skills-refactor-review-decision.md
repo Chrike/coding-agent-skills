@@ -1,7 +1,7 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-15
-- 状态：阶段 2 协议、静态 seed、readiness 与 blocked/invalid metadata conformance 完成；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；只读 host/provider/harness/provenance inventory 与首个产品任务 fixture/oracle 设计门已完成，确认产品任务规格与真实执行前置依赖仍缺失或不可核验；真实 outcome 仍待独立 host substrate/runner
+- 状态：阶段 2 协议、静态 seed、readiness 与 blocked/invalid metadata conformance 完成；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；只读 host/provider/harness/provenance inventory 与首个产品任务 fixture/oracle 设计门已完成，确认产品任务规格与真实执行前置依赖仍缺失或不可核验；评测扩张与 runtime/lifecycle 状态已冻结，真实 outcome 仍待独立 host substrate/runner
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
@@ -100,7 +100,7 @@
 
 在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check、blocked/invalid metadata conformance、host/provider/harness/provenance inventory 和首个产品任务 fixture/oracle 设计门；当前等待真实产品任务规格、独立 acceptance oracle 与可核验执行 substrate。
 
-当前工作模式是“运行时薄化已完成，评测执行依赖待补齐”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。真实 outcome/A-B 仍保持 blocked，直到真实产品任务规格、独立 task acceptance oracle、host substrate、task harness、model/provider matrix 和 telemetry 可核验。
+当前工作模式是“运行时薄化已完成，评测扩张冻结，评测执行依赖待补齐”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。现有评测资产保留为 dormant 的非运行时完整性检查，不执行 archive；真实 outcome/A-B 仍保持 blocked，直到真实产品任务规格、独立 task acceptance oracle、host substrate、task harness、model/provider matrix 和 telemetry 可核验。
 
 ### 已确定选择
 
@@ -140,16 +140,16 @@
 
 ### 压缩后下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；评测扩张与 runtime/lifecycle 状态已冻结，现有资产保留而不 archive。
 
 上下文压缩后直接从以下步骤恢复：
 
 1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 synthetic fixture 的 readiness behavior，后者只证明终态 metadata 合同。它们都不是产品任务 acceptance oracle。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent task oracle；metadata `outcome_denominator` 保持 0。
-2. 只读 host/provider/harness/provenance inventory 已完成；本轮首个产品任务 fixture/oracle 设计门也已完成，结论为 `blocked-awaiting-product-task-spec`：canonical trigger row 只有路由意图，仓库没有足够产品 surface、状态迁移、预期功能结果或回归语义来定义真实 task fixture 与独立 acceptance oracle。仓库同时没有 outcome runner、三臂隔离 harness、model/provider matrix、真实 telemetry 或 pinned pricing；`skills-lock.json` 只提供 source/path/hash 元数据，`.claude/settings.local.json` 只提供本地权限事实，当前会话工具和本地代理配置不能证明产品 host contract、有效 provider 身份、worker 隔离或 tool-policy snapshot。前置条件具备前不实现 outcome runner、三臂 A/B、model matrix 或 telemetry stack；具备后先用一个 immutable scenario、一个 provider 和一个 host 做受限试运行，再考虑扩展。
+2. 只读 host/provider/harness/provenance inventory 已完成；本轮首个产品任务 fixture/oracle 设计门也已完成，结论为 `blocked-awaiting-product-task-spec`：canonical trigger row 只有路由意图，仓库没有足够产品 surface、状态迁移、预期功能结果或回归语义来定义真实 task fixture 与独立 acceptance oracle。仓库同时没有 outcome runner、三臂隔离 harness、model/provider matrix、真实 telemetry 或 pinned pricing；`skills-lock.json` 只提供 source/path/hash 元数据，`.claude/settings.local.json` 只提供本地权限事实，当前会话工具和本地代理配置不能证明产品 host contract、有效 provider 身份、worker 隔离或 tool-policy snapshot。前置条件具备前不实现 outcome runner、三臂 A/B、model matrix 或 telemetry stack；具备后先用一个 immutable scenario、一个 provider 和一个 host 做 advisory-only 受限试运行，再考虑扩展。当前冻结 runtime/lifecycle 状态，不 archive 现有评测或运行时资产。
 3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、blocked/invalid conformance、route hit、静态合同或 token reduction 当 outcome 证据。
 4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json`、`tests/evals/blocked-invalid-semantics.json` 及当前 host 能力边界；本轮 inventory 与 `blocked-awaiting-product-task-spec` 设计门结论已写入 ledger 与本节，不要重新审查已确定的重构路线。
 
-独立 task acceptance oracle、immutable task harness 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；readiness behavior oracle 不替代 task acceptance oracle。在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
+独立 task acceptance oracle、immutable task harness 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；readiness behavior oracle 不替代 task acceptance oracle。在此之前只保留有界的 source-linked maintenance 与三项现有 conformance checks，不新增 synthetic eval、runner 或 lifecycle implementation；不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。前置条件具备后，仅先做一个 immutable scenario、一个 provider、一个 host 的 advisory-only 三臂 smoke proof；不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
 
 ### 恢复时禁止漂移
 

@@ -158,7 +158,7 @@ adaptive 的通用委派、worker brief、leaf/controller 和集成原则仍由 
 
 ### 当前：评测前置资产
 
-- 当前工作模式是“运行时薄化已完成，评测执行依赖待补齐”；不是重新审查既定路线，也不是继续扩大 synthetic verifier；首个产品任务 fixture/oracle 设计门已判定 `blocked-awaiting-product-task-spec`。
+- 当前工作模式是“运行时薄化已完成，评测扩张冻结，评测执行依赖待补齐”；不是重新审查既定路线，也不是继续扩大 synthetic verifier；首个产品任务 fixture/oracle 设计门已判定 `blocked-awaiting-product-task-spec`。现有评测资产保留为 dormant 的非运行时完整性检查，不 archive。
 - `SCN-TM-TEST-POS-001` 已有独立 readiness manifest、纯 Node deterministic fixture、行为 oracle 和 conformance self-check；该 slice 仍属于 non-runtime validation，不是 executable outcome scenario。
 - readiness self-check 的 6 条 criteria、3 次重复稳定性、missing-readiness timeout 和 fixed-sleep negative control 已通过；未执行模型、host routing、三臂 A/B、cost/latency telemetry 或 lifecycle action。
 
@@ -174,7 +174,14 @@ adaptive 的通用委派、worker brief、leaf/controller 和集成原则仍由 
 1. `SCN-TM-TEST-POS-001` 的 readiness behavior oracle 已存在，但它只验证 synthetic fixture 的确定性行为；canonical trigger row 只有路由意图，没有产品 surface、输入/状态迁移、预期功能结果、回归边界或可观察验收，因此不能据此编造产品 task fixture 或独立 task acceptance oracle。
 2. 本轮首个产品任务 fixture/oracle 设计门已完成，结论为 `blocked-awaiting-product-task-spec`：仓库没有真实产品代码或产品域语义，不能把 readiness fixture 重命名或扩展成产品 outcome fixture；`scenario-seeds.json` 必须继续保持 `static-seed`、`outcome_status: unmeasured` 和 blocked oracle。
 3. 只读 host/provider/harness/provenance inventory 已完成：仓库没有 outcome runner、immutable task harness、模型/provider 矩阵、成本/Token/工具/延迟采集器或可核验 host execution substrate；`skills-lock.json` 只提供 source/path/hash 元数据，`.claude/settings.local.json` 只提供本地权限事实，当前会话工具和本地代理配置不能证明产品 host contract、有效 provider 身份、worker 隔离或 tool-policy snapshot。不能凭空实现或宣称 A/B。
-4. 在产品任务规格、独立冻结的 acceptance oracle、immutable harness、host/provider contract 与 telemetry 具备前，不执行批量删除、合并、降级、promotion、archive、profile manifest 或物理迁移。
+4. 在产品任务规格、独立冻结的 acceptance oracle、immutable harness、host/provider contract 与 telemetry 具备前，只保留 source-linked maintenance 与现有三项 conformance checks；不新增 synthetic eval、runner 或 lifecycle implementation，不执行批量删除、合并、降级、promotion、archive、profile manifest 或物理迁移。前置条件具备后，仅先做一个 immutable scenario、一个 provider、一个 host 的 advisory-only 三臂 smoke proof。
+
+### 冻结后的恢复门
+
+- 评测轨道当前冻结，不 archive；现有 protocol、static seed、readiness self-check 和 blocked/invalid conformance 只作为 dormant 的非运行时完整性检查。
+- 只有真实产品任务规格、独立且预先冻结的 acceptance oracle、immutable harness、可核验 host/provider/tool-policy contract、隔离状态、provenance 和 telemetry/pricing 具备后，才恢复执行评测。
+- 恢复时只做一个 immutable scenario、一个 provider、一个 host 的 advisory-only 三臂 smoke proof；若任务语义、oracle 独立性、隔离、provenance、attempt metadata 或 telemetry 任一不可核验，继续保持 blocked。
+- 在 smoke proof 通过前，不实现 broad runner、model matrix、telemetry platform、profiles、adaptive 迁移、物理目录迁移或 lifecycle automation。
 
 ### 再随后：阶段 3 到阶段 5
 
