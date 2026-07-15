@@ -1,11 +1,11 @@
 # coding-agent-skills 重构审查决策与交接
 
 - 日期：2026-07-15
-- 状态：阶段 2 协议与静态 seed 完成；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交；`SCN-TM-TEST-POS-001` readiness fixture/oracle 自检已通过，但真实 outcome 仍待独立 host substrate/runner
+- 状态：阶段 2 协议、静态 seed、readiness 与 blocked/invalid metadata conformance 完成；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交，但真实 outcome 仍待独立 host substrate/runner
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`fa0b749`（`Add readiness fixture and oracle self-check`）；前置 checkpoint 为 `28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`589b3cf`（`Add blocked-invalid evaluation conformance`）；前置 checkpoint 为 `fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -130,6 +130,7 @@
 - 已实施 `decision-map` 的局部切片：合并重复的普通任务/证据/票据规模说明，将 Workflow 与 Resuming 收束为 Frontier Loop，并保留地图权威、跨会话前沿、依赖/阻塞、Research/Prototype/Discuss、原型用户同意和邻接 workflow 分界；该 skill 的 focused contract 已通过。
 - 已新增 `SCN-TM-TEST-POS-001` 非运行时 readiness slice：manifest、deterministic virtual-step fixture、独立 behavior oracle 和 conformance self-check；6 条 criteria、3 次重复稳定性、缺失 readiness timeout、fixed-sleep negative control、hash/seed 引用检查均通过。
 - readiness self-check 只证明 fixture/oracle readiness，不执行 model、host routing、三臂 A/B、cost/latency telemetry，不改变 `scenario-seeds.json` 的六条 static-seed/unmeasured/blocked-oracle 合同，也不产生 outcome 或 lifecycle claim。
+- 已新增 blocked/invalid metadata-only conformance slice：`tests/evals/blocked-invalid-semantics.json` 与 `verify-blocked-invalid-semantics.js`；补齐 attempt boundary、canonical terminal reason/field、metric wrapper、record preservation、paired propagation、raw/paired denominator 和 attrition 合同。9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator` 保持 0，未执行 model、host、skill、A/B、telemetry 或 lifecycle action。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改现有 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
 - 所有已完成运行时/评测前置切片均已提交；最新提交为 `fa0b749`。
@@ -141,9 +142,9 @@
 
 上下文压缩后直接从以下步骤恢复：
 
-1. 当前 readiness slice 已通过，但只证明独立 fixture/oracle 的 deterministic behavior 和 provenance/conformance；六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent oracle。
-2. 下一阶段是补可核验 host execution substrate、immutable task harness、三臂 paired runner、model/provider matrix、run provenance 和 token/tool/wall-time/cost telemetry；先设计并验证 blocked/invalid 边界，再考虑真实 A/B。
-3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、route hit、静态合同或 token reduction 当 outcome 证据。
+1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 fixture/oracle 的 deterministic behavior，后者只证明终态 metadata 合同。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent oracle；metadata `outcome_denominator` 保持 0。
+2. 下一阶段是补可核验 host execution substrate、immutable task harness、三臂 paired runner、model/provider matrix、run provenance 和 token/tool/wall-time/cost telemetry；先保持 blocked/invalid 边界，再考虑真实 A/B。
+3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、blocked/invalid conformance、route hit、静态合同或 token reduction 当 outcome 证据。
 4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json` 和当前 host 能力边界；不要重新审查已确定的重构路线。
 
 独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。

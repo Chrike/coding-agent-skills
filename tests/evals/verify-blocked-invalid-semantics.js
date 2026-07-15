@@ -3,7 +3,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const repoRoot = path.resolve(__dirname, '..', '..');
 const manifestPath = path.join(__dirname, 'blocked-invalid-semantics.json');
 const failures = [];
 
@@ -117,6 +116,20 @@ function exactKeys(value, expected, label) {
   if (!sameArray(actual, sortedExpected)) {
     fail(`${label} must contain exactly ${sortedExpected.join(', ')}`);
   }
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) {
+    return value.map(canonicalJson);
+  }
+  if (isObject(value)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([key, item]) => [key, canonicalJson(item)])
+    );
+  }
+  return value;
 }
 
 function pointerTokens(pointer, label) {
@@ -340,6 +353,9 @@ function validatePair(pair, recordsById, expectedOutcome) {
     fail(`${pair.paired_set_id}: every member_id must reference a preserved record`);
     return;
   }
+  if (members.some((member) => member.paired_set_id !== pair.paired_set_id)) {
+    fail(`${pair.paired_set_id}: every member record must declare the same paired_set_id`);
+  }
   const invalid = members.find((member) => member.terminal_status === 'invalid');
   const blocked = members.find((member) => member.terminal_status === 'blocked');
   const derivedStatus = invalid ? 'invalid' : blocked ? 'blocked' : 'completed';
@@ -537,8 +553,8 @@ function verify(manifest) {
     paired_set_reason_counts: countReasons(pairs),
     advisory_status: manifest.advisory_status
   };
-  if (JSON.stringify(aggregate) !== JSON.stringify(expectedAggregate)) {
-    fail(`aggregate counts differ: expected ${JSON.stringify(expectedAggregate)}, got ${JSON.stringify(aggregate)}`);
+  if (JSON.stringify(canonicalJson(aggregate)) !== JSON.stringify(canonicalJson(expectedAggregate))) {
+    fail(`aggregate counts differ: expected ${JSON.stringify(canonicalJson(expectedAggregate))}, got ${JSON.stringify(canonicalJson(aggregate))}`);
   }
 }
 
