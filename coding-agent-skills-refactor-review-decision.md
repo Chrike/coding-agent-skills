@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`a68bef6`（`Thin reliability-check playbook`）；前置 checkpoint 为 `004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：待提交（`Thin finish-branch playbook`）；前置 checkpoint 为 `a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -122,9 +122,10 @@
 - 已实施下一枚 playbook 的局部切片：收束 `skills/plan-work/SKILL.md` 中重复的规模/文件数触发、计划循环、计划形态和 settled-plan 重新生成措辞；保留 planning trigger、设计/计划组合、vertical slices、依赖/验收/风险和 plan-only/implementation 退出边界，以及全部三个 supporting references。
 - 已实施 `design-codebase` 的局部切片：收束 `skills/design-codebase/SKILL.md` 中重复的轻量执行边界、设计读取流程和范围措辞；保留 architecture/ownership/interface/dependency decision、真实设计压力、seam/adapter 判定、prototype approval gate、设计比较和 implementation exit，以及全部五个 supporting references。
 - 已实施 `reliability-check` 的局部切片：合并与 Kernel 重复的显式触发/普通任务排除和一次性退出措辞；保留 frontmatter 的详细触发词、named-evidence reassessment、完整 Reliability Loop、correction taxonomy、slow-execution non-trigger、workflow boundaries 和 universal-preflight 禁止边界；该 skill 无 supporting references。
+- 已实施 `finish-branch` 的局部切片：移除 `Before Options` 中由 Kernel 负责的 verification-freshness 重复步骤；保留分支状态检查、显式 exact-action authorization、选项菜单、PR prepare/create 区分、merge 参数、force-push 与 typed destructive confirmation、worktree 保护和 failed-test merge gate；该 skill 无 supporting references。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时切片均已提交；最新提交为 `a68bef6`。
+- 所有前置运行时切片已提交；本轮 finish-branch 切片与治理更新待 focused verification 后提交。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
@@ -133,7 +134,7 @@
 
 上下文压缩后直接从以下步骤恢复：
 
-1. 继续处理剩余 explicit-intent playbook 中与 Kernel 重复的局部措辞，优先 `finish-branch`、`issue-workflow`、`memory-handoff`、`markdown-memory`、`skill-refactorer` 或 `decision-map`；每次只处理一个 playbook，保留其触发边界、具体方法和安全/持久化职责。
+1. 继续处理剩余 explicit-intent playbook 中与 Kernel 重复的局部措辞，优先 `issue-workflow`、`memory-handoff`、`markdown-memory`、`skill-refactorer` 或 `decision-map`；每次只处理一个 playbook，保留其触发边界、具体方法和安全/持久化职责。
 2. 读取当前目标 `SKILL.md` 与其 supporting references，实施最小正文切片；保持 frontmatter、`tests/routing-contract.md`、`tests/trigger-matrix.md` 和 `tests/non-trigger-cases.md` 语义不变。
 3. 运行目标 playbook 的 focused route/reference/conformance 检查、`git diff --check`，更新本文件和 ledger，并按用户已设置的偏好在验证通过后默认提交。
 
