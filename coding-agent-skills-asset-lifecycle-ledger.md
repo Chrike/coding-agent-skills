@@ -6,7 +6,8 @@
 - 当前基线：`full-suite-v1` → `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
 - 最新功能 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`beb248a`、`fa0b749`
-- 最新交接/冻结 checkpoint：`078db79`（`Complete repository refactor closure`）；前一冻结 checkpoint 为 `16e5075`
+- 最新结构收口 checkpoint：`078db79`（`Complete repository refactor closure`）
+- 最新交接/冻结 checkpoint：`b5fc289`（`Align refactor closure checkpoint`）；前一冻结 checkpoint 为 `16e5075`
 - 决策依据：[`coding-agent-skills-refactor-review-decision.md`](coding-agent-skills-refactor-review-decision.md)
 - 本文性质：非运行时治理索引。本文不承载 prompt、skill、workflow 或测试正文，不增加路由，不改变安装面，也不替代任何 canonical source。
 
