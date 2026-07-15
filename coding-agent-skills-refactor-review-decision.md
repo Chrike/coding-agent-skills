@@ -175,3 +175,11 @@
 6. 合并推送完成后执行一次性收尾：更新本交接为最终关闭状态，清理本任务产生且已过期的临时计划/交接记忆和验证残留；保留 canonical runtime source、最终治理记录、用户明确保留的外部参考文档和必要的长期项目记忆，不删除仍有审计价值的历史提交或验证资产。
 
 Goal 的停止条件是第 4 项成立；若只缺真实产品任务、独立 acceptance oracle、host/provider/harness、telemetry 或 pricing，则保持 blocked 并结束主线，不创建 synthetic 产品材料或 outcome 基础设施。
+
+## 7. 主线关闭与交付
+
+- 仓库可执行主线已完成；当前交付提交已快进合并到 `main` 并推送到 `origin/main`。
+- 最终验证包括 10 项 repository boundary checks、维护的 JavaScript syntax checks 和 `git diff --check`；检查未执行模型、网络、host routing、真实 outcome 或 lifecycle action。
+- 真实产品 outcome/A-B、provider/host/harness、telemetry/pricing 和 evidence-backed lifecycle action 仍保持 blocked；它们不是当前未完成的仓库任务，也不要求补造 synthetic 材料。
+- `coding-agent-skills-high-value-refactor-direction.md` 继续作为未跟踪、未提交的外部参考文档；它不是 runtime source。
+- 除非真实前置条件自然具备，否则本重构主线不再创建新的实现批次、评测基础设施或生命周期动作。

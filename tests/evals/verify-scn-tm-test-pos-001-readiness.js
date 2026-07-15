@@ -44,7 +44,8 @@ function sha256(value) {
 
 function fileSha256(filePath, label) {
   try {
-    return sha256(fs.readFileSync(filePath, 'utf8'));
+    const content = fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
+    return sha256(content);
   } catch (error) {
     fail(`${label}: ${error.message}`);
     return null;
