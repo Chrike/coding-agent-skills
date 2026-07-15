@@ -6,7 +6,7 @@
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
 - 最新功能 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`beb248a`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
-- 最新交接/冻结 checkpoint：`16e5075`（`Freeze evaluation expansion handoff`）
+- 最新交接/冻结 checkpoint：`078db79`（`Complete repository refactor closure`）；前一冻结 checkpoint 为 `16e5075`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`experiments/`、`profiles/`、`governance/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
