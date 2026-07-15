@@ -5,7 +5,7 @@
 - 依据文档：`coding-agent-skills-high-value-refactor-direction.md`
 - 当前基线：`full-suite-v1`，指向 `9a0318a`
 - 当前分支：`refactor/kernel-playbooks-thin`
-- 最新 checkpoint：`589b3cf`（`Add blocked-invalid evaluation conformance`）；前置 checkpoint 为 `fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
+- 最新 checkpoint：`5182582`（`Record blocked-invalid evaluation handoff`）；前置 checkpoint 为 `589b3cf`、`fa0b749`、`28941c9`、`b8ddab2`、`530f0a3`、`274cfe6`、`f939ddc`、`1dc998d`、`a03360d`、`f03e0e7`、`e38b045`、`a68bef6`、`004f8b4`、`2256e90`、`9ae25c3`
 - 本文性质：维护决策与压缩交接记录，不是运行时指令，不替代 `prompts/`、`skills/`、`workflows/` 或 `tests/` 中的 canonical source。
 
 ## 1. 单一决策
@@ -98,7 +98,9 @@
 
 ### 当前目标
 
-在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus 和 conformance check，下一步补独立 acceptance oracle 并等待可核验 host execution substrate。
+在不把外部方向文档当指令的前提下，沿已选的目标架构路线推进 coding-agent-skills 重构；阶段 1 已完成资产职责、唯一 canonical owner、目标层和生命周期映射，阶段 2 已完成非运行时 outcome 协议、静态 seed corpus、seed conformance、readiness self-check 和 blocked/invalid metadata conformance，下一步核对并补齐可核验 host execution substrate 与 immutable task harness。
+
+当前工作模式是“运行时薄化已完成，评测执行依赖待补齐”，不是重新审查重构方向，也不是继续扩大 synthetic verifier。真实 outcome/A-B 仍保持 blocked，直到 host substrate、task harness、model/provider matrix 和 telemetry 可核验。
 
 ### 已确定选择
 
@@ -133,19 +135,19 @@
 - 已新增 blocked/invalid metadata-only conformance slice：`tests/evals/blocked-invalid-semantics.json` 与 `verify-blocked-invalid-semantics.js`；补齐 attempt boundary、canonical terminal reason/field、metric wrapper、record preservation、paired propagation、raw/paired denominator 和 attrition 合同。9 条 synthetic records、7 个 paired sets 通过；`outcome_denominator` 保持 0，未执行 model、host、skill、A/B、telemetry 或 lifecycle action。
 - 已完成当前资产到 Kernel、Playbooks、References、Scenario Corpus（seed）、Outcome Evals（routing/behavior seed + outcome protocol + readiness self-check）、Lab、Governance/Distribution/External Reference 的唯一映射。
 - 未移动 workflow，未创建运行时目录，未修改现有 tests 运行合同；Kernel 与已有 supporting references 均未移动或删除。
-- 所有已完成运行时/评测前置切片均已提交；最新提交为 `fa0b749`。
+- 所有已完成运行时/评测前置切片均已提交；最新提交为 `5182582`，前置评测提交为 `589b3cf`、`beb248a` 和 `fa0b749`。
 - 原方向文档 `coding-agent-skills-high-value-refactor-direction.md` 仍是未跟踪的外部参考材料，不是运行时文件。
 
 ### 压缩后下一步
 
-阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance 和 `SCN-TM-TEST-POS-001` readiness self-check 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交。
+阶段 1 映射已落盘于 `coding-agent-skills-asset-lifecycle-ledger.md`；阶段 2 的非运行时协议、静态 seed、seed conformance、readiness self-check 和 blocked/invalid metadata conformance 已落盘于 `tests/evals/`；Kernel 与 13 个 playbook 的运行时薄化切片已实施并提交。
 
 上下文压缩后直接从以下步骤恢复：
 
 1. readiness slice 与 blocked/invalid metadata-only conformance 均已通过；前者只证明独立 fixture/oracle 的 deterministic behavior，后者只证明终态 metadata 合同。六条 static seed 仍保持 `static-seed`、`outcome_status: unmeasured`、blocked independent oracle；metadata `outcome_denominator` 保持 0。
 2. 下一阶段是补可核验 host execution substrate、immutable task harness、三臂 paired runner、model/provider matrix、run provenance 和 token/tool/wall-time/cost telemetry；先保持 blocked/invalid 边界，再考虑真实 A/B。
 3. 在上述依赖具备前，不执行 outcome benefit 声明、lifecycle promotion/demotion/archive、profiles、adaptive 迁移、物理目录迁移或第二 runtime entry；不得把 readiness self-check、blocked/invalid conformance、route hit、静态合同或 token reduction 当 outcome 证据。
-4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json` 和当前 host 能力边界；不要重新审查已确定的重构路线。
+4. 恢复时先读取 `tests/evals/outcome-protocol.md`、`tests/evals/scenario-seeds.json`、`tests/evals/scn-tm-test-pos-001-readiness.json`、`tests/evals/blocked-invalid-semantics.json` 及当前 host 能力边界；不要重新审查已确定的重构路线。
 
 独立 acceptance oracle 和可核验 host execution substrate 仍是实际 outcome A/B 的前置依赖；在此之前不执行真实 outcome 声明或生命周期动作，不移动 adaptive，不创建 profiles 或第二运行时入口。不要重新审查方向，不要重新比较相反架构，不要先做无证据的物理搬迁。
 
@@ -154,7 +156,7 @@
 - 不要把“暂不处理”误读为“永不处理”，也不要把它改写成第二个架构选项。
 - 不要把当前四目录解释成目标永久结构。
 - 不要重复做已经完成的文档、仓库和官方事实审查。
-- 不要把 readiness self-check、token 数、触发命中或静态合同当成真实结果收益。
+- 不要把 readiness self-check、blocked/invalid conformance、token 数、触发命中或静态合同当成真实结果收益。
 - 不要把新 readiness slice 误写成 executable outcome scenario；不要悄悄更新 pinned seed revision 或 static corpus schema。
 - 不要在 active workflow 外创建 sibling controller/agent tree。
 - 不要执行 commit、push、merge、删除或分支清理，除非用户另行明确要求。
