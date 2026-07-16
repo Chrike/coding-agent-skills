@@ -20,7 +20,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy` |
-| Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a behaviorally high-risk completed change needing focused readiness evidence | `review-and-finish` |
+| Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a behaviorally high-risk completed change needing focused readiness evidence before a done claim | `review-and-finish` |
 | Explicit bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
@@ -41,7 +41,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | --- | --- |
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
 | Implementation with both an unresolved architecture boundary and migration, compatibility, sequencing, or scope decisions | `design-codebase` then `plan-work`, then implementation (resolve the design boundary before planning dependent rollout work) |
-| Review plus branch finish | `review-and-finish` then `finish-branch` |
+| Explicitly requested review plus explicit branch finish | `review-and-finish` then `finish-branch` |
 | Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |
 | Independent TDD adapters | `test-strategy` method with `agent-workflow` |
@@ -51,7 +51,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Independent architecture options | `design-codebase` method with `agent-workflow` |
 | Host multi-agent workflow being prepared for independent slices | `agent-workflow` method into that workflow; no second layer |
 | Host multi-agent workflow already running for the same scope | continue the active workflow; do not invoke a new orchestration workflow |
-| Explicit installed `/adaptive-long-horizon` command for a bounded read-only evidence task | the saved workflow is the sole outer execution owner for its session-local run; supply `agent-workflow` method contracts into its leaf prompts without starting a sibling controller |
+| Explicit installed `/adaptive-long-horizon` command for a bounded read-only evidence task | the saved workflow is the sole outer execution owner for its session-local run; supply `agent-workflow` method contracts into its leaf prompts without starting a sibling controller (`needs-review`: leaf propagation is workflow-internal) |
 | Host multi-agent capability available for one coherent bug | domain skill or base default behavior; not `agent-workflow` |
 | Challenged claims plus handoff state | `reliability-check` then `memory-handoff` |
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |

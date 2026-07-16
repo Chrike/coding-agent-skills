@@ -63,23 +63,23 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
 | Assess these review comments only; do not change code. | `review-and-finish` assessment without implementation |
 | Independent agents are unavailable; continue this independent investigation. | `agent-workflow` with sequential controller execution |
-| A host multi-agent workflow is being prepared for these independent subsystems. | `agent-workflow` method for that workflow |
-| A host multi-agent workflow for this scope is already running. | continue active workflow; no new orchestration layer |
-| Run the installed `/adaptive-long-horizon` command for this explicitly supplied read-only evidence task. | The saved workflow is the sole execution owner for its bounded session-local run and supplies the `agent-workflow` method without creating a sibling controller. |
+| A host multi-agent workflow is being prepared for these independent subsystems. | `agent-workflow` method for that workflow (**needs-review:** host-workflow preparation is retained; no separate suite-level destination) |
+| A host multi-agent workflow for this scope is already running. | continue active workflow; no new orchestration layer (**needs-review:** active-workflow lifecycle has no separate suite-level destination) |
+| Run the installed `/adaptive-long-horizon` command for this explicitly supplied read-only evidence task. | The saved workflow is the sole execution owner for its bounded session-local run and supplies the `agent-workflow` method without creating a sibling controller. (**needs-review:** workflow-internal method propagation has no separate suite-level destination) |
 | This investigation is long, unfamiliar, and spans many files, but no saved workflow was explicitly invoked. | Base default behavior or the smallest applicable existing skill; do not auto-enter `/adaptive-long-horizon`. |
-| Resume an adaptive-workflow investigation after Claude Code exited. | `memory-handoff` or `decision-map` as explicitly requested; saved-workflow variables are session-local and do not provide cross-session resume. |
+| Resume an adaptive-workflow investigation after Claude Code exited. | `memory-handoff` or `decision-map` as explicitly requested; saved-workflow variables are session-local and do not provide cross-session resume. **needs-review:** retain this cross-session boundary, but do not classify it as adaptive-controller lifecycle. |
 | Use one subagent to analyze this large disposable log and return only the change-relevant failures. | one focused direct delegation; the main conversation integrates the result |
 | Split this broad investigation into six independent evidence areas and synthesize them. | `agent-workflow`; parallel leaf workers are allowed when scopes are orthogonal and integration is defined |
-| A dynamic workflow explicitly authorizes one subsystem owner as a nested controller for four independent checks. | The dynamic workflow remains the sole outer owner; the nested controller integrates its four leaf workers and returns their evidence to the workflow without creating a sibling workflow, agent team, or third controller layer. |
-| A workflow-owned leaf discovers shared or out-of-scope questions that require further delegation, but it was not authorized as a nested controller. | Return those questions to the assigned controller; do not start another workflow, team, or agent tree. |
+| A dynamic workflow explicitly authorizes one subsystem owner as a nested controller for four independent checks. | The dynamic workflow remains the sole outer owner; the nested controller integrates its four leaf workers and returns their evidence to the workflow without creating a sibling workflow, agent team, or third controller layer. (**needs-review:** nested-controller correctness has no separate suite-level destination) |
+| A workflow-owned leaf discovers shared or out-of-scope questions that require further delegation, but it was not authorized as a nested controller. | Return those questions to the assigned controller; do not start another workflow, team, or agent tree. (**needs-review:** leaf escalation correctness has no separate suite-level destination) |
 | A later dependent slice needs accepted evidence, the active hypothesis, and ruled-out paths from the previous slice. | Pass only the smallest material carry-forward state needed for the next decision; preserve those items only when they constrain the slice. |
 | A later active slice genuinely needs exact rereading of a producer's long evidence. | Prefer host or producer-local state; create an ignored transient scratch artifact only when needed, pass the supported claim with its pointer, producer scope, and code/state version, and remove the artifact after integration when no active consumer remains. |
-| The installed `/adaptive-long-horizon` command receives `limits.maxAgents: 1`. | Reject the input before calling any investigator because the total budget must reserve a completion verifier. |
-| The adaptive completion verifier cites a path, version, or location absent from candidate evidence, or maps contradictory/absence evidence to a criterion. | Block completion and return the evidence gap; the verifier must not expand the investigation. |
-| An adaptive investigator reports a contradiction and does not explicitly resolve it in a later round. | Keep the contradiction in material state and block completion until a later result explicitly lists it as resolved. |
-| The adaptive leaf discovers a shared or out-of-scope question. | Return the question to the workflow script; do not start a nested agent, workflow, or agent tree. |
-| The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round |
-| A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved |
+| The installed `/adaptive-long-horizon` command receives `limits.maxAgents: 1`. | Reject the input before calling any investigator because the total budget must reserve a completion verifier. (**needs-review:** adaptive budget validation has no separate suite-level destination) |
+| The adaptive completion verifier cites a path, version, or location absent from candidate evidence, or maps contradictory/absence evidence to a criterion. | Block completion and return the evidence gap; the verifier must not expand the investigation. (**needs-review:** adaptive evidence-verifier correctness has no separate suite-level destination) |
+| An adaptive investigator reports a contradiction and does not explicitly resolve it in a later round. | Keep the contradiction in material state and block completion until a later result explicitly lists it as resolved. (**needs-review:** adaptive contradiction handling has no separate suite-level destination) |
+| The adaptive leaf discovers a shared or out-of-scope question. | Return the question to the workflow script; do not start a nested agent, workflow, or agent tree. (**needs-review:** adaptive leaf escalation has no separate suite-level destination) |
+| The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round (**needs-review:** adaptive stop condition has no separate suite-level destination) |
+| A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved (**needs-review:** shared-question stop condition has no separate suite-level destination) |
 | Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |
 | Finish this branch. | `finish-branch` |
 | Commit these changes. | `finish-branch` |
@@ -87,14 +87,13 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Draft an issue for this bug. | `issue-workflow` |
 | Turn this into a PRD. | `issue-workflow` |
 | Break this PRD into issues. | `issue-workflow` |
-| Update the handoff with the latest checkpoint before we compress. | `memory-handoff` |
-| Update the checkpoint before compression; the current hypothesis, failed attempts, and ruled-out causes materially constrain the next step. | `memory-handoff`; preserve that material state with verified evidence and the next highest-value action. |
-| Resume from the latest checkpoint in the current handoff note. | `memory-handoff` |
-| Record this repeated mistake as a project-reviewed lesson. | `markdown-memory` |
+| Update the handoff before pausing, compressing, or checkpointing. | `memory-handoff` (**needs-review:** no dedicated routing-eval destination yet) |
+| Update the checkpoint before compression; preserve material hypothesis, failed attempts, ruled-out causes, and the next highest-value action. | `memory-handoff` (**needs-review:** handoff content contract has no dedicated routing-eval destination yet) |
+| Resume from the latest checkpoint in the current handoff note. | `memory-handoff` (**needs-review:** cross-session resume is retained; no dedicated routing-eval destination yet) |
+| Record a repeated mistake or correction as a project-reviewed lesson. | `markdown-memory` |
 | Check the project lesson memory for this pitfall. | `markdown-memory` |
-| Rewrite this old SKILL.md for the current suite. | `skill-refactorer` |
-| Tighten this outdated CLAUDE fragment without changing task scope. | `skill-refactorer` |
-| Make a decision map for this vague multi-session direction. | `decision-map` |
+| Rewrite or clean up an outdated prompt or skill file without changing its intended boundary. | `skill-refactorer` |
+| Make or set up a durable decision map for this vague multi-session direction. | `decision-map` |
 | Add a prototype ticket to this decision map. | `decision-map`; obtain user agreement before building the prototype |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
 | Plan this refactor. | `plan-work` |
@@ -113,10 +112,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Prepare a PR for this branch. | `finish-branch` |
 | Implement the selected design above. | Base default behavior |
 | Triage this issue report and give me a tracker-ready draft. | `issue-workflow` |
-| Update the handoff before we pause. | `memory-handoff` |
-| Remember this correction as a project-reviewed lesson. | `markdown-memory` |
-| Clean up this outdated prompt file without changing its intended boundary. | `skill-refactorer` |
-| Set up a durable decision map for this unresolved direction. | `decision-map` |
+| Record a repeated mistake or correction as a project-reviewed lesson. | `markdown-memory` |
+| Rewrite or clean up an outdated prompt or skill file without changing its intended boundary. | `skill-refactorer` |
 
 ## Shared Default Rule Smoke Cases
 
