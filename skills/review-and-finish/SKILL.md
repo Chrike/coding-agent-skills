@@ -58,14 +58,7 @@ Use [feedback-handling.md](references/feedback-handling.md) for review-comment w
 
 ## Completion Claims
 
-For explicit done/fixed/passing requests, reuse current-session verification when it still covers the final code state and the user's acceptance criteria.
-
-Run a new check only when:
-
-- code changed after the previous check
-- the previous check does not support the completion claim
-- the result is stale or incomplete
-- the user explicitly requests a fresh run
+For explicit done/fixed/passing requests, reuse current-session verification when it covers the final code state and acceptance criteria. Rerun only if code changed after that verification, the evidence does not support the claim or is stale/incomplete, or the user requests a fresh run.
 
 Completion review owns the judgment about whether the evidence is sufficient; it does not automatically rerun every check already performed by `test-strategy` or another execution step.
 
