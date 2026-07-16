@@ -39,9 +39,7 @@ Read [design-questions.md](references/design-questions.md) when the request is s
 ## Exit To Implementation
 
 - When a request includes implementation, treat planning as a transient internal phase: once the needed decisions are settled, exit to implementation automatically unless user-only input, an irreversible trade-off, or a scope change remains.
-- When the user asks only to plan, do not implement until they ask.
-- Do not regenerate, expand, or compare the settled plan unless new evidence changes scope, dependencies, risk, or feasibility.
-- Treat the settled plan as execution context, not as a reason to plan again.
+- Do not regenerate, expand, or compare the settled plan unless new evidence changes scope, dependencies, risk, or feasibility; treat it as implementation context rather than a reason to plan again.
 
 ## Boundaries
 
