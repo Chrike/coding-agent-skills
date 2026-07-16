@@ -5,7 +5,7 @@ description: Use when the primary problem is test design, test seams, regression
 
 # Test Strategy
 
-Choose tests that prove the claimed behavior without turning every task into strict TDD.
+Choose tests that prove behavior without turning every task into strict TDD.
 
 ## First Decision
 
@@ -19,13 +19,13 @@ Choose tests that prove the claimed behavior without turning every task into str
 ## Testing Defaults
 
 - Test what the system does, not how internal collaborators are called.
-- Choose the test level with the best evidence-to-cost ratio for the stated behavior and concrete risk.
-- Prefer the most direct proof available; widen only when a narrower check cannot cover the behavior, contract, acceptance criteria, or risk being claimed.
+- Choose the test level with the best evidence-to-cost ratio for the stated behavior, acceptance criteria, and concrete risk.
+- Prefer the most direct proof available. Escalate to broader or more realistic boundaries only when a narrower check cannot cover the behavior, contract, or risk being claimed.
 - Use unit, property, type, benchmark, stress, integration, or end-to-end checks according to the evidence each claim requires.
 - Keep each test focused on one behavior or one regression.
 - Use existing project test tools, fixtures, naming, and setup patterns.
-- Run the fastest high-signal test command that covers the changed behavior first; widen only when affected surface, risk, acceptance criteria, or an evidence gap requires broader proof.
-- Prefer vertical slices: one behavior, one proving test or small group, then implementation; do not write all tests first and all code later.
+- Run the fastest high-signal test command that covers the changed behavior first; widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof.
+- Prefer vertical slices: one behavior, one proving test or small group, then implementation. Do not write all tests first and all code later.
 
 Read [good-tests.md](references/good-tests.md) when the test shape itself is the main question.
 

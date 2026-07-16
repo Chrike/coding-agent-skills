@@ -27,11 +27,11 @@ Stay solo when any of these apply:
 - one focused Explore, Plan, general-purpose delegation, or verifier is enough
 - coordination overhead, context-transfer loss, integration risk, or duplicated work would outweigh the expected gain in quality, evidence coverage, diversity, or turnaround
 
-An explicit request to parallelize starts the fit check but does not override stay-solo conditions; parallel execution still requires independent ownership, safe write isolation when needed, and a clear integration path.
+An explicit request to parallelize starts this fit check; it does not override the stay-solo conditions. Parallel execution still requires independent ownership, safe write isolation when needed, and a clear integration path.
 
 A dependency between phases is not a reason to avoid orchestration when it can be represented as an explicit staged handoff.
 
-Long intermediate output or available host capability alone does not trigger multi-agent work. Prefer host workflow variables, local worker context, or a scratch handoff for raw output.
+Do not trigger multi-agent work only because intermediate output would be long or host multi-agent capability is available. Prefer host workflow variables, local worker context, or a scratch handoff for long raw output.
 
 One focused Explore, Plan, general-purpose delegation, or verifier is ordinary task execution, not this workflow. Use direct focused verification for one defined evidence question; use this workflow only when verification needs multiple coordinated questions, owners, stages, or integration. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
 
@@ -51,7 +51,10 @@ Fan-out width follows the number of truly independent subproblems, not a fixed a
 
 ## Write-Scope Rules
 
-Apply the Kernel's isolation rule to delegated slices: concurrent read-only slices may share a workspace; concurrent write slices require isolated worktrees or equivalent copies. If isolation is unavailable or not authorized, serialize writes in the current workspace. Treat lockfiles, generated output, migrations, repository-wide formatting, Git state, shared services, and test databases as shared write scope.
+- Concurrent read-only slices may share a workspace.
+- Concurrent write slices require isolated worktrees or equivalent copies.
+- If safe isolation is unavailable or not authorized, serialize write slices in the current workspace rather than weaken the isolation rule to preserve parallelism.
+- Treat lockfiles, generated output, migrations, repository-wide formatting, git state, shared services, and test databases as shared write scope.
 
 ## Controller Contract
 
@@ -86,16 +89,20 @@ After results return:
 
 ## Method Ownership
 
-This skill owns decomposition, assignment, dependency ordering, evidence handoff, verification coordination, and integration. The active domain skill owns the debugging, testing, design, review, feedback, or completion method; do not invent a second domain procedure. Translate that method into non-overlapping delegated slices instead of running a parallel one.
+- This skill owns only decomposition, assignment, dependency ordering, evidence handoff, verification coordination, and integration.
+- The active domain skill owns the debugging, testing, design, review, feedback, or completion method.
+- Do not invent a second search, debugging, testing, design, or review procedure beside the active domain method.
+- Translate the active domain method into non-overlapping delegated slices instead of running a parallel procedure.
 
 ## Single-Owner Execution
 
-Apply the Kernel's ownership and evidence-reuse rules to each delegated scope:
-
 - Assign exactly one execution owner to each investigation question, write scope, implementation slice, or focused verification.
-- That owner handles search, reading, modification, and focused checks inside the assigned scope; the controller must not repeat the same work while the owner is active.
-- Before delegation, scan only enough to define ownership boundaries. Pass known files, evidence, constraints, and exclusions into the brief so the owner does not rediscover them.
-- After results return, inspect only what is needed to integrate, resolve a contradiction, or verify a load-bearing claim. Do not rerun the entire delegated investigation by default.
+- A delegated owner owns the search, reading, modification, and focused checks inside its assigned scope.
+- The controller must not repeat the same search or modification while the delegated owner is active.
+- Before delegation, perform only the minimum scan needed to define ownership boundaries.
+- Pass already-known files, evidence, constraints, and excluded scope into the brief so the owner does not rediscover them.
+- After results return, inspect only what is necessary to integrate, resolve a contradiction, or verify a load-bearing claim.
+- Do not rerun the entire delegated investigation by default.
 
 Re-check delegated work only when:
 
@@ -127,13 +134,10 @@ Use these references when the delegated shape is clear:
 - Separate milestone verifier: [fresh-context-verification.md](references/fresh-context-verification.md)
 - High-stakes candidates plus judges: [review-panel.md](references/review-panel.md)
 - Long briefs or reports: [file-handoffs.md](references/file-handoffs.md)
-- Bounded candidate-evidence collection followed by fresh-context verification: [evidence-loop.md](references/evidence-loop.md)
-
-Read `references/evidence-loop.md` when the task needs that bounded evidence shape; this skill remains the owner of decomposition, worker contracts, and integration.
 
 ## Optional Isolation
 
-Reuse existing isolation; add it only when delegated write slices genuinely need it. Use manual `git worktree` only after explicit user approval and project-local safety checks.
+Reuse any isolation already in effect. Introduce additional isolation only when delegated write slices genuinely need it. Use manual `git worktree` only after explicit user approval and project-local safety checks.
 
 ## Boundaries
 

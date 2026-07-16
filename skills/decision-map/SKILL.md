@@ -9,21 +9,23 @@ Turn long-running uncertainty into a compact frontier map when the user clearly 
 
 ## First Decision
 
-- Use this only for an unresolved, durable multi-session decision frontier; ordinary planning, design, and implementation stay with their owning workflows.
+- Do not use this for ordinary implementation plans, small refactors, or one-session approach comparison.
+- Use this only when the user clearly wants a durable multi-session decision workflow, decision map, or resume-by-ticket artifact.
+- If the path is already clear after discussion, skip the decision map and use `plan-work` or direct implementation instead.
 - Keep the map compact because the whole artifact may need to be reread in later sessions.
-- Treat a user-named or repository-standard map as authoritative. If no authoritative path exists or multiple plausible maps exist, ask which map is authoritative and get agreement on the path before creating durable state; do not invent a decision directory or duplicate a map.
+- Update a user-named or repository-standard map when one exists. If no authoritative path exists, propose the map and suggested path in chat before creating a durable file. Do not invent a new decision directory or duplicate map without explicit agreement; ask which map is authoritative when multiple plausible maps exist.
 
 ## What The Map Tracks
 
 Each map should capture:
 
 1. The current decision frontier.
-2. Open tickets for unresolved decision questions or options, not implementation tasks.
-3. Dependencies and blockers between tickets.
-4. A concise answer or outcome for each resolved ticket.
-5. Links to supporting artifacts instead of copied research notes.
+2. Open tickets that must be resolved before downstream choices become clear.
+3. Dependencies between tickets.
+4. A short answer or outcome for each resolved ticket.
+5. Links to supporting artifacts instead of copying large notes into the map.
 
-Use small, numbered tickets. Size each ticket as one coherent decision question or option comparison with a clear evidence and output contract.
+Use small, numbered tickets. Size each ticket as one coherent decision question with a clear evidence and output contract. Do not size tickets according to a fixed model, context window, or session capacity.
 
 ## Ticket Types
 
@@ -33,15 +35,36 @@ Use small, numbered tickets. Size each ticket as one coherent decision question 
 | Prototype | testing a design or behavior hypothesis in code | throwaway prototype artifact and short conclusion |
 | Discuss | resolving uncertainty through focused analysis with the user | concise decision note in the map |
 
-Use existing evidence when it resolves the question. A `Prototype` must be reversible and requires the user to ask or agree before it is built. The automatic local-prototype exception in `design-codebase` does not apply to a decision-map prototype ticket because this workflow updates a durable multi-session frontier. Use `Discuss` when the remaining choice depends on product intent, value judgment, taste, policy, or other user-only information.
+Prefer research, code inspection, or existing evidence when they can resolve the uncertainty. Propose a reversible prototype when it would discriminate between options, and build it only when the user asks or agrees. The automatic local prototype exception in `design-codebase` does not apply to a decision-map prototype ticket because this workflow updates a durable multi-session frontier. Use `Discuss` when the remaining choice depends on product intent, value judgment, taste, policy, or other user-only information.
 
-## Frontier Loop
+## Workflow
 
-1. On resume, read the whole authoritative map first; otherwise establish the current frontier and its open questions or options.
-2. Keep open questions and options separate from implementation tasks; create only the necessary small numbered tickets and record dependencies or blockers.
-3. Resolve the named ticket or current frontier item; record the answer or outcome compactly with supporting links, and add, update, or delete downstream tickets when the frontier changes.
-4. If the user asks to progress or resolve the frontier, continue through newly unblocked tickets until the frontier is resolved, a user-only decision is reached, or a real blocker appears. Otherwise stop after the map or ticket update.
+1. Restate the loose idea or decision space in one sentence.
+2. Identify the true open questions, not implementation tasks.
+3. Resolve trivial decisions inline instead of turning everything into tickets.
+4. Create only the frontier tickets needed to move the decision forward.
+5. Record blockers or dependencies between tickets.
+6. If the user asks to progress or resolve the frontier, continue through newly unblocked tickets until the frontier is resolved, a user-only decision is reached, or a real blocker appears. Otherwise stop after creating or updating the map.
+
+When resuming:
+
+1. Read the whole map first.
+2. Resolve the named ticket or the current frontier item.
+3. Record the answer compactly.
+4. Add, update, or delete downstream tickets if the frontier changed.
+5. If the user asked to progress or resolve the frontier, continue through newly unblocked tickets until the frontier is resolved, a user-only decision is reached, or a real blocker appears. Otherwise stop after the ticket update.
 
 ## Boundaries
 
-Do not use this for ordinary tasks or one-session planning, design, or implementation, and do not turn it into PRDs/issues, architecture or ADR artifacts, handoff/checkpoint state, or subagent workflows. Use `plan-work`, `design-codebase`, `issue-workflow`, or `memory-handoff` for those scopes. Keep supporting research linked rather than copied, and do not create duplicate maps or research content.
+Do not turn implementation tasks, issue breakdowns, or ordinary design questions into a decision map just because work spans multiple files or feels somewhat ambiguous.
+
+Do not automatically create PRDs, issue tracker items, ADRs, subagents, or broad prototype trees from this skill.
+
+Do not duplicate large research notes in the map. Link to supporting files instead.
+
+Use:
+
+- `plan-work` for ordinary implementation planning
+- `design-codebase` for architecture and seam decisions that fit in a normal design discussion
+- `issue-workflow` for PRDs, issue breakdown, or tracker-ready work items
+- `memory-handoff` when the user wants compression-safe handoff state rather than a decision frontier

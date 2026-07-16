@@ -12,9 +12,7 @@ This repository contains:
 
 - runtime skill source folders under `skills/`
 - the maintained always-on instruction prompt under `prompts/`
-- explicit opt-in frozen Lab workflow source under `experiments/`
-- non-runtime profile and distribution metadata under `profiles/`
-- non-runtime lifecycle governance under `governance/` and `archive/`
+- explicit opt-in saved-workflow source under `workflows/`
 - maintenance and validation material under `tests/`
 
 The suite is designed around a simple rule:
@@ -29,7 +27,7 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 
 - `prompts/` holds the always-on default behavior layer for ordinary development work.
 - `skills/` holds named workflow boundaries that should load only when the request clearly needs them.
-- `experiments/` holds explicit opt-in frozen Lab workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
+- `workflows/` holds explicit opt-in saved-workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
 - Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
 - High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill instead of forcing a second runtime router layer.
 - `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
@@ -66,31 +64,22 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 
 ## Installation
 
-Install a selected non-runtime distribution profile from `profiles/manifest.json`, or copy source folders manually when you need a narrower selection.
+Install only the runtime skill folders you want from `skills/`.
 
-The profiles are `fast`, `quality`, and `lab`. `quality` is the policy default; `lab` is explicit-only and includes the frozen adaptive pilot. Profiles select distribution contents only: they do not change natural-language routing, host policy, provider identity, or outcome evidence.
-
-Use the dependency-free installer with an explicit target root. It is dry-run by default:
-
-```text
-node scripts/install-profile.js --profile quality --target-root <host-.claude-root>
-node scripts/install-profile.js --profile quality --target-root <host-.claude-root> --apply
-```
-
-`--apply` is required for writes and `--force` is required to replace a differing owned file. The installer never deletes, cleans, writes `CLAUDE.md`, changes host settings, or installs tests/evals/governance assets. It does not prove host enforcement or provider/runtime identity.
-
-In this repository, `skills/`, `prompts/`, and `experiments/` are source directories rather than host runtime paths. The installer copies selected skills to an explicit `<target-root>/skills/` and, for `lab`, the workflow to `<target-root>/workflows/`.
+In this repository, `skills/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths.
 
 Known host targets:
 
 - Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
 - Claude Code saved workflows: project `.claude/workflows/` or user `~/.claude/workflows/`
 
-The Kernel source `prompts/CLAUDE.fragment.md` is assembled into the host instruction system manually; the installer does not overwrite `CLAUDE.md`.
-
 Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
 
-Keep `tests/` as maintenance and validation material rather than runtime skills. Do not copy `tests/`, `profiles/`, `governance/`, or `archive/` into runtime install targets.
+Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
+For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
+
+Keep `tests/` as maintenance and validation material rather than runtime skills.
+Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targets.
 
 ### Recommended Host Skill Visibility
 
@@ -116,9 +105,7 @@ This is a recommended host configuration for the full suite, not a repository-en
 - `skills/` contains runtime skill source folders for this repository.
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
-- `experiments/` contains explicit frozen Lab source; copy a reviewed workflow to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
-- `profiles/` and `scripts/install-profile.js` contain non-runtime distribution metadata and an explicit copy tool; they do not define routing.
-- `governance/` and `archive/` contain non-runtime lifecycle boundaries; they are never installed.
+- `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
 - `tests/` contains routing and boundary checks used to maintain the suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
@@ -130,7 +117,7 @@ The current runtime surface is organized as follows:
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
-- `experiments/` contains explicit frozen Lab source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing or outcome evidence.
+- `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.

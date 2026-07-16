@@ -2,7 +2,7 @@
 
 Use this file to validate that the current skill suite does not route ordinary work into the wrong workflow.
 
-This file contains negative routing examples for ordinary work. The maintained prompt `prompts/CLAUDE.fragment.md` and each current `skills/<name>/SKILL.md` remain authoritative; these examples are non-runtime validation material.
+This file contains negative routing examples for ordinary work.
 
 ## Heavy Skills Must Not Trigger By Default
 

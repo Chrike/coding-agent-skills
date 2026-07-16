@@ -9,7 +9,11 @@ Preserve durable intent while removing outdated procedure text. Requests like â€
 
 ## First Decision
 
-Once the frontmatter trigger is met, keep this skill limited to that prompt/skill maintenance pass: route new-skill design, workflow comparison, or implementation planning to `plan-work`; evidence, source, or read-set challenges to `reliability-check`; and review findings, feedback handling, or completion verification to `review-and-finish`. Ordinary implementation, code refactors, review, and planning remain in their owning workflows.
+- Use this skill when the user clearly asks to maintain or migrate prompt or skill text.
+- Do not use it for ordinary code implementation, ordinary refactors, ordinary review, or ordinary planning.
+- If the user is designing a new skill, comparing workflow structures, or asking for an implementation plan, use `plan-work` or another installed workflow that owns that design work instead.
+- If the user is explicitly challenging evidence, source use, or whether the right files were read, use `reliability-check` instead.
+- If the user wants review findings, feedback handling, or completion verification for code or document changes, use `review-and-finish` instead.
 
 ## What To Preserve
 

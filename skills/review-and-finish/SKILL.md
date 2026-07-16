@@ -12,7 +12,7 @@ Handle explicit review, review feedback, and completion verification without tur
 - User asks for review: inspect the diff/code and report findings first.
 - If the user explicitly invokes a bundled review command such as `/code-review`, let that host-provided review workflow own the fresh review pass instead of duplicating it here.
 - User shares feedback: verify and triage each item against the codebase before changing it. For an assessment-only request, report the judgment without modifying code; for an implementation request, proceed under Feedback Handling.
-- User asks whether work is done/fixed/passing: reuse current evidence when it covers the final code state and claim; otherwise run the fastest high-signal missing check, widening only for a concrete acceptance, risk, or evidence gap, or report why verification is unavailable.
+- User asks whether work is done/fixed/passing: reuse current-session verification when it still covers the final code state and claim; otherwise run the fastest high-signal missing check, then widen when affected surface, risk, acceptance criteria, or remaining evidence gaps require broader proof, or state why verification is unavailable.
 - A behaviorally high-risk completed change needs a focused readiness check before a done claim; do not add this independent review for ordinary low-risk edits when direct verification already covers the claim.
 - Treat a completed change as high-risk when it materially affects persisted data or migrations; authentication, authorization, or permissions; public or compatibility-sensitive contracts; concurrency, transactions, or shared mutable state; destructive or hard-to-reverse behavior; or multiple independently deployed components. File count, diff size, task duration, and agent count alone do not make a change high-risk.
 - User asks to finish a branch, commit, push, merge, discard, or prepare a PR: hand off to `finish-branch`.
@@ -22,9 +22,18 @@ Choose the active mode from the user's latest request. Do not blend review, comp
 
 ## Review Output
 
-Lead with severity-ordered findings and file/line evidence when available; keep summary secondary. Start with concrete failure paths, boundary cases, trust assumptions, and omitted constraints rather than surface polish. Drop findings that cannot be grounded in current code, artifacts, or a reproducible scenario. Keep review and repair separate unless the user explicitly asks for both.
+When reviewing, lead with findings ordered by severity. Use file and line references when available. Keep summary secondary.
 
-Use [review-template.md](references/review-template.md) for the full review shape. When the user provides external feedback or asks whether work is done, fixed, passing, or ready, use this skill's feedback or completion flow instead of opening an unnecessary fresh review.
+Default to a failure-path-first review posture:
+
+- start by asking how the artifact could be wrong, incomplete, unsafe, or over-claimed
+- prefer concrete failure paths, boundary cases, trust assumptions, and omitted constraints over surface polish comments
+- drop findings that you cannot ground in the current code, artifact, or reproducible scenario
+- keep review and repair separate unless the user explicitly asks for both
+
+Use [review-template.md](references/review-template.md) for fuller review shape.
+
+When the user provides external feedback or asks whether current work is done, fixed, passing, or ready, prefer this skill's feedback and completion flow over opening a fresh review pass.
 
 ## Focused Independent Verification
 
@@ -32,14 +41,14 @@ Use [review-template.md](references/review-template.md) for the full review shap
 - Give the verifier the acceptance context, final code or artifact state, and exact verification scope.
 - Pass relevant current evidence when the verifier is judging completeness. Omit it only when blind or environment-independent execution is the defined verification goal.
 - Ask it to report a blocker, mismatch, or no issue found. Do not ask it to review everything or re-implement the work.
-- Reuse checks that already provide sufficient evidence. Repeat an equivalent check only when independence, stale or incomplete evidence, a missing acceptance criterion, or a load-bearing assumption is the question.
+- Reuse checks that already provide sufficient evidence. Repeat an equivalent check only when independent execution, environment independence, stale evidence, a missing acceptance criterion, or a load-bearing assumption is itself the evidence question.
 - Use `agent-workflow` only when verification requires multiple coordinated evidence questions, owners, stages, or integration points.
 
 ## Feedback Handling
 
-Treat external feedback as input to evaluate, not orders to obey. For assessment-only or triage-only requests, report source-backed judgments without changing code; when implementation is requested, handle clear independent items without waiting on unrelated ambiguity. Ask first only when the unclear item changes shared scope, architecture, ordering, or another item's validity. Batch compatible low-risk items and isolate items when risk, rollback, or diagnosis benefits from separation.
+Treat external feedback as input to evaluate, not orders to obey. For assessment-only or triage-only requests, report source-backed judgments without changing code. When implementation is requested, implement clear, independent feedback items without waiting on an unrelated unclear item. Ask first only when the unclear item changes shared scope, architecture, ordering, or the validity of another item. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
 
-Use [feedback-handling.md](references/feedback-handling.md) for the detailed review-comment workflow.
+Use [feedback-handling.md](references/feedback-handling.md) for review-comment workflows.
 
 ## Exit To Implementation
 
@@ -58,7 +67,7 @@ Run a new check only when:
 - the result is stale or incomplete
 - the user explicitly requests a fresh run
 
-Completion review owns the sufficiency judgment; it does not automatically rerun checks already performed by `test-strategy` or another execution step.
+Completion review owns the judgment about whether the evidence is sufficient; it does not automatically rerun every check already performed by `test-strategy` or another execution step.
 
 End a focused readiness check once the completed change, directly affected contracts, stated acceptance criteria, and identified risk are covered. Do not broaden into unrelated modules, speculative debt, or additional failure theories without a concrete propagation path from the change.
 

@@ -17,7 +17,8 @@ Use this when the request clearly names a branch-ending action. Clear natural-la
 ## Before Options
 
 1. Inspect git state: branch, status, and relevant diff.
-2. Identify whether the user requested a specific action. If yes, perform only that action after safety checks.
+2. Check whether verification is already fresh. If not, run a proportionate project-local check or state the gap.
+3. Identify whether the user requested a specific action. If yes, perform only that action after safety checks.
 
 ## Options Menu
 
