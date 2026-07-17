@@ -71,12 +71,12 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 已确认的宿主落点：
 
 - Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
-- Claude Code 自定义 Agent：项目级 `.claude/agents/` 或用户级 `~/.claude/agents/`
+- Claude Code 自定义 Agent：项目级 `.claude/agents/` 或用户级 `~/.claude/agents/`；本仓库的已跟踪 Agent 定义也位于项目级该路径
 - Claude Code saved workflow：项目级 `.claude/workflows/` 或用户级 `~/.claude/workflows/`
 
 Saved workflow 采用显式选择：将审阅过的源码文件复制到一个明确选择的落点，再调用其已安装名称。它不替代 skill 路由，也不会因为任务长或文件多而自动激活。
 
-当前仓库包含项目级、只读的 `fresh-completion-verifier` Agent，文件为 `.claude/agents/fresh-completion-verifier.md`。可以使用 `claude --agent fresh-completion-verifier` 独立调用。当前 adaptive workflow 仍保留内联 investigator 和 verifier prompt：本仓库尚未确认 Workflow `agent(prompt, options)` API 支持加载已保存 Agent 文件的 selector。
+当前仓库唯一已跟踪的自定义 Agent 定义位于 `.claude/agents/fresh-completion-verifier.md`，该文件同时就是项目级运行时落点；没有单独的顶层 `agents/` 镜像或 installer。可以使用 `claude --agent fresh-completion-verifier` 独立调用。当前 adaptive workflow 仍保留内联 investigator 和 verifier prompt：本仓库尚未确认 Workflow `agent(prompt, options)` API 支持加载已保存 Agent 文件的 selector。
 
 将 `prompts/CLAUDE.fragment.md` 作为宿主常驻指令文件的维护源码。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系。
 

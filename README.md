@@ -13,7 +13,7 @@ This repository contains:
 - runtime skill source folders under `skills/`
 - the maintained always-on instruction prompt under `prompts/`
 - explicit opt-in saved-workflow source under `workflows/`
-- a project-scoped custom Agent definition under `.claude/agents/`
+- the checked-in project-scoped custom Agent definition/runtime target under `.claude/agents/`
 - maintenance and validation material under `tests/`
 
 The suite is designed around a simple rule:
@@ -77,7 +77,7 @@ Known host targets:
 
 Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
 
-This repository currently includes the project-scoped, read-only `fresh-completion-verifier` Agent at `.claude/agents/fresh-completion-verifier.md`. Invoke it independently with `claude --agent fresh-completion-verifier`. The adaptive workflow currently keeps its inline investigator and verifier prompts: this repository has not confirmed a supported saved-Agent selector for the workflow `agent(prompt, options)` API.
+This repository currently keeps its only checked-in custom Agent definition at `.claude/agents/fresh-completion-verifier.md`; that file is also the project-scoped runtime target. Invoke it independently with `claude --agent fresh-completion-verifier`. There is no separate top-level `agents/` mirror or installer. The adaptive workflow currently keeps its inline investigator and verifier prompts: this repository has not confirmed a supported saved-Agent selector for the workflow `agent(prompt, options)` API.
 
 Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
 For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
