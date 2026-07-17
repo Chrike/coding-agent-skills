@@ -43,14 +43,12 @@ Use these terms consistently:
 
 - Existing project architecture and explicit user constraints outrank the vocabulary and heuristics in this skill.
 - Treat deep-module, seam, adapter, and interface-leakage checks as lenses only when caller complexity, duplicated coordination, or a real dependency boundary demonstrates that pressure.
-- Do not introduce an interface or adapter merely because this skill is active.
-
+- Introduce an interface, adapter, or seam only when demonstrated variation, ownership, testability, operational isolation, or an external dependency boundary justifies it; do not add one merely because this skill is active. Adapter count alone does not determine whether a seam is real.
 
 Use these checks to support the runbook rather than replace it:
 
 - Deletion test: if deleting the module makes complexity vanish, it was probably shallow. If complexity spreads across callers, it was earning its interface.
 - Interface test surface: callers and tests should cross the same seam.
-- Real seam test: introduce a seam only when demonstrated variation, ownership, testability, operational isolation, or an external dependency boundary justifies it. Adapter count alone does not determine whether a seam is real.
 - Dependency fit: pure or local-substitutable dependencies can usually sit behind the module; remote or external dependencies may need ports/adapters.
 - Scope fit: improve the architecture needed for the current goal; avoid unrelated broad refactors.
 
