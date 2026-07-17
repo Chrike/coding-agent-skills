@@ -76,7 +76,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 Saved workflow 采用显式选择：将审阅过的源码文件复制到一个明确选择的落点，再调用其已安装名称。它不替代 skill 路由，也不会因为任务长或文件多而自动激活。
 
-当前仓库唯一已跟踪的自定义 Agent 定义位于 `.claude/agents/fresh-completion-verifier.md`，该文件同时就是项目级运行时落点；没有单独的顶层 `agents/` 镜像或 installer。可以使用 `claude --agent fresh-completion-verifier` 独立调用。当前 adaptive workflow 仍保留内联 investigator 和 verifier prompt：本仓库尚未确认 Workflow `agent(prompt, options)` API 支持加载已保存 Agent 文件的 selector。
+当前仓库唯一已跟踪的自定义 Agent 定义位于 `.claude/agents/fresh-completion-verifier.md`，该文件同时就是项目级运行时落点；没有单独的顶层 `agents/` 镜像或 installer。可以使用 `claude --agent fresh-completion-verifier` 独立调用。当前 Workflow runtime 接受 `agentType` 选项，且 live probe 已验证内置 `Explore` 类型可以被调度；但使用 `agentType: "fresh-completion-verifier"` 的 live probe 在 worker 执行前失败，报告该项目 Agent 不在本次 Workflow registry 中。因此项目级 saved-Agent 接线仍未确认，当前 adaptive workflow 继续保留内联 investigator 和 verifier prompt。
 
 将 `prompts/CLAUDE.fragment.md` 作为宿主常驻指令文件的维护源码。对 Claude Code，这意味着整理到 `CLAUDE.md` 体系。
 

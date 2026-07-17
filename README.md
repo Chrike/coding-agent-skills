@@ -77,7 +77,7 @@ Known host targets:
 
 Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
 
-This repository currently keeps its only checked-in custom Agent definition at `.claude/agents/fresh-completion-verifier.md`; that file is also the project-scoped runtime target. Invoke it independently with `claude --agent fresh-completion-verifier`. There is no separate top-level `agents/` mirror or installer. The adaptive workflow currently keeps its inline investigator and verifier prompts: this repository has not confirmed a supported saved-Agent selector for the workflow `agent(prompt, options)` API.
+This repository currently keeps its only checked-in custom Agent definition at `.claude/agents/fresh-completion-verifier.md`; that file is also the project-scoped runtime target. Invoke it independently with `claude --agent fresh-completion-verifier`. There is no separate top-level `agents/` mirror or installer. The current Workflow runtime accepts an `agentType` option, and a live probe verified dispatch of the built-in `Explore` type. A live probe with `agentType: "fresh-completion-verifier"` failed before worker execution because that project custom Agent was not in the Workflow registry for the run. Project saved-Agent wiring therefore remains unconfirmed, so the adaptive workflow keeps its inline investigator and verifier prompts.
 
 Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
 For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
