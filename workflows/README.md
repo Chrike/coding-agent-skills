@@ -23,6 +23,8 @@ Invoke the installed copy as `/adaptive-long-horizon` with structured input cont
 
 Investigators return **candidate evidence**. Candidate evidence is provisional, session-local evidence with controller-assigned IDs and investigator provenance. A separate fresh-context verifier returns **verified evidence** only by referencing candidate IDs whose path, version, and location still match. Blocked results expose candidate evidence as candidate evidence; they do not imply that it was verified.
 
+The current script invokes the workflow `agent(prompt, options)` API with task-specific inline prompts and schemas. It does not select `.claude/agents/fresh-completion-verifier.md`. That Agent is independently callable with `claude --agent fresh-completion-verifier`, but this repository has not confirmed a supported saved-Agent selector for the workflow API. Keep the inline investigator and verifier fallback until that interface is directly confirmed.
+
 The workflow retains only material session-local carry-forward state: the active hypothesis, failed or ruled-out paths, unresolved contradictions (which must be explicitly cleared), completed scopes, and candidate-supported criteria. It does not create durable reasoning history or cross-session recovery state.
 
 The workflow is deliberately limited to:
