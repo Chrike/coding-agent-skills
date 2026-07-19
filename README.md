@@ -13,7 +13,6 @@ This repository contains:
 - runtime skill source folders under `skills/`
 - the maintained always-on instruction prompt under `prompts/`
 - explicit opt-in saved-workflow source under `workflows/`
-- the project-scoped custom Agent definitions/runtime targets under `.claude/agents/`
 - maintenance and validation material under `tests/`
 
 The suite is designed around a simple rule:
@@ -65,19 +64,16 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 
 ## Installation
 
-Install only the runtime components you need: skill folders from `skills/`, selected Agent definitions from `.claude/agents/`, and explicitly chosen workflow sources from `workflows/`.
+Install only the runtime skill folders you want from `skills/`.
 
-In this repository, `skills/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths; `.claude/agents/` is the project-scoped Agent runtime target.
+In this repository, `skills/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths.
 
 Known host targets:
 
 - Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
-- Claude Code custom Agents: project `.claude/agents/` or user `~/.claude/agents/`; this working tree defines bounded investigator, verifier, and findings-only reviewer roles there
 - Claude Code saved workflows: project `.claude/workflows/` or user `~/.claude/workflows/`
 
-Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work. `workflows/fresh-findings-review.js` is a bounded, read-only findings-only review workflow: it validates the findings contract and path boundary, while `review-and-finish` retains feedback triage, repair, completion judgment, and branch-action separation.
-
-This repository currently defines its project-scoped custom Agent targets at `.claude/agents/`: `fresh-completion-verifier.md` owns bounded completion verification, `adaptive-evidence-investigator.md` owns one read-only evidence question, and `fresh-findings-reviewer.md` owns findings-only review. Invoke them independently with `claude --agent <name>`. These files are the project-scoped runtime targets when this working diff is installed; there is no separate top-level `agents/` mirror or installer. The adaptive workflow tries the corresponding saved Agent selector first and falls back to the built-in read-only `Explore` role with the same dynamic prompt when the host rejects the selector, so dynamic task state, schemas, validators, and fallback ownership remain in `workflows/adaptive-long-horizon.js`. The current public Workflow documentation (https://code.claude.com/docs/en/workflows) shows generic `agent(prompt, options)` examples but does not establish `agentType` or project saved-Agent loading as a stable contract; selector support remains version-dependent and must not be treated as a security boundary. The findings reviewer is an independently callable optional role; `review-and-finish` owns its caller contract, triage, repair, completion judgment, and branch-action separation.
+Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
 
 Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
 For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
@@ -110,7 +106,7 @@ This is a recommended host configuration for the full suite, not a repository-en
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
-- `tests/` contains routing, Agent-role, Workflow, Skill-boundary, and other maintenance checks used to maintain the suite; `tests/routing/`, `tests/agents/`, `tests/workflows/`, and `tests/skills/` each own only their corresponding layer.
+- `tests/` contains routing and boundary checks used to maintain the suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
 
