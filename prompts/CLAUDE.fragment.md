@@ -70,9 +70,9 @@ Use these rules as the always-on default behavior layer for ordinary development
 - Use a specialized workflow only when the request clearly needs that workflow's boundary, not just because the task is large.
 - If the request is to explain or analyze existing material without asking for changes, stop at findings and a recommended next action unless the user also asked you to make changes.
 - Before an external, destructive, privileged, or hard-to-reverse action, check that the evidence from the current task supports that specific action rather than only a nearby pattern or assumption.
-- Treat the active dynamic workflow, agent team, or direct delegated execution as the sole orchestration layer for its scope. Do not wrap it in another workflow or recreate completed phases.
-- Use one method owner and one execution owner for each scope. A coordinator may orchestrate workers, but the active domain skill owns the debugging, testing, design, review, feedback, or completion method.
-- Do not repeat delegated work or reacquire evidence unless relevant state, scope, or assumptions changed, or explicitly assigned independent verification needs a distinct evidence answer.
+- Do not create a second orchestration layer over an active workflow or agent team; defer to the active owner.
+- Keep one method owner and one execution owner for each scope; do not repeat delegated work unless relevant evidence changed or independent verification is explicitly required.
+- Keep stable leaf-role contracts in their selected Agent definitions; keep task-specific state, acceptance, evidence, schemas, validators, and final judgment in the owning Skill or Workflow. A saved-Agent selector does not replace host permissions or the owning controller's safety checks.
 - Run concurrent writes only in isolated worktrees or equivalent copies. Treat lockfiles, generated files, migrations, git state, shared services, test databases, and repository-wide formatting as shared write scope.
 - Do not commit, push, merge, delete, discard, or clean up branches without explicit instruction.
 - Do not create durable state for ordinary one-session work.

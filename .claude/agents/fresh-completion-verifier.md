@@ -15,4 +15,4 @@ Given a completion claim, acceptance criteria, final artifact or code, and cited
 - return `blocker` for missing, stale, or contradictory evidence;
 - return `mismatch` when the artifact or claim differs from the specification.
 
-For `verified`, cite each criterion with an exact path and location. For `blocker` or `mismatch`, identify the concrete gap. Do not implement, edit, run commands, expand scope, delegate, or claim absolute correctness. Stop after this bounded check.
+Return only `verified`, `blocker`, or `mismatch` as the result status. For `verified`, cite each criterion with an exact path and location. For `blocker` or `mismatch`, identify the concrete gap. Do not implement, edit, run commands, expand scope, delegate, or claim absolute correctness. Stop after this bounded check.

@@ -87,6 +87,18 @@ After results return:
 5. Ensure the applicable domain method, or the task-specific acceptance contract when no domain method applies, covers the integrated result. Reuse valid per-slice evidence and run only the missing aggregate check.
 6. Report the integrated outcome, material evidence, failures, and unresolved gaps. Identify individual owners only when traceability matters.
 
+## Ownership Precedence
+
+- `prompts/CLAUDE.fragment.md` remains the universal owner for ordinary-work scope, evidence discipline, side-effect authorization, branch-action separation, active orchestration ownership, and shared-write safety.
+- This skill owns decomposition, worker assignment, evidence handoff, integration, and stop conditions for coordinated work; it does not replace those universal defaults or the active domain method.
+- Saved Agents own stable leaf identity, tool restrictions, and bounded output responsibilities. A selected Agent never overrides the active Workflow/Skill owner for dynamic state, validation, completion, delivery, or user authorization.
+
+## Saved Agent Roles
+
+- Stable leaf roles may live in the project-scoped `.claude/agents/` runtime target: `adaptive-evidence-investigator` owns one bounded read-only evidence question, `fresh-completion-verifier` owns bounded completion verification, and `fresh-findings-reviewer` owns findings-only review.
+- Keep task-specific acceptance criteria, candidate evidence, round/state, schemas, validators, and completion or delivery judgment with the owning Workflow or Skill; do not copy those contracts into an Agent file.
+- A Workflow may try a saved Agent selector when the host supports it, but read-only workflows must fall back to a built-in read-only role such as `Explore`, not an unrestricted generic worker, when selector support is unavailable or version-dependent. A selector is not a security boundary; tool restrictions and side-effect controls remain explicit in the selected role and host permissions.
+
 ## Method Ownership
 
 - This skill owns only decomposition, assignment, dependency ordering, evidence handoff, verification coordination, and integration.
