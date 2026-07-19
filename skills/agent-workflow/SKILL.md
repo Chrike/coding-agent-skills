@@ -127,7 +127,6 @@ Re-check delegated work only when:
 ## Nested Delegation And Exit
 
 - Ordinary workers remain leaf executors.
-- Treat `Agent` availability as an execution-substrate fact, not an implied worker capability: verify it before assigning nested control; if it is unavailable or unconfirmed, keep the worker a leaf and have the parent or Workflow chain bounded calls.
 - Put the leaf-or-controller decision in the delegated prompt itself. Before restricting a leaf worker's agent or skill delegation tools, include or preload every domain method and reference the worker must use.
 - A worker may become a nested controller only when its assigned scope contains genuinely independent bounded child slices and its parent explicitly assigns both decomposition and integration responsibility.
 - Keep controller depth bounded to main controller → optional nested controller → leaf workers. Nested controllers must not create another controller layer.
