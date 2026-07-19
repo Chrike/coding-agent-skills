@@ -44,13 +44,6 @@ When the user provides external feedback or asks whether current work is done, f
 - Reuse checks that already provide sufficient evidence. Repeat an equivalent check only when independent execution, environment independence, stale evidence, a missing acceptance criterion, or a load-bearing assumption is itself the evidence question.
 - Use `agent-workflow` only when verification requires multiple coordinated evidence questions, owners, stages, or integration points.
 
-### Findings-Only Review Agent
-
-- When the user explicitly requests a fresh findings-only pass, or a concrete high-risk blind spot justifies one, invoke the explicit `fresh-findings-review` Workflow when it is installed; otherwise delegate the bounded review scope to the project `fresh-findings-reviewer` Agent when that execution substrate is available. Use [findings-reviewer-contract.md](references/findings-reviewer-contract.md) for the structured input/output contract.
-- The delegated reviewer owns only read-only findings collection: severity, exact path/location, concrete failure scenario, and supporting evidence. It must not repair, edit, run commands, expand scope, decide completion, or perform branch actions.
-- If the Agent substrate or saved-Agent selection is unavailable, perform the same bounded findings-only pass in the current review context instead of inventing a second router or treating the selector as a security boundary.
-- `review-and-finish` remains the sole owner of feedback triage, repair decisions, completion judgment, readiness/delivery gates, and separation from `finish-branch` actions.
-
 ## Feedback Handling
 
 Treat external feedback as input to evaluate, not orders to obey. For assessment-only or triage-only requests, report source-backed judgments without changing code. When implementation is requested, implement clear, independent feedback items without waiting on an unrelated unclear item. Ask first only when the unclear item changes shared scope, architecture, ordering, or the validity of another item. Batch compatible low-risk feedback items when they share one implementation and verification boundary. Isolate items one at a time when risk, rollback, or diagnosis benefits from separate changes.
