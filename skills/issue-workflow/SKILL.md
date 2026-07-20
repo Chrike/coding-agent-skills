@@ -1,11 +1,11 @@
 ---
 name: issue-workflow
-description: Use when the user clearly asks to turn discussion into a PRD, issue draft, tracker-ready work item, triage result, or tracker update. Keep ordinary coding, planning, and review in their own flows.
+description: Use when the user clearly asks to create, publish, or update a tracker item; turn discussion into a PRD, issue draft, tracker-ready work item, or triage result; or modify tracker state such as status, labels, comments, or closure. Keep ordinary coding, planning, review, and repository-local work-item execution in their own flows.
 ---
 
 # Issue Workflow
 
-Turn product, bug, refactor, or triage discussion into durable work items when the user clearly asks for a PRD, issue draft, tracker-ready artifact, triage output, or tracker update. Requests like “turn this into a PRD,” “draft an issue,” “break this into issues,” or “triage this report” count.
+Turn product, bug, refactor, or triage discussion into durable work items when the user clearly asks to create, publish, or update a tracker item, or to produce a PRD, issue draft, tracker-ready artifact, or triage output. Requests like “turn this into a PRD,” “draft an issue,” “publish this approved issue,” “update tracker item ABC-123,” “break this into issues,” or “triage this report” count; implementing a repository-local work-item draft stays in the relevant task flow.
 
 ## First Decision
 

@@ -19,7 +19,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |
 | You already have enough context. Stop planning and implement the next step. | `plan-work`, `reliability-check` | sufficient context should lead to execution rather than another planning loop |
 | The target file, exact edit location, and expected post-change behavior are already known. Stop reading and make the change. | `plan-work`, `reliability-check`, `design-codebase` | once execution context is concrete, ordinary work should act rather than reopening planning, reassessment, or redesign |
-| Continue this paused task using the current issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing tracked state should be reused instead of reopening artifact workflows |
+| Continue this paused task using the current repository-local issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing local execution state should be reused instead of reopening artifact workflows |
 | What is the current goal and why are you doing this? | `reliability-check` | ordinary status questions should not become corrective workflows by default |
 | Explain what this old SKILL.md does. | `skill-refactorer` | explanation alone should stay in the default layer unless the user explicitly asks for migration or maintenance |
 | What are you doing right now, and what is the next step? | `reliability-check`, `plan-work` | direct status-and-next-step questions should stay in the default layer |
@@ -46,6 +46,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | The goal is clear; only the implementation detail is still open, so pick a reasonable default and continue. | `plan-work`, `reliability-check`, `design-codebase` | implementation-detail ambiguity alone should not force a planning, corrective, or redesign workflow |
 | The context is getting long and the task has many files or agents, but execution can continue and no one asked to pause, checkpoint, hand off, compress, or resume it. | `memory-handoff`, `decision-map` | context length, duration, file count, or agent count alone should not trigger a handoff or durable state workflow |
 | This task is long and unfamiliar, but no saved workflow was explicitly invoked. | `/adaptive-long-horizon` | task size or unfamiliarity alone must not activate the saved workflow |
+| The task is large; do not create or publish tracker items. | `issue-workflow` | size alone and an explicit no-publication boundary do not authorize tracker workflow |
 | An adaptive workflow leaf discovered another delegation-worthy question. | `agent-workflow`, nested workflow, new agent tree | return the question to the active workflow instead of adding an orchestration layer (**needs-review:** no separate suite-level destination) |
 | An active workflow already has criterion-mapped completion verification. | another review verifier | reuse sufficient verification unless a distinct load-bearing risk remains uncovered (**needs-review:** workflow completion-verifier ownership has no separate suite-level destination) |
 | Remember my personal preference for this repository in Claude Code. | `markdown-memory` | host auto memory for a personal or host-local learning must not create a project lesson |
@@ -58,7 +59,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Prototype this interface only by installing a package, calling an external service, retaining a route or output file, or changing real data. | `design-codebase` automatic prototype | a prototype outside the local throwaway gate requires user agreement |
 | Read the current API documentation before recommending an integration. Do not change remote state. | external-state authorization | read-only research does not change external state |
 | This issue file is background only. | `issue-workflow` modification or publication | reference input can be read without granting modification authority |
-| Continue through this named work-item and keep its status accurate. | creating a second artifact | an active named artifact is reused and updated rather than duplicated |
+| Read this tracker export as background evidence. | `issue-workflow` modification or publication | remote reference input can be read without authorizing tracker changes |
+| Continue through this named repository-local work-item draft and keep its recorded status accurate. | `issue-workflow`, creating a second artifact | local execution reuses and updates the named artifact rather than drafting or duplicating a tracker item |
+| Update tracker item ABC-123. | direct unguarded external action | exact tracker, item, target operation, and authorization must be resolved before remote mutation |
+| Draft an issue in chat only. | remote tracker publication | drafting in chat does not authorize publishing to a tracker |
 | Static contract checks pass, so runtime behavior is proven. | runtime completion claim | static contract evidence cannot establish live model behavior |
 
 ## Review / Branch Split Must Not Collapse
