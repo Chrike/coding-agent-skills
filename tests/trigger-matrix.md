@@ -85,6 +85,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Commit these changes. | `finish-branch` |
 | Push this branch. | `finish-branch` |
 | Draft an issue for this bug. | `issue-workflow` |
+| Publish this issue to the tracker. | `issue-workflow`; confirm the tracker, target project, and exact publication action before publishing. |
 | Turn this into a PRD. | `issue-workflow` |
 | Break this PRD into issues. | `issue-workflow` |
 | Update the handoff before pausing, compressing, or checkpointing. | `memory-handoff` (**needs-review:** no dedicated routing-eval destination yet) |
@@ -133,6 +134,10 @@ These are representative checks that default-layer handling still happens in the
 | This local regression appears only under the repository's current configuration. | Inspects repository code, configuration, and executable evidence first; does not substitute generic web advice for local diagnosis. |
 | Which product trade-off should we prefer? | Uses external evidence only to inform the choice; does not replace user intent or value judgment with popularity or precedent. |
 | The decision-relevant external claims are supported and further sources are unlikely to change the recommendation. | Stops researching and proceeds with synthesis or execution. |
+| Read the current API documentation before recommending an integration. Do not change remote state. | Performs read-only research using current authoritative documentation; no external-state authorization is needed for the read. |
+| This issue file is background only. | May read the file as evidence, but does not modify it without explicit authorization. |
+| Continue the task through this named work-item and keep its current status accurate. | Reuses the named authoritative work-item and updates its current status when operating through it; does not create a second artifact. |
+| Static contract checks pass; is the model behavior proven? | Reports that static evidence does not prove live runtime model behavior. |
 
 ## Maintenance / Meta Cases
 

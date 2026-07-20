@@ -56,6 +56,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | We are still implementing this slice; give me the current partial result and blocker only. | `review-and-finish` | mid-run status reporting should stay in the default layer unless the user explicitly asks for delegation |
 | The build or test output is very long; summarize only the key failure, blocker, and next step instead of pasting the full log. | `memory-handoff`, `decision-map`, `issue-workflow` | routine long command output handling should stay in the default layer unless the user explicitly asks for durable tracking |
 | Prototype this interface only by installing a package, calling an external service, retaining a route or output file, or changing real data. | `design-codebase` automatic prototype | a prototype outside the local throwaway gate requires user agreement |
+| Read the current API documentation before recommending an integration. Do not change remote state. | external-state authorization | read-only research does not change external state |
+| This issue file is background only. | `issue-workflow` modification or publication | reference input can be read without granting modification authority |
+| Continue through this named work-item and keep its status accurate. | creating a second artifact | an active named artifact is reused and updated rather than duplicated |
+| Static contract checks pass, so runtime behavior is proven. | runtime completion claim | static contract evidence cannot establish live model behavior |
 
 ## Review / Branch Split Must Not Collapse
 
