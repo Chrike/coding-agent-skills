@@ -60,6 +60,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |
 | Compare these independent architecture options. | `design-codebase` + `agent-workflow` |
+| Compare genuinely independent candidate implementations, assign independent review scopes, and integrate the result for a high-stakes artifact. | active domain method + `agent-workflow` candidate/review panel |
 | Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
 | Assess these review comments only; do not change code. | `review-and-finish` assessment without implementation |
@@ -79,6 +80,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | The adaptive completion verifier cites a path, version, or location absent from candidate evidence, or maps contradictory/absence evidence to a criterion. | Block completion and return the evidence gap; the verifier must not expand the investigation. (**needs-review:** adaptive evidence-verifier correctness has no separate suite-level destination) |
 | An adaptive investigator reports a contradiction and does not explicitly resolve it in a later round. | Keep the contradiction in material state and block completion until a later result explicitly lists it as resolved. (**needs-review:** adaptive contradiction handling has no separate suite-level destination) |
 | The adaptive leaf discovers a shared or out-of-scope question. | Return the question to the workflow script; do not start a nested agent, workflow, or agent tree. (**needs-review:** adaptive leaf escalation has no separate suite-level destination) |
+| A verification worker returns no evidence or times out. | Do not integrate it as successful; use one bounded same-controller recovery path or report the incomplete slice, without repeated fan-out. |
+| A scratch handoff target already exists and contains user data. | Verify the location, choose a unique target or avoid the handoff, and never overwrite or delete the existing file. |
 | The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round (**needs-review:** adaptive stop condition has no separate suite-level destination) |
 | A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved (**needs-review:** shared-question stop condition has no separate suite-level destination) |
 | Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |

@@ -22,13 +22,19 @@ Use project-local files for:
 ## Controller rules
 
 - use an existing ignored temporary or scratch location when available
+- verify the target location is ignored before writing
+- create a uniquely named target for the current workflow
+- never overwrite, truncate, or reuse a pre-existing file
+- do not write credentials, tokens, private keys, or unnecessary sensitive raw content
+- store only the minimum content required by the named active consumer
 - prefer project-local scratch paths that are easy to remove
 - do not create tracked documentation merely to exchange transient agent data
 - scratch handoffs are not durable project memory
 - have the controller read and condense the artifact instead of forwarding it raw
 - when another active slice may need exact rereading, carry the supported claim with a pointer to the full evidence, its producer scope, and the relevant code or state version
 - dereference the full evidence only when the current decision needs exact detail, the condensed claim is disputed, or the evidence may be stale
-- remove transient handoff files after integration unless another active slice still needs them
+- remove only files created by the current workflow, and only after no active slice needs them
+- leave and report files whose ownership cannot be established
 - do not create a handoff file when the result is already short enough to pass directly
 - this pattern owns only transient handoff state
 - do not create durable notes here

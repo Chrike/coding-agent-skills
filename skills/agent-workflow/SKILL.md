@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: Use when two or more genuinely independent work slices, a repeated per-item pipeline, divergent scout questions, or multiple coordinated verification questions require multi-agent execution. Do not use for one focused delegation or verifier, coherent single-owner work, merely because host multi-agent capability is available, or when an orchestration layer for the same scope is already running.
+description: Use to own decomposition, assignment, evidence handoff, verification coordination, and integration when two or more genuinely independent subsystem slices, a repeated per-item pipeline, orthogonal scout questions, or coordinated verification questions require multi-agent execution. Use the high-stakes candidate-and-review-panel pattern only when it has genuinely independent candidate scopes, independent review scopes, and a defined integration path. Do not use for one focused delegation or verifier, coherent single-owner/shared-root work, merely because host multi-agent capability is available, or when an orchestration layer for the same scope is already running.
 ---
 
 # Agent Workflow
@@ -14,7 +14,7 @@ Use this skill when any of these are true:
 - the user explicitly asks to parallelize, scout, or coordinate multiple independent verifiers
 - the task has multiple independent questions or write scopes that can make progress without the whole chat history
 - the task is a batch of similar items that should run through the same per-item pipeline
-- the task is a high-stakes single artifact that justifies multiple independent candidates plus independent reviewers
+- the task is a high-stakes single artifact with genuinely independent candidate scopes, independent review scopes, and a defined integration path
 - verification needs multiple independent evidence questions, verifier owners, staged handoffs, or integration across delegated slices
 
 Stay solo when any of these apply:
@@ -36,6 +36,15 @@ Do not trigger multi-agent work only because intermediate output would be long o
 One focused Explore, Plan, general-purpose delegation, or verifier is ordinary task execution, not this workflow. Use direct focused verification for one defined evidence question; use this workflow only when verification needs multiple coordinated questions, owners, stages, or integration. Do not wrap an already-selected or already-running dynamic workflow or agent team in another orchestration layer. When a workflow is still being prepared, supply this method into that workflow; when a workflow is already running for the same scope, continue it instead of launching a second orchestration layer.
 
 Hand off to explicit human review when the remaining decision is policy, taste, irreversible product scope, or missing user-only information.
+
+## Runtime Selection And Fallback
+
+- Reuse the user- or host-selected execution substrate when one is already selected.
+- Otherwise, prefer direct subagents for bounded slices owned by the controller.
+- Use Agent Teams only when the host supports, enables, and approves them, and peer communication or shared coordination materially helps the task.
+- Use a project-specific workflow runtime only when it is explicitly invoked or already owns the scope and is available.
+- If independent-agent capability is unavailable, execute the slices sequentially in the controller flow.
+- Preserve the same decomposition, ownership, evidence, acceptance, integration, and exit contracts across substrates. Never claim that an agent, team, or workflow launch occurred when the host did not make it available.
 
 ## Decomposition Contract
 
@@ -78,6 +87,21 @@ Execution substrate rules:
 - Do not create a second orchestration layer when a dynamic workflow has already been selected for the same scope.
 - If independent agents are unavailable, do not simulate delegation. Execute the slices sequentially in the controller flow; produce task briefs only when the user asks for them or execution is impossible.
 
+## Worker Failure And Recovery
+
+Classify every slice before integration:
+
+- `complete`: the assigned scope satisfies its acceptance contract and returns the evidence required for integration.
+- `blocked`: completion is prevented by an unavailable prerequisite, authorization, or unresolved decision outside the slice.
+- `failed`: execution did not complete or produced an error, including a missing, timed-out, or empty return.
+- `stale`: the returned work or evidence was valid only against an earlier workspace, shared contract, or dependency and must be refreshed.
+- `skipped`: the controller did not run the slice; it is not complete.
+- `unverified`: output exists but its evidence is insufficient or has not been checked; it is not complete.
+
+A missing, timed-out, empty, evidence-insufficient, blocked, failed, or stale slice must never be integrated or reported as successful. Do not repeatedly spawn workers for an unchanged failure. Recovery is limited to a bounded pass by the same controller: narrow or reassign the slice, execute it sequentially in the controller flow, or refresh stale evidence. Before retrying a write slice, verify the current workspace state, changed paths, ownership or isolation boundary, and shared-write assumptions. Stop instead of retrying when recovery requires new authorization, a scope change, destructive cleanup, or an unresolved shared decision. Keep recovery within the active workflow's sole owner and existing method owner; do not create another orchestration layer or recursively fan out.
+
+Final reporting must distinguish completed, blocked, failed, stale, skipped, and unverified slices whenever present, including the reason or evidence gap for every non-complete status.
+
 After results return:
 
 1. Read results before trusting them.
@@ -88,6 +112,8 @@ After results return:
 6. Report the integrated outcome, material evidence, failures, and unresolved gaps. Identify individual owners only when traceability matters.
 
 ## Method Ownership
+
+Named sibling skills are optional routing targets, not guaranteed capabilities. Route to one only when it is installed, available, and applicable; otherwise preserve the host domain method or define a task-specific acceptance contract. Do not invent an unavailable invocation.
 
 - This skill owns only decomposition, assignment, dependency ordering, evidence handoff, verification coordination, and integration.
 - The active domain skill owns the debugging, testing, design, review, feedback, or completion method.
@@ -141,7 +167,7 @@ Reuse any isolation already in effect. Introduce additional isolation only when 
 
 ## Boundaries
 
-Use the more specific workflow instead when the real task is:
+Use an installed, available, and applicable more specific workflow instead when the real task is:
 
 - `plan-work` for deciding what to build
 - `debug-systematically` for unclear shared-root failures
@@ -149,4 +175,4 @@ Use the more specific workflow instead when the real task is:
 - `finish-branch` for explicit commits, PRs, or branch wrap-up
 - `memory-handoff` for compression and session resume
 
-This skill handles multi-agent method and integration; it does not upgrade ordinary implementation into a multi-agent workflow.
+If the named workflow is unavailable or inapplicable, preserve the host domain method or define a task-specific acceptance contract rather than inventing an invocation. This skill handles multi-agent method and integration; it does not upgrade ordinary implementation into a multi-agent workflow.
