@@ -60,6 +60,12 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Use TDD to implement these independent adapters. | `test-strategy` method + `agent-workflow` fit check; fan-out only when write isolation and scope remain safe |
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` fit check; use bounded independent review scopes |
 | Compare these independent architecture options. | `design-codebase` + `agent-workflow` fit check; bounded candidate scopes only |
+| This module is hard to test because callers own retry ordering and error translation. Decide where that behavior should live. | `design-codebase` |
+| This module is hard to test because callers own retry ordering and error translation; decide where that behavior belongs, then choose the narrowest regression seam. | `design-codebase` then `test-strategy` |
+| Compare two ownership models for this third-party dependency and recommend one. | `design-codebase` |
+| Clarify the domain distinction between Order and Fulfillment before choosing a module boundary. | `design-codebase` |
+| Implement this integration, but ownership of the remote dependency is non-obvious and existing patterns do not safely settle where it belongs. | `design-codebase`, then implementation |
+| The architecture boundary is unresolved and the rollout also needs compatibility sequencing. | `design-codebase`, then `plan-work` when available |
 | Compare genuinely independent candidate implementations, assign independent review scopes, and integrate the result for a high-stakes artifact. | active domain method + `agent-workflow` candidate/review panel |
 | Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
@@ -108,7 +114,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Implement this migration, but a load-bearing compatibility and sequencing decision cannot be safely inferred. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
 | Implement this integration, but ownership of the dependency boundary is non-obvious and existing patterns do not safely settle it. | `design-codebase` |
-| Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval |
+| Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, inspect the exact command and its transitive effects, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval when the command/effect inventory and fresh owned targets satisfy the prototype gate |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |

@@ -1,6 +1,6 @@
 ---
 name: design-codebase
-description: Use when the user asks about codebase design, architecture, module interfaces, seams, adapters, deep modules, domain language, architecture options, hard-to-test modules, testability through interfaces, or throwaway prototypes for design questions, or when an implementation depends on a non-obvious architecture, ownership, interface, or dependency-boundary decision that existing patterns cannot safely settle.
+description: Use when the user asks to make or compare a codebase architecture decision involving module boundaries, ownership, interfaces, seams, adapters, domain language, or a throwaway prototype that answers a design question. Also use during implementation only when a non-obvious architecture, ownership, interface, or dependency-boundary decision blocks the next safe edit; a testability concern qualifies only when it demonstrates that kind of boundary pressure. Do not use for ordinary code explanation, straightforward implementation, general test design, flaky tests, mocks, regression coverage, or implementation of an already selected design.
 ---
 
 # Design Codebase
@@ -11,16 +11,18 @@ Use architecture language to improve leverage, locality, and testability without
 
 - If the user asks for a small bug fix or ordinary implementation and existing patterns make the next safe edit clear, stay in the lightweight development flow.
 - If an implementation depends on a non-obvious architecture, ownership, interface, or dependency-boundary decision that existing patterns cannot safely settle, use this workflow to resolve that decision.
-- If the user asks where an interface or seam should live, inspect the directly affected callers, dependencies, tests, and constraints first.
+- If the user asks where an interface or seam should live, inspect the directly affected callers, dependencies, tests, and constraints first. If material evidence for the decision is unavailable or cannot be inspected, name the missing evidence and request only the minimum input needed; do not present generic architecture guidance as an established project conclusion.
+- If a testability concern is primarily about test level, fixtures, mocks, timing, regression signal, or acceptance proof, use `test-strategy`; if it exposes an unresolved ownership, dependency, interface, or architecture boundary, resolve that design question here first, then hand any remaining test-design decision to `test-strategy`.
 - If the user asks to improve architecture, identify the actual design pressure before choosing lenses such as shallow modules or leakage across seams.
 - If runnable feedback is the fastest way to settle a design question, read [prototypes.md](references/prototypes.md) and apply its automatic-local versus approval-required gate.
-- If the user asks for broad planning, use the planning workflow instead of duplicating it here.
+- If broad planning is the real task, use `plan-work` only when it is installed, available, and applicable; otherwise preserve the host's existing planning method.
+- When a request includes both an unresolved architecture boundary and rollout concerns such as migration, compatibility, sequencing, or scope, resolve the architecture boundary first, then plan the work that depends on that decision.
 
 ## Design Runbook
 
 When this skill is active, drive the design pass in this order:
 
-1. Read the directly affected callers, dependencies, tests, operational constraints, and any directly relevant docs before proposing structure. Stop broadening the design read once the decision can be made safely.
+1. Read the directly affected callers, dependencies, tests, operational constraints, and any directly relevant docs before proposing structure. If material evidence is unavailable or cannot be inspected, stop project-specific recommendation, identify the missing evidence, and request only what is needed to continue. Stop broadening the design read once the decision can be made safely.
 2. State the exact design decision and goal in one sentence.
 3. Derive only the criteria that matter for this decision, such as compatibility, locality, operational simplicity, performance, ownership, failure isolation, testability, migration cost, and reversibility.
 4. Identify the current design pressure without assuming it is a seam, adapter, or module-depth problem.
@@ -54,11 +56,11 @@ Use these checks to support the runbook rather than replace it:
 
 ## References
 
-- Deep module vocabulary and design checks: [deep-modules.md](references/deep-modules.md)
-- Deepening shallow clusters: [deepening.md](references/deepening.md)
-- Comparing alternative interfaces: [design-it-twice.md](references/design-it-twice.md)
-- Domain language and ADR guidance: [domain-modeling.md](references/domain-modeling.md)
-- Throwaway design feedback: [prototypes.md](references/prototypes.md)
+- Read [deep-modules.md](references/deep-modules.md) when caller complexity, duplicated coordination, or interface leakage may indicate a shallow module.
+- Read [deepening.md](references/deepening.md) when consolidating shallow modules or deciding where a demonstrated seam belongs.
+- Read [design-it-twice.md](references/design-it-twice.md) when the decision is non-obvious enough to compare materially distinct interface options.
+- Read [domain-modeling.md](references/domain-modeling.md) when the architecture decision depends on domain terminology, glossary work, or recording an ADR.
+- Read [prototypes.md](references/prototypes.md) only when runnable feedback is the fastest discriminating method for the active design question.
 
 ## Exit To Implementation
 
