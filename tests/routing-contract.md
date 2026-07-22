@@ -19,7 +19,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | --- | --- |
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
-| Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy`; if the seam question exposes unresolved ownership, dependency, interface, or architecture pressure, resolve `design-codebase` first and return the remaining test-design decision to `test-strategy` |
+| Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method. If the seam question exposes unresolved ownership, dependency, interface, or architecture pressure, resolve `design-codebase` first and return the remaining test-design decision to `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method |
 | Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a behaviorally high-risk completed change needing focused readiness evidence before a done claim | `review-and-finish` |
 | Explicit bundled `/code-review` | host review workflow |
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
@@ -41,7 +41,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | --- | --- |
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
 | Implementation with both an unresolved architecture boundary and migration, compatibility, sequencing, or scope decisions | `design-codebase` then `plan-work`, then implementation (resolve the design boundary before planning dependent rollout work) |
-| Testability concern with both an unresolved architecture boundary and a remaining test-level, fixture, mock, timing, regression, or acceptance decision | `design-codebase` then `test-strategy`, then implementation or verification |
+| Testability concern with both an unresolved architecture boundary and a remaining test-level, fixture, mock, timing, regression, or acceptance decision | `design-codebase` then `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method, then implementation or verification |
 | Explicitly requested review plus explicit branch finish | `review-and-finish` then `finish-branch` |
 | Multi-agent orchestration plus domain method | `agent-workflow` fit-check method with the active domain skill; a passing fit check permits but does not guarantee fan-out |
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |

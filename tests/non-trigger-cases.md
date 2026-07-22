@@ -32,9 +32,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Keep this fix limited to the reported bug; do not refactor nearby code. | `review-and-finish`, `plan-work`, `design-codebase` | scope control for a small fix should stay in the default layer instead of escalating into feedback, planning, or redesign |
 | If you can finish the remaining in-scope edits now, do that; only stop if you need input I have not provided. | `plan-work`, `memory-handoff` | ordinary execution should continue instead of stopping on a self-created checkpoint or handoff |
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
-| This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` unless a non-obvious ownership or dependency boundary is demonstrated |
+| This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` when available; otherwise preserve the host's existing testing method unless a non-obvious ownership or dependency boundary is demonstrated |
 | Add regression tests for this bug. | `design-codebase` | regression coverage belongs to the testing workflow |
 | Explain how this adapter works. | `design-codebase` | explanation is not a request to redesign the boundary |
+| Who owns this directory according to CODEOWNERS? | `design-codebase` | repository or team ownership lookup is not a codebase architecture decision |
 | Claude Code itself is misbehaving; inspect the session logs. | `debug-systematically` | host runtime issues should not route into the project debugging skill; they should use bundled `/debug` instead |
 | `/code-review` | `review-and-finish` | an explicit bundled review command should stay with the host review engine instead of re-entering the project review skill |
 | Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
@@ -64,6 +65,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | The build or test output is very long; summarize only the key failure, blocker, and next step instead of pasting the full log. | `memory-handoff`, `decision-map`, `issue-workflow` | routine long command output handling should stay in the default layer unless the user explicitly asks for durable tracking |
 | Prototype this interface only by installing a package, calling an external service, retaining a route or output file, or changing real data. | `design-codebase` automatic prototype | a prototype outside the local throwaway gate requires user agreement |
 | Run npm test as a throwaway prototype without inspecting package scripts. | `design-codebase` automatic prototype | existing project commands are not automatically trusted; opaque transitive effects require agreement |
+| Inspect and run this local throwaway prototype without showing me the command and effect inventory first. | `design-codebase` automatic prototype | do not execute until the exact command, relevant effects, expected paths/processes/outputs, and cleanup plan have been presented |
 | Reuse this existing temp file for the prototype. | `design-codebase` automatic prototype | automatic prototypes must use a fresh owned target and must not overwrite or reuse pre-existing files |
 | Delete all generated files with git reset --hard. | `design-codebase` prototype cleanup | cleanup must not destroy unrelated user work |
 | Read the current API documentation before recommending an integration. Do not change remote state. | external-state authorization | read-only research does not change external state |

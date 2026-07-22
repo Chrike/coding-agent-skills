@@ -8,7 +8,7 @@ Build the smallest local throwaway experiment needed to answer one concrete desi
 
 - it is the fastest discriminating method for one concrete design question
 - it uses only the repository's existing language, runner, and installed tooling
-- before execution, the exact command and an effect inventory for its relevant transitive effects have been inspected and recorded: project scripts, package scripts, task definitions, lifecycle hooks, test setup, child processes, environment or configuration loading, and runner-created output paths are accounted for
+- before execution, the exact command and an effect inventory for its relevant transitive effects have been inspected, shown to the user, and recorded: project scripts, package scripts, task definitions, lifecycle hooks, test setup, child processes, environment or configuration loading, and runner-created output paths are accounted for
 - it adds no dependency, runtime, framework, configuration, or package installation
 - it makes no network call, external-service access, external mutation, paid-resource use, or destructive data action
 - it does not read, propagate, print, or persist credentials, tokens, private keys, or other sensitive environment values
@@ -18,6 +18,8 @@ Build the smallest local throwaway experiment needed to answer one concrete desi
 - it stays within the requested scope and uses a unique target under a verified workspace location; it never overwrites, truncates, reuses, or deletes a pre-existing or user-controlled path
 
 Existing project commands and executable repository scripts are not safe merely because they are already present. If the command's transitive effects, ownership, cleanup, sensitive-value handling, or workspace isolation cannot be verified, or if any effect is opaque, propose the prototype and obtain agreement before running it.
+
+Even when another approval is not required, present the exact command, expected paths and processes, outputs, and cleanup plan before execution. If that disclosure cannot be made precisely, use the approval-required path. Disclosure is an execution precondition, not an additional confirmation requirement when the automatic-local gate is satisfied.
 
 ## Logic Prototype
 

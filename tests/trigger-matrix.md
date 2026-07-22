@@ -61,7 +61,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` fit check; use bounded independent review scopes |
 | Compare these independent architecture options. | `design-codebase` + `agent-workflow` fit check; bounded candidate scopes only |
 | This module is hard to test because callers own retry ordering and error translation. Decide where that behavior should live. | `design-codebase` |
-| This module is hard to test because callers own retry ordering and error translation; decide where that behavior belongs, then choose the narrowest regression seam. | `design-codebase` then `test-strategy` |
+| This module is hard to test because callers own retry ordering and error translation; decide where that behavior belongs, then choose the narrowest regression seam. | `design-codebase` then `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method |
+| Only `design-codebase` is installed. Decide where retry ownership belongs, then choose the narrowest regression seam. | `design-codebase`; resolve the architecture decision first, then preserve the host's existing testing method without inventing an unavailable `test-strategy` invocation |
 | Compare two ownership models for this third-party dependency and recommend one. | `design-codebase` |
 | Clarify the domain distinction between Order and Fulfillment before choosing a module boundary. | `design-codebase` |
 | Implement this integration, but ownership of the remote dependency is non-obvious and existing patterns do not safely settle where it belongs. | `design-codebase`, then implementation |
@@ -114,7 +115,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Implement this migration, but a load-bearing compatibility and sequencing decision cannot be safely inferred. | `plan-work` |
 | Where should this interface live? | `design-codebase` |
 | Implement this integration, but ownership of the dependency boundary is non-obvious and existing patterns do not safely settle it. | `design-codebase` |
-| Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, inspect the exact command and its transitive effects, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval when the command/effect inventory and fresh owned targets satisfy the prototype gate |
+| Use existing local tooling to test one interface hypothesis entirely in memory; install nothing, call no service, leave no files, inspect and present the exact command and its transitive effects before execution, and clean up in this pass. | `design-codebase`; a safe local throwaway prototype may run without another approval when the disclosed command/effect inventory and fresh owned targets satisfy the prototype gate |
 | You are hallucinating; reread the files and reassess. | `reliability-check` |
 | Reread the files once, correct the wrong source, and then continue implementing the settled fix. | `reliability-check` |
 | You are drifting; stop and reassess the active stage. | `reliability-check` |
