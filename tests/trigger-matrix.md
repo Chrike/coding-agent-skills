@@ -50,16 +50,16 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
 | Address this PR feedback. | `review-and-finish` |
 | Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
-| Investigate these independent subsystems in parallel. | `agent-workflow` |
-| Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` |
+| Investigate these independent subsystems in parallel. | `agent-workflow` fit check; fan-out only if the bounded independent scopes still benefit |
+| Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` fit check; use the smallest useful bounded pipeline |
 | Add one focused verifier before we continue. | direct focused delegation under the active domain method |
 | Verify the integrated result independently against its untested rollback path. | direct focused delegation under the active domain method |
 | A workflow already owns this scope, and completion needs one fresh verifier. | Keep the workflow as the sole execution owner; route the bounded verification need through its controller instead of starting a sibling delegation. |
-| Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` |
-| Diagnose these independent failure paths in parallel. | `debug-systematically` + `agent-workflow` |
-| Use TDD to implement these independent adapters. | `test-strategy` + `agent-workflow` |
-| Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` |
-| Compare these independent architecture options. | `design-codebase` + `agent-workflow` |
+| Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` fit check; fan-out only when the scopes remain independently useful |
+| Diagnose these independent failure paths in parallel. | `debug-systematically` method + `agent-workflow` fit check; fan-out only when the paths remain independent |
+| Use TDD to implement these independent adapters. | `test-strategy` method + `agent-workflow` fit check; fan-out only when write isolation and scope remain safe |
+| Review each changed package independently and merge the findings. | `review-and-finish` + `agent-workflow` fit check; use bounded independent review scopes |
+| Compare these independent architecture options. | `design-codebase` + `agent-workflow` fit check; bounded candidate scopes only |
 | Compare genuinely independent candidate implementations, assign independent review scopes, and integrate the result for a high-stakes artifact. | active domain method + `agent-workflow` candidate/review panel |
 | Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |

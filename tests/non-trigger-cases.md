@@ -37,7 +37,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
 | Add one focused verifier or Explore for one search/evidence question, but do not reopen planning. | `agent-workflow`, `plan-work` | one defined focused delegation is ordinary execution while settled planning stays settled; it is not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
-| The shared root cause is still unclear; fan out scouts immediately. | `agent-workflow` | unresolved shared-root diagnosis must start with `debug-systematically`, not scout fan-out |
+| The shared root cause is still unclear; investigate it under one owner. | `agent-workflow` | unresolved shared-root diagnosis without an explicit orchestration request stays with `debug-systematically`, not `agent-workflow` |
 | Host multi-agent capability is available; fix this one coherent bug. | `agent-workflow` | host multi-agent capability alone is not an orchestration trigger |
 | A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |

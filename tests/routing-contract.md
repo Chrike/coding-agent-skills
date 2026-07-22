@@ -26,7 +26,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision | `design-codebase` |
 | Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
-| Two or more independent work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` |
+| An explicit request to parallelize, coordinate multiple agents, run parallel scouts, or assign multiple independent verifiers; or two or more independently decomposable work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` fit check; actual fan-out only when the fit check passes and the bounded work still benefits from it |
 | Explicit PRD, issue draft, tracker-ready work-item, tracker publication/update, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, checkpoint update, or resume-state workflow | `memory-handoff` |
 | Explicit project-versioned, shared, or reviewable lesson, correction, or confirmed-approach workflow | `markdown-memory` |
@@ -42,7 +42,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Unclear bug plus regression coverage | `debug-systematically` then `test-strategy` |
 | Implementation with both an unresolved architecture boundary and migration, compatibility, sequencing, or scope decisions | `design-codebase` then `plan-work`, then implementation (resolve the design boundary before planning dependent rollout work) |
 | Explicitly requested review plus explicit branch finish | `review-and-finish` then `finish-branch` |
-| Multi-agent orchestration plus domain method | `agent-workflow` method with the active domain skill |
+| Multi-agent orchestration plus domain method | `agent-workflow` fit-check method with the active domain skill; a passing fit check permits but does not guarantee fan-out |
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |
 | Independent TDD adapters | `test-strategy` method with `agent-workflow` |
 | One focused verifier for one evidence question | direct delegation under the active domain method; not `agent-workflow` |
