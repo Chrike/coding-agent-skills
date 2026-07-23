@@ -4,7 +4,7 @@ Use when the user asks for a code review, PR review, branch review, or review si
 
 ## Process
 
-1. Identify the scope: changed files, diff range, pasted code, or user-specified files.
+1. Confirm the scope selected by `SKILL.md`. Review only that scope and directly affected contracts. Do not silently expand to unrelated files or repository-wide debt.
 2. Read the relevant code and requirements if available.
 3. Prioritize bugs, regressions, missing requirements, data loss, security, and test gaps.
 4. Determine whether each finding was introduced or exposed by the reviewed change. Report unrelated pre-existing debt separately.

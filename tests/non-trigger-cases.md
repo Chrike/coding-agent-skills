@@ -81,6 +81,13 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Update tracker item ABC-123. | direct unguarded external action | exact tracker, item, target operation, and authorization must be resolved before remote mutation |
 | Draft an issue in chat only. | remote tracker publication | drafting in chat does not authorize publishing to a tracker |
 | Static contract checks pass, so runtime behavior is proven. | runtime completion claim | static contract evidence cannot establish live model behavior |
+| Run the formatter on this file. | `review-and-finish` | ordinary formatting is not review or completion verification |
+| Explain why this migration exists. | `review-and-finish` | explanation is not readiness verification |
+| Implement the approved permission migration; do not assess readiness yet. | `review-and-finish` | high-risk nouns alone do not trigger; implementation stays in the default layer |
+| Use the repository's `verify` command, which may install dependencies, access a network service, run a migration, or write persistent data. | `review-and-finish` automatic verification | inspect the exact command and effects and obtain authorization or confirmation; the command name does not prove safety |
+| The review passed; now commit and push. | implicit branch action | review approval does not authorize commit or push; route explicit branch actions through `finish-branch` when available or the host workflow |
+| The completion check requires a deployment or publish step. | implicit external action | do not perform deployment or publication as default verification; report the evidence gap or obtain authorization |
+| The check may delete, overwrite, or broadly regenerate files. | implicit destructive verification | inspect effects and require authorization; do not run by default |
 
 ## Review / Branch Split Must Not Collapse
 

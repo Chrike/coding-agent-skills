@@ -42,14 +42,24 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` |
 | Implement this change; the correct regression seam and acceptance signal are unclear. | `test-strategy` |
 | Review these changes. | `review-and-finish` |
-| Review these changes, then commit and push them if the review passes. | `review-and-finish` then `finish-branch` |
+| Review these changes, then commit and push them if the review passes. | `review-and-finish` then `finish-branch` when installed and available; review approval does not authorize the branch action |
 | This completed cross-service permission migration needs a focused readiness check before the done claim. | `review-and-finish` |
 | This completed authorization migration needs a focused readiness check before the done claim. | `review-and-finish` |
 | This completed permission migration is ready; verify the final claim before calling it done. | `review-and-finish` |
+| The persisted-data backfill is complete and focused checks pass. Decide whether the change is actually done. | `review-and-finish` |
+| The transaction retry change is implemented. Decide whether the completion claim is supported. | `review-and-finish` |
+| The public API compatibility change is complete. Determine whether it is ready to call done. | `review-and-finish` |
+| The destructive cleanup behavior is implemented. Determine whether it is ready to call done. | `review-and-finish` |
 | `/code-review` | bundled review command |
 | Red-team this patch and try to prove it wrong. | `review-and-finish` |
 | Address this PR feedback. | `review-and-finish` |
 | Tell me whether this draft is actually ready to send. Block it if required criteria are still missing. | `review-and-finish` |
+| Verify three independent completion criteria, but `agent-workflow` is unavailable. | `review-and-finish`; keep the same controller and run bounded checks sequentially; unavailability is not evidence of pass |
+| The required verification tool is unavailable; determine whether the migration is done. | `review-and-finish`; report `UNVERIFIED`, not `PASS` |
+| All required acceptance criteria have current supporting evidence; is this ready? | `review-and-finish`; report `Claim`, `Evidence`, `Gaps`, and `Verdict: PASS` |
+| A required rollback check is known to fail; is the migration done? | `review-and-finish`; report `Claim`, `Evidence`, `Gaps`, and `Verdict: BLOCK` |
+| Required rollback evidence cannot be obtained; is the migration done? | `review-and-finish`; report `Claim`, `Evidence`, `Gaps`, and `Verdict: UNVERIFIED` |
+| Focused tests pass, but a required rollback criterion remains uncovered; is it done? | `review-and-finish`; report `UNVERIFIED`, not `PASS` |
 | Investigate these independent subsystems in parallel. | `agent-workflow` fit check; fan-out only if the bounded independent scopes still benefit |
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` fit check; use the smallest useful bounded pipeline |
 | Add one focused verifier before we continue. | direct focused delegation under the active domain method |
