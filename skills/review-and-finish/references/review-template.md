@@ -30,8 +30,10 @@ Severity guidance:
 
 | Severity | Use For |
 | --- | --- |
-| Critical | Broken behavior, data loss, security, dangerous operation. |
-| Important | Missing requirement, likely regression, poor error handling, serious test gap. |
-| Minor | Maintainability, confusing code, low-risk edge case. |
+| Critical | Credible paths to severe data loss, authentication or authorization bypass, serious security compromise, irreversible destructive behavior, or widespread service failure. |
+| Important | User-visible incorrect behavior, missing requirements, likely regressions, unsafe error handling, or serious test gaps. |
+| Minor | Maintainability problems, confusing code, or low-risk edge cases. |
+
+Assign severity from reachable impact and likelihood, not from category labels alone.
 
 If no issues are found, say that clearly and mention only concrete remaining verification gaps against the stated acceptance context, if any.
