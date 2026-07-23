@@ -1,6 +1,6 @@
 ---
 name: plan-work
-description: Use for software implementation planning when the user asks for planning, an implementation plan, approach comparison, task breakdown, roadmap, step-by-step plan, or splitting a feature/refactor into clear implementation slices before coding, or when a requested software implementation has unresolved approach, dependency, sequencing, migration, compatibility, or scope decisions that cannot be safely inferred.
+description: Use for software implementation planning when the user asks for planning, an implementation plan, approach comparison, task breakdown, roadmap, step-by-step plan, or splitting a feature/refactor into clear implementation slices before the next safe implementation step, or when a requested software implementation has unresolved implementation approach, dependency-ordering, sequencing, migration, compatibility, rollout, or scope decisions that cannot be safely inferred. Do not use when the primary request is an architecture, ownership, interface, seam, or dependency-boundary decision; use design-codebase first when available, then return here for dependent rollout or sequencing planning. Do not use for PRD authoring, issue or tracker drafting/publication, durable multi-session decision-map workflows, ordinary code explanation, or implementation of an already-settled plan.
 ---
 
 # Plan Work
@@ -14,6 +14,7 @@ Plan only when planning will reduce risk or clarify execution. Keep ordinary edi
 - If the user did not ask for a plan and the task is a small obvious edit or the next safe implementation step is already clear, do not create a plan.
 - A task being large, medium-complexity, or multi-file is not by itself a planning trigger.
 - If a requested implementation has unresolved approach, dependency, sequencing, migration, compatibility, or scope decisions that cannot be safely inferred, use this workflow to settle only those decisions.
+- If the unresolved decision is primarily about architecture, ownership, interfaces, seams, adapters, or dependency boundaries, use `design-codebase` first. Return to this workflow only for dependent rollout, sequencing, migration, compatibility, or scope planning.
 - If requirements are unclear, ask the smallest question that changes scope, risk, or approach.
 - If a decision is non-obvious, compare the smallest useful set of approaches with trade-offs and a recommendation.
 - If the work is too large for one pass, split it into vertical slices.
@@ -28,6 +29,11 @@ Plan only when planning will reduce risk or clarify execution. Keep ordinary edi
 6. Call out risks, unknowns, and out-of-scope items.
 
 If required project context cannot be inspected, do not invent file paths, commands, dependencies, or existing patterns. State the evidence gap, distinguish confirmed project facts from assumptions, and either produce a clearly provisional plan or ask the smallest question that materially changes the plan.
+
+Before presenting any plan:
+
+- Ensure each step has an observable outcome and a verification point.
+- Remove vague placeholders; label any remaining unverified path, command, dependency, or project pattern as an assumption.
 
 ## Plan Shape
 
