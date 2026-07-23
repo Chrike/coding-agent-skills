@@ -11,6 +11,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
 | Fix this small TypeScript error. | `issue-workflow`, `decision-map` | ordinary coding should stay light |
+| Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
 | Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map`, `plan-work`, `design-codebase`, `test-strategy`, `review-and-finish` | a clear direct edit should not become a planning, design, test-design, or review workflow |
@@ -41,6 +42,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
 | Add one focused verifier or Explore for one search/evidence question, but do not reopen planning. | `agent-workflow`, `plan-work` | one defined focused delegation is ordinary execution while settled planning stays settled; it is not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
+| Plan this refactor in chat; do not create files. | persistent plan-file creation | a chat-only plan does not authorize filesystem changes |
+| Update the existing `docs/plans/cache-refactor.md`; do not create another plan file. | duplicate plan-file creation | update only the named artifact; do not create, overwrite, or reuse another target |
 | The shared root cause is still unclear; investigate it under one owner. | `agent-workflow` | unresolved shared-root diagnosis without an explicit orchestration request stays with `debug-systematically`, not `agent-workflow` |
 | Host multi-agent capability is available; fix this one coherent bug. | `agent-workflow` | host multi-agent capability alone is not an orchestration trigger |
 | A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
