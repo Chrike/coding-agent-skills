@@ -29,7 +29,8 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | An explicit request to parallelize, coordinate multiple agents, run parallel scouts, or assign multiple independent verifiers; or two or more independently decomposable work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` fit check; actual fan-out only when the fit check passes and the bounded work still benefits from it |
 | Explicit PRD, issue draft, tracker-ready work-item, tracker publication/update, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit create or update of a handoff or checkpoint, prepare one before context compaction, or resume from a named handoff artifact | `memory-handoff` |
-| Explicit project-versioned, shared, or reviewable lesson, correction, or confirmed-approach workflow | `markdown-memory` |
+| Explicit project-versioned, shared, or reviewable reference lesson, correction, or confirmed-approach workflow that is consulted rather than automatically loaded | `markdown-memory` |
+| Instruction that should load automatically in future sessions or apply to matching files | the appropriate `CLAUDE.md` or `.claude/rules/` scope; not `markdown-memory` |
 | Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
 | Explicit durable multi-session decision frontier | `decision-map` |
 

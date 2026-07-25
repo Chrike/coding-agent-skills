@@ -60,7 +60,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `finish-branch`      | Explicit commit, push, merge, PR preparation, discard, branch wrap-up |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
-| `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown lessons |
+| `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |
 | `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
 | `decision-map`       | Durable multi-session decision maps                          |
 

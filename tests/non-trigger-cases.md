@@ -83,7 +83,12 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Summarize what has been completed in the current task and what remains. | `markdown-memory` | progress state belongs in the default layer or an explicitly requested `memory-handoff`, not a durable project lesson |
 | Read this Markdown file and explain what it says. | `markdown-memory` | ordinary file reading is not project lesson consultation |
 | This task is long and has repeated failures. | `markdown-memory` | duration or repetition alone does not authorize creating a lesson |
-| Add this stable team rule directly to `CLAUDE.md`. | `markdown-memory` | the user selected a project instruction file rather than a lesson artifact |
+| Add this stable team rule directly to `CLAUDE.md`. | `markdown-memory` | the user selected an automatically loaded project instruction file rather than a reference lesson artifact |
+| We have made this mistake twice; record a rule that Claude must automatically follow in every future session. | `markdown-memory` | automatically loaded behavior belongs in an appropriate `CLAUDE.md` instruction scope, not a reference lesson |
+| Make this rule apply automatically whenever Claude works on matching files. | `markdown-memory` | path-specific behavior belongs in `.claude/rules/`, not a reference lesson |
+| Remember this personal preference, but host auto memory is unavailable. | `markdown-memory` | unavailable host memory does not convert personal or host-local learning into a project reference lesson |
+| Save current-task handoff state, but `memory-handoff` is not installed. | `markdown-memory` | an unavailable sibling skill does not change the request into lesson maintenance; leave it to the host's ordinary workflow |
+| Track these open multi-session decisions, but `decision-map` is not installed. | `markdown-memory` | an unavailable sibling skill does not change the request into lesson maintenance; leave it to the host's ordinary workflow |
 | The repository evidence proves this lesson is obsolete. | implicit deletion or rename | evidence can establish obsolescence but cannot authorize a destructive operation; update, supersede, or report the candidate unless deletion or renaming is currently authorized with a clear target |
 | Consult this lesson and then clean up any stale lessons you notice. | implicit mutation during consult | consultation remains read-only; do not infer update, prune, delete, rename, or index-write authority |
 | This completed change has a large diff and took multiple agents, but it affects no behavioral high-risk area. | `review-and-finish` | diff size, duration, and agent count alone do not require a focused readiness check |
