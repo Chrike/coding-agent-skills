@@ -106,9 +106,15 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | The current agents have satisfied every assigned evidence contract and no material contradiction remains. | integrate and stop; do not launch another confidence-only round (**needs-review:** adaptive stop condition has no separate suite-level destination) |
 | A child agent discovers one unresolved question shared by every remaining slice. | return the shared question to the controller; do not recursively fan out more agents until it is resolved (**needs-review:** shared-question stop condition has no separate suite-level destination) |
 | Host multi-agent capability is available; fix this one coherent bug. | `debug-systematically` or base default behavior |
-| Finish this branch. | `finish-branch` |
-| Commit these changes. | `finish-branch` |
-| Push this branch. | `finish-branch` |
+| Finish this branch. | `finish-branch`; inspect current state and offer applicable branch-ending options without choosing one |
+| Commit these changes. | `finish-branch`; commit only and do not infer push |
+| Commit these files locally, but do not push. | `finish-branch`; commit only |
+| Push this branch. | `finish-branch`; normal push only and do not infer force-push or PR creation |
+| Push this branch, but do not create a PR. | `finish-branch`; push only |
+| Open a draft PR from this branch to `main`. | `finish-branch`; create the resolved draft PR without inferring commit, push, or merge |
+| Merge `feature/auth` into `main` locally. | `finish-branch`; resolve and perform only the local branch merge |
+| Merge remote PR 42 using squash. | `finish-branch`; resolve and perform only the named remote PR merge, not a local `git merge` |
+| Discard the uncommitted changes under `src/generated/`. | `finish-branch`; require typed confirmation bound to the exact path and every affected staged, unstaged, tracked, untracked, or ignored category before mutation |
 | Draft an issue for this bug. | `issue-workflow`; return a draft in chat by default and do not publish remotely unless asked. |
 | Publish this issue to the tracker. | `issue-workflow`; confirm the tracker, target project, and exact publication action before publishing. |
 | Publish this approved issue draft to the tracker. | `issue-workflow`; confirm the tracker, target project, and exact create action before publishing. |

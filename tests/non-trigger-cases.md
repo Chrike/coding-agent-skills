@@ -129,6 +129,11 @@ These prompt shapes should keep `review-and-finish` and `finish-branch` separate
 | Review these changes. | `finish-branch` | review should not imply commit/push/merge |
 | Address this PR feedback. | `finish-branch` | feedback handling should not imply commit/push/merge |
 | Can I call this done? | `finish-branch` | completion verification is not branch cleanup |
+| Is this branch ready to merge? | `finish-branch` | readiness verification belongs to `review-and-finish`, not branch execution |
+| Show the current branch status without changing anything. | `finish-branch` | read-only status inspection is not a branch-ending action |
+| Explain merge versus rebase. | `finish-branch` | a Git concept explanation is not current-branch execution |
+| Write a generic PR description template. | `finish-branch` | generic writing is not PR preparation for a resolved current branch |
+| Summarize what remains before release. | `finish-branch` | progress or release planning does not authorize a branch action |
 | Finish this branch. | `review-and-finish` | branch-ending actions should route to `finish-branch`, not review |
 | Commit these changes. | `review-and-finish` | explicit side effect should route to `finish-branch`, not completion review |
 
