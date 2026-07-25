@@ -28,7 +28,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit reassessment of reliability, evidence, wrong or missing source use, stage drift, wrong direction, strategy or workflow drift, or stale context | `reliability-check` |
 | An explicit request to parallelize, coordinate multiple agents, run parallel scouts, or assign multiple independent verifiers; or two or more independently decomposable work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` fit check; actual fan-out only when the fit check passes and the bounded work still benefits from it |
 | Explicit PRD, issue draft, tracker-ready work-item, tracker publication/update, or triage workflow from clear natural-language intent | `issue-workflow` |
-| Explicit handoff, compression, checkpoint update, or resume-state workflow | `memory-handoff` |
+| Explicit create or update of a handoff or checkpoint, prepare one before context compaction, or resume from a named handoff artifact | `memory-handoff` |
 | Explicit project-versioned, shared, or reviewable lesson, correction, or confirmed-approach workflow | `markdown-memory` |
 | Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
 | Explicit durable multi-session decision frontier | `decision-map` |
