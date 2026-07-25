@@ -80,6 +80,12 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | A worker has failed for the same unchanged reason after one bounded recovery attempt. | repeated fan-out or a new orchestration layer | keep the incomplete state with the active controller and report the blocker instead of spawning indefinitely |
 | A short result can be passed directly to the controller. | a transient handoff file | do not create a scratch artifact merely because the handoff pattern exists |
 | Remember my personal preference for this repository in Claude Code. | `markdown-memory` | host auto memory for a personal or host-local learning must not create a project lesson |
+| Summarize what has been completed in the current task and what remains. | `markdown-memory` | progress state belongs in the default layer or an explicitly requested `memory-handoff`, not a durable project lesson |
+| Read this Markdown file and explain what it says. | `markdown-memory` | ordinary file reading is not project lesson consultation |
+| This task is long and has repeated failures. | `markdown-memory` | duration or repetition alone does not authorize creating a lesson |
+| Add this stable team rule directly to `CLAUDE.md`. | `markdown-memory` | the user selected a project instruction file rather than a lesson artifact |
+| The repository evidence proves this lesson is obsolete. | implicit deletion or rename | evidence can establish obsolescence but cannot authorize a destructive operation; update, supersede, or report the candidate unless deletion or renaming is currently authorized with a clear target |
+| Consult this lesson and then clean up any stale lessons you notice. | implicit mutation during consult | consultation remains read-only; do not infer update, prune, delete, rename, or index-write authority |
 | This completed change has a large diff and took multiple agents, but it affects no behavioral high-risk area. | `review-and-finish` | diff size, duration, and agent count alone do not require a focused readiness check |
 | This completed authorization change needs one readiness review before the done claim. | `agent-workflow` | a single high-risk completion review belongs to `review-and-finish`, not a candidate/review panel |
 | Before changing this config, check that the evidence supports that exact action first. | `reliability-check`, `review-and-finish` | evidence-before-action should stay in the default layer unless the user explicitly asks for reassessment or completion review |
