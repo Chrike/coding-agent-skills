@@ -25,7 +25,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit commit, push, merge, PR, discard, or branch wrap-up action | `finish-branch` |
 | Explicit planning, roadmap, task breakdown, approach comparison, implementation slices, or a requested implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred | `plan-work` |
 | Explicit architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision | `design-codebase` |
-| Explicit reassessment of reliability, evidence, stage drift, or stale context | `reliability-check` |
+| Explicit reassessment of reliability, evidence, wrong or missing source use, stage drift, or stale context | `reliability-check` |
 | An explicit request to parallelize, coordinate multiple agents, run parallel scouts, or assign multiple independent verifiers; or two or more independently decomposable work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` fit check; actual fan-out only when the fit check passes and the bounded work still benefits from it |
 | Explicit PRD, issue draft, tracker-ready work-item, tracker publication/update, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit handoff, compression, checkpoint update, or resume-state workflow | `memory-handoff` |

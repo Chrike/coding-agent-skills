@@ -25,6 +25,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Explain what this old SKILL.md does. | `skill-refactorer` | explanation alone should stay in the default layer unless the user explicitly asks for migration or maintenance |
 | What are you doing right now, and what is the next step? | `reliability-check`, `plan-work` | direct status-and-next-step questions should stay in the default layer |
 | What actually finished, what failed, and what is still unverified? | `reliability-check`, `plan-work` | evidence-backed status reporting should stay in the default layer rather than becoming a corrective or planning workflow |
+| Which files did you read for this answer? | `reliability-check` | file-inventory questions are not reliability reassessment unless the user claims the source use was wrong |
+| Read the correct file before answering this new question. | `reliability-check` | routine source-reading requests should stay in the default layer unless they challenge a current or prior conclusion |
 | We are still inspecting these files; do not start rewriting yet. | `reliability-check`, `plan-work`, `design-codebase` | stage alignment should stay in the default layer unless the user explicitly asks for corrective reassessment or a new workflow |
 | This example is only to clarify the intent, not the implementation direction. | `plan-work`, `design-codebase`, `reliability-check` | clarifying examples should not be turned into task instructions by default |
 | We already cancelled that older direction. Continue with the current task only. | `reliability-check`, `decision-map` | settled cancellations should hold without reopening adjacent tracks |
