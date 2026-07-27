@@ -59,7 +59,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 
 | Skill                | Use when                                                     |
 | -------------------- | ------------------------------------------------------------ |
-| `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped discard, or branch wrap-up choice |
+| `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped Git working-tree discard, named branch deletion, named worktree removal, or branch wrap-up choice |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |

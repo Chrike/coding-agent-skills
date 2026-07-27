@@ -1,6 +1,6 @@
 ---
 name: finish-branch
-description: Use when the user explicitly asks to commit changes, push a branch, prepare or create/open a PR, merge branches locally, merge a named PR remotely, discard named work, or choose how to finish the current branch. Do not use for code review, readiness or completion checks, read-only branch-status questions, Git explanations, or generic PR writing; use `review-and-finish` for review and completion verification.
+description: Use when the user explicitly asks to commit changes, push a branch, prepare or create a new PR for a resolved branch, merge local branches, merge a named PR remotely, discard explicitly scoped Git working-tree changes, delete a named local or remote branch, remove a named worktree, or choose how to finish the current branch. Do not use to view or summarize an existing PR, review code, assess readiness or completion, answer read-only branch-status questions, explain Git, discard a non-Git idea, or write a generic PR template; use `review-and-finish` for review and completion verification when installed and available, otherwise leave that portion to the ordinary host workflow.
 ---
 
 # Finish Branch
@@ -11,7 +11,7 @@ Handle only the branch action the user named. Authorization for one action does 
 
 - If the user asks generally to finish or wrap up a branch, inspect the current state and present concise options rather than choosing an action.
 - If the user requests a specific action, perform only that action after the relevant safety checks.
-- Route code review and completion or readiness verification to `review-and-finish`.
+- Route code review and completion or readiness verification to `review-and-finish` when it is installed and available. Otherwise leave that portion to the ordinary host workflow and do not perform it inside this skill.
 - Keep read-only status questions, Git explanations, and generic PR-writing requests in the ordinary host workflow.
 
 ## Preflight
@@ -23,8 +23,11 @@ Before a Git or remote write, use read-only inspection proportionate to the requ
 - unresolved conflicts or an in-progress merge, rebase, cherry-pick, or revert
 - the source, target, remote, upstream, and refs the action will affect
 - the relevant diff and whether current verification evidence still covers it
+- applicable Git hooks, `core.hooksPath`, and clean, smudge, or process filters that the requested staging, commit, merge, or push operation may execute
 
-Inspect ignored files only when the requested operation could affect them, and query existing PRs only when preparing, creating, opening, or merging a PR. Stop and report rather than repairing state when the action needs a named branch but `HEAD` is detached, conflicts are unresolved, another Git operation is inconsistent with the request, a material target or scope remains ambiguous, or proceeding could overwrite unauthorized work.
+Inspect ignored files only when the requested operation could affect them, and query existing PRs only when preparing, creating, opening, or merging a PR. Stop and report rather than repairing state when the action needs a named branch but `HEAD` is detached, conflicts are unresolved, another Git operation is inconsistent with the request, a material target or scope remains ambiguous, proceeding could overwrite unauthorized work, or an applicable hook or filter has unbounded or opaque effects.
+
+Before staging, committing, merging, or pushing, inspect applicable hook and filter definitions and their visible commands. A request for the Git action does not automatically authorize opaque hook or filter side effects. Known hooks or filters with understood, bounded effects within the authorized operation may run; otherwise stop and request separate authorization when they may install or update dependencies, access a network or external service, read credentials, mutate persistent data, publish or deploy, or write, overwrite, or delete outside the authorized scope. Do not add `--no-verify` or otherwise bypass hooks automatically.
 
 ## Options Menu
 
@@ -35,7 +38,8 @@ For a general branch-finish request, offer only applicable choices:
 3. Push the branch.
 4. Prepare or create a PR.
 5. Merge a local branch or a named remote PR.
-6. Discard explicitly scoped work.
+6. Discard explicitly scoped Git working-tree changes.
+7. Delete a named branch or remove a named worktree.
 
 Ask the user to choose; do not infer a branch action from readiness language.
 
@@ -77,6 +81,8 @@ Report the created or existing PR accurately. Never fabricate a URL when the too
 For a local branch merge, resolve the source branch, target branch, merge method, current checkout, worktree state, and any in-progress Git operation. Do not fetch, pull, or otherwise access the network merely to update a target branch unless that separate effect is authorized.
 
 For a remote PR merge, resolve the repository, exact PR, head, base, merge method, and material protection or check state. A request to merge a PR does not authorize a local `git merge`, commit, push, force-push, or post-merge branch deletion. A request to merge local branches does not authorize a remote PR merge.
+
+If the user specified a merge method, use only that method. If no method was specified, use a repository or platform default only when it is explicit, inspectable, and unambiguously applicable to the requested operation. Otherwise ask one narrow merge-method question before any write. Never silently choose among fast-forward, merge commit, squash, or rebase.
 
 If a local merge creates conflicts, stop and report that the merge started, the conflicted paths, and the current Git state. Do not choose resolutions, abort, push, or clean up unless separately requested. If a remote merge is blocked or rejected, report the platform result without switching to another merge method or local operation.
 

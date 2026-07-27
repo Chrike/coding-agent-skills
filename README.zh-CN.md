@@ -59,7 +59,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 | 技能                | 适用场景                                                     |
 | ------------------- | ------------------------------------------------------------ |
-| `finish-branch`     | 显式提交、分支推送、当前分支 PR 准备或创建、本地分支或指定远程 PR 合并、范围化丢弃，或分支收尾选择 |
+| `finish-branch`     | 显式提交、分支推送、当前分支 PR 准备或创建、本地分支或指定远程 PR 合并、范围化 Git 工作树丢弃、指定分支删除、指定 worktree 移除，或分支收尾选择 |
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 显式项目版本化、共享或可审阅的 Markdown 参考 lesson；不用于自动加载的 `CLAUDE.md` 或 `.claude/rules/` 指令 |

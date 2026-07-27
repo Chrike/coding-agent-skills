@@ -133,6 +133,8 @@ These prompt shapes should keep `review-and-finish` and `finish-branch` separate
 | Show the current branch status without changing anything. | `finish-branch` | read-only status inspection is not a branch-ending action |
 | Explain merge versus rebase. | `finish-branch` | a Git concept explanation is not current-branch execution |
 | Write a generic PR description template. | `finish-branch` | generic writing is not PR preparation for a resolved current branch |
+| Open PR #42 and summarize it. | `finish-branch` | viewing or summarizing an existing PR is not creating or opening a new branch PR |
+| Discard the previous architecture idea. | `finish-branch` | discarding a non-Git idea is not discarding Git working-tree changes |
 | Summarize what remains before release. | `finish-branch` | progress or release planning does not authorize a branch action |
 | Finish this branch. | `review-and-finish` | branch-ending actions should route to `finish-branch`, not review |
 | Commit these changes. | `review-and-finish` | explicit side effect should route to `finish-branch`, not completion review |

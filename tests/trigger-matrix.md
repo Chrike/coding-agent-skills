@@ -115,8 +115,10 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Commit these files locally, but do not push. | `finish-branch`; commit only |
 | Push this branch. | `finish-branch`; normal push only and do not infer force-push or PR creation |
 | Push this branch, but do not create a PR. | `finish-branch`; push only |
-| Open a draft PR from this branch to `main`. | `finish-branch`; create the resolved draft PR without inferring commit, push, or merge |
-| Merge `feature/auth` into `main` locally. | `finish-branch`; resolve and perform only the local branch merge |
+| Create a new draft PR from this resolved branch to `main`. | `finish-branch`; create the resolved draft PR without inferring commit, push, or merge |
+| Delete local branch `feature/old`. | `finish-branch`; resolve the exact local branch and require typed confirmation bound to that deletion before mutation |
+| Remove the named worktree `../feature-old`. | `finish-branch`; resolve the exact worktree and require typed confirmation bound to that removal before mutation |
+| Merge `feature/auth` into `main` locally using squash. | `finish-branch`; perform only the authorized local merge with the requested method |
 | Merge remote PR 42 using squash. | `finish-branch`; resolve and perform only the named remote PR merge, not a local `git merge` |
 | Discard the uncommitted changes under `src/generated/`. | `finish-branch`; require typed confirmation bound to the exact path and every affected staged, unstaged, tracked, untracked, or ignored category before mutation |
 | Draft an issue for this bug. | `issue-workflow`; return a draft in chat by default and do not publish remotely unless asked. |
