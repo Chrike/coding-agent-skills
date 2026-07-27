@@ -67,6 +67,10 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Run the same inspect-patch-verify pipeline across this batch of items. | `agent-workflow` fit check; use the smallest useful bounded pipeline |
 | Add one focused verifier before we continue. | direct focused delegation under the active domain method |
 | Verify the integrated result independently against its untested rollback path. | direct focused delegation under the active domain method |
+| Research one current API compatibility question with the installed `harness-evidence-researcher`. | direct focused delegation under the active domain method; the named agent is a leaf evidence role and does not trigger `agent-workflow` by itself |
+| Produce one independent architecture alternative with the installed `harness-independent-brancher`. | `design-codebase` method with one direct leaf delegation; withhold the preferred candidate until the first independent proposal |
+| Run one bounded observable check with the installed `harness-execution-verifier`. | active testing or completion method with one direct leaf delegation; resolve command effects first and preserve unverified gaps |
+| Compare the actual final candidates with the installed `harness-skeptical-evaluator`. | active domain method with one direct leaf delegation; supply actual artifacts and keep user-owned preference trade-offs unresolved |
 | A workflow already owns this scope, and completion needs one fresh verifier. | Keep the workflow as the sole execution owner; route the bounded verification need through its controller instead of starting a sibling delegation. |
 | Assign authorization, compatibility, and rollback verification to separate owners. | `review-and-finish` + `agent-workflow` fit check; fan-out only when the scopes remain independently useful |
 | Diagnose these independent failure paths in parallel. | `debug-systematically` method + `agent-workflow` fit check; fan-out only when the paths remain independent |

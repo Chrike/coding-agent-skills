@@ -11,6 +11,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - Each runtime skill's `description` plus `SKILL.md` body defines when that skill should trigger.
+- `agents/` defines optional leaf execution-role source; installed agent availability does not change top-level routing or method ownership.
 - `tests/` validates those boundaries and must not become a second runtime instruction layer.
 
 ## Core Routing
@@ -48,6 +49,8 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Independent failure-path diagnosis | `debug-systematically` method with `agent-workflow` |
 | Independent TDD adapters | `test-strategy` method with `agent-workflow` |
 | One focused verifier for one evidence question | direct delegation under the active domain method; not `agent-workflow` |
+| One installed capability-harness leaf role for one bounded question | direct delegation under the active domain method; the named agent is an execution role, not a router or method owner |
+| Multiple independent capability-harness leaf roles requiring integration | active domain method with `agent-workflow`; select only roles that can materially change the result, not an automatic four-agent pipeline |
 | Multiple orthogonal verifier scopes requiring coordinated integration | active domain method with `agent-workflow` |
 | Independent package review | `review-and-finish` method with `agent-workflow` |
 | Independent architecture options | `design-codebase` method with `agent-workflow` |

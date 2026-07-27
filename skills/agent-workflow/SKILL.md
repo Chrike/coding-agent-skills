@@ -169,6 +169,7 @@ Use these references when the delegated shape is clear:
 - Repeated per-item stages: [pipeline-processing.md](references/pipeline-processing.md)
 - Separate milestone verifier: [fresh-context-verification.md](references/fresh-context-verification.md)
 - High-stakes candidates plus judges: [review-panel.md](references/review-panel.md)
+- Optional evidence, alternative, execution-verification, or skeptical-evaluation leaf roles: [capability-harness.md](references/capability-harness.md)
 - Long briefs or reports: [file-handoffs.md](references/file-handoffs.md)
 
 ## Optional Isolation
