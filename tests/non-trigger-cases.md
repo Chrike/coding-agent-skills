@@ -70,6 +70,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Update the existing `docs/plans/cache-refactor.md`; do not create another plan file. | duplicate plan-file creation | update only the named artifact; do not create, overwrite, or reuse another target |
 | The shared root cause is still unclear; investigate it under one owner. | `agent-workflow` | unresolved shared-root diagnosis without an explicit orchestration request stays with `debug-systematically`, not `agent-workflow` |
 | Host multi-agent capability or all four capability-harness agents are available; fix this one coherent bug. | harness agents, `agent-workflow` | capability and installed leaf roles alone are not orchestration triggers and do not create a mandatory pipeline |
+| Update the titles in these two unrelated Markdown files. | `agent-workflow` | small mechanical edits whose coordination cost exceeds the benefit should remain with one owner |
 | A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
 | Summarize all the user questions from above, not your own answers. | `reliability-check`, `issue-workflow` | summary-object correction should stay in the default layer rather than becoming corrective analysis or artifact drafting |
