@@ -1,6 +1,6 @@
 ---
 name: test-strategy
-description: Use when the primary problem is test design, test seams, regression coverage, mocks, assertions, fixtures, or timing and wait strategy, or when a requested change needs a non-obvious test level, seam, regression signal, or acceptance proof.
+description: Use when the primary problem is test design, explicit TDD, test-first or red-green-refactor work, test seams, regression coverage, mocks, assertions, fixtures, or timing and wait strategy, or when a requested change needs a non-obvious test level, seam, regression signal, or acceptance proof. Do not use for generic testing explanations, ordinary implementation, unresolved root-cause diagnosis, unresolved architecture or ownership/interface/dependency-boundary decisions, explicit review or feedback handling, or completed-work readiness review.
 ---
 
 # Test Strategy
@@ -9,12 +9,24 @@ Choose tests that prove behavior without turning every task into strict TDD.
 
 ## First Decision
 
-- If the user asks for strict TDD, use TDD mode.
-- If the product behavior or root cause is still unclear and a failing or flaky test is only the symptom, use `debug-systematically` first.
-- If adding regression coverage for a bug, choose the narrowest seam that reproduces the real failure pattern.
-- If the needed test level, seam, regression signal, fixture/mocking boundary, or acceptance proof is non-obvious, use this skill to settle it.
-- If improving or adding tests, prefer observable behavior through public interfaces without forcing unnecessary implementation coupling.
-- If the task is ordinary implementation and tests are not central, do not force a test-first workflow.
+- Keep generic explanations, comparisons, planning, explicit review or feedback requests, completed-work readiness checks, and ordinary implementation in their owning workflow; advisory test-strategy requests remain read-only.
+- If the user explicitly asks for review, feedback handling, or a done/readiness check, use `review-and-finish` first.
+- If product behavior or root cause is unclear and a failing or flaky test may only be the symptom, use `debug-systematically` first; if it is unavailable, preserve the host's existing debugging method.
+- If ownership, interface, dependency-boundary, or architecture is unresolved, use `design-codebase` first; if it is unavailable, preserve the host's existing design method and do not invent a test-only seam.
+- When no handoff applies and the user explicitly asks for TDD, test-first, or red-green-refactor work, use TDD mode.
+- Otherwise use this skill when the test level, seam, regression signal, fixture/mock boundary, timing strategy, or acceptance proof is non-obvious.
+- Invoke a named sibling only when it is installed, available, and applicable. After a handoff, return the remaining test-design decision here when appropriate; otherwise preserve the host method and do not claim an unavailable invocation.
+
+## Operating Mode
+
+- **Advisory:** inspect and recommend; do not edit or run project checks unless requested.
+- **Implementation:** change only the explicitly requested tests or implementation and run the smallest relevant safe check.
+- **Verification:** report the exact check and observed evidence; a proposed command or expected result is not evidence.
+- Do not install dependencies, access external services, change persistent data, deploy, publish, delete, broadly overwrite, or change Git state unless that action is separately authorized; follow host safeguards for explicitly authorized actions.
+
+## Recommendation Output
+
+For a concrete recommendation, identify the behavior or claim, failure or regression boundary, test level and observable seam, assertions, fixture/mock/data boundaries, focused verification method and success condition, and remaining gaps or unverified items. Explain the level or scope choice when it is non-obvious.
 
 ## Testing Defaults
 
@@ -31,16 +43,7 @@ Read [good-tests.md](references/good-tests.md) when the test shape itself is the
 
 ## TDD Mode
 
-When the user asks for TDD, red-green-refactor, or test-first work:
-
-1. Pick one behavior.
-2. Write one failing test.
-3. Run it and confirm it fails for the expected reason.
-4. Write only enough implementation to pass.
-5. Run the focused test green.
-6. Refactor after green, keeping tests green.
-
-Read [tdd-mode.md](references/tdd-mode.md) for stricter details.
+When TDD mode is selected, follow [tdd-mode.md](references/tdd-mode.md).
 
 ## Mocks
 

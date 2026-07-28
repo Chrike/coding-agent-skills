@@ -44,6 +44,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | If you can finish the remaining in-scope edits now, do that; only stop if you need input I have not provided. | `plan-work`, `memory-handoff` | ordinary execution should continue instead of stopping on a self-created checkpoint or handoff |
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
 | This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` when available; otherwise preserve the host's existing testing method unless a non-obvious ownership or dependency boundary is demonstrated |
+| Explain what red-green-refactor means; do not propose a project change. | `test-strategy` | generic testing explanation is not an explicit test-strategy decision or TDD implementation request |
+| The product behavior is unclear; diagnose the root cause before selecting a test. | `test-strategy` | unresolved product behavior or root cause belongs to `debug-systematically` first |
+| Retry ownership and ordering are unresolved across callers; decide the architecture boundary first. | `test-strategy` | unresolved ownership or interface boundaries belong to `design-codebase` first |
+| The migration is complete; is it ready or safe to ship? | `test-strategy` | completed-work readiness belongs to `review-and-finish` |
 | Compare two module ownership models for this dependency. | `plan-work` | architecture and ownership decisions belong to `design-codebase` |
 | Break this PRD into tracker issues. | `plan-work` | PRD and tracker-item work belongs to `issue-workflow` |
 | Create a durable multi-session decision map for this direction. | `plan-work` | long-running decision-frontier artifacts belong to `decision-map` |
