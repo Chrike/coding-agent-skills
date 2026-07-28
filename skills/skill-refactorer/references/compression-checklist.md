@@ -27,4 +27,6 @@ Use this only after `skill-refactorer` is already active and the main file still
 ## Final check
 
 - Do not compress a procedure merely because the host has a generic capability with a similar name.
+- Require an identifiable active source before classifying a rule as duplicated.
+- Preserve the rule when equivalent trigger, permission, failure, or completion behavior cannot be verified.
 - If the rewritten main file still reads like a maintenance essay instead of a narrow workflow boundary, compress again.

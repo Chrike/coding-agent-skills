@@ -23,6 +23,11 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Continue this paused task using the current repository-local issue or work-item draft. | `issue-workflow`, `decision-map`, `memory-handoff`, `markdown-memory` | existing local execution state should be reused instead of reopening artifact workflows |
 | What is the current goal and why are you doing this? | `reliability-check` | ordinary status questions should not become corrective workflows by default |
 | Explain what this old SKILL.md does. | `skill-refactorer` | explanation alone should stay in the default layer unless the user explicitly asks for migration or maintenance |
+| Rewrite this marketing prompt to be more persuasive. | `skill-refactorer` | general-purpose copy editing is not coding-agent instruction maintenance |
+| Translate this customer-support prompt into Chinese. | `skill-refactorer` | translation is not coding-agent instruction maintenance |
+| Review this SKILL.md for security issues, but do not rewrite it. | `skill-refactorer` | pure review remains with the review flow or host workflow, not refactoring |
+| Design a new deployment skill from scratch. | `skill-refactorer` | designing a new skill is not maintaining an existing instruction artifact |
+| Refactor this React component. | `skill-refactorer` | ordinary code refactoring is not prompt or skill maintenance |
 | What are you doing right now, and what is the next step? | `reliability-check`, `plan-work` | direct status-and-next-step questions should stay in the default layer |
 | What actually finished, what failed, and what is still unverified? | `reliability-check`, `plan-work` | evidence-backed status reporting should stay in the default layer rather than becoming a corrective or planning workflow |
 | Which files did you read for this answer? | `reliability-check` | file-inventory questions are not reliability reassessment unless the user claims the source use was wrong |

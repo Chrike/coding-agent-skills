@@ -63,7 +63,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 显式项目版本化、共享或可审阅的 Markdown 参考 lesson；不用于自动加载的 `CLAUDE.md` 或 `.claude/rules/` 指令 |
-| `skill-refactorer`  | prompt/skill 维护、迁移、过时脚手架清理                      |
+| `skill-refactorer`  | coding-agent prompt/skill 维护、迁移、过时脚手架清理          |
 | `decision-map`      | 跨会话持久化决策图                                           |
 
 ## 可选 Agent 配置

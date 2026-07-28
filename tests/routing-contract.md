@@ -32,7 +32,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | Explicit create or update of a handoff or checkpoint, prepare one before context compaction, or resume from a named handoff artifact | `memory-handoff` |
 | Explicit project-versioned, shared, or reviewable reference lesson, correction, or confirmed-approach workflow that is consulted rather than automatically loaded | `markdown-memory` |
 | Instruction that should load automatically in future sessions or apply to matching files | the appropriate `CLAUDE.md` or `.claude/rules/` scope; not `markdown-memory` |
-| Explicit prompt or skill maintenance, migration, or stale-scaffolding cleanup workflow | `skill-refactorer` |
+| Explicit maintenance, migration, or stale-scaffolding cleanup of an existing coding-agent instruction artifact | `skill-refactorer` |
 | Explicit durable multi-session decision frontier | `decision-map` |
 
 ## Expected Composition

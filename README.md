@@ -63,7 +63,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |
-| `skill-refactorer`   | Prompt or skill maintenance, migration, stale-scaffolding cleanup |
+| `skill-refactorer`   | Coding-agent prompt or skill maintenance, migration, stale-scaffolding cleanup |
 | `decision-map`       | Durable multi-session decision maps                          |
 
 ## Optional Agent Profiles
