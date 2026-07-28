@@ -27,4 +27,6 @@ If no project or framework helper exists, implement a small polling helper with:
 - a useful timeout message
 - the last observed state or error when diagnostic value justifies it
 
-Fixed sleeps are acceptable only when testing real timing behavior such as debounce, throttle, retry backoff, or polling intervals. First wait for the triggering condition, then document why the duration matters.
+For debounce, throttle, retry backoff, polling intervals, and other time-dependent logic, prefer the project's existing fake timers, injectable clock, virtual scheduler, or framework time-control helper.
+
+Use real elapsed-time waiting only when wall-clock behavior or runtime scheduling is itself part of the claim and a deterministic clock cannot provide the required evidence. First wait for the triggering condition, use a bounded deadline and appropriate tolerance, and document why real time is necessary.

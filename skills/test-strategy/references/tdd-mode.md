@@ -22,4 +22,6 @@ Use when the user explicitly asks for TDD, test-first, or red-green-refactor.
 
 ## Existing Code
 
-When code already exists, do not delete work unless the user explicitly asked for strict TDD discipline. Prefer adding a meaningful regression or characterization test, then improve from there.
+When code already exists, do not delete, revert, disable, or broadly rewrite existing work merely to force a red test. A request for strict TDD does not authorize deletion or rollback.
+
+Prefer adding a meaningful regression or characterization test, or identify a genuinely missing behavior that can produce an expected red result. Any deletion or rollback requires separate authorization bound to the exact files and operation.
