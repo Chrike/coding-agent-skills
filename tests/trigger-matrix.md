@@ -168,6 +168,13 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Make or set up a durable decision map for this vague multi-session direction. | `decision-map` |
 | Add a prototype ticket to this decision map. | `decision-map`; obtain user agreement before building the prototype |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
+| Keep a durable register of the choices we still need to settle over the next few sessions. | `decision-map` |
+| Track which unresolved architecture choices depend on which earlier decisions. | `decision-map` |
+| Set up a persistent record so we can return to these unresolved product choices next week. | `decision-map` |
+| Reconsider resolved decision D-004 because API v3 changed the relevant constraint. | `decision-map`; preserve D-004 history and create a new successor ticket |
+| Resume resolved decision D-004 and report its outcome without changing the map. | `decision-map`; default to a durable no-op |
+| Resume blocked decision D-005 and identify its blocker before resolving it. | `decision-map`; report the blocker and stop |
+| Add a new ticket after D-001, D-002, and D-004 without reusing D-003. | `decision-map`; preserve the established ID history and allocate the next ID |
 | Resume decision ticket D-004 from `docs/decision-map.md` and update the newly unblocked frontier. | `decision-map` |
 | Update the existing decision map without renumbering its tickets. | `decision-map` |
 | Plan this refactor. | `plan-work` |

@@ -33,7 +33,7 @@ Use small, numbered tickets. Size each ticket as one coherent decision question 
 Unless the user or repository establishes an equivalent format, keep this minimum structure:
 
 - **Goal:** the decision space being resolved.
-- **Frontier:** the IDs of currently unblocked tickets; it may be empty when the map is resolved.
+- **Frontier:** IDs of `open` tickets whose dependencies and blockers are satisfied; it may be empty while the map is unresolved or resolved, so validate it before treating it as completion evidence.
 - **Tickets:** stable numbered decision tickets.
 - **Blockers:** only blockers preventing a frontier ticket from progressing.
 
@@ -47,6 +47,18 @@ Each ticket should contain:
 - **Evidence or output contract**
 - **Outcome**, when resolved
 - **Superseded reason or replacement**, when no longer applicable
+
+## Structural Invariants
+
+Before resuming or writing a map, verify these semantic invariants:
+
+- Every Frontier ID refers to one unique `open` ticket whose dependencies are satisfied and that has no unresolved blocker. A `blocked` ticket never appears in Frontier.
+- An unresolved `open` or `blocked` dependency is not satisfied; a dependency on a `superseded` ticket is satisfied only after it is updated to the recorded replacement ID. Merely recording a replacement does not satisfy the old dependency. Only unresolved `open` and `blocked` tickets participate in cycle checks.
+- Every dependency refers to an existing ticket, does not refer to the same ticket, and does not create a dependency cycle among unresolved `open` or `blocked` tickets.
+- Ticket IDs are unique. Every `resolved` ticket has an outcome, and every `superseded` ticket has a reason or replacement.
+- An empty Frontier is not completion evidence when any `open` or `blocked` ticket, unresolved blocker, or structural error remains.
+
+If an invariant fails, preserve the original map, report the exact inconsistency, and propose the smallest repair before continuing, using the Persistence Failures rules.
 
 Use an equivalent repository format when it preserves these decisions and invariants; do not impose a universal Markdown template merely for style.
 
@@ -71,7 +83,7 @@ Use only these ticket statuses unless the repository defines an equivalent vocab
 - `resolved`: supported by a sufficient decision or conclusion.
 - `superseded`: no longer applicable because another decision changed the frontier; retain the reason or replacement.
 
-Ticket IDs are immutable. Do not renumber existing tickets. When the frontier changes, do not delete an existing ticket merely to normalize the map; mark it `superseded` when it has dependencies, references, or decision-history value and record why or what replaces it.
+Ticket IDs are immutable. Do not renumber existing tickets. When adding a ticket, preserve the established prefix and numeric width, treating width as minimum zero-padding and expanding it rather than truncating when the next value needs more digits; allocate the next numeric ID above the highest issued value rather than filling a gap, and verify uniqueness before writing. For a new map without an established format, use `D-001`, `D-002`, and so on. Never reuse an issued ID, including one from a resolved or superseded ticket; retain the ticket record or a durable issued-ID history if a record is removed. When the frontier changes, do not delete an existing ticket merely to normalize the map; mark it `superseded` when it has dependencies, references, or decision-history value and record why or what replaces it.
 
 ## Workflow
 
@@ -102,10 +114,12 @@ A decision map may restore prior goals, constraints, settled decisions, evidence
 4. Validate material referenced files, revisions, and dependencies when they affect the next decision.
 5. Distinguish current facts from stale, conflicting, or unverified claims.
 6. If the map materially conflicts with the latest user request or current project state, stop before updating the map or continuing the decision workflow. Report the conflict and the smallest decision needed to proceed.
-7. Resolve the named ticket or current frontier item.
-8. Record the outcome compactly.
-9. Update affected downstream tickets while preserving stable IDs; mark invalidated history `superseded` instead of deleting it.
-10. Continue through newly unblocked tickets only when the user asked to progress or resolve the frontier; otherwise stop after the ticket update.
+7. If the named ticket is `resolved`, report its current outcome and make no durable change unless the user explicitly requests reconsideration based on new evidence. If it is `superseded`, report its reason or replacement and do not resolve or overwrite it. If it is `blocked`, identify the unmet dependency, input, or blocker and stop before attempting resolution.
+8. Resolve the named ticket or current frontier item only when its status permits progress.
+9. Record the outcome compactly.
+10. Before creating a downstream ticket, reuse or update an equivalent existing ticket instead of creating a duplicate. When the user explicitly requests reconsideration based on new evidence or a changed constraint, preserve the prior ticket and outcome and create a new successor ticket with a new immutable ID rather than silently reopening history.
+11. Update affected downstream tickets while preserving stable IDs; mark invalidated history `superseded` instead of deleting it.
+12. Continue through newly unblocked tickets only when the user asked to progress or resolve the frontier; otherwise stop after the ticket update.
 
 ## Persistence Failures
 
@@ -141,7 +155,7 @@ Creating or updating a map is complete only when:
 - stale or conflicting claims are not presented as current facts;
 - the persistence result is reported accurately.
 
-A fully resolved map should have no remaining `open` or `blocked` frontier ticket, a compact final outcome, and any invalidated ticket marked `superseded`.
+A fully resolved map should have no remaining `open` or `blocked` ticket anywhere, no unresolved blocker or structural error, a compact final outcome, and any invalidated ticket marked `superseded`.
 
 ## Boundaries
 
