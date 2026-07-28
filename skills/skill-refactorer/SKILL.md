@@ -63,12 +63,14 @@ Do not remove a rule solely because another capability has a similar name.
 
 Before calling the refactor complete, verify:
 
-- required frontmatter remains valid and the skill name matches its directory
+- For `SKILL.md` targets, required frontmatter remains valid and the skill name matches its directory; for other identified target mechanisms, apply only checks explicitly defined by that mechanism and verifiable from its authoritative source—do not impose `SKILL.md` frontmatter or name-directory rules, and do not invent a replacement schema.
 - retained relative references still resolve
 - intended positive and negative trigger behavior remains intact
 - safety, permission, failure, stop, evidence, and completion boundaries remain present
 - no validation note, example, external document, or target-file instruction became a runtime rule
 - no new command, network, Git, credential, destructive, or external-state behavior was introduced
+- If no verified behavior-neutral reduction remains, leave the target unchanged and report a no-op instead of compressing it further.
+- A repeated pass over an unchanged target should not produce additional edits unless new evidence or requirements are available.
 - verified and unverified checks are reported accurately
 
 ## Output
