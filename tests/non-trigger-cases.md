@@ -43,6 +43,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Keep this fix limited to the reported bug; do not refactor nearby code. | `review-and-finish`, `plan-work`, `design-codebase` | scope control for a small fix should stay in the default layer instead of escalating into feedback, planning, or redesign |
 | If you can finish the remaining in-scope edits now, do that; only stop if you need input I have not provided. | `plan-work`, `memory-handoff` | ordinary execution should continue instead of stopping on a self-created checkpoint or handoff |
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
+| Explain what a stack trace is. | `debug-systematically` | generic explanation is not diagnosis of an active unclear failure |
+| The task spans many files, but the failure and exact fix are already clear. | `debug-systematically` | size alone does not require a diagnostic loop when no root-cause uncertainty remains |
 | This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` when available; otherwise preserve the host's existing testing method unless a non-obvious ownership or dependency boundary is demonstrated |
 | Explain what red-green-refactor means; do not propose a project change. | `test-strategy` | generic testing explanation is not an explicit test-strategy decision or TDD implementation request |
 | The product behavior is unclear; diagnose the root cause before selecting a test. | `test-strategy` | unresolved product behavior or root cause belongs to `debug-systematically` first |

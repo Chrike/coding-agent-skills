@@ -39,6 +39,13 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Prompt | Expected routing |
 | --- | --- |
 | This test is flaky; diagnose it. | `debug-systematically` |
+| The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
+| Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |
+| This cross-service state-loss bug has survived three previous fixes. Diagnose the shared root cause before changing more code. | `debug-systematically` |
+| Diagnose this bug, but do not edit files or run commands. | `debug-systematically` in advisory/read-only mode |
+| The product behavior is unclear; diagnose it first, then select the regression seam. | `debug-systematically`, then `test-strategy` if a remaining test-design decision exists |
+| The product behavior is unclear, but `test-strategy` is unavailable; diagnose it first and preserve the host's testing method afterward. | `debug-systematically`; host testing fallback; do not claim an unavailable invocation |
+| A Claude Code runtime problem requires `/debug`, but bundled `/debug` is unavailable. | host runtime-debugging method; do not claim an unavailable invocation |
 | Claude Code itself is misbehaving; inspect the session logs. | bundled `/debug` |
 | Add regression tests for this bug. | `test-strategy` |
 | This test depends on sleep and flakes in CI. Fix the wait strategy. | `test-strategy` |
