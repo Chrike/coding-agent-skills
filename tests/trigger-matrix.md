@@ -168,6 +168,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Make or set up a durable decision map for this vague multi-session direction. | `decision-map` |
 | Add a prototype ticket to this decision map. | `decision-map`; obtain user agreement before building the prototype |
 | Track the open decision frontier for this long-running direction. | `decision-map` |
+| Resume decision ticket D-004 from `docs/decision-map.md` and update the newly unblocked frontier. | `decision-map` |
+| Update the existing decision map without renumbering its tickets. | `decision-map` |
 | Plan this refactor. | `plan-work` |
 | Give me a two-step implementation plan for renaming this public API parameter; do not edit files. | `plan-work`; return a proportionate chat plan only, with no implementation. |
 | Compare two rollout strategies for this software database migration before coding. | `plan-work`; compare implementation and rollout approaches without editing. |

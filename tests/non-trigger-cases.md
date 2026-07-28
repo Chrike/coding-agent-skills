@@ -53,6 +53,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Compare two module ownership models for this dependency. | `plan-work` | architecture and ownership decisions belong to `design-codebase` |
 | Break this PRD into tracker issues. | `plan-work` | PRD and tracker-item work belongs to `issue-workflow` |
 | Create a durable multi-session decision map for this direction. | `plan-work` | long-running decision-frontier artifacts belong to `decision-map` |
+| Implement the already resolved D-004 decision; do not update the map. | `decision-map` | settled decision execution is ordinary implementation |
+| Read this decision map and explain it without changing anything. | `decision-map` | ordinary artifact explanation does not require the workflow |
 | Add regression tests for this bug. | `design-codebase` | regression coverage belongs to the testing workflow |
 | Explain how this adapter works. | `design-codebase` | explanation is not a request to redesign the boundary |
 | Who owns this directory according to CODEOWNERS? | `design-codebase` | repository or team ownership lookup is not a codebase architecture decision |
