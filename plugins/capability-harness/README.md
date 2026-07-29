@@ -1,8 +1,8 @@
 # Capability Harness
 
-A self-contained Claude Code plugin for bounded evidence gathering, independent alternatives, observable verification, and skeptical evaluation.
+A self-contained Claude Code plugin for bounded evidence gathering, independent alternatives, observable verification, and skeptical evaluation after the active domain method or direct workflow is established.
 
-The plugin is additive. Existing domain Skills keep method ownership, and `agent-workflow` keeps multi-agent coordination ownership when it is already active. Plugin components are namespaced, so they do not replace the repository's standalone Skills or user-level agents.
+The plugin is supplementary. Existing domain Skills keep implementation and repair ownership, and `agent-workflow` keeps multi-agent coordination ownership when it is already active. Plugin components are namespaced, so they do not replace the repository's standalone Skills or user-level agents.
 
 ## Install
 
@@ -21,10 +21,11 @@ From the repository root:
 
 ```powershell
 claude plugin validate .\plugins\capability-harness --strict
-claude --plugin-dir .\plugins\capability-harness
+$env:PYTHONDONTWRITEBYTECODE = "1"
+python -m unittest discover -s .\plugins\capability-harness\tests -v
 ```
 
-Inside Claude Code, verify the Skill in `/context`, verify the four `capability-harness:*` agents in the Custom Agents section, and inspect the plugin hooks with `/hooks`.
+For an explicitly authorized runtime check, load the source for one session with `claude --plugin-dir .\plugins\capability-harness`, then verify the Skill in `/context`, the four `capability-harness:*` agents in the Custom Agents section, and the scoped hook in `/hooks`.
 
 Invoke the Skill explicitly with:
 
@@ -32,6 +33,8 @@ Invoke the Skill explicitly with:
 /capability-harness:capability-harness <task>
 ```
 
-Append `[harness:off]` to a prompt to suppress the per-prompt routing reminder for that turn.
+Claude may invoke the Skill automatically from its narrow description. Explicit user instructions and an existing controller remain authoritative; the plugin does not install a per-prompt routing hook.
 
-The command hooks require Python 3 on `PATH`. This repository tests the plugin against Claude Code 2.1.220 on Windows before publishing it through the repository marketplace.
+The command hook requires Python 3.9 or later on `PATH`. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
+
+The JSON cases under `skills/capability-harness/evals/` are maintenance evaluation data, not automated Hook tests and not the `claude plugin eval` early-access format.

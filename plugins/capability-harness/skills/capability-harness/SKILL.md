@@ -1,6 +1,6 @@
 ---
 name: capability-harness
-description: Apply a bounded quality-amplification pass to substantive work when current evidence, a materially independent alternative, observable artifact or runtime verification, or skeptical evaluation could materially change the result. Use especially for recommendations, architecture or design trade-offs, optimization, unfamiliar or version-sensitive behavior, and non-trivial artifacts whose requested quality cannot be established from source text alone. Do not use for routine direct tasks, cosmetic variants, fixed multi-agent pipelines, or work already owned by another controller.
+description: Use only as a supplementary quality pass after the active domain method or direct workflow is established, when one bounded current-evidence question, materially independent alternative, observable runtime or artifact verification, or evidence-based evaluation could materially change the result. Do not use for routine implementation, ordinary planning or testing, generic review, branch actions, handoffs, cosmetic variants, fixed agent pipelines, or work already owned by another controller.
 hooks:
   Stop:
     - hooks:
@@ -16,7 +16,7 @@ hooks:
 
 # Capability Harness
 
-Improve a substantive result with the smallest evidence, alternative, verification, or evaluation module that can materially change it. Keep the current controller and the active domain Skill responsible for the task.
+Supplement an established domain method or direct workflow with the smallest evidence, alternative, verification, or evaluation module that can materially change the result. Keep the current controller and active domain Skill responsible for the task.
 
 ## Task Contract
 
@@ -51,8 +51,10 @@ Match verification to the requested outcome. Source syntax alone does not establ
 
 ## Integration
 
-Maintain the strongest verified result seen so far. Accept a revision only when hard constraints and critical checks do not regress and a material defect or trade-off improves. Preserve blocked, failed, stale, and unverified evidence states instead of collapsing them into success.
+Maintain the strongest verified result seen so far. Preserve blocked, failed, stale, and unverified evidence states instead of collapsing them into success.
 
-Perform at most one targeted repair unless a critical check still fails or new evidence materially changes the task. Return user-owned preference, policy, or product decisions instead of forcing a winner.
+The active controller and domain Skill own implementation, total repair count, acceptance, and final integration. Harness workers return bounded evidence, candidates, verification, or evaluation; they do not limit or replace domain-workflow repairs. Request at most one targeted re-check from a Harness worker unless critical evidence remains invalid or materially changes.
 
-Finalize only when hard constraints are satisfied, selected checks have usable evidence, material uncertainty is supported or disclosed, and no unresolved high-impact conflict is hidden. Do not claim global optimality.
+Return user-owned preference, policy, or product decisions instead of forcing a winner.
+
+Treat the Harness pass as complete only when selected checks have usable evidence, material uncertainty is supported or disclosed, and no unresolved high-impact conflict is hidden. Return that evidence state to the active controller; do not claim global optimality or overall task completion.

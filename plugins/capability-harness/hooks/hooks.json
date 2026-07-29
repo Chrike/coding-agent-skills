@@ -1,21 +1,6 @@
 {
-  "description": "Semantic capability routing reminder and scoped leaf-agent return validation.",
+  "description": "Scoped leaf-agent return validation.",
   "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python",
-            "args": [
-              "${CLAUDE_PLUGIN_ROOT}/hooks/user_prompt_submit.py"
-            ],
-            "timeout": 5,
-            "statusMessage": "Checking capability fit"
-          }
-        ]
-      }
-    ],
     "SubagentStop": [
       {
         "matcher": "^capability-harness:(evidence-researcher|independent-brancher|execution-verifier|skeptical-evaluator)$",

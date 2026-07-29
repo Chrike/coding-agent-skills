@@ -43,8 +43,40 @@ def read_event() -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def has_heading(message: str, heading: str) -> bool:
-    return heading.casefold() in message.casefold()
+def top_level_lines(message: str) -> set[str]:
+    lines: set[str] = set()
+    fence_char = ""
+    fence_length = 0
+
+    for raw_line in message.splitlines():
+        line = raw_line.rstrip()
+        candidate = line.lstrip(" ")
+        indent = len(line) - len(candidate)
+
+        marker_char = candidate[:1]
+        marker_length = 0
+        if indent <= 3 and marker_char in {"`", "~"}:
+            marker_length = len(candidate) - len(candidate.lstrip(marker_char))
+
+        if fence_char:
+            remainder = candidate[marker_length:]
+            if marker_char == fence_char and marker_length >= fence_length and not remainder.strip():
+                fence_char = ""
+                fence_length = 0
+            continue
+
+        if marker_length >= 3:
+            fence_char = marker_char
+            fence_length = marker_length
+            continue
+
+        lines.add(line.casefold())
+
+    return lines
+
+
+def has_heading(lines: set[str], heading: str) -> bool:
+    return heading.casefold() in lines
 
 
 def main() -> int:
@@ -53,15 +85,16 @@ def main() -> int:
     if not agent_type.startswith(PLUGIN_PREFIX):
         return 0
 
-    local_name = agent_type.removeprefix(PLUGIN_PREFIX)
+    local_name = agent_type[len(PLUGIN_PREFIX) :]
     if local_name not in EXPECTED or bool(event.get("stop_hook_active")):
         return 0
 
     message = str(event.get("last_assistant_message") or "")
-    if local_name in BLOCKABLE and has_heading(message, "## Blocked brief") and has_heading(message, "## Required next input"):
+    lines = top_level_lines(message)
+    if local_name in BLOCKABLE and has_heading(lines, "## Blocked brief") and has_heading(lines, "## Required next input"):
         return 0
 
-    missing = [heading for heading in EXPECTED[local_name] if not has_heading(message, heading)]
+    missing = [heading for heading in EXPECTED[local_name] if not has_heading(lines, heading)]
     if not missing:
         return 0
 

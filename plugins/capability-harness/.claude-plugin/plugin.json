@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "capability-harness",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Capability Harness",
   "description": "Adds a bounded quality-amplification skill, four focused leaf agents, and scoped lifecycle checks for Claude Code.",
   "author": {
