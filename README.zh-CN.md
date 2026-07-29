@@ -11,7 +11,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 本仓库包含：
 
 - 位于 `skills/` 下的运行时技能源码目录
-- 位于 `agents/` 下的可选 Claude Code 叶子代理配置源码
+- 位于 `plugins/` 下的可选、自包含 Claude Code 插件
 - 位于 `prompts/` 下的常驻默认行为提示词源码
 - 位于 `workflows/` 下的显式选择 saved-workflow 源码
 - 位于 `tests/` 下的维护与验证材料
@@ -28,7 +28,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 - `prompts/` 承载面向日常开发工作的常驻默认行为层。
 - `skills/` 承载具名工作流边界，只有当请求明确需要时才应加载。
-- `agents/` 承载可选叶子执行角色源码。安装后的 agent 只接受有界任务，不定义顶层路由、不替代当前领域方法，也不负责最终集成。
+- `plugins/` 承载带命名空间的可选能力包。每个插件应作为整体安装；其中的 Skill、agent 与 hook 不替代独立的 `skills/` 能力面。
 - `workflows/` 承载显式选择的 saved-workflow 源码，不是宿主发现目录，也不参与普通 skill 路由。
 - 显式意图工作流应从清晰的自然语言意图路由，而不是要求用户记住 skill 名称后手动调用。
 - 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护，而不是再堆一层运行时路由。
@@ -66,32 +66,18 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `skill-refactorer`  | coding-agent prompt/skill 维护、迁移、过时脚手架清理          |
 | `decision-map`      | 跨会话持久化决策图                                           |
 
-## 可选 Agent 配置
-
-这些 Claude Code 自定义 agent 是可选执行角色，不是 skill，也不是自动运行的固定流水线。
-
-| Agent | 分配一个有界范围时的用途 |
-| --- | --- |
-| `harness-evidence-researcher` | 为一个重要不确定项收集仓库证据或经授权的当前一手来源证据。 |
-| `harness-independent-brancher` | 在不受首选候选锚定的前提下提出一个实质不同的方案。 |
-| `harness-execution-verifier` | 针对已识别的工件或环境运行一个已授权、有边界的可观察检查。 |
-| `harness-skeptical-evaluator` | 根据给定约束和证据评估实际候选或结果。 |
-
-单个聚焦角色可由当前领域方法直接委派。需要协调集成的多个独立角色，必须先通过 `agent-workflow` 适用性检查。安装全部四个角色并不意味着每次都要全部调用。
-
 ## 安装
 
-仅安装实际需要的运行时技能目录和可选 agent 配置。
+仅安装 `skills/` 中实际需要的运行时技能目录。
 
-在本仓库中，`skills/`、`agents/`、`prompts/` 与 `workflows/` 都是源码目录，而不是宿主运行时路径。
+在本仓库中，`skills/`、`prompts/` 与 `workflows/` 都是源码目录，而不是宿主运行时路径。
+
+可选插件应作为完整单元安装。有关能力扩展，请参阅 [plugins/capability-harness/README.md](plugins/capability-harness/README.md)；不要分别复制其中的 Skill、agent 或 hook。
 
 已确认的宿主落点：
 
 - Claude Code 运行时技能：项目级 `.claude/skills/` 或用户级 `~/.claude/skills/`
-- Claude Code 自定义 agent：项目级 `.claude/agents/` 或用户级 `~/.claude/agents/`
 - Claude Code saved workflows：项目级 `.claude/workflows/` 或用户级 `~/.claude/workflows/`
-
-只将 `agents/` 中已审阅的 agent Markdown 文件复制到一个选定落点，并保留带命名空间的文件名。按照 [agents/README.md](agents/README.md) 中的当前运行时步骤验证发现结果；在 Claude Code 2.1.198 或更高版本中，不要把 `/agents` 当作 agent 清单。安装这些配置不会同时安装 `capability-harness` skill，也不会启用 hooks。
 
 Saved workflow 采用显式选择：将审阅过的源码文件复制到一个明确选择的落点，再调用其已安装名称。它不替代 skill 路由，也不会因为任务长或文件多而自动激活。
 
@@ -122,7 +108,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 ## 仓库分层
 
 - `skills/` 存放本仓库中的运行时技能源码目录。
-- `agents/` 存放可选 Claude Code 叶子代理配置源码；它不同于宿主运行时路径 `.claude/agents/`，也不同于 `.agents/`。
+- `plugins/` 存放可选、自包含的 Claude Code 插件。
 - `skills.sh.json` 只控制 skills.sh 页面分组展示，不影响运行时行为或 skill 路由。
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `workflows/` 存放显式 saved-workflow 源码；调用前将审阅过的文件复制到 `.claude/workflows/` 或 `~/.claude/workflows/`。
@@ -138,7 +124,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
-- `agents/` 提供带命名空间的可选叶子角色，用于证据、独立候选、可观察验证和审慎评估；当前控制器与领域方法继续拥有任务。
+- `plugins/capability-harness/` 可选地增加带命名空间的证据、独立方案、验证与评估能力，同时保持独立 Skill 的职责边界不变。
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
@@ -163,10 +149,6 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `design-codebase`
 - `reliability-check`
 - `agent-workflow`
-
-### 可选 Agent 配置
-
-仅在可复用的有界叶子角色确实能改善工作流时，才安装 `agents/` 中已审阅的配置。从最小有用子集开始；agent 可用本身不构成委派或并行展开理由。
 
 ### 可选显式意图工作流
 

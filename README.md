@@ -11,7 +11,7 @@ The goal is to keep ordinary coding fast while still giving the agent clear work
 This repository contains:
 
 - runtime skill source folders under `skills/`
-- optional Claude Code leaf-agent profile source under `agents/`
+- optional self-contained Claude Code plugins under `plugins/`
 - the maintained always-on instruction prompt under `prompts/`
 - explicit opt-in saved-workflow source under `workflows/`
 - maintenance and validation material under `tests/`
@@ -28,7 +28,7 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 
 - `prompts/` holds the always-on default behavior layer for ordinary development work.
 - `skills/` holds named workflow boundaries that should load only when the request clearly needs them.
-- `agents/` holds optional leaf execution-role source. Installed agents accept bounded assignments; they do not define top-level routing, replace an active domain method, or own integration.
+- `plugins/` holds optional namespaced capability packages. Install each plugin as a unit; its Skills, agents, and hooks do not replace the standalone `skills/` surface.
 - `workflows/` holds explicit opt-in saved-workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
 - Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
 - High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill instead of forcing a second runtime router layer.
@@ -66,32 +66,18 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `skill-refactorer`   | Coding-agent prompt or skill maintenance, migration, stale-scaffolding cleanup |
 | `decision-map`       | Durable multi-session decision maps                          |
 
-## Optional Agent Profiles
-
-These Claude Code custom agents are optional execution roles, not skills or an automatic pipeline.
-
-| Agent | Use when assigned one bounded scope |
-| --- | --- |
-| `harness-evidence-researcher` | Gather repository or authorized current primary-source evidence for one material uncertainty. |
-| `harness-independent-brancher` | Produce one materially independent alternative without anchoring on a preferred candidate. |
-| `harness-execution-verifier` | Run one authorized, bounded observable check against an identified artifact or environment. |
-| `harness-skeptical-evaluator` | Evaluate actual candidates or results against supplied constraints and evidence. |
-
-One focused role can be delegated directly under the active domain method. Multiple independent roles that need coordinated integration must first pass the `agent-workflow` fit check. Installing all four does not make all four mandatory.
-
 ## Installation
 
-Install only the runtime skill folders and optional agent profiles you need.
+Install only the runtime skill folders you want from `skills/`.
 
-In this repository, `skills/`, `agents/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths.
+In this repository, `skills/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths.
+
+Optional plugins are installed as complete units. For the capability extension, see [plugins/capability-harness/README.md](plugins/capability-harness/README.md); do not copy its Skill, agents, or hooks separately.
 
 Known host targets:
 
 - Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
-- Claude Code custom agents: project `.claude/agents/` or user `~/.claude/agents/`
 - Claude Code saved workflows: project `.claude/workflows/` or user `~/.claude/workflows/`
-
-Copy only reviewed agent Markdown files from `agents/` to one selected agent target and preserve their namespaced filenames. Follow the current runtime discovery check in [agents/README.md](agents/README.md); do not treat `/agents` as a discovery list on Claude Code 2.1.198 or later. Installing these profiles does not install a `capability-harness` skill or enable hooks.
 
 Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
 
@@ -123,7 +109,7 @@ This is a recommended host configuration for the full suite, not a repository-en
 ## Repository Layout
 
 - `skills/` contains runtime skill source folders for this repository.
-- `agents/` contains optional Claude Code leaf-agent profile source; it is distinct from the host runtime path `.claude/agents/` and from `.agents/`.
+- `plugins/` contains optional self-contained Claude Code plugins.
 - `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
@@ -139,7 +125,7 @@ The current runtime surface is organized as follows:
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
-- `agents/` supplies optional namespaced leaf roles for evidence, independent alternatives, observable verification, and skeptical evaluation; the current controller and domain method retain ownership.
+- `plugins/capability-harness/` optionally adds namespaced evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
 - `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
@@ -164,10 +150,6 @@ Add these if you regularly ask for explicit planning, design, reassessment, or m
 - `design-codebase`
 - `reliability-check`
 - `agent-workflow`
-
-### Optional Agent Profiles
-
-Install reviewed profiles from `agents/` only when reusable bounded leaf roles improve your workflow. Start with the smallest useful subset; agent availability alone is not a reason to delegate or fan out.
 
 ### Optional Explicit-Intent Workflows
 

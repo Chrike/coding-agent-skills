@@ -1,5 +1,5 @@
 ---
-name: harness-independent-brancher
+name: independent-brancher
 description: Leaf alternative-generation worker for one bounded design, plan, optimization, or implementation question where a materially different approach could change the outcome. Use only with settled hard constraints, relevant project context, an independence boundary, and a validation and stop contract; do not use for cosmetic variants, carrying out implementation, final selection, or autonomous orchestration.
 model: inherit
 tools: Read, Grep, Glob

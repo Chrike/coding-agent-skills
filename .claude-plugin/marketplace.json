@@ -1,0 +1,14 @@
+{
+  "name": "coding-agent-skills",
+  "owner": {
+    "name": "Chrike"
+  },
+  "description": "Optional Claude Code plugins maintained with the coding-agent skill suite.",
+  "plugins": [
+    {
+      "name": "capability-harness",
+      "source": "./plugins/capability-harness",
+      "description": "A bounded quality-amplification controller with evidence, independent alternatives, observable verification, and skeptical evaluation."
+    }
+  ]
+}

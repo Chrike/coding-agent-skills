@@ -1,0 +1,79 @@
+{
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Recommend how to integrate the current vendor API version used by this repository. The behavior may have changed recently.",
+      "expected_output": "Uses the capability harness for one bounded current-evidence question while the active domain method keeps ownership of the recommendation.",
+      "assertions": [
+        "The response verifies the repository's pinned version before generic advice.",
+        "Only the evidence module is selected unless another independent need is identified.",
+        "External access and query-data boundaries remain explicit."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Compare two materially different cache architectures, verify one compatibility claim for each, and judge the actual results.",
+      "expected_output": "Uses the active design method plus the smallest useful independent, verification, and evaluation modules under one controller.",
+      "assertions": [
+        "The preferred candidate is withheld from the independent branch before its first proposal.",
+        "Each verifier receives an exact target and permitted check.",
+        "The evaluator receives actual artifacts and evidence."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a non-trivial visual artifact whose requested appearance cannot be established by reading its source representation alone.",
+      "expected_output": "Keeps the applicable visual or artifact method in charge and obtains domain-appropriate rendered or runtime evidence before claiming the requested appearance is verified.",
+      "assertions": [
+        "The harness does not pretend to be the visual domain method.",
+        "Source validity is not treated as proof of rendered quality.",
+        "Only useful verification or evaluation modules are selected."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Fix this obvious spelling mistake in one Markdown heading.",
+      "expected_output": "Completes the direct task without invoking the capability harness or any leaf agents.",
+      "assertions": [
+        "Task length or installed capability alone does not trigger the harness.",
+        "No independent alternative or skeptical evaluation is manufactured."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Answer this directly and do not apply the capability harness. [harness:off]",
+      "expected_output": "Proceeds without the per-prompt capability routing reminder or harness invocation.",
+      "assertions": [
+        "The opt-out marker is respected.",
+        "No harness agent is selected."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "The agent-workflow controller already owns this multi-agent task. Add one bounded compatibility evidence question.",
+      "expected_output": "Keeps agent-workflow as the sole controller and routes at most one evidence module through it.",
+      "assertions": [
+        "No sibling controller or second orchestration layer is created.",
+        "The harness module remains a leaf assignment."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Fix this coherent bug. The cause and exact focused regression test are already known.",
+      "expected_output": "Uses the direct implementation and focused verification path without activating the harness merely because the task affects code.",
+      "assertions": [
+        "No capability module is selected without a material independent question.",
+        "The known focused test remains the acceptance signal."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "The implementation is complete, but the final claim depends on one bounded observable runtime behavior that has not been checked.",
+      "expected_output": "Uses one execution verifier or an equivalent focused observable check without launching unrelated modules.",
+      "assertions": [
+        "The exact claim, target identity, permitted effects, and acceptance signal are supplied.",
+        "The verifier does not issue the overall completion verdict."
+      ]
+    }
+  ]
+}

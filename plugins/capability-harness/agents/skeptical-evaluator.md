@@ -1,5 +1,5 @@
 ---
-name: harness-skeptical-evaluator
+name: skeptical-evaluator
 description: Leaf evaluation worker for controller-supplied candidate artifacts or results when deterministic checks do not cover an important quality dimension. Use only with actual candidates, hard constraints, project facts, and observable evidence; do not use to generate candidates, rewrite artifacts, authorize actions, or replace the active review or design method.
 model: inherit
 tools: Read, Grep, Glob

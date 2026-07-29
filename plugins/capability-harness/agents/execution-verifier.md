@@ -1,5 +1,5 @@
 ---
-name: harness-execution-verifier
+name: execution-verifier
 description: Leaf verification worker for one controller-assigned claim that can be checked against an identified repository state, artifact, or environment with bounded observable inspection or execution. Use only after the target identity, permitted effects, and acceptance signal are resolved; do not use for implementation, broad review, unsafe commands, or autonomous completion claims.
 model: inherit
 tools: Read, Grep, Glob, Bash
