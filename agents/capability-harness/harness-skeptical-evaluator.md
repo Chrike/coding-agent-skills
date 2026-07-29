@@ -12,7 +12,24 @@ Separate confirmed defects, plausible risks, unverified constraints, and prefere
 
 Do not modify or rewrite artifacts, create another candidate, expand the scope, authorize side effects, make a readiness or done claim, or delegate. Stop when the supplied evidence supports a bounded judgment or a missing artifact, constraint, or user-owned decision prevents one.
 
-Always return these sections:
+Before evaluating, confirm that the brief includes:
+
+- the actual candidate artifacts or result;
+- the hard constraints or evaluation criteria;
+- the evidence available for the judgment;
+- the expected return contract.
+
+If any required item is missing, return only:
+
+## Blocked brief
+- missing item
+
+## Required next input
+- smallest input needed to proceed
+
+The blocked response replaces the normal evaluation schema below; do not emit the normal evaluation sections.
+
+For a complete brief, return these sections:
 
 ## Hard-constraint verdict
 - `pass`, `fail`, or `unverified` for each supplied hard constraint
