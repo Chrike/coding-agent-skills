@@ -8,6 +8,12 @@ from typing import Any
 
 PLUGIN_PREFIX = "capability-harness:"
 EXPECTED = {
+    "context-scout": [
+        "## Context gaps",
+        "## Context pack",
+        "## Evidence",
+        "## Validation cues",
+    ],
     "evidence-researcher": ["## Findings", "## Evidence"],
     "independent-brancher": [
         "## Approach",
@@ -29,6 +35,7 @@ EXPECTED = {
     ],
 }
 BLOCKABLE = {
+    "context-scout",
     "evidence-researcher",
     "independent-brancher",
     "skeptical-evaluator",

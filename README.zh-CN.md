@@ -31,7 +31,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `plugins/` 承载带命名空间的可选能力包。每个插件应作为整体安装；其中的 Skill、agent 与 hook 不替代独立的 `skills/` 能力面。
 - `workflows/` 承载显式选择的 saved-workflow 源码，不是宿主发现目录，也不参与普通 skill 路由。
 - 显式意图工作流应从清晰的自然语言意图路由，而不是要求用户记住 skill 名称后手动调用。
-- 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护，而不是再堆一层运行时路由。
+- 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护；可选的 Capability Harness 路由上下文补全、证据与验证需求，从不授权副作用。
 - `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
 - 外部分析、审查记录、迁移说明及其他参考材料可以帮助维护判断，但除非用户明确指定它们是当前指令源，否则它们不应变成主动运行时指令。
 - bundled `/code-review` 命令仍由宿主负责；不应在项目 review skill 中再建立一条重复的评审路径。
@@ -124,7 +124,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
-- `plugins/capability-harness/` 可选地增加带命名空间的证据、独立方案、验证与评估能力，同时保持独立 Skill 的职责边界不变。
+- `plugins/capability-harness/` 可选地增加项目级上下文补全和路由，以及带命名空间的证据、独立方案、验证与评估能力，同时保持独立 Skill 的职责边界不变。
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。

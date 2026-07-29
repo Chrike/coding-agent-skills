@@ -31,7 +31,7 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 - `plugins/` holds optional namespaced capability packages. Install each plugin as a unit; its Skills, agents, and hooks do not replace the standalone `skills/` surface.
 - `workflows/` holds explicit opt-in saved-workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
 - Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
-- High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill instead of forcing a second runtime router layer.
+- High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill; the optional Capability Harness routes context enrichment, evidence, and verification needs and never authorizes side effects.
 - `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
 - External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
 - The bundled `/code-review` command remains host-owned; it should not re-enter the project review skill as a second review path.
@@ -125,7 +125,7 @@ The current runtime surface is organized as follows:
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
-- `plugins/capability-harness/` optionally adds namespaced evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
+- `plugins/capability-harness/` optionally adds project-scoped context enrichment and routing plus namespaced evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
 - `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.

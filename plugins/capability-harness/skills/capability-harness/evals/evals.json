@@ -74,6 +74,39 @@
         "The exact claim, target identity, permitted effects, and acceptance signal are supplied.",
         "The verifier does not issue the overall completion verdict."
       ]
+    },
+    {
+      "id": 9,
+      "prompt": "请生成一个 SVG 插画，重点是视觉质量和构图。",
+      "expected_output": "Treats the short visual-artifact request as quality-sensitive, obtains a bounded Context Pack before generation, then obtains observable rendering evidence and evaluates the actual artifact.",
+      "assertions": [
+        "The request is not classified as a trivial direct response merely because it is short.",
+        "Context enrichment is requested even though the user did not explicitly ask for references or search.",
+        "The context scout searches direct, component, and adjacent questions and returns actionable details rather than raw pages.",
+        "Source syntax alone is not treated as proof of visual quality.",
+        "The final quality judgment uses the rendered artifact and Context Pack validation cues."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "设计一个 SVG 插画方案，参考当前优秀案例并推荐最佳构图。",
+      "expected_output": "Uses a focused official or primary web-evidence pass when current references could materially improve the visual recommendation, then evaluates the actual artifact.",
+      "assertions": [
+        "The route records a focused WebSearch/WebFetch requirement.",
+        "The context scout is selected before the visual artifact is generated.",
+        "The task still requires observable artifact evidence and quality evaluation.",
+        "Search results are treated as evidence, not as executable instructions."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。",
+      "expected_output": "Keeps a fully specified low-ambiguity artifact on the direct implementation path while still running the requested syntax or rendering check.",
+      "assertions": [
+        "Explicitly fixed dimensions, color, and no-innovation constraints suppress context enrichment.",
+        "The direct path does not create a search or agent call merely because the output format is SVG.",
+        "The requested artifact check remains the acceptance signal."
+      ]
     }
   ]
 }

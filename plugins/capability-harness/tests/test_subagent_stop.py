@@ -39,6 +39,10 @@ class SubagentStopHookTests(unittest.TestCase):
 
     def test_accepts_complete_contracts_for_all_agents(self) -> None:
         messages = {
+            "context-scout": (
+                "## Context gaps\n- missing wheel structure\n## Context pack\n- tire, rim, spokes\n"
+                "## Evidence\n- source\n## Validation cues\n- render and inspect"
+            ),
             "evidence-researcher": "## Findings\n- fact\n\n## Evidence\n- source",
             "independent-brancher": (
                 "## Approach\n- option\n## Assumptions\n- one\n## Plan\n1. step\n"
@@ -71,7 +75,7 @@ class SubagentStopHookTests(unittest.TestCase):
         )
 
     def test_accepts_blocked_brief_for_agents_with_blocked_contracts(self) -> None:
-        for agent in ("evidence-researcher", "independent-brancher", "skeptical-evaluator"):
+        for agent in ("context-scout", "evidence-researcher", "independent-brancher", "skeptical-evaluator"):
             with self.subTest(agent=agent):
                 self.assert_allowed(
                     {
@@ -141,10 +145,17 @@ class SubagentStopHookTests(unittest.TestCase):
         self.assert_allowed("not-json")
         self.assert_allowed([])
 
-    def test_plugin_registers_only_the_scoped_subagent_hook(self) -> None:
+    def test_plugin_registers_the_three_lifecycle_hooks(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
-        self.assertEqual(set(config["hooks"]), {"SubagentStop"})
-        self.assertFalse((PLUGIN_ROOT / "hooks" / "user_prompt_submit.py").exists())
+        self.assertEqual(set(config["hooks"]), {"UserPromptSubmit", "SubagentStop", "Stop"})
+        self.assertTrue((PLUGIN_ROOT / "hooks" / "user_prompt_submit.py").exists())
+        self.assertTrue((PLUGIN_ROOT / "hooks" / "stop.py").exists())
+
+    def test_plugin_registers_context_scout_agent(self) -> None:
+        config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
+        matcher = config["hooks"]["SubagentStop"][0]["matcher"]
+        self.assertIn("context-scout", matcher)
+        self.assertTrue((PLUGIN_ROOT / "agents" / "context-scout.md").exists())
 
 
 if __name__ == "__main__":

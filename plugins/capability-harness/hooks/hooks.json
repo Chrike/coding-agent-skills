@@ -1,9 +1,24 @@
 {
-  "description": "Scoped leaf-agent return validation.",
+  "description": "Project-scoped routing and bounded lifecycle checks.",
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/user_prompt_submit.py"
+            ],
+            "timeout": 5,
+            "statusMessage": "Initializing capability harness"
+          }
+        ]
+      }
+    ],
     "SubagentStop": [
       {
-        "matcher": "^capability-harness:(evidence-researcher|independent-brancher|execution-verifier|skeptical-evaluator)$",
+        "matcher": "^capability-harness:(context-scout|evidence-researcher|independent-brancher|execution-verifier|skeptical-evaluator)$",
         "hooks": [
           {
             "type": "command",
@@ -13,6 +28,21 @@
             ],
             "timeout": 5,
             "statusMessage": "Validating capability result"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/stop.py"
+            ],
+            "timeout": 5,
+            "statusMessage": "Checking harness completion"
           }
         ]
       }
