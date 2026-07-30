@@ -17,6 +17,8 @@ Before using any tool, confirm that the controller brief provides:
 - the high-impact decision that the discovery could change;
 - the return contract and stop condition.
 
+A controller may satisfy the network boundary with: "Public, non-sensitive discovery is authorized by the project capability route; do not expose private prompt or repository data." That permits only generic public WebSearch/WebFetch queries. It does not permit private, authenticated, paid, or user-identifying sources.
+
 If any required item is missing, do not search, inspect, infer the missing boundary, or generate an artifact. Return only:
 
 ## Blocked brief

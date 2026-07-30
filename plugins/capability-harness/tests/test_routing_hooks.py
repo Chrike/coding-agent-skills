@@ -38,34 +38,58 @@ class RoutingHookTests(unittest.TestCase):
         assert output is not None
         return str(output["hookSpecificOutput"]["additionalContext"])
 
-    def test_substantive_prompt_injects_a_decision_first_preflight(self) -> None:
+    def test_project_prompt_selects_project_inspection_before_external_guidance(self) -> None:
         context = self.context_for(
             "Implement the current version-specific API behavior in this project and verify it."
         )
-        self.assertIn("preflight", context)
-        self.assertIn("highest-impact unknown", context)
-        self.assertIn("direct path", context)
-        self.assertIn("current_evidence", context)
-        self.assertIn("project_inspection", context)
-        self.assertIn("observable_check", context)
+        self.assertIn("selected pre-action route: project inspection", context)
+        self.assertIn("inspect the relevant current files", context)
+        self.assertIn("evidence-researcher", context)
+        self.assertNotIn("context-scout once", context)
 
-    def test_visual_artifact_is_a_candidate_for_context_but_not_a_forced_pipeline(self) -> None:
+    def test_open_ended_quality_artifact_selects_context_discovery_before_generation(self) -> None:
         context = self.context_for("请生成一个 SVG 插画，重点是视觉质量和构图。")
-        self.assertIn("context_discovery", context)
-        self.assertIn("observable_check", context)
-        self.assertIn("independent_comparison", context)
-        self.assertIn("leads, not requirements", context)
-        self.assertNotIn("invoke capability-harness:context-scout", context)
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+        self.assertIn("invoke capability-harness:context-scout once", context)
+        self.assertIn("direct, component, and adjacent-principle", context)
+        self.assertIn("direct-route skip", context)
+
+    def test_open_ended_recommendation_selects_context_discovery_without_visual_keywords(self) -> None:
+        context = self.context_for("Recommend the best architecture for a new knowledge-intensive product.")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+        self.assertIn("invoke capability-harness:context-scout once", context)
 
     def test_fully_specified_visual_task_suppresses_optional_context_discovery(self) -> None:
         context = self.context_for("生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。")
-        self.assertIn("observable_check", context)
-        self.assertNotIn("context_discovery", context)
-        self.assertNotIn("independent_comparison", context)
+        self.assertIn("adequately specified for a direct path", context)
+        self.assertNotIn("context-scout", context)
+        self.assertNotIn("evidence-researcher", context)
+
+    def test_current_external_question_selects_focused_evidence_research(self) -> None:
+        context = self.context_for("What is the current official API behavior for this product?")
+        self.assertIn("selected pre-action route: focused evidence research", context)
+        self.assertIn("invoke capability-harness:evidence-researcher once", context)
+        self.assertIn("official-or-primary source scope", context)
+        self.assertIn("Findings/Evidence return", context)
+
+    def test_conversational_chinese_now_does_not_imply_current_evidence(self) -> None:
+        context = self.context_for("现在下一步怎么做？")
+        self.assertIn("adequately specified for a direct path", context)
+        self.assertNotIn("evidence-researcher", context)
+
+    def test_explicit_no_search_prevents_context_discovery(self) -> None:
+        context = self.context_for("设计一个高质量的产品方案，不要搜索网络。")
+        self.assertIn("adequately specified for a direct path", context)
+        self.assertNotIn("context-scout", context)
+
+    def test_explicit_no_search_overrides_current_external_evidence_route(self) -> None:
+        context = self.context_for("当前官方 API 版本是什么？不要搜索网络。")
+        self.assertIn("adequately specified for a direct path", context)
+        self.assertNotIn("evidence-researcher", context)
 
     def test_low_complexity_prompt_is_direct(self) -> None:
         context = self.context_for("hello")
-        self.assertIn("Answer directly", context)
+        self.assertIn("adequately specified for a direct path", context)
         self.assertNotIn("preflight", context)
 
     def test_opt_out_does_not_create_context_or_runtime_state(self) -> None:

@@ -31,13 +31,13 @@ python -m unittest discover -s .\plugins\capability-harness\tests -v
 
 ## Invocation
 
-The project-scoped `UserPromptSubmit` hook supplies a stateless pre-action decision reminder and candidate signals. It never launches agents, writes runtime state, or blocks completion. Explicit invocation remains available:
+The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-action route when prompt signals make the next source of evidence clear. It never launches agents, writes runtime state, or blocks completion; the active controller performs the selected route before material work. Explicit invocation remains available:
 
 ```text
 /capability-harness:capability-harness <task>
 ```
 
-Use `[harness:off]` when the current prompt should bypass the routing hook. This is a per-prompt opt-out, not a global installation change.
+Use `[harness:off]` when the current prompt should bypass the routing hook. This is a per-prompt opt-out, not a global installation change. An explicit no-search, no-web, or offline constraint suppresses external discovery while leaving relevant local project inspection available.
 
 ## Scope boundary
 

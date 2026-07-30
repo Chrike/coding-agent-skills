@@ -6,6 +6,8 @@ Capability Harness is a test-time capability amplifier for models that can compl
 
 Given the same terse user request, the project-scoped workflow may identify a missing signal, decide whether bounded discovery can change a concrete approach, obtain only that signal, and then let the active domain method generate or implement. The user should not need to write a hidden domain checklist into the prompt.
 
+For prompt profiles with a strong pre-action signal, the hook names the default next route rather than leaving every request as an equally weak suggestion. The active controller executes that one route before material work. This is intentionally different from a Stop gate: it does not require every capability, retry a completed result, or turn route candidates into a checklist.
+
 ## Canonical Example
 
 For a request such as "generate an SVG of a pelican riding a bicycle", the user prompt remains short. A decision-first pass may determine that anatomy, bicycle contact relationships, composition cues, or vector craft can materially change a chosen construction plan, then use direct, component, and adjacent research to supply those cues. If such research cannot change the plan, it should be skipped. The example does not create a special SVG workflow or imply that every visual task needs search.
@@ -33,9 +35,11 @@ When reviewing or changing this plugin without the original conversation:
 1. Read this file, `architecture.md`, `routing-policy.md`, and `capability-contracts.md` before changing routing or agent roles.
 2. Preserve positive and negative calibration cases that test a decision rule, not a catalogue of all task types.
 3. Preserve at least one case where a terse open-ended request selects useful context discovery, one where the scout explicitly skips it, and one where a fixed task remains direct.
-4. Do not reintroduce a hard Stop gate that converts candidate signals into mandatory tool calls.
+4. Do not reintroduce a hard Stop gate that converts every candidate signal into a mandatory tool call. A narrow route selected before material work remains distinct from a post-hoc completion gate.
 5. Keep `context-scout` separate from factual evidence research unless the contract and evaluation cases are deliberately redesigned together.
 6. Keep the original prompt unchanged in comparisons. Separate production tests, where exact search may be allowed, from diagnostic tests, where only adjacent searches are allowed to prevent retrieval leakage.
 7. Update this file and matching eval cases whenever the intended decision trade-off changes.
+
+Do not weaken a hook-selected strong route back into a generic candidate reminder without deliberately changing this intent and its calibration cases.
 
 The current plugin Skill, agent files, hooks, and these references are the maintained implementation contract. The initial bundle and review notes are historical inputs, not active instructions.

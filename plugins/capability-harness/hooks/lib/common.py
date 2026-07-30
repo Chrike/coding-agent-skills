@@ -7,8 +7,8 @@ from typing import Any, Iterable
 
 
 CURRENT_PATTERNS = [
-    r"\b(latest|current|today|now|version|release|price|pricing|context window|model limit|api behavior|compatib)\b",
-    r"(最新|当前|现在|今天|版本|发布|价格|上下文|模型参数|兼容|官方文档)",
+    r"\b(latest|today|version|release|price|pricing|context window|model limit|api behavior|compatib|current (?:version|release|price|pricing|api|behavior|documentation))\b",
+    r"(最新|当前(?:版本|发布|价格|API|接口|官方文档|模型)|今天(?:的)?(?:价格|新闻|政策|版本)|版本|发布|价格|模型参数|兼容|官方文档)",
 ]
 IMPLEMENT_PATTERNS = [
     r"\b(implement|build|create|modify|change|fix|debug|refactor|migrate|write code|patch|deploy)\b",
@@ -39,8 +39,12 @@ TRIVIAL_PATTERNS = [
     r"^(你好|谢谢|好的|可以|是|否)[。！! ]*$",
 ]
 FIXED_SCOPE_PATTERNS = [
-    r"\b(fixed dimensions?|fixed color|exactly|no (?:visual )?(?:exploration|innovation|reference|search))\b",
-    r"(固定尺寸|固定颜色|精确生成|仅生成|只需|无需参考|不需要参考|不需要搜索|不需要视觉创新|不要视觉创新)",
+    r"\b(fixed dimensions?|fixed color|exactly|no (?:visual )?(?:exploration|innovation|reference))\b",
+    r"(固定尺寸|固定颜色|精确生成|仅生成|只需|无需参考|不需要参考|不需要视觉创新|不要视觉创新)",
+]
+NO_EXTERNAL_DISCOVERY_PATTERNS = [
+    r"\b(do not (?:use )?search|don't (?:use )?search|no web|offline)\b",
+    r"(不需要搜索|无需搜索|不要搜索|不搜索|离线)",
 ]
 
 
@@ -70,6 +74,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     quality = any_match(stripped, QUALITY_PATTERNS) or artifact
     external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS)
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
+    external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     project = any_match(stripped, PROJECT_PATTERNS) or (implementation and not artifact)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
     substantive = not trivial and (
@@ -90,6 +95,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "quality_sensitive": quality,
         "external_guidance": external_guidance,
         "fully_specified": fully_specified,
+        "external_discovery_disallowed": external_discovery_disallowed,
         "project_dependent": project,
         "high_consequence": high_consequence,
     }
@@ -105,9 +111,35 @@ def candidate_actions(classification: dict[str, bool]) -> dict[str, bool]:
         "project_inspection": bool(classification.get("project_dependent")),
         "context_discovery": bool(
             not fully_specified
+            and not classification.get("external_discovery_disallowed", False)
             and ((artifact and quality) or (quality and classification.get("external_guidance", False)))
         ),
         "observable_check": bool(classification.get("implementation") or artifact),
         "independent_comparison": bool(quality and not fully_specified),
         "high_consequence_review": bool(classification.get("high_consequence")),
     }
+
+
+def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
+    """Choose the strongest safe default before the controller starts material work.
+
+    The hook is intentionally conservative: it only selects a route when prompt
+    signals make the next source of evidence clear. The active controller still
+    owns the task and may continue directly only after a selected leaf worker
+    returns a bounded skip or the requested evidence is unavailable.
+    """
+    if not classification.get("substantive"):
+        return "direct", "The request is low-complexity."
+
+    candidates = candidate_actions(classification)
+    if candidates["project_inspection"]:
+        return "project_inspection", "Local project facts can control the first decision."
+    if classification.get("external_discovery_disallowed"):
+        return "direct", "The user explicitly disallowed external discovery."
+    if candidates["current_evidence"] or candidates["high_consequence_review"]:
+        return "evidence_research", "A current or consequential external fact can change the result."
+    if candidates["context_discovery"]:
+        return "context_discovery", "Omitted domain or quality context can change the construction or selection plan."
+    if classification.get("fully_specified"):
+        return "direct", "The request is sufficiently fixed for a direct path."
+    return "decision_first", "No single external source is yet a stronger default than a compact route decision."

@@ -8,7 +8,7 @@ The harness is not a promise that every task needs search, a worker, a review, o
 
 ## Control Plane and Capability Plane
 
-The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` emits candidate signals and a pre-action decision reminder. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook selects a final route, launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
+The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` names one strong pre-action route when prompt signals make the next evidence source clear, then the active controller executes it. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
 
 The capability plane contains repository inspection, current-source retrieval, leaf agents, deterministic commands, renderers, and domain-specific tools. The active domain Skill remains responsible for implementation, repair, and final acceptance. If another controller already owns a workflow, the harness supplies evidence to that controller instead of creating a second orchestration layer.
 
@@ -45,4 +45,4 @@ This repository owns a project-scoped plugin under `plugins/capability-harness/`
 
 ## Reliability Boundaries
 
-The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. The current Hook does not identify the active model or measure its true capability boundary; its candidate signals are deliberately model-agnostic prompts for the controller's decision. Use calibration cases to learn where a particular model benefits. The harness is weakest when quality depends on tacit taste, unprecedented insight, private missing information, unavailable perception, or a judge that shares the generator's blind spots. Preserve uncertainty instead of turning an unavailable capability into an artificial Context Pack or a global-optimality claim.
+The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. The current Hook does not identify the active model or measure its true capability boundary; it detects only a narrow set of model-agnostic strong routes, while the active controller retains the contextual decision. Use calibration cases to learn where a particular model benefits. The harness is weakest when quality depends on tacit taste, unprecedented insight, private missing information, unavailable perception, or a judge that shares the generator's blind spots. Preserve uncertainty instead of turning an unavailable capability into an artificial Context Pack or a global-optimality claim.

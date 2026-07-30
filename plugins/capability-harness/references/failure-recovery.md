@@ -46,7 +46,7 @@ Compress to the task contract, evidence cards, current-best result, validation s
 
 ## Early stopping
 
-Stop when the selected capability action has delivered its bounded evidence, or when it cannot change an important decision or result. A candidate signal is not an obligation and the plugin has no global completion-blocking hook.
+Stop when the selected capability action has delivered its bounded evidence, or when it cannot change an important decision or result. An unselected candidate signal is not an obligation; a named strong pre-action route is completed through its bounded result or explicit unavailable-evidence state. The plugin has no global completion-blocking hook.
 
 ## Recursive or unbounded delegation
 

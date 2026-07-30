@@ -38,9 +38,9 @@ Invoke the Skill explicitly with:
 
 ## Runtime Behavior
 
-The project-scoped `UserPromptSubmit` hook classifies only candidate signals and injects a pre-action decision reminder. It never launches agents, creates project state, or blocks a final response. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
+The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, bounded context discovery, or direct work. The hook itself never launches agents, creates project state, or blocks a final response; the active controller performs the one selected route before material work. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
 
-For open-ended work, `context-scout` is not an automatic mandatory step. It first identifies the concrete decision that evidence could change. If it cannot name one, it returns a direct-route skip; if it can, it performs bounded direct, component, and adjacent WebSearch/WebFetch work and returns a compact Context Pack. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
+For open-ended work selected for context discovery, `context-scout` runs before material generation or recommendation. It first identifies the concrete decision that evidence could change. If it cannot name one, it returns a direct-route skip; if it can, it performs bounded direct, component, and adjacent WebSearch/WebFetch work and returns a compact Context Pack. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 
 The command hooks require Python 3.9 or later on `PATH`. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
 

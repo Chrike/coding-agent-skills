@@ -11,7 +11,17 @@ Before the first material generation, implementation, or recommendation, answer 
 3. Which available action can obtain that signal, and how would its result change the approach?
 4. Is that expected gain greater than the action's cost, latency, noise, and risk?
 
-If a route cannot answer all four, it is not selected. Candidate signals from `UserPromptSubmit` are prompts to consider a route, not mandatory actions. Keep the decision compact; do not turn it into a generic task taxonomy.
+If a route cannot answer all four, it is not selected. Unselected candidate signals from `UserPromptSubmit` are prompts to consider a route, not mandatory actions. A named strong pre-action route is different: execute that one route before material work, subject to its bounded skip or evidence-unavailable outcome. Keep the decision compact; do not turn it into a generic task taxonomy.
+
+## Strong Pre-Action Routes
+
+The prompt hook has a deliberately narrow role: it names a route only when a prompt has a strong, safe signal. A selected route is an instruction to obtain that one signal before material work, not a request for a later compliance review:
+
+- inspect local project facts before generic guidance when repository context can control the answer;
+- obtain one focused evidence finding for a current or consequential external fact;
+- obtain one Context Pack for open-ended quality work where omitted domain context can change a named construction or selection decision.
+
+The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a decision that discovery could change. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit no-search, no-web, or offline constraint suppresses external discovery while still permitting relevant local project inspection.
 
 ## Direct Path
 
