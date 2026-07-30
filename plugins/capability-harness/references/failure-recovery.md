@@ -12,6 +12,10 @@ Preserve the conflict, compare source authority, date, scope, and applicability,
 
 Discard evidence that does not map to a hard constraint, important decision, risk, or quality criterion. Do not keep searching by repeating the same query. Change the evidence type or stop the channel.
 
+## Context Discovery Cannot Change the Decision
+
+If no bounded source, project fact, or adjacent principle can change the named decision, do not invoke or continue context discovery. Use the direct route, a more suitable permitted tool, a user-owned clarification, or disclose the intrinsic limitation. Do not manufacture a Context Pack to satisfy a process rule.
+
 ## Empty or contaminated Context Pack
 
 If the context scout returns generic advice, raw search dumps, or an exact-match artifact instead of actionable context, do not pass it directly to generation. Mark the pack unusable, request one bounded correction with a different query class, or continue with an explicit quality risk. Keep production and diagnostic retrieval tracks separate.
@@ -42,7 +46,7 @@ Compress to the task contract, evidence cards, current-best result, validation s
 
 ## Early stopping
 
-The project-scoped `Stop` hook performs one bounded completion challenge for substantive turns. On a retry or after one block it fails open to avoid loops. The model must either perform the missing high-confidence action or explicitly report why it could not.
+Stop when the selected capability action has delivered its bounded evidence, or when it cannot change an important decision or result. A candidate signal is not an obligation and the plugin has no global completion-blocking hook.
 
 ## Recursive or unbounded delegation
 

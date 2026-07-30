@@ -1,89 +1,42 @@
-# Routing Policy
+# Decision-First Routing Policy
 
-Choose the next action by the largest unresolved impact, not by a fixed task template.
+Choose the next action by the largest unresolved impact, not by a task label, keyword, or fixed workflow. The unit of routing is a model-task decision: the same request may need external help for one model and not for another.
 
-## Direct path
+## Pre-Action Test
 
-Answer directly only when all are true:
+Before the first material generation, implementation, or recommendation, answer four questions:
 
-- the task is low consequence;
-- the requested information is stable and familiar;
-- no project inspection is needed;
-- no material alternative could change the answer;
-- no executable check would add meaningful confidence.
+1. What specific decision could change the result most?
+2. What missing signal prevents that decision from being well supported?
+3. Which available action can obtain that signal, and how would its result change the approach?
+4. Is that expected gain greater than the action's cost, latency, noise, and risk?
 
-## Context enrichment
+If a route cannot answer all four, it is not selected. Candidate signals from `UserPromptSubmit` are prompts to consider a route, not mandatory actions. Keep the decision compact; do not turn it into a generic task taxonomy.
 
-Use context enrichment before generation or recommendation when the task is open-ended and omitted domain, structural, compositional, interaction, or medium-specific details could materially change quality. This route is based on task shape, not only explicit words such as "search", "reference", or "best".
+## Direct Path
 
-The context scout should use a bounded sequence:
+Proceed directly when the task is low consequence, adequately specified, and no available evidence, observation, or independent alternative can materially change the result. Direct does not mean unverified: perform a check when the user explicitly requests one or when a concrete claim needs observation.
 
-1. identify likely gaps using the subject, relationships, medium, composition, and common-failure lenses;
-2. search one direct reference set;
-3. search one or two component or anatomy sets;
-4. search one adjacent principle, analogous case, or medium-technique set;
-5. compress the result into actionable details, evidence, uncertainty, and validation cues.
+## Context Discovery
 
-Do not paste raw pages into the generation context. Do not copy an exact retrieved artifact. If exact-match retrieval could contaminate a benchmark, use adjacent-only queries in the diagnostic track.
+Use `context-scout` before generation or recommendation when omitted domain, structural, compositional, interaction, or medium-specific information can change a named decision. The scout must first explain what its discovery could change. If it cannot, it returns a direct-route skip instead of searching.
 
-## Acquire
+When selected, use a bounded direct, component, adjacent-principle, or medium-technique pass. Keep only evidence that maps to the decision, hard constraints, a real risk, or a validation cue. Do not copy exact reference artifacts or inflate the prompt with raw pages.
 
-Use external or project acquisition when any condition holds:
+## Evidence Acquisition
 
-- the claim is current, version-specific, product-specific, legal, regulatory, medical, financial, security-sensitive, or otherwise consequential;
-- the term, behavior, API, model property, or compatibility detail may have changed;
-- the task asks for a recommendation, architecture, design, optimization, or best approach where external alternatives may materially improve quality;
-- a key assumption is unsupported by the current conversation or project;
-- a direct answer is unavailable but adjacent principles, analogous cases, standards, postmortems, or benchmarks could improve the decision.
+Use repository inspection when local code, configuration, history, or conventions control the answer. Use focused external evidence for current, version-specific, product-specific, legal, regulatory, medical, financial, security-sensitive, or otherwise consequential claims. Prefer project evidence before generic web guidance when project facts decide the issue.
 
-Prefer project inspection before generic web guidance when repository facts control the answer. For context enrichment, WebSearch/WebFetch is normally part of the bounded Context Pack; for factual or current claims, use one focused pass with official, primary, or directly applicable sources.
+## Alternatives, Observation, and Evaluation
 
-## Branch
+Generate an independent alternative only when a different load-bearing assumption, architecture, optimization target, or risk posture remains plausible. Execute whenever a concrete claim can be observed through tests, compilation, rendering, benchmarking, calculation, simulation, or direct inspection. Use an independent evaluator only after actual candidates and observable evidence leave a material quality question unresolved.
 
-Generate 2-4 isolated alternatives when:
+Do not use an LLM evaluator as the sole authority for deterministic facts. Observable evidence outranks model judgment.
 
-- more than one architecture or implementation path is plausible;
-- the first viable result is not clearly superior;
-- quality, maintainability, safety, performance, cost, or usability require trade-offs;
-- the task is open-ended and quality matters more than mere correctness;
-- a single chain is likely to anchor prematurely.
+## Capability Limits
 
-Do not branch for trivial facts, deterministic edits, or tasks with one obvious implementation under explicit constraints. A branch must change a load-bearing assumption, architecture, optimization target, or risk posture; cosmetic variants do not count.
+If the missing ability is intrinsic and no permitted tool can provide a useful signal, do not simulate confidence with more retrieval or agents. Use a suitable specialist model or domain tool when available, ask for a missing user-owned choice, or state the remaining limitation. Search can add domain detail; it does not automatically create spatial reasoning, perception, taste, or a missing execution environment.
 
-## Execute
+## Escalation Budget
 
-Execute whenever a result can be observed rather than guessed:
-
-- run tests, compilation, type checks, linters, or static analyzers;
-- reproduce the bug;
-- render the interface and inspect screenshots or interaction paths;
-- benchmark performance or resource use;
-- calculate, simulate, or query actual data;
-- inspect generated files or runtime responses.
-
-If execution is impossible, state the specific limitation and use the strongest available substitute. Do not claim verification that did not occur.
-
-## Evaluate
-
-Use an independent evaluator when:
-
-- multiple candidates pass hard constraints;
-- deterministic checks do not cover an important quality dimension;
-- the generator could be anchored to its own solution;
-- the task involves architecture, product judgment, UX, writing quality, strategy, or other comparative judgment;
-- a revision may introduce regressions.
-
-Do not use an LLM evaluator as the sole authority for a deterministic fact. Observable checks outrank model judgment.
-
-## Escalation budget
-
-Apply a bounded progression:
-
-1. inspect local context;
-2. acquire one focused evidence set or run one decisive check;
-3. branch into 2-4 independent alternatives if meaningful trade-offs remain;
-4. evaluate real outputs;
-5. perform one targeted repair;
-6. repeat only when a critical check fails or new evidence materially changes the task.
-
-Never increase agent count merely because uncertainty remains. Increase diversity of evidence or verification instead.
+Start with one selected action. Take a second action only when the first produced evidence that changed the decision or exposed a new high-impact uncertainty. Never increase agent count merely because uncertainty remains. Change the evidence type, seek an observable signal, or stop with a disclosed limitation.

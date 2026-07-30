@@ -8,7 +8,7 @@
     {
       "name": "capability-harness",
       "source": "./plugins/capability-harness",
-      "description": "A bounded quality-amplification controller with context enrichment, evidence, independent alternatives, observable verification, and skeptical evaluation."
+      "description": "A decision-first capability controller with context discovery, evidence, independent alternatives, observable verification, and skeptical evaluation."
     }
   ]
 }

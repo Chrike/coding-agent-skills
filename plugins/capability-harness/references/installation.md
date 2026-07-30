@@ -19,7 +19,7 @@ Load the source without installing it:
 claude --plugin-dir .\plugins\capability-harness
 ```
 
-Inside the session, inspect `/context`, `/agents`, and `/hooks` to confirm the Skill, five namespaced agents, and three lifecycle hooks are discoverable. The fifth agent is `capability-harness:context-scout`.
+Inside the session, inspect `/context`, `/agents`, and `/hooks` to confirm the Skill, five namespaced agents, and two scoped hooks are discoverable. The fifth agent is `capability-harness:context-scout`.
 
 ## Repository validation
 
@@ -31,7 +31,7 @@ python -m unittest discover -s .\plugins\capability-harness\tests -v
 
 ## Invocation
 
-Automatic routing is provided by the project-scoped `UserPromptSubmit` hook. Explicit invocation remains available:
+The project-scoped `UserPromptSubmit` hook supplies a stateless pre-action decision reminder and candidate signals. It never launches agents, writes runtime state, or blocks completion. Explicit invocation remains available:
 
 ```text
 /capability-harness:capability-harness <task>
@@ -41,4 +41,4 @@ Use `[harness:off]` when the current prompt should bypass the routing hook. This
 
 ## Scope boundary
 
-This plugin is intentionally project-scoped. It does not install or modify `C:\Users\wang\.claude`, does not copy the initial bundle's global installer into the runtime, and does not create user-wide agents or hooks. Runtime state is written only under the active project's `.claude/capability-harness/state/` directory.
+This plugin is intentionally project-scoped. It does not install or modify `C:\Users\wang\.claude`, does not copy the initial bundle's global installer into the runtime, and does not create user-wide agents or hooks.

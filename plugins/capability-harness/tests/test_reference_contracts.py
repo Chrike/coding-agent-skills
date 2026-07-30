@@ -15,13 +15,13 @@ EXPECTED_REFERENCES = {
     "evidence-policy.md",
     "evaluation-policy.md",
     "failure-recovery.md",
-    "state-schema.md",
     "installation.md",
     "design-intent.md",
 }
 
 MINIMUM_CONTRACTS = {
     "Context scout": [
+        "## Capability decision",
         "## Context gaps",
         "## Context pack",
         "## Evidence",

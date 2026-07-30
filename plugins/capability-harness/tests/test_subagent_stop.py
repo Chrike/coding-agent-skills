@@ -40,6 +40,7 @@ class SubagentStopHookTests(unittest.TestCase):
     def test_accepts_complete_contracts_for_all_agents(self) -> None:
         messages = {
             "context-scout": (
+                "## Capability decision\n- research can change component structure\n"
                 "## Context gaps\n- missing wheel structure\n## Context pack\n- tire, rim, spokes\n"
                 "## Evidence\n- source\n## Validation cues\n- render and inspect"
             ),
@@ -86,6 +87,17 @@ class SubagentStopHookTests(unittest.TestCase):
                         ),
                     }
                 )
+
+    def test_context_scout_can_skip_when_research_cannot_change_the_decision(self) -> None:
+        self.assert_allowed(
+            {
+                "agent_type": "capability-harness:context-scout",
+                "last_assistant_message": (
+                    "## Capability decision\n- direct route\n"
+                    "## Skip reason\n- no external context can change the fixed output"
+                ),
+            }
+        )
 
     def test_blocks_missing_headings(self) -> None:
         output = self.assert_blocked(
@@ -145,11 +157,11 @@ class SubagentStopHookTests(unittest.TestCase):
         self.assert_allowed("not-json")
         self.assert_allowed([])
 
-    def test_plugin_registers_the_three_lifecycle_hooks(self) -> None:
+    def test_plugin_registers_prompt_and_leaf_agent_hooks(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
-        self.assertEqual(set(config["hooks"]), {"UserPromptSubmit", "SubagentStop", "Stop"})
+        self.assertEqual(set(config["hooks"]), {"UserPromptSubmit", "SubagentStop"})
         self.assertTrue((PLUGIN_ROOT / "hooks" / "user_prompt_submit.py").exists())
-        self.assertTrue((PLUGIN_ROOT / "hooks" / "stop.py").exists())
+        self.assertFalse((PLUGIN_ROOT / "hooks" / "stop.py").exists())
 
     def test_plugin_registers_context_scout_agent(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))

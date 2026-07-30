@@ -8,19 +8,7 @@ import sys
 LIB = Path(__file__).resolve().parent / "lib"
 sys.path.insert(0, str(LIB))
 
-from common import (  # noqa: E402
-    SCHEMA_VERSION,
-    classify_prompt,
-    derive_requirements,
-    hash_text,
-    json_output,
-    prune_state,
-    project_path,
-    read_stdin_json,
-    save_state,
-    transcript_offset,
-    utc_now,
-)
+from common import candidate_actions, classify_prompt, json_output, read_stdin_json  # noqa: E402
 
 
 def main() -> int:
@@ -29,59 +17,24 @@ def main() -> int:
     if "[harness:off]" in prompt.lower():
         return 0
 
-    cwd = project_path(event.get("cwd"))
-    session_id = str(event.get("session_id") or "unknown")
     classification = classify_prompt(prompt)
-    requirements = derive_requirements(classification)
-    state = {
-        "schema_version": SCHEMA_VERSION,
-        "session_id": session_id,
-        "cwd": str(cwd),
-        "prompt": prompt,
-        "prompt_hash": hash_text(prompt),
-        "started_at": utc_now(),
-        "transcript_path": str(event.get("transcript_path") or ""),
-        "transcript_offset": transcript_offset(event.get("transcript_path")),
-        "classification": classification,
-        "requirements": requirements,
-        "route": "",
-        "harness": "",
-        "route_reason": "",
-        "stop_blocks": 0,
-        "last_stop_reason": "",
-    }
-    save_state(session_id, cwd, state)
-    prune_state(cwd)
-
     if not classification["substantive"]:
         context = (
             "Capability harness routing: this prompt appears low-complexity. Answer directly. "
             "Do not add search, subagents, or review unless the request itself makes them necessary."
         )
     else:
-        classification_signals = [
-            name for name, enabled in classification.items() if enabled and name != "substantive"
-        ]
-        requirement_signals = [name for name, enabled in requirements.items() if enabled]
-        context_rule = (
-            "For this open-ended quality-sensitive task, invoke capability-harness:context-scout before generating or recommending. "
-            "Ask it to search direct, component, and adjacent questions and return a compact Context Pack; do not require the user to add those details to the prompt. "
-            if requirements.get("context_enrichment")
-            else ""
-        )
+        candidates = [name for name, enabled in candidate_actions(classification).items() if enabled]
         context = (
-            "Apply the capability-harness protocol for this substantive turn. "
-            "Capability harness routing context: "
-            "Build a compact task contract and choose only the smallest module that can materially change the result. "
-            f"Classification signals: {', '.join(classification_signals) if classification_signals else 'none'}. "
-            f"Required checks: {', '.join(requirement_signals) if requirement_signals else 'none'}. "
-            "Inspect project facts before generic guidance when relevant; verify current or version-specific claims; "
-            "run observable checks for implementation work; use independent alternatives or evaluation only for material trade-offs. "
-            f"{context_rule}"
-            "For open-ended design, recommendation, or quality decisions, prefer one focused WebSearch/WebFetch pass "
-            "with official, primary, or directly applicable sources when it can materially improve the result. "
-            "Do not launch all workers by default or create a second controller. "
-            "At completion, report the route, whether the Harness was used, and the reason it was skipped or selected."
+            "Capability-harness preflight: before materially generating, modifying, or recommending, identify the single "
+            "highest-impact unknown or quality risk. Decide whether an external action can provide a signal that would "
+            "change the approach or result. Then choose either the direct path or the smallest useful capability: local "
+            "inspection, bounded context discovery, focused evidence research, an independent alternative, observable "
+            "verification, or evaluation of an actual artifact. Candidate signals are leads, not requirements: "
+            f"{', '.join(candidates) if candidates else 'none'}. "
+            "Do not run a search, Context Pack, agent, or review merely because it is available. Do not defer the decision "
+            "until after implementation. Keep the active domain method in control, preserve the user prompt, and state "
+            "the selected route and reason only when it helps make a material decision observable."
         )
 
     json_output(

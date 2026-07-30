@@ -14,16 +14,16 @@ Derive only dimensions relevant to the task. Common dimensions include correctne
 
 Do not reward extra features, verbosity, abstraction, or visual decoration unless they advance the objective.
 
-## Context-enrichment evaluation
+## Capability-Decision Evaluation
 
-Keep the original user prompt unchanged. Compare at least these conditions when measuring the feature:
+Keep the original user prompt unchanged. Evaluate the decision itself before judging a generated artifact:
 
 - direct generation without the harness;
-- generation with the current baseline routing;
-- generation after a bounded Context Pack;
-- a stronger-model reference only as an upper baseline, not as hidden prompt content.
+- a pre-action decision that selects no augmentation;
+- a pre-action decision that selects one bounded capability action;
+- a stronger-model result only as an upper baseline, not as hidden prompt content.
 
-Use a production track when exact task search is allowed and a diagnostic track that forbids exact-match retrieval. The diagnostic track measures context discovery rather than copying an existing answer. Evaluate the actual rendered or executed artifact against the original hard constraints and the Context Pack's validation cues.
+Each calibration case tests one decision rule, such as whether current evidence, local inspection, context discovery, observable execution, or an independent alternative can materially alter the result. It is not a taxonomy of all possible tasks. Run the same cases separately for each model whose behavior matters; the Hook does not infer model-specific thresholds at runtime. Use a production track when exact task search is allowed and a diagnostic track that forbids exact-match retrieval. The diagnostic track measures whether discovery changes a decision rather than copying an existing answer. Evaluate the actual rendered or executed artifact against the original hard constraints and any selected capability's validation cues.
 
 ## Judge controls
 

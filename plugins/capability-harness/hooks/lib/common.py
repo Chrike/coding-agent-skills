@@ -1,18 +1,10 @@
-#!/usr/bin/env python3
 from __future__ import annotations
 
-import hashlib
 import json
-import os
 import re
 import sys
-from datetime import datetime, timedelta, timezone
-from pathlib import Path
 from typing import Any, Iterable
 
-
-SCHEMA_VERSION = 1
-STATE_ROOT = Path(".claude") / "capability-harness" / "state"
 
 CURRENT_PATTERNS = [
     r"\b(latest|current|today|now|version|release|price|pricing|context window|model limit|api behavior|compatib)\b",
@@ -52,10 +44,6 @@ FIXED_SCOPE_PATTERNS = [
 ]
 
 
-def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
-
-
 def read_stdin_json() -> dict[str, Any]:
     try:
         raw = sys.stdin.read()
@@ -67,63 +55,6 @@ def read_stdin_json() -> dict[str, Any]:
 
 def json_output(data: dict[str, Any]) -> None:
     sys.stdout.write(json.dumps(data, ensure_ascii=False))
-
-
-def project_path(value: Any) -> Path:
-    candidate = Path(str(value or Path.cwd())).expanduser()
-    try:
-        return candidate.resolve()
-    except OSError:
-        return candidate.absolute()
-
-
-def state_dir(cwd: Any) -> Path:
-    return project_path(cwd) / STATE_ROOT
-
-
-def safe_session_id(value: Any) -> str:
-    text = str(value or "unknown")
-    return re.sub(r"[^A-Za-z0-9_.-]", "_", text)[:160] or "unknown"
-
-
-def state_path(session_id: Any, cwd: Any) -> Path:
-    return state_dir(cwd) / f"{safe_session_id(session_id)}.json"
-
-
-def atomic_write_json(path: Path, data: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    os.replace(tmp, path)
-
-
-def load_state(session_id: Any, cwd: Any) -> dict[str, Any]:
-    path = state_path(session_id, cwd)
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except (OSError, json.JSONDecodeError):
-        return {}
-
-
-def save_state(session_id: Any, cwd: Any, data: dict[str, Any]) -> None:
-    data["updated_at"] = utc_now()
-    atomic_write_json(state_path(session_id, cwd), data)
-
-
-def prune_state(cwd: Any, days: int = 7) -> None:
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    try:
-        paths = state_dir(cwd).glob("*.json")
-    except OSError:
-        return
-    for path in paths:
-        try:
-            modified = datetime.fromtimestamp(path.stat().st_mtime, timezone.utc)
-            if modified < cutoff:
-                path.unlink(missing_ok=True)
-        except OSError:
-            pass
 
 
 def any_match(text: str, patterns: Iterable[str]) -> bool:
@@ -139,15 +70,6 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     quality = any_match(stripped, QUALITY_PATTERNS) or artifact
     external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS)
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
-    # Do not gate context enrichment on explicit search words: implicit quality gaps are the primary use case.
-    context_enrichment = bool(
-        not trivial
-        and not fully_specified
-        and (
-            (artifact and quality)
-            or (quality and external_guidance)
-        )
-    )
     project = any_match(stripped, PROJECT_PATTERNS) or (implementation and not artifact)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
     substantive = not trivial and (
@@ -168,131 +90,24 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "quality_sensitive": quality,
         "external_guidance": external_guidance,
         "fully_specified": fully_specified,
-        "context_enrichment": context_enrichment,
         "project_dependent": project,
         "high_consequence": high_consequence,
     }
 
 
-def derive_requirements(classification: dict[str, bool]) -> dict[str, bool]:
+def candidate_actions(classification: dict[str, bool]) -> dict[str, bool]:
+    """Return possible actions; the controller decides whether any are worth their cost."""
+    quality = classification.get("quality_sensitive", False)
+    fully_specified = classification.get("fully_specified", False)
+    artifact = classification.get("visual_or_artifact", False)
     return {
-        "external_or_project_evidence": bool(
-            classification.get("current_or_version_specific")
-            or classification.get("quality_sensitive")
-            or classification.get("external_guidance")
-            or classification.get("context_enrichment")
-            or classification.get("high_consequence")
-            or classification.get("project_dependent")
-        ),
+        "current_evidence": bool(classification.get("current_or_version_specific")),
         "project_inspection": bool(classification.get("project_dependent")),
-        "observable_check": bool(
-            classification.get("implementation") or classification.get("visual_or_artifact")
+        "context_discovery": bool(
+            not fully_specified
+            and ((artifact and quality) or (quality and classification.get("external_guidance", False)))
         ),
-        "independent_branch_or_evaluation": bool(
-            classification.get("quality_sensitive")
-            and not classification.get("current_or_version_specific")
-            and not classification.get("fully_specified")
-        ),
-        "context_enrichment": bool(classification.get("context_enrichment")),
-        "focused_web_guidance": bool(
-            classification.get("current_or_version_specific")
-            or (
-                classification.get("quality_sensitive")
-                and classification.get("external_guidance")
-            )
-            or classification.get("context_enrichment")
-            or classification.get("high_consequence")
-        ),
+        "observable_check": bool(classification.get("implementation") or artifact),
+        "independent_comparison": bool(quality and not fully_specified),
+        "high_consequence_review": bool(classification.get("high_consequence")),
     }
-
-
-def hash_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
-
-
-def transcript_offset(path_text: Any) -> int:
-    try:
-        return Path(str(path_text)).expanduser().stat().st_size
-    except OSError:
-        return 0
-
-
-def read_transcript_delta(path_text: Any, offset: int, max_bytes: int = 2_000_000) -> str:
-    try:
-        path = Path(str(path_text)).expanduser()
-        size = path.stat().st_size
-        start = min(max(0, int(offset)), size)
-        if size - start > max_bytes:
-            start = size - max_bytes
-        with path.open("rb") as stream:
-            stream.seek(start)
-            return stream.read(max_bytes).decode("utf-8", errors="replace")
-    except (OSError, ValueError):
-        return ""
-
-
-def extract_tool_names(raw_jsonl: str) -> set[str]:
-    names: set[str] = set()
-    for line in raw_jsonl.splitlines():
-        try:
-            obj = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        stack: list[Any] = [obj]
-        while stack:
-            item = stack.pop()
-            if isinstance(item, dict):
-                if item.get("type") in {"tool_use", "tool_call"} and isinstance(item.get("name"), str):
-                    names.add(item["name"])
-                for key, value in item.items():
-                    if key in {"subagent_type", "agent_type"} and isinstance(value, str):
-                        names.add(value)
-                    if key in {"tool_name", "name"} and isinstance(value, str):
-                        if any(token in value.lower() for token in ["web", "search", "fetch", "read", "grep", "glob", "bash", "agent", "task", "browser", "playwright"]):
-                            names.add(value)
-                    if isinstance(value, (dict, list)):
-                        stack.append(value)
-            elif isinstance(item, list):
-                stack.extend(item)
-    return names
-
-
-def normalized_tool_tokens(names: set[str]) -> set[str]:
-    tokens: set[str] = set()
-    for name in names:
-        low = name.lower()
-        if "context-scout" in low or "context_scout" in low:
-            tokens.add("context")
-        if "skeptical-evaluator" in low or "skeptical_evaluator" in low:
-            tokens.add("evaluate")
-        if "independent-brancher" in low or "independent_brancher" in low:
-            tokens.add("branch")
-        if "evidence-researcher" in low or "evidence_researcher" in low:
-            tokens.add("evidence")
-        if "websearch" in low or "web_search" in low or low.endswith("search") or "search_query" in low:
-            tokens.add("web")
-        if "webfetch" in low or "fetch" in low or "browser" in low:
-            tokens.add("web")
-        if low in {"read", "grep", "glob"} or any(x in low for x in ["read_file", "grep", "glob"]):
-            tokens.add("inspect")
-        if low in {"bash", "shell"} or any(x in low for x in ["bash", "terminal", "execute", "run_command"]):
-            tokens.add("execute")
-        if any(x in low for x in ["playwright", "browser", "render", "screenshot"]):
-            tokens.add("execute")
-        if low in {"agent", "task"} or any(x in low for x in ["subagent", "agent", "task"]):
-            tokens.add("agent")
-    return tokens
-
-
-def route_report(message: str) -> dict[str, str]:
-    report: dict[str, str] = {}
-    keys = {"route": "route", "harness": "harness", "reason": "route_reason"}
-    for raw_line in message.splitlines():
-        line = raw_line.strip().lstrip("*#").strip()
-        key, separator, value = line.partition(":")
-        if not separator:
-            continue
-        normalized_key = key.strip().casefold()
-        if normalized_key in keys and value.strip():
-            report[keys[normalized_key]] = value.strip()[:500]
-    return report

@@ -9,6 +9,7 @@ from typing import Any
 PLUGIN_PREFIX = "capability-harness:"
 EXPECTED = {
     "context-scout": [
+        "## Capability decision",
         "## Context gaps",
         "## Context pack",
         "## Evidence",
@@ -99,6 +100,10 @@ def main() -> int:
     message = str(event.get("last_assistant_message") or "")
     lines = top_level_lines(message)
     if local_name in BLOCKABLE and has_heading(lines, "## Blocked brief") and has_heading(lines, "## Required next input"):
+        return 0
+    if local_name == "context-scout" and has_heading(lines, "## Capability decision") and has_heading(
+        lines, "## Skip reason"
+    ):
         return 0
 
     missing = [heading for heading in EXPECTED[local_name] if not has_heading(lines, heading)]

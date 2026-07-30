@@ -1,5 +1,5 @@
 {
-  "description": "Project-scoped routing and bounded lifecycle checks.",
+  "description": "Project-scoped decision-first routing and leaf-agent contract checks.",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -11,7 +11,7 @@
               "${CLAUDE_PLUGIN_ROOT}/hooks/user_prompt_submit.py"
             ],
             "timeout": 5,
-            "statusMessage": "Initializing capability harness"
+            "statusMessage": "Preparing capability decision"
           }
         ]
       }
@@ -28,21 +28,6 @@
             ],
             "timeout": 5,
             "statusMessage": "Validating capability result"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python",
-            "args": [
-              "${CLAUDE_PLUGIN_ROOT}/hooks/stop.py"
-            ],
-            "timeout": 5,
-            "statusMessage": "Checking harness completion"
           }
         ]
       }

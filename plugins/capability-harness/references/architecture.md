@@ -2,53 +2,47 @@
 
 ## Objective
 
-Increase effective system capability without changing model weights by externalizing five functions that a model may perform unreliably: context discovery, information acquisition, alternative generation, observable verification, and independent evaluation.
+Increase effective system capability without changing model weights by making a better decision before the first material action. The harness externalizes context discovery, information acquisition, alternative generation, observable verification, and independent evaluation only when one of them can supply a signal that changes the result.
 
-The harness is a bounded control protocol. It is not a promise that every task needs a worker, a web search, or a second opinion.
+The harness is not a promise that every task needs search, a worker, a review, or a repair loop. It cannot create an intrinsic capability that no available tool, source, observation, or specialist can supply.
 
-## Control plane and capability plane
+## Control Plane and Capability Plane
 
-The control plane is the project Skill and its lifecycle hooks. It extracts a task contract, records routing metadata, and applies bounded completion checks. The capability plane contains repository inspection, current-source retrieval, leaf agents, deterministic commands, and domain-specific tools.
+The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` emits candidate signals and a pre-action decision reminder. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook selects a final route, launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
 
-The active domain Skill remains responsible for implementation, repair, and final acceptance. If another controller already owns a workflow, the harness supplies evidence to that controller instead of creating a second orchestration layer.
+The capability plane contains repository inspection, current-source retrieval, leaf agents, deterministic commands, renderers, and domain-specific tools. The active domain Skill remains responsible for implementation, repair, and final acceptance. If another controller already owns a workflow, the harness supplies evidence to that controller instead of creating a second orchestration layer.
 
-## Project plugin mapping
+## Project Plugin Mapping
 
-The current project plugin maps the protocol to these components:
-
-- `skills/capability-harness/SKILL.md` — method capsule and module-selection rules;
-- `agents/context-scout.md` — bounded discovery of omitted domain and quality context;
+- `skills/capability-harness/SKILL.md` — decision-first method capsule and module-selection rules;
+- `agents/context-scout.md` — bounded assessment and discovery of omitted context that can change one decision;
 - `agents/evidence-researcher.md` — bounded repository or explicitly authorized current-source evidence;
 - `agents/independent-brancher.md` — one materially different candidate;
 - `agents/execution-verifier.md` — one bounded observable check;
 - `agents/skeptical-evaluator.md` — independent judgment over supplied artifacts or results;
-- `hooks/hooks.json` — `UserPromptSubmit`, `SubagentStop`, and `Stop` lifecycle hooks;
-- `hooks/*.py` and `hooks/lib/common.py` — routing, contract, and project-state mechanics;
-- `references/` — design and operating guidance for maintainers, not an additional runtime component;
-- `tests/` and `skills/capability-harness/evals/` — development and maintenance data, not automatic task workers.
+- `hooks/hooks.json` — `UserPromptSubmit` and `SubagentStop` hooks;
+- `hooks/*.py` and `hooks/lib/common.py` — candidate-signal and leaf-contract mechanics;
+- `references/` — maintainer guidance, not another runtime instruction layer;
+- `tests/` and `skills/capability-harness/evals/` — maintenance and calibration data, not automatic task workers.
 
-## State machine
+## Decision-First State Machine
 
-1. **INTAKE** — extract the objective, hard constraints, project facts, quality-sensitive decisions, unknowns, and available checks.
-2. **GAP MAP** — identify omitted domain, structural, compositional, medium-specific, or project context that could change quality.
-3. **CONTEXT DISCOVERY** — use the smallest bounded direct, component, and adjacent evidence pass to build a Context Pack when needed.
-4. **ROUTE** — choose the single highest-value next capability module or a small independent set.
-5. **ACQUIRE** — obtain external or project evidence for factual or current claims.
-6. **BRANCH** — produce materially distinct alternatives in isolation.
-7. **EXECUTE** — test or observe actual behavior.
-8. **EVALUATE** — compare real outputs independently.
-9. **INTEGRATE** — update the current-best result and unresolved-risk register.
-10. **REPAIR** — make a targeted change against a confirmed defect.
-11. **FINALIZE** — stop only after bounded completion checks.
+1. **INTAKE** — extract the objective, hard constraints, project facts, available checks, and boundaries.
+2. **DECIDE** — name the highest-impact unknown or quality risk; identify the new signal that could change the plan; select the direct path when no such signal exists.
+3. **DISCOVER OR ACQUIRE** — obtain only the selected bounded context or evidence.
+4. **ROUTE** — choose the single highest-value next capability module, if one remains useful.
+5. **EXECUTE** — implement, render, test, calculate, or otherwise observe the real result through the active domain method.
+6. **EVALUATE** — compare actual results independently only when deterministic checks leave a material quality question.
+7. **INTEGRATE** — update the current-best result and disclose unresolved risks.
+8. **REPAIR** — make a targeted change only against a confirmed defect.
+9. **FINALIZE** — stop when another capability call is unlikely to alter an important decision or result.
 
-Transitions are evidence-driven, but the controller must not require the user to name an implicit context gap. A module must not run merely because it exists, and the hooks do not launch all workers automatically.
+The important transition is from **DECIDE** to the first material action. Later review is useful for confirmed defects, but it should not substitute for deciding what information or observation would have improved the original approach.
 
-## Deployment boundary
+## Deployment Boundary
 
-This repository owns a project-scoped plugin under `plugins/capability-harness/`. The supported installation is local to the current project, or a one-session `claude --plugin-dir` load for validation. Runtime state is written under the active project at `.claude/capability-harness/state/`.
+This repository owns a project-scoped plugin under `plugins/capability-harness/`. The supported installation is local to the current project, or a one-session `claude --plugin-dir` load for validation. It does not write per-session routing state and does not modify `C:\Users\wang\.claude`.
 
-The initial bundle's global installer and global `~/.claude` deployment model are intentionally not part of this plugin. Nothing in this plugin should modify `C:\Users\wang\.claude` or install a user-wide agent, Skill, hook, or instruction block.
+## Reliability Boundaries
 
-## Reliability boundaries
-
-The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. It is weakest when quality depends on tacit taste, unprecedented insight, private missing information, visual references unavailable to the toolchain, or a judge that shares the generator's blind spots. Preserve uncertainty instead of converting a bounded pass into a global optimality claim.
+The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. The current Hook does not identify the active model or measure its true capability boundary; its candidate signals are deliberately model-agnostic prompts for the controller's decision. Use calibration cases to learn where a particular model benefits. The harness is weakest when quality depends on tacit taste, unprecedented insight, private missing information, unavailable perception, or a judge that shares the generator's blind spots. Preserve uncertainty instead of turning an unavailable capability into an artificial Context Pack or a global-optimality claim.
