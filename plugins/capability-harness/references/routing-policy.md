@@ -21,7 +21,7 @@ The prompt hook has a deliberately narrow role: it names a route only when a pro
 - obtain one focused evidence finding for a current or consequential external fact;
 - obtain one Pre-action Decision Brief for open-ended or unfamiliar work where omitted domain context can materially improve a named construction or selection decision.
 
-The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit no-search, no-web, or offline constraint suppresses external discovery while still permitting relevant local project inspection.
+The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit source or network constraint in the current prompt suppresses external discovery while still permitting relevant local project inspection; this is not a default project policy.
 
 ## Direct Path
 

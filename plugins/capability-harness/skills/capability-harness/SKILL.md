@@ -35,7 +35,7 @@ evaluation remain optional downstream capabilities.
 
 For a hook-selected public discovery route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
 
-An explicit user constraint such as no search, no web, no internet, or offline overrides this generic route authorization. Do not invoke external discovery under that constraint; use only explicitly permitted local evidence or take the direct path.
+An explicit source or network constraint in the current user request overrides this generic route authorization. Do not invoke external discovery under that constraint; use only explicitly permitted local evidence or take the direct path. This is a per-request boundary, not a default project policy.
 
 ## Reference Policy
 

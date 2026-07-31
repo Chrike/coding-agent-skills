@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "prompt": "Fix this obvious spelling mistake in one Markdown heading.",
+      "prompt": "Correct one known spelling mistake in a single Markdown heading.",
       "expected_output": "Completes the direct task without invoking the capability harness or any leaf agents.",
       "assertions": [
         "Task length or installed capability alone does not trigger the harness.",
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "prompt": "Use the already selected implementation workflow for this localized fix. Do not add a supplementary quality pass.",
+      "prompt": "A workflow is already selected for this localized fix; follow it without adding another controller.",
       "expected_output": "Respects the explicit boundary and proceeds without invoking the capability harness or any Harness agent.",
       "assertions": [
         "The user's explicit workflow boundary is respected.",
@@ -61,7 +61,7 @@
     },
     {
       "id": 7,
-      "prompt": "Fix this coherent bug. The cause and exact focused regression test are already known.",
+      "prompt": "Fix a bug whose cause and focused regression test are already known.",
       "expected_output": "Uses the direct implementation and focused verification path without activating the harness merely because the task affects code.",
       "assertions": [
         "No capability module is selected without a material independent question.",
@@ -72,7 +72,7 @@
     {
       "id": 8,
       "prompt": "The implementation is complete, but the final claim depends on one bounded observable runtime behavior that has not been checked.",
-      "expected_output": "Uses one focused observable check without launching unrelated modules; if execution cannot be authorized for the read-only verifier, preserves a blocked or unverified result instead of pretending it ran.",
+      "expected_output": "Uses one focused observable check without launching unrelated modules; if the exact check is not authorized or host permissions deny it, preserves a blocked or unverified result instead of pretending it ran.",
       "assertions": [
         "The exact claim, target identity, permitted effects, and acceptance signal are supplied.",
         "The verifier does not issue the overall completion verdict."

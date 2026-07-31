@@ -71,11 +71,11 @@ class ReferenceContractTests(unittest.TestCase):
         self.assertIn("It does not modify source files, repair defects, assign severity, recommend a fix", contracts)
         self.assertNotIn("## Results", contracts)
 
-    def test_execution_verifier_is_read_only(self) -> None:
+    def test_execution_verifier_requires_an_exact_authorized_check(self) -> None:
         verifier = (PLUGIN_ROOT / "agents" / "execution-verifier.md").read_text(encoding="utf-8")
-        self.assertIn("tools: Read, Grep, Glob", verifier)
-        self.assertNotIn("tools: Read, Grep, Glob, Bash", verifier)
-        self.assertIn("has no shell tool", verifier)
+        self.assertIn("tools: Read, Grep, Glob, Bash", verifier)
+        self.assertIn("exact command or action", verifier)
+        self.assertIn("Host permission prompts and policy remain authoritative", verifier)
 
     def test_installation_reference_is_project_scoped(self) -> None:
         installation = (REFERENCE_ROOT / "installation.md").read_text(encoding="utf-8")

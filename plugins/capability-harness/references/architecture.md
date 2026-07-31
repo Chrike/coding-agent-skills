@@ -18,7 +18,7 @@ The capability plane contains repository inspection, current-source retrieval, l
 - `agents/context-scout.md` — bounded assessment and discovery of omitted context that can change one decision;
 - `agents/evidence-researcher.md` — bounded repository or explicitly authorized current-source evidence;
 - `agents/independent-brancher.md` — one materially different candidate;
-- `agents/execution-verifier.md` — one bounded read-only evidence check; command execution remains with an authorized controller or runner;
+- `agents/execution-verifier.md` — one bounded observable check; command execution requires an exact controller brief and remains subject to host permissions;
 - `agents/skeptical-evaluator.md` — independent judgment over supplied artifacts or results;
 - `hooks/hooks.json` — `UserPromptSubmit` and `SubagentStop` hooks;
 - `hooks/*.py` and `hooks/lib/common.py` — candidate-signal and leaf-contract mechanics;

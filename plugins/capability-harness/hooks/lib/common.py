@@ -47,21 +47,22 @@ FIXED_SCOPE_PATTERNS = [
     r"\b(fixed dimensions?|fixed color|exactly|no (?:visual )?(?:exploration|innovation|reference))\b",
     r"(固定尺寸|固定颜色|精确生成|仅生成|只需|无需参考|不需要参考|不需要视觉创新|不要视觉创新)",
 ]
+# These are explicit per-prompt source constraints, not a global search policy.
 NO_EXTERNAL_DISCOVERY_PATTERNS = [
-    r"\b(do not (?:use )?search|don't (?:use )?search|do not browse|don't browse|without browsing|no web|no internet|no external sources|offline)\b",
-    r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料|离线)",
+    r"\b(do not (?:use )?search|don't (?:use )?search|do not browse(?: the web)?|don't browse(?: the web)?|without browsing(?: the web)?|no web|no internet|no external sources|do not use external sources)\b",
+    r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料)",
 ]
 OPEN_ENDED_PATTERNS = [
     r"\b(explain|solve|derive|analy[sz]e|diagnose|design|how|why)\b",
     r"(解释|解决|求解|推导|分析|诊断|如何|为什么|怎样|陌生领域|复杂问题)",
 ]
 WORKFLOW_OWNED_PATTERNS = [
-    r"^\s*/(?:code-review|agent-workflow|test-strategy|review-and-finish)\b",
     r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
     r"(?:workflow|controller) already owns",
     r"(?:do not|don't|without) add (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
     r"(?:不要|无需|不需要).*(?:额外|补充|新增).*(?:Harness|审查|质量|流程|代理)",
 ]
+SLASH_WORKFLOW_PATTERNS = [r"^\s*/[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?\b"]
 EXPLICIT_HARNESS_PATTERNS = [
     r"(?:/capability-harness(?::capability-harness)?\b|capability-harness:capability-harness\b)",
 ]
@@ -95,7 +96,9 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
-    workflow_owned = any_match(stripped, WORKFLOW_OWNED_PATTERNS) and not explicit_harness
+    workflow_owned = (
+        any_match(stripped, WORKFLOW_OWNED_PATTERNS) or any_match(stripped, SLASH_WORKFLOW_PATTERNS)
+    ) and not explicit_harness
     project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
     open_ended_signal = len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)

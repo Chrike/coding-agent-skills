@@ -106,36 +106,42 @@ class RoutingHookTests(unittest.TestCase):
             self.submit("Fix this coherent bug. The cause and exact focused regression test are already known.")
         )
 
-    def test_selected_workflow_is_silent(self) -> None:
+    def test_explicit_workflow_ownership_is_silent(self) -> None:
         self.assertIsNone(
-            self.submit("Use the already selected implementation workflow for this localized fix. Do not add a supplementary quality pass.")
+            self.submit("The workflow already owns this localized fix; follow its existing plan without adding another pass.")
         )
 
-    def test_workflow_commands_are_silent(self) -> None:
-        for prompt in (
-            "/code-review Inspect the current diff.",
-            "/agent-workflow Implement the requested change.",
-            "/test-strategy Design focused tests for this change.",
-        ):
-            with self.subTest(prompt=prompt):
-                self.assertIsNone(self.submit(prompt))
+    def test_explicit_slash_workflow_is_silent_without_hardcoded_names(self) -> None:
+        self.assertIsNone(self.submit("/quality-check Design a focused review plan for this change."))
+
+    def test_explicit_harness_slash_command_keeps_harness_routing(self) -> None:
+        context = self.context_for(
+            "/capability-harness:capability-harness Create a non-trivial visual artifact with unresolved composition decisions."
+        )
+        self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_no_project_context_does_not_trigger_project_inspection(self) -> None:
         self.assertIsNone(self.submit("Implement a change without repository context."))
 
     def test_project_without_external_discovery_stays_local(self) -> None:
-        context = self.context_for("在当前项目中实现 API，不要联网。")
+        context = self.context_for("In the current project, implement the API. Do not use external sources.")
         self.assertIn("use local project evidence only", context)
         self.assertNotIn("evidence-researcher", context)
 
     def test_no_browsing_phrases_are_silent(self) -> None:
         for prompt in (
             "Design this without browsing the web.",
-            "Analyze this offline with no external sources.",
+            "Analyze this using no external sources.",
             "仅使用本地资料分析，不需要外部搜索。",
         ):
             with self.subTest(prompt=prompt):
                 self.assertIsNone(self.submit(prompt))
+
+    def test_offline_first_domain_does_not_mean_no_external_discovery(self) -> None:
+        context = self.context_for(
+            "Design an offline-first architecture for a mobile product with unresolved structural trade-offs."
+        )
+        self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_opt_out_does_not_create_context_or_runtime_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

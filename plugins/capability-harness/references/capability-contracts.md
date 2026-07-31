@@ -95,7 +95,7 @@ The agent may add `## Evidence basis` when repository facts materially affected 
 
 ## Execution verifier
 
-Use for one claim that can be checked against an identified repository state or artifact with bounded read-only inspection. This leaf has no shell tool; when execution is required, the active controller or an explicitly authorized runner must obtain that evidence. The complete response must include:
+Use for one claim that can be checked against an identified repository state, artifact, or environment with bounded observable inspection or execution. The controller must specify the exact check, target, permitted effects, and stop condition; host permissions remain authoritative. The complete response must include:
 
 ```markdown
 ## Verification target

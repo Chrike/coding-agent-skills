@@ -37,7 +37,7 @@ The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-act
 /capability-harness:capability-harness <task>
 ```
 
-Use `[harness:off]` when the current prompt should bypass the routing hook. This is a per-prompt opt-out, not a global installation change. An explicit no-search, no-web, or offline constraint suppresses external discovery while leaving relevant local project inspection available.
+Use `[harness:off]` when the current prompt should bypass the routing hook. This is a per-prompt opt-out, not a global installation change. An explicit source or network constraint in the current prompt suppresses external discovery while leaving relevant local project inspection available.
 
 ## Scope boundary
 
