@@ -23,6 +23,8 @@ Before using any tool, verify that the controller brief provides:
 
 A controller may satisfy the network boundary with: "Public, non-sensitive evidence research is authorized by the project capability route; do not expose private prompt or repository data." That permits only generic public WebSearch/WebFetch queries. It does not permit private, authenticated, paid, or user-identifying sources.
 
+An explicit user constraint such as no search, no web, no internet, or offline overrides this generic authorization. Do not use WebSearch or WebFetch under that constraint; use only explicitly permitted local evidence or return a blocked brief.
+
 If any required item is missing, do not read, search, browse, or infer the missing boundary. Return a blocked brief, identify each missing item, state the smallest required next input, and stop before using a tool. The blocked response replaces the normal success schema below; do not emit the normal success sections.
 
 For an incomplete brief, use:

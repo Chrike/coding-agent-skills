@@ -19,6 +19,8 @@ Before using any tool, confirm that the controller brief provides:
 
 A controller may satisfy the network boundary with: "Public, non-sensitive discovery is authorized by the project capability route; do not expose private prompt or repository data." That permits only generic public WebSearch/WebFetch queries. It does not permit private, authenticated, paid, or user-identifying sources.
 
+An explicit user constraint such as no search, no web, no internet, or offline overrides this generic authorization. Do not use WebSearch or WebFetch under that constraint; use only explicitly permitted local sources or return the bounded direct-route skip.
+
 If any required item is missing, do not search, inspect, infer the missing boundary, or generate an artifact. Return only:
 
 ## Blocked brief

@@ -51,8 +51,8 @@ def read_event() -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def top_level_lines(message: str) -> set[str]:
-    lines: set[str] = set()
+def top_level_lines(message: str) -> list[str]:
+    lines: list[str] = []
     fence_char = ""
     fence_length = 0
 
@@ -78,13 +78,50 @@ def top_level_lines(message: str) -> set[str]:
             fence_length = marker_length
             continue
 
-        lines.add(line.casefold())
+        lines.append(line)
 
     return lines
 
 
-def has_heading(lines: set[str], heading: str) -> bool:
-    return heading.casefold() in lines
+def has_heading(lines: list[str], heading: str) -> bool:
+    return any(line.casefold() == heading.casefold() for line in lines)
+
+
+def is_top_level_heading(line: str) -> bool:
+    return line.startswith("## ")
+
+
+def section_body(lines: list[str], heading: str) -> list[str]:
+    target = heading.casefold()
+    for index, line in enumerate(lines):
+        if line.casefold() != target:
+            continue
+        end = next(
+            (candidate_index for candidate_index in range(index + 1, len(lines)) if is_top_level_heading(lines[candidate_index])),
+            len(lines),
+        )
+        return [line.strip() for line in lines[index + 1 : end] if line.strip()]
+    return []
+
+
+def contract_problems(lines: list[str], headings: list[str]) -> list[str]:
+    missing = [heading for heading in headings if not has_heading(lines, heading)]
+    problems: list[str] = []
+    if missing:
+        problems.append(f"Missing headings: {', '.join(missing)}")
+
+    positions = [
+        next(index for index, line in enumerate(lines) if line.casefold() == heading.casefold())
+        for heading in headings
+        if has_heading(lines, heading)
+    ]
+    if positions != sorted(positions):
+        problems.append("Required headings are out of order")
+
+    empty = [heading for heading in headings if has_heading(lines, heading) and not section_body(lines, heading)]
+    if empty:
+        problems.append(f"Empty sections: {', '.join(empty)}")
+    return problems
 
 
 def main() -> int:
@@ -99,20 +136,37 @@ def main() -> int:
 
     message = str(event.get("last_assistant_message") or "")
     lines = top_level_lines(message)
-    if local_name in BLOCKABLE and has_heading(lines, "## Blocked brief") and has_heading(lines, "## Required next input"):
-        return 0
-    if local_name == "context-scout" and has_heading(lines, "## Capability decision") and has_heading(
-        lines, "## Skip reason"
+    if local_name in BLOCKABLE and (
+        has_heading(lines, "## Blocked brief") or has_heading(lines, "## Required next input")
     ):
+        problems = contract_problems(lines, ["## Blocked brief", "## Required next input"])
+        if not problems:
+            return 0
+        reason = (
+            f"Return the result using the required {agent_type} blocked contract. "
+            f"Contract problems: {'; '.join(problems)}. Keep the response bounded and state the missing input."
+        )
+        json.dump({"decision": "block", "reason": reason}, sys.stdout, ensure_ascii=False)
         return 0
 
-    missing = [heading for heading in EXPECTED[local_name] if not has_heading(lines, heading)]
-    if not missing:
+    if local_name == "context-scout" and has_heading(lines, "## Skip reason"):
+        problems = contract_problems(lines, ["## Capability decision", "## Skip reason"])
+        if not problems:
+            return 0
+        reason = (
+            f"Return the result using the required {agent_type} skip contract. "
+            f"Contract problems: {'; '.join(problems)}. Keep the response bounded and explain the skip."
+        )
+        json.dump({"decision": "block", "reason": reason}, sys.stdout, ensure_ascii=False)
+        return 0
+
+    problems = contract_problems(lines, EXPECTED[local_name])
+    if not problems:
         return 0
 
     reason = (
         f"Return the result using the required {agent_type} contract. "
-        f"Missing headings: {', '.join(missing)}. "
+        f"Contract problems: {'; '.join(problems)}. "
         "Keep the response bounded, evidence-based, and free of delegation."
     )
     json.dump({"decision": "block", "reason": reason}, sys.stdout, ensure_ascii=False)

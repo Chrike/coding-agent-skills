@@ -26,12 +26,12 @@ Inside the session, inspect `/context`, `/agents`, and `/hooks` to confirm the S
 ```powershell
 claude plugin validate .\plugins\capability-harness --strict
 $env:PYTHONDONTWRITEBYTECODE = "1"
-python -m unittest discover -s .\plugins\capability-harness\tests -v
+python -B -m unittest discover -s .\plugins\capability-harness\tests -v
 ```
 
 ## Invocation
 
-The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-action route when prompt signals make the next source of evidence clear. It never launches agents, writes runtime state, or blocks completion; the active controller performs the selected route before material work. Explicit invocation remains available:
+The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-action route when prompt signals make the next source of evidence clear. Direct and workflow-owned prompts produce no additional hook context. The hook never launches agents, writes runtime state, or blocks completion; the active controller performs the selected route before material work. Explicit invocation remains available:
 
 ```text
 /capability-harness:capability-harness <task>
@@ -41,4 +41,4 @@ Use `[harness:off]` when the current prompt should bypass the routing hook. This
 
 ## Scope boundary
 
-This plugin is intentionally project-scoped. It does not install or modify `C:\Users\wang\.claude`, does not copy the initial bundle's global installer into the runtime, and does not create user-wide agents or hooks.
+This plugin is intentionally project-scoped. It does not install or modify the user's global Claude Code configuration, does not copy the initial bundle's global installer into the runtime, and does not create user-wide agents or hooks.

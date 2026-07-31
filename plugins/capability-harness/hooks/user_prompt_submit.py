@@ -9,7 +9,6 @@ LIB = Path(__file__).resolve().parent / "lib"
 sys.path.insert(0, str(LIB))
 
 from common import (  # noqa: E402
-    candidate_actions,
     classify_prompt,
     json_output,
     read_stdin_json,
@@ -17,14 +16,19 @@ from common import (  # noqa: E402
 )
 
 
-def route_context(route: str, reason: str, candidates: list[str]) -> str:
+def route_context(route: str, reason: str, external_discovery_disallowed: bool = False) -> str:
     if route == "project_inspection":
+        external_follow_up = (
+            "External discovery is disabled for this prompt; use local project evidence only."
+            if external_discovery_disallowed
+            else "If local inspection exposes one remaining current external uncertainty, use one bounded "
+            "capability-harness:evidence-researcher brief for that exact question."
+        )
         return (
             "Capability-harness selected pre-action route: project inspection. "
             f"Reason: {reason} Before materially generating, modifying, or recommending, inspect the relevant "
             "current files, configuration, history, and local conventions. Do not substitute generic web guidance "
-            "for repository evidence. If local inspection exposes one remaining current external uncertainty, use "
-            "one bounded capability-harness:evidence-researcher brief for that exact question."
+            f"for repository evidence. {external_follow_up}"
         )
     if route == "evidence_research":
         return (
@@ -50,16 +54,6 @@ def route_context(route: str, reason: str, candidates: list[str]) -> str:
             "material work; do not merely cite it or paste raw results. A scout direct-route skip is the valid basis for "
             "proceeding without search; do not silently downgrade this route because direct generation is faster."
         )
-    if route == "decision_first":
-        return (
-            "Capability-harness preflight: before materially generating, modifying, or recommending, identify the single "
-            "highest-impact unknown or quality risk. For an unfamiliar or open-ended domain, bounded search is a valid "
-            "first action when it may supply missing task context; do not require advance proof that it will help. Then "
-            "choose either the direct path or the smallest useful capability: local inspection, bounded context "
-            "discovery, focused evidence research, an independent alternative, observable verification, or evaluation "
-            "of an actual artifact. Candidate signals are leads, not requirements: "
-            f"{', '.join(candidates) if candidates else 'none'}. Do not defer the decision until after implementation."
-        )
     return (
         "Capability harness routing: this prompt appears adequately specified for a direct path. "
         "Do not add search, subagents, or review unless the request itself makes them necessary."
@@ -73,9 +67,14 @@ def main() -> int:
         return 0
 
     classification = classify_prompt(prompt)
-    candidates = [name for name, enabled in candidate_actions(classification).items() if enabled]
+    if classification.get("workflow_owned"):
+        return 0
+
     route, reason = select_pre_action_route(classification)
-    context = route_context(route, reason, candidates)
+    if route == "direct":
+        return 0
+
+    context = route_context(route, reason, bool(classification.get("external_discovery_disallowed")))
 
     json_output(
         {

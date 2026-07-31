@@ -75,10 +75,9 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("invoke capability-harness:context-scout once", context)
 
     def test_fully_specified_artifact_task_suppresses_optional_context_discovery(self) -> None:
-        context = self.context_for("Create a 24x24 red circular icon with fixed dimensions and color, without visual innovation.")
-        self.assertIn("adequately specified for a direct path", context)
-        self.assertNotIn("context-scout", context)
-        self.assertNotIn("evidence-researcher", context)
+        self.assertIsNone(
+            self.submit("Create a 24x24 red circular icon with fixed dimensions and color, without visual innovation.")
+        )
 
     def test_current_external_question_selects_focused_evidence_research(self) -> None:
         context = self.context_for("What is the current official API behavior for this product?")
@@ -88,24 +87,55 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("Findings/Evidence return", context)
 
     def test_conversational_chinese_now_does_not_imply_current_evidence(self) -> None:
-        context = self.context_for("现在下一步怎么做？")
-        self.assertIn("adequately specified for a direct path", context)
-        self.assertNotIn("evidence-researcher", context)
+        self.assertIsNone(self.submit("现在下一步怎么做？"))
 
     def test_explicit_no_search_prevents_context_discovery(self) -> None:
-        context = self.context_for("设计一个高质量的产品方案，不要搜索网络。")
-        self.assertIn("adequately specified for a direct path", context)
-        self.assertNotIn("context-scout", context)
+        self.assertIsNone(self.submit("设计一个高质量的产品方案，不要搜索网络。"))
 
     def test_explicit_no_search_overrides_current_external_evidence_route(self) -> None:
-        context = self.context_for("当前官方 API 版本是什么？不要搜索网络。")
-        self.assertIn("adequately specified for a direct path", context)
-        self.assertNotIn("evidence-researcher", context)
+        self.assertIsNone(self.submit("当前官方 API 版本是什么？不要搜索网络。"))
 
     def test_low_complexity_prompt_is_direct(self) -> None:
-        context = self.context_for("hello")
-        self.assertIn("adequately specified for a direct path", context)
-        self.assertNotIn("preflight", context)
+        self.assertIsNone(self.submit("hello"))
+
+    def test_simple_spelling_fix_is_silent(self) -> None:
+        self.assertIsNone(self.submit("Fix this obvious spelling mistake in one Markdown heading."))
+
+    def test_known_bug_with_existing_plan_is_silent(self) -> None:
+        self.assertIsNone(
+            self.submit("Fix this coherent bug. The cause and exact focused regression test are already known.")
+        )
+
+    def test_selected_workflow_is_silent(self) -> None:
+        self.assertIsNone(
+            self.submit("Use the already selected implementation workflow for this localized fix. Do not add a supplementary quality pass.")
+        )
+
+    def test_workflow_commands_are_silent(self) -> None:
+        for prompt in (
+            "/code-review Inspect the current diff.",
+            "/agent-workflow Implement the requested change.",
+            "/test-strategy Design focused tests for this change.",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
+
+    def test_no_project_context_does_not_trigger_project_inspection(self) -> None:
+        self.assertIsNone(self.submit("Implement a change without repository context."))
+
+    def test_project_without_external_discovery_stays_local(self) -> None:
+        context = self.context_for("在当前项目中实现 API，不要联网。")
+        self.assertIn("use local project evidence only", context)
+        self.assertNotIn("evidence-researcher", context)
+
+    def test_no_browsing_phrases_are_silent(self) -> None:
+        for prompt in (
+            "Design this without browsing the web.",
+            "Analyze this offline with no external sources.",
+            "仅使用本地资料分析，不需要外部搜索。",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
 
     def test_opt_out_does_not_create_context_or_runtime_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -133,6 +163,11 @@ class RoutingHookTests(unittest.TestCase):
     def test_plugin_registers_prompt_and_leaf_agent_hooks_only(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
         self.assertEqual(set(config["hooks"]), {"UserPromptSubmit", "SubagentStop"})
+        for hook_group in config["hooks"].values():
+            for registration in hook_group:
+                command_hook = registration["hooks"][0]
+                self.assertEqual(command_hook["command"], "python")
+                self.assertEqual(command_hook["args"][0], "-B")
         self.assertTrue((PLUGIN_ROOT / "hooks" / "user_prompt_submit.py").exists())
         self.assertFalse((PLUGIN_ROOT / "hooks" / "stop.py").exists())
 

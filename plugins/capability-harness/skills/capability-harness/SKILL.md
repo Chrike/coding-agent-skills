@@ -19,7 +19,7 @@ Before materially generating, modifying, or recommending, identify:
 
 Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
 
-When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery.
+When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. Direct and workflow-owned prompts receive no additional hook context. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery.
 
 ## Context Discovery
 
@@ -34,6 +34,8 @@ search results into the task, copy an existing artifact, or treat the scout as t
 evaluation remain optional downstream capabilities.
 
 For a hook-selected public discovery route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
+
+An explicit user constraint such as no search, no web, no internet, or offline overrides this generic route authorization. Do not invoke external discovery under that constraint; use only explicitly permitted local evidence or take the direct path.
 
 ## Reference Policy
 

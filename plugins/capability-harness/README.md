@@ -15,7 +15,7 @@ claude plugin marketplace add . --scope local
 claude plugin install capability-harness@coding-agent-skills --scope local
 ```
 
-Keep `--scope local` unless you intentionally want the marketplace and plugin available to every Claude Code project for that user. This repository does not install or modify `C:\Users\wang\.claude`.
+Keep `--scope local` unless you intentionally want the marketplace and plugin available to every Claude Code project for that user. This repository does not install or modify the user's global Claude Code configuration.
 After installing in an existing Claude Code session, run `/reload-plugins`; alternatively start a new session.
 
 ## Local Validation
@@ -25,7 +25,7 @@ From the repository root:
 ```powershell
 claude plugin validate .\plugins\capability-harness --strict
 $env:PYTHONDONTWRITEBYTECODE = "1"
-python -m unittest discover -s .\plugins\capability-harness\tests -v
+python -B -m unittest discover -s .\plugins\capability-harness\tests -v
 ```
 
 For an explicitly authorized runtime check, load the source for one session with `claude --plugin-dir .\plugins\capability-harness`, then verify the Skill in `/context`, the five `capability-harness:*` agents in the Custom Agents section, and the two scoped hooks in `/hooks`.
@@ -38,7 +38,7 @@ Invoke the Skill explicitly with:
 
 ## Runtime Behavior
 
-The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, bounded context discovery, or direct work. The hook itself never launches agents, creates project state, or blocks a final response; the active controller performs the one selected route before material work. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
+The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, or bounded context discovery. Direct and workflow-owned requests produce no hook context. The hook itself never launches agents, creates project state, or blocks a final response; the active controller performs the one selected route before material work. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
 
 For open-ended or unfamiliar work selected for context discovery, `context-scout` runs before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 

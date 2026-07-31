@@ -8,6 +8,7 @@
             "type": "command",
             "command": "python",
             "args": [
+              "-B",
               "${CLAUDE_PLUGIN_ROOT}/hooks/user_prompt_submit.py"
             ],
             "timeout": 5,
@@ -24,6 +25,7 @@
             "type": "command",
             "command": "python",
             "args": [
+              "-B",
               "${CLAUDE_PLUGIN_ROOT}/hooks/subagent_stop.py"
             ],
             "timeout": 5,

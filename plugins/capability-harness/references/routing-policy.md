@@ -25,7 +25,7 @@ The hook does not claim to understand every task or launch a worker itself. The 
 
 ## Direct Path
 
-Proceed directly when the task is low consequence, adequately specified, and no available evidence, observation, or independent alternative can materially change the result. Direct does not mean unverified: perform a check when the user explicitly requests one or when a concrete claim needs observation.
+Proceed directly when the task is low consequence, adequately specified, and no available evidence, observation, or independent alternative can materially change the result. Direct does not mean unverified: perform a check when the user explicitly requests one or when a concrete claim needs observation. For the prompt hook, the direct path is silent and emits no additional context.
 
 ## Context Discovery
 

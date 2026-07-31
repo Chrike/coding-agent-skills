@@ -30,6 +30,11 @@ PROJECT_PATTERNS = [
     r"\b(repo|repository|project|codebase|file|module|package|configuration|config|test suite)\b",
     r"(项目|仓库|代码库|文件|模块|配置|测试)",
 ]
+NO_PROJECT_CONTEXT_PATTERNS = [
+    r"\b(?:without|no) (?:a )?(?:repo(?:sitory)?|project|codebase) context\b",
+    r"\bnot tied to (?:a )?(?:repo(?:sitory)?|project|codebase)\b",
+    r"(无|没有|不涉及|不依赖)(?:当前)?(?:项目|仓库|代码库)(?:上下文|背景)?",
+]
 HIGH_CONSEQUENCE_PATTERNS = [
     r"\b(security|vulnerability|legal|medical|financial|production|data loss|privacy|compliance)\b",
     r"(安全|漏洞|法律|医疗|金融|生产环境|数据丢失|隐私|合规)",
@@ -43,12 +48,22 @@ FIXED_SCOPE_PATTERNS = [
     r"(固定尺寸|固定颜色|精确生成|仅生成|只需|无需参考|不需要参考|不需要视觉创新|不要视觉创新)",
 ]
 NO_EXTERNAL_DISCOVERY_PATTERNS = [
-    r"\b(do not (?:use )?search|don't (?:use )?search|no web|offline)\b",
-    r"(不需要搜索|无需搜索|不要搜索|不搜索|离线)",
+    r"\b(do not (?:use )?search|don't (?:use )?search|do not browse|don't browse|without browsing|no web|no internet|no external sources|offline)\b",
+    r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料|离线)",
 ]
 OPEN_ENDED_PATTERNS = [
     r"\b(explain|solve|derive|analy[sz]e|diagnose|design|how|why)\b",
     r"(解释|解决|求解|推导|分析|诊断|如何|为什么|怎样|陌生领域|复杂问题)",
+]
+WORKFLOW_OWNED_PATTERNS = [
+    r"^\s*/(?:code-review|agent-workflow|test-strategy|review-and-finish)\b",
+    r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
+    r"(?:workflow|controller) already owns",
+    r"(?:do not|don't|without) add (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
+    r"(?:不要|无需|不需要).*(?:额外|补充|新增).*(?:Harness|审查|质量|流程|代理)",
+]
+EXPLICIT_HARNESS_PATTERNS = [
+    r"(?:/capability-harness(?::capability-harness)?\b|capability-harness:capability-harness\b)",
 ]
 
 
@@ -79,7 +94,9 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS)
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
-    project = any_match(stripped, PROJECT_PATTERNS) or (implementation and not artifact)
+    explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
+    workflow_owned = any_match(stripped, WORKFLOW_OWNED_PATTERNS) and not explicit_harness
+    project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
     open_ended_signal = len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)
     substantive = not trivial and (
@@ -105,6 +122,8 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "project_dependent": project,
         "high_consequence": high_consequence,
         "open_ended_signal": open_ended_signal,
+        "workflow_owned": workflow_owned,
+        "explicit_harness": explicit_harness,
     }
 
 
@@ -146,7 +165,7 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
     owns the task and may continue directly only after a selected leaf worker
     returns a bounded skip or the requested evidence is unavailable.
     """
-    if not classification.get("substantive"):
+    if not classification.get("substantive") or classification.get("workflow_owned"):
         return "direct", "The request is low-complexity."
 
     candidates = candidate_actions(classification)
@@ -160,4 +179,4 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
         return "context_discovery", "Omitted domain or task context can change the construction or selection plan."
     if classification.get("fully_specified"):
         return "direct", "The request is sufficiently fixed for a direct path."
-    return "decision_first", "No single external source is yet a stronger default than a compact route decision."
+    return "direct", "No strong pre-action route was identified; proceed without Harness context injection."

@@ -99,6 +99,18 @@ class SubagentStopHookTests(unittest.TestCase):
             }
         )
 
+    def test_accepts_unverified_execution_result(self) -> None:
+        self.assert_allowed(
+            {
+                "agent_type": "capability-harness:execution-verifier",
+                "last_assistant_message": (
+                    "## Verification target\n- runtime claim and current artifact\n"
+                    "## Checks executed\n- None; the host did not authorize execution\n"
+                    "## Evidence result\n- unverified; no runtime evidence was obtained"
+                ),
+            }
+        )
+
     def test_blocks_missing_headings(self) -> None:
         output = self.assert_blocked(
             {
@@ -107,6 +119,42 @@ class SubagentStopHookTests(unittest.TestCase):
             }
         )
         self.assertIn("## Evidence", str(output["reason"]))
+
+    def test_blocks_empty_required_sections(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:evidence-researcher",
+                "last_assistant_message": "## Findings\n\n## Evidence\n",
+            }
+        )
+        self.assertIn("Empty sections", str(output["reason"]))
+
+    def test_blocks_required_headings_out_of_order(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:evidence-researcher",
+                "last_assistant_message": "## Evidence\n- source\n## Findings\n- fact",
+            }
+        )
+        self.assertIn("out of order", str(output["reason"]))
+
+    def test_blocks_incomplete_blocked_contract(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:evidence-researcher",
+                "last_assistant_message": "## Blocked brief\n- missing boundary",
+            }
+        )
+        self.assertIn("blocked contract", str(output["reason"]))
+
+    def test_blocks_empty_context_skip_contract(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:context-scout",
+                "last_assistant_message": "## Capability decision\n\n## Skip reason\n",
+            }
+        )
+        self.assertIn("skip contract", str(output["reason"]))
 
     def test_blocks_heading_names_embedded_in_prose(self) -> None:
         self.assert_blocked(
@@ -160,6 +208,9 @@ class SubagentStopHookTests(unittest.TestCase):
     def test_plugin_registers_prompt_and_leaf_agent_hooks(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
         self.assertEqual(set(config["hooks"]), {"UserPromptSubmit", "SubagentStop"})
+        for hook_group in config["hooks"].values():
+            for registration in hook_group:
+                self.assertEqual(registration["hooks"][0]["args"][0], "-B")
         self.assertTrue((PLUGIN_ROOT / "hooks" / "user_prompt_submit.py").exists())
         self.assertFalse((PLUGIN_ROOT / "hooks" / "stop.py").exists())
 

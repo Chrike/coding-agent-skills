@@ -8,7 +8,7 @@ The harness is not a promise that every task needs search, a worker, a review, o
 
 ## Control Plane and Capability Plane
 
-The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` names one strong pre-action route when prompt signals make the next evidence source clear, then the active controller executes it. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
+The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` names one strong pre-action route when prompt signals make the next evidence source clear, then the active controller executes it; direct and workflow-owned prompts receive no injected context. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
 
 The capability plane contains repository inspection, current-source retrieval, leaf agents, deterministic commands, renderers, and domain-specific tools. The active domain Skill remains responsible for implementation, repair, and final acceptance. If another controller already owns a workflow, the harness supplies evidence to that controller instead of creating a second orchestration layer.
 
@@ -18,7 +18,7 @@ The capability plane contains repository inspection, current-source retrieval, l
 - `agents/context-scout.md` — bounded assessment and discovery of omitted context that can change one decision;
 - `agents/evidence-researcher.md` — bounded repository or explicitly authorized current-source evidence;
 - `agents/independent-brancher.md` — one materially different candidate;
-- `agents/execution-verifier.md` — one bounded observable check;
+- `agents/execution-verifier.md` — one bounded read-only evidence check; command execution remains with an authorized controller or runner;
 - `agents/skeptical-evaluator.md` — independent judgment over supplied artifacts or results;
 - `hooks/hooks.json` — `UserPromptSubmit` and `SubagentStop` hooks;
 - `hooks/*.py` and `hooks/lib/common.py` — candidate-signal and leaf-contract mechanics;
@@ -41,7 +41,7 @@ The important transition is from **DECIDE** to the first material action. Later 
 
 ## Deployment Boundary
 
-This repository owns a project-scoped plugin under `plugins/capability-harness/`. The supported installation is local to the current project, or a one-session `claude --plugin-dir` load for validation. It does not write per-session routing state and does not modify `C:\Users\wang\.claude`.
+This repository owns a project-scoped plugin under `plugins/capability-harness/`. The supported installation is local to the current project, or a one-session `claude --plugin-dir` load for validation. It does not write per-session routing state and does not modify the user's global Claude Code configuration.
 
 ## Reliability Boundaries
 
