@@ -78,17 +78,19 @@
     {
       "id": 9,
       "prompt": "请生成一个 SVG 插画，重点是视觉质量和构图。",
-      "expected_output": "Makes a pre-action decision about whether omitted context can change the construction plan, then selects only the smallest useful capability action before generation.",
+      "description": "Optional SVG calibration example; not a universal task rule or an automated runtime test.",
+      "expected_output": "Makes a pre-action decision about missing context, then selects only the smallest useful capability action before generation.",
       "assertions": [
         "The request is not reduced to a trivial file-writing task merely because it is short.",
-        "The controller names the specific construction or quality decision that missing context could change before calling a worker.",
-        "If context discovery is selected, the scout returns a Capability decision before direct, component, and adjacent evidence rather than raw pages.",
-        "If context discovery cannot change the construction plan, the scout returns a direct-route skip instead of searching for process compliance.",
+        "The controller names the specific construction or quality decision that missing context should inform before calling a worker.",
+        "If context discovery is selected, the scout returns a Capability decision and a Decision Brief before direct, component, and adjacent evidence rather than raw pages.",
+        "If bounded discovery cannot supply useful task context, the scout returns a direct-route skip instead of searching for process compliance.",
         "Source syntax alone is not treated as proof of rendered quality."
       ]
     },
     {
       "id": 10,
+      "description": "Optional visual calibration example; not a universal task rule or an automated runtime test.",
       "prompt": "设计一个 SVG 插画方案，参考当前优秀案例并推荐最佳构图。",
       "expected_output": "Uses a focused web-evidence pass only if current references can change a named composition decision, then keeps any later artifact check proportionate to the selected route.",
       "assertions": [
@@ -100,6 +102,7 @@
     },
     {
       "id": 11,
+      "description": "Optional fixed-artifact calibration example; not a universal task rule or an automated runtime test.",
       "prompt": "生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。",
       "expected_output": "Keeps a fully specified low-ambiguity artifact on the direct implementation path while still running the requested syntax or rendering check.",
       "assertions": [

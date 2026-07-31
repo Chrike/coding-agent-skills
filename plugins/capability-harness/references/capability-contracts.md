@@ -6,36 +6,42 @@ Every delegated task must have a narrow objective, explicit boundaries, a fixed 
 
 ## Context scout
 
-Use for one open-ended visual, design, architecture, recommendation, or artifact task where omitted context may materially affect a named decision. Before searching, the scout determines whether discovery can change that decision. A discovery response must include:
+Use for one open-ended or unfamiliar task where missing domain context may materially improve a named decision. Before
+searching, the scout states the decision and the missing signal. A plausible material gap is enough to begin bounded
+discovery; the scout does not need to prove in advance that search will improve the final result. A discovery response
+must include:
 
 ```markdown
 ## Capability decision
-- the decision, missing signal, expected result change, and why discovery is the best next action
+- the decision, missing signal, and why bounded discovery is the best next action
 
 ## Context gaps
 - material detail the request leaves implicit and why it matters
 
-## Context pack
+## Decision brief
 - actionable domain, relationship, medium, composition, and failure-mode details
 
 ## Evidence
 - source or repository location and what it supports
 
-## Validation cues
-- observable checks for whether the context was used
+## Plan implications
+- concrete changes the active controller should make before generation or implementation
 ```
 
-When no bounded evidence can change the decision, the scout returns only:
+When no plausible bounded source can supply useful task context, the scout returns only:
 
 ```markdown
 ## Capability decision
-- direct route and why discovery would not change the result
+- direct route and why no bounded source can supply useful task context
 
 ## Skip reason
 - the fixed constraint, sufficient local evidence, unavailable signal, or intrinsic capability limit
 ```
 
-The scout may add `## Search path`, `## Noise excluded`, and `## Uncertainty`. It uses at most 3-5 focused direct, component, and adjacent searches, does not copy an existing artifact, and does not choose or implement the final result. For an incomplete brief, return the blocked-brief form below.
+The scout may add `## Search path`, `## Noise excluded`, and `## Uncertainty`. It uses at most 3-5 focused direct, component,
+and adjacent searches, does not copy an existing artifact, and does not choose or implement the final result. Verification
+and evaluation are separate optional routes, not prerequisites for this contract. For an incomplete brief, return the
+blocked-brief form below.
 
 ## Evidence researcher
 

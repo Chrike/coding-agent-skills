@@ -11,9 +11,9 @@ EXPECTED = {
     "context-scout": [
         "## Capability decision",
         "## Context gaps",
-        "## Context pack",
+        "## Decision brief",
         "## Evidence",
-        "## Validation cues",
+        "## Plan implications",
     ],
     "evidence-researcher": ["## Findings", "## Evidence"],
     "independent-brancher": [

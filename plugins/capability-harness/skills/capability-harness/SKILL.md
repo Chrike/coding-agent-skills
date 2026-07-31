@@ -1,11 +1,11 @@
 ---
 name: capability-harness
-description: Apply a decision-first capability-harness pass to substantive work when a model may miss context, evidence, an observable check, or a materially different alternative. Before generating or modifying, choose the smallest action that can change the result; do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
+description: Apply a decision-first capability-harness pass to substantive work when a model may miss context, evidence, an observable check, or a materially different alternative. Before generating or modifying, choose the smallest action that could improve the result; do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
 ---
 
 # Capability Harness
 
-The project-scoped prompt hook selects one strong pre-action route when the prompt makes the next source of evidence clear. It never launches workers, records hidden reasoning, or blocks completion. This Skill executes that route before material work; it does not replace the active domain method or make every task a multi-step workflow.
+The project-scoped prompt hook selects one strong pre-action route when the prompt makes the next source of task context clear. It never launches workers, records hidden reasoning, or blocks completion. This Skill executes that route before material work; it does not replace the active domain method or make every task a multi-step workflow.
 
 ## Capability Decision
 
@@ -13,19 +13,25 @@ Before materially generating, modifying, or recommending, identify:
 
 - the requested outcome and hard constraints;
 - the single highest-impact unknown, quality risk, or unsupported assumption;
-- the external signal, observation, or alternative that could change the approach or result;
+- the external signal, observation, or alternative that could inform or improve the approach or result;
 - the smallest action that can obtain that signal, or the reason to proceed directly;
 - the permission, data, side-effect, and stop boundary.
 
-Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists. If no available action can materially change the result, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
+Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
 
 When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery.
 
 ## Context Discovery
 
-For an open-ended visual, design, architecture, recommendation, or artifact task, consider `capability-harness:context-scout` only when omitted domain, structural, compositional, or medium-specific context could change a named decision. Give it the original outcome and constraints; do not make the user write the missing checklist into the prompt.
+For an open-ended or unfamiliar task, consider `capability-harness:context-scout` when omitted domain, structural,
+compositional, interaction, or medium-specific information could materially improve a named decision. Give it the original
+outcome and constraints; do not make the user write the missing checklist into the prompt.
 
-The scout first states whether research can change that decision. It may return a direct-route skip rather than manufacture a Context Pack. When it does research, use its compact evidence and validation cues to guide the active domain method. Do not paste raw search results into the task, copy an existing artifact, or treat the scout as the final evaluator.
+The scout first states the decision and missing context. It may return a direct-route skip when no bounded source can supply
+useful task context. When it does research, it returns a Pre-action Decision Brief with evidence and explicit plan
+implications. The active controller must consume that Brief before material generation or implementation. Do not paste raw
+search results into the task, copy an existing artifact, or treat the scout as the final evaluator. Verification and
+evaluation remain optional downstream capabilities.
 
 For a hook-selected public discovery route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
 
@@ -58,4 +64,7 @@ Each worker is a leaf. Give it one bounded brief, the decision it is meant to in
 
 Prefer current repository evidence for repository behavior and official or primary current sources for external claims. Match verification to the requested outcome: source syntax alone does not establish rendered, runtime, interactive, calculated, or user-visible quality. Preserve blocked, failed, stale, and unverified evidence states instead of collapsing them into success.
 
-The active controller and domain Skill own implementation, repair count, acceptance, and final integration. Harness workers return bounded context, evidence, candidates, verification, or evaluation; they do not limit or replace domain-workflow repairs. Preserve the strongest verified result seen so far. Report a selected route and brief reason only when it makes a material decision observable; do not claim global optimality or overall task completion.
+The active controller and domain Skill own implementation, repair count, acceptance, and final integration. Harness workers
+return bounded context, evidence, candidates, verification, or evaluation; they do not limit or replace domain-workflow
+repairs. Preserve the strongest result seen so far. Report a selected route and the resulting plan implication when it makes
+a material decision observable; do not claim global optimality or overall task completion.

@@ -46,6 +46,10 @@ NO_EXTERNAL_DISCOVERY_PATTERNS = [
     r"\b(do not (?:use )?search|don't (?:use )?search|no web|offline)\b",
     r"(不需要搜索|无需搜索|不要搜索|不搜索|离线)",
 ]
+OPEN_ENDED_PATTERNS = [
+    r"\b(explain|solve|derive|analy[sz]e|diagnose|design|how|why)\b",
+    r"(解释|解决|求解|推导|分析|诊断|如何|为什么|怎样|陌生领域|复杂问题)",
+]
 
 
 def read_stdin_json() -> dict[str, Any]:
@@ -77,6 +81,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     project = any_match(stripped, PROJECT_PATTERNS) or (implementation and not artifact)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
+    open_ended_signal = len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)
     substantive = not trivial and (
         len(stripped) >= 100
         or current
@@ -85,6 +90,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         or quality
         or project
         or high_consequence
+        or open_ended_signal
         or "\n" in stripped
     )
     return {
@@ -98,6 +104,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "external_discovery_disallowed": external_discovery_disallowed,
         "project_dependent": project,
         "high_consequence": high_consequence,
+        "open_ended_signal": open_ended_signal,
     }
 
 
@@ -106,13 +113,24 @@ def candidate_actions(classification: dict[str, bool]) -> dict[str, bool]:
     quality = classification.get("quality_sensitive", False)
     fully_specified = classification.get("fully_specified", False)
     artifact = classification.get("visual_or_artifact", False)
+    open_ended = bool(
+        classification.get("substantive")
+        and not classification.get("implementation")
+        and not classification.get("project_dependent")
+        and not classification.get("current_or_version_specific")
+        and not classification.get("high_consequence")
+    )
     return {
         "current_evidence": bool(classification.get("current_or_version_specific")),
         "project_inspection": bool(classification.get("project_dependent")),
         "context_discovery": bool(
             not fully_specified
             and not classification.get("external_discovery_disallowed", False)
-            and ((artifact and quality) or (quality and classification.get("external_guidance", False)))
+            and (
+                (artifact and quality)
+                or (quality and classification.get("external_guidance", False))
+                or open_ended
+            )
         ),
         "observable_check": bool(classification.get("implementation") or artifact),
         "independent_comparison": bool(quality and not fully_specified),
@@ -139,7 +157,7 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
     if candidates["current_evidence"] or candidates["high_consequence_review"]:
         return "evidence_research", "A current or consequential external fact can change the result."
     if candidates["context_discovery"]:
-        return "context_discovery", "Omitted domain or quality context can change the construction or selection plan."
+        return "context_discovery", "Omitted domain or task context can change the construction or selection plan."
     if classification.get("fully_specified"):
         return "direct", "The request is sufficiently fixed for a direct path."
     return "decision_first", "No single external source is yet a stronger default than a compact route decision."

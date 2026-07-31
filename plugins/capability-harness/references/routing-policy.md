@@ -6,10 +6,10 @@ Choose the next action by the largest unresolved impact, not by a task label, ke
 
 Before the first material generation, implementation, or recommendation, answer four questions:
 
-1. What specific decision could change the result most?
-2. What missing signal prevents that decision from being well supported?
-3. Which available action can obtain that signal, and how would its result change the approach?
-4. Is that expected gain greater than the action's cost, latency, noise, and risk?
+1. What specific decision could improve the result most?
+2. What missing signal or domain context makes that decision fragile?
+3. Which available action can obtain that signal, and how will the active controller use it?
+4. Is the action bounded, permitted, and proportionate to the uncertainty?
 
 If a route cannot answer all four, it is not selected. Unselected candidate signals from `UserPromptSubmit` are prompts to consider a route, not mandatory actions. A named strong pre-action route is different: execute that one route before material work, subject to its bounded skip or evidence-unavailable outcome. Keep the decision compact; do not turn it into a generic task taxonomy.
 
@@ -19,9 +19,9 @@ The prompt hook has a deliberately narrow role: it names a route only when a pro
 
 - inspect local project facts before generic guidance when repository context can control the answer;
 - obtain one focused evidence finding for a current or consequential external fact;
-- obtain one Context Pack for open-ended quality work where omitted domain context can change a named construction or selection decision.
+- obtain one Pre-action Decision Brief for open-ended or unfamiliar work where omitted domain context can materially improve a named construction or selection decision.
 
-The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a decision that discovery could change. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit no-search, no-web, or offline constraint suppresses external discovery while still permitting relevant local project inspection.
+The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit no-search, no-web, or offline constraint suppresses external discovery while still permitting relevant local project inspection.
 
 ## Direct Path
 
@@ -29,9 +29,9 @@ Proceed directly when the task is low consequence, adequately specified, and no 
 
 ## Context Discovery
 
-Use `context-scout` before generation or recommendation when omitted domain, structural, compositional, interaction, or medium-specific information can change a named decision. The scout must first explain what its discovery could change. If it cannot, it returns a direct-route skip instead of searching.
+Use `context-scout` before generation or recommendation when omitted domain, structural, compositional, interaction, or medium-specific information may materially improve a named decision. The scout states the decision and missing context, then searches when the gap is plausible and bounded; it does not need to prove in advance that the search will improve the final result. If no bounded source can supply useful task context, it returns a direct-route skip.
 
-When selected, use a bounded direct, component, adjacent-principle, or medium-technique pass. Keep only evidence that maps to the decision, hard constraints, a real risk, or a validation cue. Do not copy exact reference artifacts or inflate the prompt with raw pages.
+When selected, use a bounded direct, component, adjacent-principle, or medium-technique pass. Return only a compact Brief with evidence, applicability, transfer assumptions, and plan implications. Do not copy exact reference artifacts or inflate the prompt with raw pages.
 
 ## Evidence Acquisition
 

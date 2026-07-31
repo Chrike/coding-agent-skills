@@ -41,20 +41,23 @@ def route_context(route: str, reason: str, candidates: list[str]) -> str:
             "Capability-harness selected pre-action route: bounded context discovery. "
             f"Reason: {reason} Before material generation or recommendation, invoke "
             "capability-harness:context-scout once with the original request and the one construction, design, or "
-            "selection decision it must inform. Its brief must state public, non-sensitive network authorization, a "
-            "Context Pack/Evidence/Validation-cues return, and a stop condition of 3-5 focused public searches or an "
-            "actionable decision. Search across direct, component, and adjacent-principle evidence. Do not put private "
-            "prompt or repository details into queries. Integrate only the returned Context Pack details that change the "
-            "plan. A scout direct-route skip is the valid basis for proceeding without search; do not silently downgrade "
-            "this route because direct generation is faster."
+            "selection decision it must inform. Its brief must state public, non-sensitive network authorization and "
+            "return a Pre-action Decision Brief with context gaps, findings, applicability, plan implications, and "
+            "uncertainty. A plausible material context gap is enough to search; do not require advance proof that the "
+            "search will improve the result. Stop after 3-5 focused public searches or when the brief has actionable "
+            "input. Search across direct, component, and adjacent-principle evidence. Do not put private prompt or "
+            "repository details into queries. Feed the returned Brief into the construction or selection plan before "
+            "material work; do not merely cite it or paste raw results. A scout direct-route skip is the valid basis for "
+            "proceeding without search; do not silently downgrade this route because direct generation is faster."
         )
     if route == "decision_first":
         return (
             "Capability-harness preflight: before materially generating, modifying, or recommending, identify the single "
-            "highest-impact unknown or quality risk. Decide whether an external action can provide a signal that would "
-            "change the approach or result. Then choose either the direct path or the smallest useful capability: local "
-            "inspection, bounded context discovery, focused evidence research, an independent alternative, observable "
-            "verification, or evaluation of an actual artifact. Candidate signals are leads, not requirements: "
+            "highest-impact unknown or quality risk. For an unfamiliar or open-ended domain, bounded search is a valid "
+            "first action when it may supply missing task context; do not require advance proof that it will help. Then "
+            "choose either the direct path or the smallest useful capability: local inspection, bounded context "
+            "discovery, focused evidence research, an independent alternative, observable verification, or evaluation "
+            "of an actual artifact. Candidate signals are leads, not requirements: "
             f"{', '.join(candidates) if candidates else 'none'}. Do not defer the decision until after implementation."
         )
     return (

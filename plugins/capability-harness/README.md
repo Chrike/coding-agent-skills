@@ -1,6 +1,6 @@
 # Capability Harness
 
-A self-contained Claude Code plugin for project-scoped, decision-first capability amplification. Before a material generation, implementation, or recommendation, it helps the active controller decide whether missing context, current evidence, project inspection, an alternative, an observable check, or an independent evaluation can materially change the result.
+A self-contained Claude Code plugin for project-scoped, decision-first capability amplification. Before a material generation, implementation, or recommendation, it helps the active controller obtain missing context, current evidence, project inspection, an alternative, an observable check, or an independent evaluation when that input can improve the next decision.
 
 The plugin is a bounded control plane. Existing domain Skills keep implementation and repair ownership, and `agent-workflow` keeps multi-agent coordination ownership when it is already active. Plugin components are namespaced, so they do not replace the repository's standalone Skills or user-level agents.
 
@@ -40,7 +40,7 @@ Invoke the Skill explicitly with:
 
 The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, bounded context discovery, or direct work. The hook itself never launches agents, creates project state, or blocks a final response; the active controller performs the one selected route before material work. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
 
-For open-ended work selected for context discovery, `context-scout` runs before material generation or recommendation. It first identifies the concrete decision that evidence could change. If it cannot name one, it returns a direct-route skip; if it can, it performs bounded direct, component, and adjacent WebSearch/WebFetch work and returns a compact Context Pack. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
+For open-ended or unfamiliar work selected for context discovery, `context-scout` runs before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 
 The command hooks require Python 3.9 or later on `PATH`. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
 
@@ -54,7 +54,10 @@ Start a fresh session with the project plugin loaded, then submit the same short
 生成一只骑自行车的鹈鹕的 SVG
 ```
 
-The expected first step is a pre-action decision: identify which omitted signal could improve the construction plan and whether bounded discovery can supply it. A Context Pack, render check, or skeptical evaluation is selected only if it can change a named decision. The user prompt remains unchanged.
+The following SVG prompt is an optional human calibration example, not a required workflow or an automated test. In a
+loaded session, the expected first step is a pre-action decision: identify which omitted signal could improve the
+construction plan and use bounded discovery when a plausible gap exists. A Pre-action Decision Brief is integrated before
+generation; render checks and skeptical evaluation remain optional downstream modules. The user prompt remains unchanged.
 
 For a negative control, use:
 
@@ -62,4 +65,7 @@ For a negative control, use:
 生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。
 ```
 
-This fully specified task should remain direct unless the user asks for a concrete check. Compare a small number of paired, real tasks with a plugin-disabled session using the identical original prompt. Record the route, the one signal sought, and whether it materially improved the result; do not treat the calibration cases as a catalogue of all task types.
+This fully specified task should remain direct unless the user asks for a concrete check. Optional calibration can compare a
+small number of paired, real tasks with a plugin-disabled session using the identical original prompt. Record the route,
+the one signal sought, and the plan implication; this is for tuning the plugin, not a prerequisite for using search and not
+a catalogue of all task types.

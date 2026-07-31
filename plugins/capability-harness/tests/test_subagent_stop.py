@@ -41,8 +41,8 @@ class SubagentStopHookTests(unittest.TestCase):
         messages = {
             "context-scout": (
                 "## Capability decision\n- research can change component structure\n"
-                "## Context gaps\n- missing wheel structure\n## Context pack\n- tire, rim, spokes\n"
-                "## Evidence\n- source\n## Validation cues\n- render and inspect"
+                "## Context gaps\n- missing wheel structure\n## Decision brief\n- tire, rim, spokes\n"
+                "## Evidence\n- source\n## Plan implications\n- establish wheel anchors first"
             ),
             "evidence-researcher": "## Findings\n- fact\n\n## Evidence\n- source",
             "independent-brancher": (
@@ -88,7 +88,7 @@ class SubagentStopHookTests(unittest.TestCase):
                     }
                 )
 
-    def test_context_scout_can_skip_when_research_cannot_change_the_decision(self) -> None:
+    def test_context_scout_can_skip_when_no_bounded_task_context_is_available(self) -> None:
         self.assert_allowed(
             {
                 "agent_type": "capability-harness:context-scout",

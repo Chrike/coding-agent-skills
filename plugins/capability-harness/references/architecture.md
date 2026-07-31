@@ -2,7 +2,7 @@
 
 ## Objective
 
-Increase effective system capability without changing model weights by making a better decision before the first material action. The harness externalizes context discovery, information acquisition, alternative generation, observable verification, and independent evaluation only when one of them can supply a signal that changes the result.
+Increase effective system capability without changing model weights by making a better decision before the first material action. The harness externalizes context discovery, information acquisition, alternative generation, observable verification, and independent evaluation only when one of them can supply a bounded signal or plan input that improves the next decision.
 
 The harness is not a promise that every task needs search, a worker, a review, or a repair loop. It cannot create an intrinsic capability that no available tool, source, observation, or specialist can supply.
 
@@ -28,8 +28,8 @@ The capability plane contains repository inspection, current-source retrieval, l
 ## Decision-First State Machine
 
 1. **INTAKE** — extract the objective, hard constraints, project facts, available checks, and boundaries.
-2. **DECIDE** — name the highest-impact unknown or quality risk; identify the new signal that could change the plan; select the direct path when no such signal exists.
-3. **DISCOVER OR ACQUIRE** — obtain only the selected bounded context or evidence.
+2. **DECIDE** — name the highest-impact unknown or quality risk; identify the missing context or signal that could improve the plan; select the direct path when no useful bounded action exists.
+3. **DISCOVER OR ACQUIRE** — obtain only the selected bounded context or evidence and compress it into plan implications.
 4. **ROUTE** — choose the single highest-value next capability module, if one remains useful.
 5. **EXECUTE** — implement, render, test, calculate, or otherwise observe the real result through the active domain method.
 6. **EVALUATE** — compare actual results independently only when deterministic checks leave a material quality question.
@@ -45,4 +45,4 @@ This repository owns a project-scoped plugin under `plugins/capability-harness/`
 
 ## Reliability Boundaries
 
-The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. The current Hook does not identify the active model or measure its true capability boundary; it detects only a narrow set of model-agnostic strong routes, while the active controller retains the contextual decision. Use calibration cases to learn where a particular model benefits. The harness is weakest when quality depends on tacit taste, unprecedented insight, private missing information, unavailable perception, or a judge that shares the generator's blind spots. Preserve uncertainty instead of turning an unavailable capability into an artificial Context Pack or a global-optimality claim.
+The harness can improve effective performance when useful context, evidence, observable checks, independent alternatives, or explicit quality criteria exist. The current Hook does not identify the active model or measure its true capability boundary; it detects only a narrow set of model-agnostic strong routes, while the active controller retains the contextual decision. Use calibration cases to learn where a particular model benefits. The harness is weakest when quality depends on tacit taste, unprecedented insight, private missing information, unavailable perception, or a judge that shares the generator's blind spots. Preserve uncertainty instead of turning an unavailable capability into an artificial Decision Brief or a global-optimality claim.

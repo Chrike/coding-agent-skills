@@ -23,9 +23,9 @@ MINIMUM_CONTRACTS = {
     "Context scout": [
         "## Capability decision",
         "## Context gaps",
-        "## Context pack",
+        "## Decision brief",
         "## Evidence",
-        "## Validation cues",
+        "## Plan implications",
     ],
     "Evidence researcher": ["## Findings", "## Evidence"],
     "Independent brancher": [

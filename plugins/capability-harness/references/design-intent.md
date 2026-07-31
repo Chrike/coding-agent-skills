@@ -2,20 +2,28 @@
 
 ## Purpose
 
-Capability Harness is a test-time capability amplifier for models that can complete a task but may miss domain context, salience, quality details, evidence, or an observable check that a stronger model would notice before acting. Its primary purpose is to improve the pre-action decision, not to add agents or repairs after the model has already anchored on a weak result.
+Capability Harness is a pre-action capability amplifier for models that can complete a task but may fail to surface domain
+context, salience, quality details, or useful evidence before acting. Its primary purpose is to turn missing context into a
+compact decision brief, not to add agents or repairs after the model has already anchored on a weak result.
 
-Given the same terse user request, the project-scoped workflow may identify a missing signal, decide whether bounded discovery can change a concrete approach, obtain only that signal, and then let the active domain method generate or implement. The user should not need to write a hidden domain checklist into the prompt.
+Given the same terse user request, the project-scoped workflow may identify a plausible missing signal, obtain bounded
+domain context, compress it into plan implications, and then let the active domain method generate or implement. The user
+should not need to write a hidden domain checklist into the prompt.
 
 For prompt profiles with a strong pre-action signal, the hook names the default next route rather than leaving every request as an equally weak suggestion. The active controller executes that one route before material work. This is intentionally different from a Stop gate: it does not require every capability, retry a completed result, or turn route candidates into a checklist.
 
-## Canonical Example
+## Illustrative Example (Non-normative)
 
-For a request such as "generate an SVG of a pelican riding a bicycle", the user prompt remains short. A decision-first pass may determine that anatomy, bicycle contact relationships, composition cues, or vector craft can materially change a chosen construction plan, then use direct, component, and adjacent research to supply those cues. If such research cannot change the plan, it should be skipped. The example does not create a special SVG workflow or imply that every visual task needs search.
+For a request such as "generate an SVG of a pelican riding a bicycle", the user prompt remains short. A decision-first pass
+may identify anatomy, bicycle contact relationships, composition cues, or vector craft as missing context and use direct,
+component, and adjacent research to supply those cues. If no plausible bounded context gap exists, it can be skipped. The
+example does not create a special SVG workflow or imply that every visual task needs search.
+It is a communication example, not a routing rule or an automated task test.
 
 ## Routing Intent
 
 - fixed, fully specified, low-consequence work may remain direct;
-- open-ended work may make context discovery a strong candidate, but it is selected only when its evidence can change a named decision;
+- open-ended or unfamiliar work may make context discovery a strong candidate when missing context can materially improve a named decision;
 - current or version-specific claims may use focused evidence research;
 - real alternative trade-offs may use independent branching;
 - observable claims may use execution verification;
@@ -26,7 +34,7 @@ The route must not depend only on words such as "search", "reference", "recommen
 
 ## Non-Goals
 
-This plugin does not guarantee parity with a stronger model, global optimality, or perfect visual quality. It does not infer an active model's capability boundary from its name or a prompt classifier; model-specific benefit must be demonstrated through calibration. It does not copy an exact retrieved artifact as a substitute for generation, authorize side effects, or install into a user-wide Claude directory. Text retrieval may expose useful adjacent principles but cannot supply a missing intrinsic capability when no usable external signal exists.
+This plugin does not guarantee parity with a stronger model, global optimality, or perfect visual quality. It does not infer an active model's capability boundary from its name or a prompt classifier; optional calibration can show where a model benefits from the route. It does not copy an exact retrieved artifact as a substitute for generation, authorize side effects, or install into a user-wide Claude directory. Text retrieval may expose useful adjacent principles but cannot supply a missing intrinsic capability when no usable external signal exists.
 
 ## Maintenance Rules
 

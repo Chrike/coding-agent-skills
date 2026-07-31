@@ -12,13 +12,17 @@ Preserve the conflict, compare source authority, date, scope, and applicability,
 
 Discard evidence that does not map to a hard constraint, important decision, risk, or quality criterion. Do not keep searching by repeating the same query. Change the evidence type or stop the channel.
 
-## Context Discovery Cannot Change the Decision
+## Context Discovery Has No Useful Signal
 
-If no bounded source, project fact, or adjacent principle can change the named decision, do not invoke or continue context discovery. Use the direct route, a more suitable permitted tool, a user-owned clarification, or disclose the intrinsic limitation. Do not manufacture a Context Pack to satisfy a process rule.
+If no bounded source, project fact, or adjacent principle can supply useful task context for the named decision, do not
+invoke or continue context discovery. Use the direct route, a more suitable permitted tool, a user-owned clarification, or
+disclose the intrinsic limitation. Do not manufacture a Decision Brief to satisfy a process rule.
 
-## Empty or contaminated Context Pack
+## Empty or contaminated Decision Brief
 
-If the context scout returns generic advice, raw search dumps, or an exact-match artifact instead of actionable context, do not pass it directly to generation. Mark the pack unusable, request one bounded correction with a different query class, or continue with an explicit quality risk. Keep production and diagnostic retrieval tracks separate.
+If the context scout returns generic advice, raw search dumps, or an exact-match artifact instead of actionable context, do not
+pass it directly to generation. Mark the Brief unusable, request one bounded correction with a different query class, or
+continue with an explicit quality risk. Keep production and diagnostic retrieval tracks separate.
 
 ## Subagent format failure
 

@@ -47,20 +47,35 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("evidence-researcher", context)
         self.assertNotIn("context-scout once", context)
 
-    def test_open_ended_quality_artifact_selects_context_discovery_before_generation(self) -> None:
-        context = self.context_for("请生成一个 SVG 插画，重点是视觉质量和构图。")
+    def test_open_ended_artifact_selects_context_discovery_before_generation(self) -> None:
+        context = self.context_for(
+            "Create a non-trivial visual artifact with unresolved structural and composition decisions."
+        )
         self.assertIn("selected pre-action route: bounded context discovery", context)
         self.assertIn("invoke capability-harness:context-scout once", context)
         self.assertIn("direct, component, and adjacent-principle", context)
-        self.assertIn("direct-route skip", context)
+        self.assertIn("Pre-action Decision Brief", context)
+        self.assertIn("do not require advance proof", context)
+        self.assertNotIn("Validation-cues", context)
+
+    def test_open_ended_unfamiliar_domain_selects_context_discovery(self) -> None:
+        context = self.context_for(
+            "Explain a difficult unfamiliar domain problem and propose a practical solution with the important caveats."
+        )
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+        self.assertIn("Pre-action Decision Brief", context)
+
+    def test_open_ended_chinese_question_selects_context_discovery(self) -> None:
+        context = self.context_for("分析一个复杂技术问题，并给出可执行的解决策略和重要限制。")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_open_ended_recommendation_selects_context_discovery_without_visual_keywords(self) -> None:
         context = self.context_for("Recommend the best architecture for a new knowledge-intensive product.")
         self.assertIn("selected pre-action route: bounded context discovery", context)
         self.assertIn("invoke capability-harness:context-scout once", context)
 
-    def test_fully_specified_visual_task_suppresses_optional_context_discovery(self) -> None:
-        context = self.context_for("生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。")
+    def test_fully_specified_artifact_task_suppresses_optional_context_discovery(self) -> None:
+        context = self.context_for("Create a 24x24 red circular icon with fixed dimensions and color, without visual innovation.")
         self.assertIn("adequately specified for a direct path", context)
         self.assertNotIn("context-scout", context)
         self.assertNotIn("evidence-researcher", context)
@@ -109,6 +124,11 @@ class RoutingHookTests(unittest.TestCase):
             )
             self.assertIsNotNone(output)
             self.assertFalse((Path(directory) / ".claude" / "capability-harness").exists())
+
+    def test_context_route_requires_plan_integration_not_validation(self) -> None:
+        context = self.context_for("Design a high-quality unfamiliar-domain solution with important structural trade-offs.")
+        self.assertIn("Feed the returned Brief into the construction or selection plan", context)
+        self.assertNotIn("Validation-cues return", context)
 
     def test_plugin_registers_prompt_and_leaf_agent_hooks_only(self) -> None:
         config = json.loads(HOOKS_CONFIG.read_text(encoding="utf-8"))
