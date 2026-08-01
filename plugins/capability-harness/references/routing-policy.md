@@ -15,13 +15,13 @@ If a route cannot answer all four, it is not selected. Unselected candidate sign
 
 ## Strong Pre-Action Routes
 
-The prompt hook has a deliberately narrow role: it names a route only when a prompt has a strong, safe signal. A selected route is an instruction to obtain that one signal before material work, not a request for a later compliance review:
+The prompt hook has a deliberately narrow role: it names a route only when a prompt has a strong, safe signal. A selected route is a pre-action execution contract to obtain that one signal before material work, not a request for a later compliance review:
 
 - inspect local project facts before generic guidance when repository context can control the answer;
 - obtain one focused evidence finding for a current or consequential external fact;
 - obtain one Pre-action Decision Brief for open-ended or unfamiliar work where omitted domain context can materially improve a named construction or selection decision.
 
-The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit source or network constraint in the current prompt suppresses external discovery while still permitting relevant local project inspection; this is not a default project policy.
+The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route exactly once, or records its bounded skip or unavailable-evidence outcome. A leading slash is not ownership evidence by itself; command expansion is handled by Claude Code's command lifecycle. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit source or network constraint in the current prompt suppresses external discovery while still permitting relevant local project inspection; this is not a default project policy.
 
 ## Direct Path
 

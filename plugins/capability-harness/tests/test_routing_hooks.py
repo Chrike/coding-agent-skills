@@ -52,6 +52,7 @@ class RoutingHookTests(unittest.TestCase):
             "Create a non-trivial visual artifact with unresolved structural and composition decisions."
         )
         self.assertIn("selected pre-action route: bounded context discovery", context)
+        self.assertIn("selected pre-action route, not a generic suggestion", context)
         self.assertIn("invoke capability-harness:context-scout once", context)
         self.assertIn("direct, component, and adjacent-principle", context)
         self.assertIn("Pre-action Decision Brief", context)
@@ -86,6 +87,10 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("official-or-primary source scope", context)
         self.assertIn("Findings/Evidence return", context)
 
+    def test_version_specific_qualifier_selects_focused_evidence_research(self) -> None:
+        context = self.context_for("What version is currently supported by this product?")
+        self.assertIn("selected pre-action route: focused evidence research", context)
+
     def test_conversational_chinese_now_does_not_imply_current_evidence(self) -> None:
         self.assertIsNone(self.submit("现在下一步怎么做？"))
 
@@ -111,8 +116,14 @@ class RoutingHookTests(unittest.TestCase):
             self.submit("The workflow already owns this localized fix; follow its existing plan without adding another pass.")
         )
 
-    def test_explicit_slash_command_is_controller_owned_without_hardcoded_names(self) -> None:
-        self.assertIsNone(self.submit("/quality-check Design a focused review plan for this change."))
+    def test_explicit_controller_ownership_is_silent_without_command_name_heuristics(self) -> None:
+        self.assertIsNone(
+            self.submit("The selected review workflow already owns this change; do not add another controller.")
+        )
+
+    def test_slash_prefixed_natural_language_is_not_assumed_controller_owned(self) -> None:
+        context = self.context_for("/api Design a new visual system with unresolved composition decisions.")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_explicit_harness_slash_command_keeps_harness_routing(self) -> None:
         context = self.context_for(
@@ -130,6 +141,21 @@ class RoutingHookTests(unittest.TestCase):
         ):
             with self.subTest(prompt=prompt):
                 self.assertIsNone(self.submit(prompt))
+
+    def test_stable_concept_terms_do_not_trigger_current_or_project_routes(self) -> None:
+        for prompt in (
+            "Explain version control in a simple way.",
+            "Explain package management for a new developer.",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
+
+    def test_greenfield_project_concept_does_not_trigger_local_inspection(self) -> None:
+        context = self.context_for(
+            "Design a new project architecture for a greenfield product with unresolved trade-offs."
+        )
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+        self.assertNotIn("selected pre-action route: project inspection", context)
 
     def test_project_without_external_discovery_stays_local(self) -> None:
         context = self.context_for("In the current project, implement the API. Do not use external sources.")

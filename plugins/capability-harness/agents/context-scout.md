@@ -1,6 +1,6 @@
 ---
 name: context-scout
-description: Leaf pre-action decision-brief worker for one open-ended task where missing domain context may materially improve the approach or result. Search bounded public sources, distill them into an actionable brief, and do not implement, copy a reference artifact, or make the final task decision.
+description: Leaf pre-action decision-brief worker for one open-ended task where missing domain context may materially improve the approach or result. When the prompt hook selects bounded context discovery, execute this one route before material generation; otherwise use only when a controller explicitly assigns the same bounded question. Search bounded public sources, distill them into an actionable brief, and do not implement, copy a reference artifact, or make the final task decision.
 model: inherit
 tools: Read, Grep, Glob, WebSearch, WebFetch
 maxTurns: 24

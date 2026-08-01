@@ -7,8 +7,16 @@ from typing import Any, Iterable
 
 
 CURRENT_PATTERNS = [
-    r"\b(latest|today|version|release|price|pricing|context window|model limit|api behavior|compatib|current (?:version|release|price|pricing|api|behavior|documentation))\b",
-    r"(最新|当前(?:版本|发布|价格|API|接口|官方文档|模型)|今天(?:的)?(?:价格|新闻|政策|版本)|版本|发布|价格|模型参数|兼容|官方文档)",
+    r"\b(?:latest|newest|current|today(?:'s)?|recent|currently|as of)\b(?:\s+\w+){0,4}\s+\b(?:version|release|price|pricing|api|behavior|documentation|docs?|model|context window|limit|compatib\w*)\b",
+    r"\b(?:supported|installed)\s+(?:version|release|api|model)\b",
+    r"\b(?:what|which)\s+(?:is\s+)?(?:the\s+)?current\s+(?:version|release)\b",
+    r"\b(?:what|which)\s+(?:version|release)\s+is\s+(?:currently\s+)?(?:supported|installed|available)\b",
+    r"\b(?:what|which)\s+(?:version|release)\s+(?:does|is)\s+(?:this|the|it)\b",
+    r"\b(?:version|release)\s+(?:of|for|used by|supported by)\b",
+    r"\b(?:api|model|product|library|package|tool|server)\s+version\b",
+    r"\b(release notes?|price|pricing|context window|model limits?|api behavior|compatib\w*|official (?:docs?|documentation))\b",
+    r"(?:最新|当前|目前|现在|截至|今天|最近|支持的|安装的)(?:.{0,12})(?:版本|发布|价格|定价|API|接口|行为|文档|模型参数|上下文窗口|兼容性)",
+    r"(?:版本号|版本更新|发布说明|定价|价格|模型参数|上下文窗口|兼容性|官方(?:最新)?文档|(?:API|模型|软件|工具|库)(?:的)?版本)",
 ]
 IMPLEMENT_PATTERNS = [
     r"\b(implement|build|create|modify|change|fix|debug|refactor|migrate|write code|patch|deploy)\b",
@@ -27,8 +35,12 @@ EXTERNAL_GUIDANCE_PATTERNS = [
     r"(推荐|最好|架构|设计|策略|优化|比较|规范|标准|指导|参考|基准|灵感|调研|搜索)",
 ]
 PROJECT_PATTERNS = [
-    r"\b(repo|repository|project|codebase|file|module|package|configuration|config|test suite)\b",
-    r"(项目|仓库|代码库|文件|模块|配置|测试)",
+    r"\b(?:this|current|existing|our)\s+(?:repo(?:sitory)?|project|codebase|file|module|package|configuration|config|test suite)\b",
+    r"\b(?:in|within|from|against)\s+(?:this|the current|our|existing)\s+(?:repo(?:sitory)?|project|codebase)\b",
+    r"\b(?:repo(?:sitory)?|codebase)\s+(?:files?|history|configuration|conventions?|state)\b",
+    r"\b(?:package\.json|pyproject\.toml|tsconfig\.json|cargo\.toml|go\.mod|pom\.xml)\b",
+    r"(?:当前|本|这个|现有|已有)(?:项目|仓库|代码库|文件|模块|配置|测试(?:套件|集)?)",
+    r"(?:项目|仓库|代码库)(?:中的|里的)(?:文件|模块|配置|测试|约定|历史|状态)",
 ]
 NO_PROJECT_CONTEXT_PATTERNS = [
     r"\b(?:without|no) (?:a )?(?:repo(?:sitory)?|project|codebase) context\b",
@@ -53,8 +65,8 @@ NO_EXTERNAL_DISCOVERY_PATTERNS = [
     r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料)",
 ]
 OPEN_ENDED_PATTERNS = [
-    r"\b(explain|solve|derive|analy[sz]e|diagnose|design|how|why)\b",
-    r"(解释|解决|求解|推导|分析|诊断|如何|为什么|怎样|陌生领域|复杂问题)",
+    r"\b(unfamiliar|novel|complex|non-trivial|open-ended|unresolved|ambiguous|difficult|hard|deep|in-depth|trade-?off|unknown|design|recommend|architecture|strategy|compare|optimi[sz]e)\b",
+    r"(陌生|新颖|复杂|困难|开放式|未解决|不明确|未知|深入|取舍|权衡|推荐|设计|架构|策略|比较|优化)",
 ]
 CONTROLLER_OWNED_PATTERNS = [
     r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
@@ -62,7 +74,9 @@ CONTROLLER_OWNED_PATTERNS = [
     r"(?:do not|don't|without) add (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
     r"(?:不要|无需|不需要).*(?:额外|补充|新增).*(?:Harness|审查|质量|流程|代理)",
 ]
-EXPLICIT_COMMAND_BOUNDARY_PATTERNS = [r"^\s*/[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?\b"]
+# A leading slash is not ownership evidence here: real command expansion has
+# its own Claude Code lifecycle, while slash-prefixed natural language may be
+# an endpoint, path, or part of the user's task.
 EXPLICIT_HARNESS_PATTERNS = [
     r"(?:/capability-harness(?::capability-harness)?\b|capability-harness:capability-harness\b)",
 ]
@@ -96,10 +110,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
-    controller_owned = (
-        any_match(stripped, CONTROLLER_OWNED_PATTERNS)
-        or any_match(stripped, EXPLICIT_COMMAND_BOUNDARY_PATTERNS)
-    ) and not explicit_harness
+    controller_owned = any_match(stripped, CONTROLLER_OWNED_PATTERNS) and not explicit_harness
     project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
     open_ended_signal = len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)

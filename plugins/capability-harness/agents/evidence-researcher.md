@@ -1,6 +1,6 @@
 ---
 name: evidence-researcher
-description: Leaf evidence worker for one controller-assigned material uncertainty requiring scoped repository facts or explicitly authorized current official or primary external sources. Use only with a bounded evidence question, defined source and data boundaries, and an explicit return and stop contract; do not use as a general planner, reviewer, implementer, or autonomous router.
+description: Leaf evidence worker for one controller-assigned material uncertainty requiring scoped repository facts or explicitly authorized current official or primary external sources. When the prompt hook selects focused evidence research, execute this one route before material generation or recommendation; otherwise use only with a bounded controller-assigned question. Require defined source and data boundaries and an explicit return and stop contract; do not use as a general planner, reviewer, implementer, or autonomous router.
 model: inherit
 tools: Read, Grep, Glob, WebSearch, WebFetch
 maxTurns: 20

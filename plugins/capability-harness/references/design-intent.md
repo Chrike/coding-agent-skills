@@ -12,13 +12,12 @@ should not need to write a hidden domain checklist into the prompt.
 
 For prompt profiles with a strong pre-action signal, the hook names the default next route rather than leaving every request as an equally weak suggestion. The active controller executes that one route before material work. This is intentionally different from a Stop gate: it does not require every capability, retry a completed result, or turn route candidates into a checklist.
 
-## Illustrative Example (Non-normative)
+## Illustrative Decision Profile (Non-normative)
 
-For a request such as "generate an SVG of a pelican riding a bicycle", the user prompt remains short. A decision-first pass
-may identify anatomy, bicycle contact relationships, composition cues, or vector craft as missing context and use direct,
-component, and adjacent research to supply those cues. If no plausible bounded context gap exists, it can be skipped. The
-example does not create a special SVG workflow or imply that every visual task needs search.
-It is a communication example, not a routing rule or an automated task test.
+For a terse open-ended artifact request, a decision-first pass may identify a missing structural, compositional, interaction,
+or medium-specific signal and use direct, component, and adjacent research to inform one named construction decision. If no
+plausible bounded context gap exists, it can be skipped. This profile does not create a domain-specific workflow or imply
+that every artifact task needs search. It is a communication example, not a routing rule or an automated task test.
 
 ## Routing Intent
 

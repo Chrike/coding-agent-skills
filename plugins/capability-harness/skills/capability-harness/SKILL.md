@@ -1,11 +1,11 @@
 ---
 name: capability-harness
-description: Apply a decision-first capability-harness pass to substantive work when a model may miss context, evidence, an observable check, or a materially different alternative. Before generating or modifying, choose the smallest action that could improve the result; do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
+description: Apply a decision-first capability-harness pass to substantive work when a model may miss context, evidence, an observable check, or a materially different alternative. When the prompt hook selects a pre-action route, execute exactly that one route before material work and integrate its bounded result. Do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
 ---
 
 # Capability Harness
 
-The project-scoped prompt hook selects one strong pre-action route when the prompt makes the next source of task context clear. It never launches workers, records hidden reasoning, or blocks completion. This Skill executes that route before material work; it does not replace the active domain method or make every task a multi-step workflow.
+The project-scoped prompt hook selects one strong pre-action route when the prompt makes the next source of task context clear. It never launches workers, records hidden reasoning, or blocks completion. The selected route is a binding handoff for this turn: this Skill or the active controller executes it exactly once before material work, then integrates the bounded result or explicit skip. It does not replace the active domain method or make every task a multi-step workflow.
 
 ## Capability Decision
 
@@ -19,7 +19,7 @@ Before materially generating, modifying, or recommending, identify:
 
 Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
 
-When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. Direct and explicitly controller-owned command or workflow prompts receive no additional hook context. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery.
+When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. Direct and explicitly controller-owned workflow prompts receive no additional hook context. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery. A leading slash alone is not a controller boundary.
 
 ## Context Discovery
 

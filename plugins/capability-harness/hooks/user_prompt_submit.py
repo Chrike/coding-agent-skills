@@ -17,6 +17,12 @@ from common import (  # noqa: E402
 
 
 def route_context(route: str, reason: str, external_discovery_disallowed: bool = False) -> str:
+    contract = (
+        "This is a selected pre-action route, not a generic suggestion. Before material work, the active controller "
+        "must execute exactly this one route once. If the route is unavailable or its bounded result is not useful, "
+        "return the route's explicit skip or unavailable-evidence outcome and then continue; do not silently omit it, "
+        "and do not add unrelated workers or a post-hoc completion gate. "
+    )
     if route == "project_inspection":
         external_follow_up = (
             "External discovery is disabled for this prompt; use local project evidence only."
@@ -26,14 +32,14 @@ def route_context(route: str, reason: str, external_discovery_disallowed: bool =
         )
         return (
             "Capability-harness selected pre-action route: project inspection. "
-            f"Reason: {reason} Before materially generating, modifying, or recommending, inspect the relevant "
+            f"Reason: {reason} {contract}Before materially generating, modifying, or recommending, inspect the relevant "
             "current files, configuration, history, and local conventions. Do not substitute generic web guidance "
             f"for repository evidence. {external_follow_up}"
         )
     if route == "evidence_research":
         return (
             "Capability-harness selected pre-action route: focused evidence research. "
-            f"Reason: {reason} Before materially generating or recommending, invoke "
+            f"Reason: {reason} {contract}Before materially generating or recommending, invoke "
             "capability-harness:evidence-researcher once for the one fact that can change the approach. Its brief must "
             "include the original task, exact evidence question, public official-or-primary source scope, public "
             "non-sensitive network authorization, a Findings/Evidence return, and a stop condition of answering that "
@@ -43,7 +49,7 @@ def route_context(route: str, reason: str, external_discovery_disallowed: bool =
     if route == "context_discovery":
         return (
             "Capability-harness selected pre-action route: bounded context discovery. "
-            f"Reason: {reason} Before material generation or recommendation, invoke "
+            f"Reason: {reason} {contract}Before material generation or recommendation, invoke "
             "capability-harness:context-scout once with the original request and the one construction, design, or "
             "selection decision it must inform. Its brief must state public, non-sensitive network authorization and "
             "return a Pre-action Decision Brief with context gaps, findings, applicability, plan implications, and "

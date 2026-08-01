@@ -38,9 +38,9 @@ Invoke the Skill explicitly with:
 
 ## Runtime Behavior
 
-The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, or bounded context discovery. Direct and explicitly controller-owned command or workflow requests produce no hook context. A leading slash command is treated as an explicit controller boundary because the prompt hook cannot reliably identify which Skill or workflow owns that invocation. The hook itself never launches agents, creates project state, or blocks a final response; the active controller performs the one selected route before material work. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
+The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, or bounded context discovery. Direct and explicitly controller-owned workflow requests produce no hook context. A leading slash is not treated as ownership evidence by itself: Claude Code expands actual slash commands through its own command lifecycle, while slash-prefixed natural language can be an endpoint, path, or part of the task. The hook itself never launches agents, creates project state, or blocks a final response; its selected route is a pre-action contract that the active controller must execute once before material work, or report the route's bounded skip or unavailable-evidence outcome. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
 
-For open-ended or unfamiliar work selected for context discovery, `context-scout` runs before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
+For open-ended or unfamiliar work selected for context discovery, the active controller invokes `context-scout` once before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 
 The command hooks require Python 3.9 or later on `PATH`. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
 
@@ -51,18 +51,19 @@ The JSON cases under `skills/capability-harness/evals/` are maintenance calibrat
 Start a fresh session with the project plugin loaded, then submit the same short prompt without adding hidden design details:
 
 ```text
-生成一只骑自行车的鹈鹕的 SVG
+Create a non-trivial artifact with unresolved structural and medium-specific decisions.
 ```
 
-The following SVG prompt is an optional human calibration example, not a required workflow or an automated test. In a
-loaded session, the expected first step is a pre-action decision: identify which omitted signal could improve the
-construction plan and use bounded discovery when a plausible gap exists. A Pre-action Decision Brief is integrated before
-generation; render checks and skeptical evaluation remain optional downstream modules. The user prompt remains unchanged.
+This is an optional human calibration example, not a required workflow or an automated test. In a loaded session, the
+expected first step is a pre-action decision: identify which omitted signal could improve the construction plan and use
+bounded discovery when a plausible gap exists. The active controller should execute the selected route once and integrate
+the resulting Pre-action Decision Brief before generation; artifact checks and skeptical evaluation remain optional
+downstream modules. The user prompt remains unchanged.
 
 For a negative control, use:
 
 ```text
-生成一个 24x24 SVG 红色圆形图标，固定尺寸和颜色，不需要视觉创新。
+Create a fixed-size artifact with an exact color and no visual innovation.
 ```
 
 This fully specified task should remain direct unless the user asks for a concrete check. Optional calibration can compare a
