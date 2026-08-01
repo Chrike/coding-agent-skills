@@ -56,13 +56,13 @@ OPEN_ENDED_PATTERNS = [
     r"\b(explain|solve|derive|analy[sz]e|diagnose|design|how|why)\b",
     r"(解释|解决|求解|推导|分析|诊断|如何|为什么|怎样|陌生领域|复杂问题)",
 ]
-WORKFLOW_OWNED_PATTERNS = [
+CONTROLLER_OWNED_PATTERNS = [
     r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
     r"(?:workflow|controller) already owns",
     r"(?:do not|don't|without) add (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
     r"(?:不要|无需|不需要).*(?:额外|补充|新增).*(?:Harness|审查|质量|流程|代理)",
 ]
-SLASH_WORKFLOW_PATTERNS = [r"^\s*/[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?\b"]
+EXPLICIT_COMMAND_BOUNDARY_PATTERNS = [r"^\s*/[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?\b"]
 EXPLICIT_HARNESS_PATTERNS = [
     r"(?:/capability-harness(?::capability-harness)?\b|capability-harness:capability-harness\b)",
 ]
@@ -96,8 +96,9 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
-    workflow_owned = (
-        any_match(stripped, WORKFLOW_OWNED_PATTERNS) or any_match(stripped, SLASH_WORKFLOW_PATTERNS)
+    controller_owned = (
+        any_match(stripped, CONTROLLER_OWNED_PATTERNS)
+        or any_match(stripped, EXPLICIT_COMMAND_BOUNDARY_PATTERNS)
     ) and not explicit_harness
     project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
@@ -125,7 +126,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "project_dependent": project,
         "high_consequence": high_consequence,
         "open_ended_signal": open_ended_signal,
-        "workflow_owned": workflow_owned,
+        "controller_owned": controller_owned,
         "explicit_harness": explicit_harness,
     }
 
@@ -168,8 +169,10 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
     owns the task and may continue directly only after a selected leaf worker
     returns a bounded skip or the requested evidence is unavailable.
     """
-    if not classification.get("substantive") or classification.get("workflow_owned"):
+    if not classification.get("substantive"):
         return "direct", "The request is low-complexity."
+    if classification.get("controller_owned"):
+        return "direct", "An explicit controller boundary owns this invocation."
 
     candidates = candidate_actions(classification)
     if candidates["project_inspection"]:

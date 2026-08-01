@@ -111,7 +111,7 @@ class RoutingHookTests(unittest.TestCase):
             self.submit("The workflow already owns this localized fix; follow its existing plan without adding another pass.")
         )
 
-    def test_explicit_slash_workflow_is_silent_without_hardcoded_names(self) -> None:
+    def test_explicit_slash_command_is_controller_owned_without_hardcoded_names(self) -> None:
         self.assertIsNone(self.submit("/quality-check Design a focused review plan for this change."))
 
     def test_explicit_harness_slash_command_keeps_harness_routing(self) -> None:
@@ -122,6 +122,14 @@ class RoutingHookTests(unittest.TestCase):
 
     def test_no_project_context_does_not_trigger_project_inspection(self) -> None:
         self.assertIsNone(self.submit("Implement a change without repository context."))
+
+    def test_generic_terms_with_no_project_context_and_no_browsing_stay_direct(self) -> None:
+        for prompt in (
+            "Explain version control without repository context and without browsing.",
+            "Explain package management without project context and without browsing.",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
 
     def test_project_without_external_discovery_stays_local(self) -> None:
         context = self.context_for("In the current project, implement the API. Do not use external sources.")

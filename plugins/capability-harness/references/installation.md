@@ -31,7 +31,7 @@ python -B -m unittest discover -s .\plugins\capability-harness\tests -v
 
 ## Invocation
 
-The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-action route when prompt signals make the next source of evidence clear. Direct and workflow-owned prompts produce no additional hook context. The hook never launches agents, writes runtime state, or blocks completion; the active controller performs the selected route before material work. Explicit invocation remains available:
+The project-scoped `UserPromptSubmit` hook supplies a stateless selected pre-action route when prompt signals make the next source of evidence clear. Direct and explicitly controller-owned command or workflow prompts produce no additional hook context. The hook never launches agents, writes runtime state, or blocks completion; the active controller performs the selected route before material work. Explicit invocation remains available:
 
 ```text
 /capability-harness:capability-harness <task>

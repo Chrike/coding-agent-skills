@@ -147,6 +147,46 @@ class SubagentStopHookTests(unittest.TestCase):
         )
         self.assertIn("blocked contract", str(output["reason"]))
 
+    def test_blocks_blocked_contract_with_normal_success_sections(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:evidence-researcher",
+                "last_assistant_message": (
+                    "## Blocked brief\n- missing boundary\n"
+                    "## Required next input\n- provide boundary\n"
+                    "## Findings\n- fact\n## Evidence\n- source"
+                ),
+            }
+        )
+        self.assertIn("normal success contract", str(output["reason"]))
+
+    def test_blocks_context_skip_with_normal_discovery_sections(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:context-scout",
+                "last_assistant_message": (
+                    "## Capability decision\n- direct route\n"
+                    "## Skip reason\n- no bounded source\n"
+                    "## Evidence\n- source"
+                ),
+            }
+        )
+        self.assertIn("normal discovery sections", str(output["reason"]))
+
+    def test_blocks_context_skip_with_blocked_contract(self) -> None:
+        output = self.assert_blocked(
+            {
+                "agent_type": "capability-harness:context-scout",
+                "last_assistant_message": (
+                    "## Capability decision\n- missing boundary\n"
+                    "## Skip reason\n- no bounded source\n"
+                    "## Blocked brief\n- missing boundary\n"
+                    "## Required next input\n- provide boundary"
+                ),
+            }
+        )
+        self.assertIn("blocked contract", str(output["reason"]))
+
     def test_blocks_empty_context_skip_contract(self) -> None:
         output = self.assert_blocked(
             {

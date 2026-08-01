@@ -67,7 +67,7 @@ def main() -> int:
         return 0
 
     classification = classify_prompt(prompt)
-    if classification.get("workflow_owned"):
+    if classification.get("controller_owned"):
         return 0
 
     route, reason = select_pre_action_route(classification)

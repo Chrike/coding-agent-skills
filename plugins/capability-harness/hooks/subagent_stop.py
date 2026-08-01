@@ -141,6 +141,11 @@ def main() -> int:
     ):
         problems = contract_problems(lines, ["## Blocked brief", "## Required next input"])
         if not problems:
+            if has_heading(lines, "## Skip reason"):
+                problems.append("Blocked brief cannot also include a skip contract")
+            if any(has_heading(lines, heading) for heading in EXPECTED[local_name]):
+                problems.append("Blocked brief cannot also include the normal success contract")
+        if not problems:
             return 0
         reason = (
             f"Return the result using the required {agent_type} blocked contract. "
@@ -151,6 +156,12 @@ def main() -> int:
 
     if local_name == "context-scout" and has_heading(lines, "## Skip reason"):
         problems = contract_problems(lines, ["## Capability decision", "## Skip reason"])
+        if not problems:
+            normal_only = [heading for heading in EXPECTED[local_name] if heading != "## Capability decision"]
+            if any(has_heading(lines, heading) for heading in normal_only):
+                problems.append("Skip contract cannot also include normal discovery sections")
+            if has_heading(lines, "## Blocked brief") or has_heading(lines, "## Required next input"):
+                problems.append("Skip contract cannot also include a blocked contract")
         if not problems:
             return 0
         reason = (

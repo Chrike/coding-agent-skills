@@ -8,7 +8,7 @@ The harness is not a promise that every task needs search, a worker, a review, o
 
 ## Control Plane and Capability Plane
 
-The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` names one strong pre-action route when prompt signals make the next evidence source clear, then the active controller executes it; direct and workflow-owned prompts receive no injected context. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
+The control plane is the project Skill and its lightweight hooks. `UserPromptSubmit` names one strong pre-action route when prompt signals make the next evidence source clear, then the active controller executes it; direct and explicitly controller-owned command or workflow prompts receive no injected context. `SubagentStop` validates the return schema of a selected leaf worker. Neither hook launches a worker, writes runtime state, or blocks a substantive turn for failing to call a particular tool.
 
 The capability plane contains repository inspection, current-source retrieval, leaf agents, deterministic commands, renderers, and domain-specific tools. The active domain Skill remains responsible for implementation, repair, and final acceptance. If another controller already owns a workflow, the harness supplies evidence to that controller instead of creating a second orchestration layer.
 
