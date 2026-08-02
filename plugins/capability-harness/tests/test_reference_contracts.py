@@ -79,6 +79,22 @@ class ReferenceContractTests(unittest.TestCase):
         self.assertIn("upper bound rather than a target", contracts)
         self.assertNotIn("3-5", contracts)
 
+    def test_acceptance_seed_is_controller_owned_and_not_a_leaf_gate(self) -> None:
+        skill = SKILL_PATH.read_text(encoding="utf-8")
+        contracts = (REFERENCE_ROOT / "capability-contracts.md").read_text(encoding="utf-8")
+        routing = (REFERENCE_ROOT / "routing-policy.md").read_text(encoding="utf-8")
+        verifier = (PLUGIN_ROOT / "agents" / "execution-verifier.md").read_text(encoding="utf-8")
+        context_scout = (PLUGIN_ROOT / "agents" / "context-scout.md").read_text(encoding="utf-8")
+
+        self.assertIn("## Acceptance Seed", skill)
+        self.assertIn("Outcome and target/scope", skill)
+        self.assertIn("Minimum observable signal", contracts)
+        self.assertIn("not a leaf-agent return contract", contracts)
+        self.assertIn("`defined`", contracts)
+        self.assertIn("This is not a fifth route or a required form.", routing)
+        self.assertIn("not as permission or an overall completion verdict", verifier)
+        self.assertIn("If the controller supplies an Acceptance Seed", context_scout)
+
     def test_contract_reference_keeps_execution_verifier_evidence_only(self) -> None:
         contracts = (REFERENCE_ROOT / "capability-contracts.md").read_text(encoding="utf-8")
         self.assertIn("It does not modify source files, repair defects, assign severity, recommend a fix", contracts)

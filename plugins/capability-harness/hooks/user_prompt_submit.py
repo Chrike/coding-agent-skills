@@ -21,7 +21,9 @@ def route_context(route: str, reason: str, external_discovery_disallowed: bool =
         "This is a selected pre-action route, not a generic suggestion. Before material work, the active controller "
         "must execute exactly this one route once. If the route is unavailable, unsafe, or its bounded result is not useful, "
         "return the route's explicit skip or unavailable-evidence outcome and then continue; do not silently omit it, "
-        "and do not add unrelated workers or a post-hoc completion gate. "
+        "and do not add unrelated workers or a post-hoc completion gate. Carry the light, controller-owned acceptance "
+        "seed into this route when material work needs one: the intended outcome and target, minimum observable signal, "
+        "and any material unresolved choice or risk. This is handoff data, not a new worker or completion gate. "
     )
     if route == "project_inspection":
         external_follow_up = (

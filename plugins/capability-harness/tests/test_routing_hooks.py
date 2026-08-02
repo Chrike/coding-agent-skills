@@ -59,6 +59,9 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("authorizes public, non-sensitive discovery", context)
         self.assertIn("upper bound rather than a target", context)
         self.assertIn("do not require advance proof", context)
+        self.assertIn("acceptance seed", context)
+        self.assertIn("minimum observable signal", context)
+        self.assertIn("not a new worker or completion gate", context)
         self.assertNotIn("Validation-cues", context)
 
     def test_open_ended_unfamiliar_domain_selects_context_discovery(self) -> None:

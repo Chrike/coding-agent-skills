@@ -47,6 +47,8 @@ A revision replaces the current best only if all are true:
 
 Otherwise retain or restore the previous best. The evaluator is advisory; the controller owns integration.
 
+A pre-action Acceptance Seed supplies an initial target and minimum signal; it does not turn a `supports-claim` result into an overall completion verdict.
+
 ## Completion rule
 
 Finalize when:

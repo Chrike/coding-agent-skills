@@ -14,6 +14,8 @@ Before using any tool, establish:
 - the user's hard constraints and any explicit repository, source, network, or data restrictions;
 - whether public, non-sensitive sources can inform that decision without exposing protected data.
 
+If the controller supplies an Acceptance Seed, use its outcome and minimum signal to focus discovery and plan implications; do not treat it as final acceptance or invent a missing user choice.
+
 A bounded assignment to this public-discovery leaf, including a hook-selected route, authorizes generic public
 WebSearch/WebFetch queries by default. The controller does not need to repeat a network-authorization sentence, return
 headings, evidence standard, or stop condition that this agent contract already supplies. This default never permits private, authenticated, paid, or user-identifying sources, and it never permits

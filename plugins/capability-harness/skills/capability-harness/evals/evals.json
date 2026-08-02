@@ -112,6 +112,17 @@
         "The direct path does not create a search or agent call merely because the output is an artifact.",
         "The requested artifact check remains the acceptance signal."
       ]
+    },
+    {
+      "id": 12,
+      "description": "Optional acceptance-seed calibration example; not a universal task rule or an automated runtime test.",
+      "prompt": "Implement a bounded repository change whose required behavior is clear and whose focused regression test is the minimum acceptance signal.",
+      "expected_output": "Carries the clear outcome and minimum observable signal into the implementation without creating a new route, verifier, or completion gate.",
+      "assertions": [
+        "A clear acceptance signal may remain implicit in the direct implementation path.",
+        "The acceptance seed does not select a worker merely because a check exists.",
+        "A later verifier, if explicitly selected, receives one exact claim rather than an overall done verdict."
+      ]
     }
   ]
 }

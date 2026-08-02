@@ -4,6 +4,26 @@ Every delegated task must have a narrow objective, explicit boundaries, a fixed 
 
 `SubagentStop` checks the minimum headings below. Optional sections are useful only when they contain material evidence; do not emit empty placeholders.
 
+## Acceptance seed
+
+The Acceptance Seed is a transient, controller-owned handoff from the pre-action decision to material work. It is not a leaf-agent return contract, and `SubagentStop` does not require a heading for it. Its minimum shape is:
+
+- **Outcome and target/scope** — what must be true and where it must be true;
+- **Minimum observable signal** — the smallest fact that would support the requested outcome;
+- **Evidence path** — how the signal can be observed when observation is needed;
+- **Unresolved preference or risk** — a material user-owned choice, subjective criterion, or uncertainty, or `none`.
+
+The controller reuses the requested outcome and hard constraints instead of creating a second task specification. A fixed, low-risk direct task may keep the seed implicit. For substantive work, the controller should make the minimum signal explicit when it is not already clear, while inferring obvious low-risk criteria and avoiding blockers for non-material formatting or preferences. The seed is provisional: it can be refined, supported, contradicted, or left `unverified` by later evidence.
+
+Keep these states separate:
+
+- `defined` — the outcome, target or scope, and minimum signal are clear;
+- `verified` — direct evidence supports the assigned signal or claim;
+- `evaluated` — any material quality or preference judgment has been considered;
+- `complete` — the controller has integrated the result and no high-impact unresolved conflict remains.
+
+A seed does not authorize a check, select a worker, create runtime state, or establish overall completion. Before invoking `execution-verifier`, the controller must resolve it into an exact claim, target identity, permitted check and effects, sensitive-data boundary, and bounded stop condition. The active controller and domain Skill own the final acceptance decision.
+
 ## Context scout
 
 Use for one open-ended or unfamiliar task where missing domain context may materially improve a named decision. Before

@@ -12,6 +12,8 @@ should not need to write a hidden domain checklist into the prompt.
 
 For prompt profiles with a strong pre-action signal, the hook names the default next route rather than leaving every request as an equally weak suggestion. The active controller executes that one route before material work. This is intentionally different from a Stop gate: it does not require every capability, retry a completed result, or turn route candidates into a checklist.
 
+The controller may carry a light Acceptance Seed into that decision: the intended outcome and target, the minimum observable signal, the evidence path when needed, and any material unresolved choice or risk. It is transient handoff data, not a new route, worker, persisted state, or completion gate; direct tasks may keep it implicit.
+
 ## Illustrative Decision Profile (Non-normative)
 
 For a terse open-ended artifact request, a decision-first pass may identify a missing structural, compositional, interaction,

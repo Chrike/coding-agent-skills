@@ -19,6 +19,21 @@ Before materially generating, modifying, or recommending, identify:
 
 Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
 
+## Acceptance Seed
+
+Before material work, establish the lightest applicable acceptance seed:
+
+- **Outcome and target/scope** — what must be true and where it must be true;
+- **Minimum observable signal** — the smallest fact that would show the requested outcome is at least met;
+- **Evidence path** — how that signal can be observed, such as a focused test, build, render, runtime check, comparison, or source check;
+- **Unresolved preference or risk** — a user-owned choice, subjective criterion, or material uncertainty that remains, or `none`.
+
+Reuse the requested outcome and hard constraints from the Capability Decision; do not create a second task specification. A fixed, low-risk, direct task may keep this seed implicit and must not receive extra hook context, search, delegation, or verification merely to fill the fields. For substantive implementation, modification, external delivery, or a claim that needs observation, make at least the outcome and minimum signal explicit before acting when they are not already clear. Infer obvious, low-risk criteria rather than blocking for formatting or non-material preference details.
+
+Block or ask only when a missing user-owned choice, target boundary, evidence path, or side-effect authorization would change the direction or invalidate the result. The seed is provisional controller data, not a new route, worker, persisted state, or completion gate. Keep `defined`, `verified`, `evaluated`, and `complete` distinct: an observed signal supports its claim, but does not by itself establish overall task completion.
+
+Carry the applicable seed into any selected pre-action route and into a verifier brief. The active controller and domain Skill remain responsible for interpreting it, choosing the exact check, integrating evidence, and making the final acceptance decision.
+
 When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. Direct and explicitly controller-owned workflow prompts receive no additional hook context. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery. A leading slash alone is not a controller boundary.
 
 ## Context Discovery

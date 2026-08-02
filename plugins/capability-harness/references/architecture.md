@@ -27,8 +27,10 @@ The capability plane contains repository inspection, current-source retrieval, l
 
 ## Decision-First State Machine
 
-1. **INTAKE** — extract the objective, hard constraints, project facts, available checks, and boundaries.
-2. **DECIDE** — name the highest-impact unknown or quality risk; identify the missing context or signal that could improve the plan; select the direct path when no useful bounded action exists.
+The Acceptance Seed is transient controller data created during `INTAKE` or `DECIDE`. It is not a route, worker, persisted state, or completion gate.
+
+1. **INTAKE** — extract the objective, hard constraints, project facts, available checks, a light acceptance seed when material work needs one, and boundaries.
+2. **DECIDE** — name the highest-impact unknown or quality risk; identify the missing context or signal that could improve the plan; use the acceptance seed to keep the intended result and minimum observable signal aligned; select the direct path when no useful bounded action exists.
 3. **DISCOVER OR ACQUIRE** — obtain only the selected bounded context or evidence and compress it into plan implications.
 4. **ROUTE** — choose the single highest-value next capability module, if one remains useful.
 5. **EXECUTE** — implement, render, test, calculate, or otherwise observe the real result through the active domain method.

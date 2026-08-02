@@ -13,6 +13,17 @@ Before the first material generation, implementation, or recommendation, answer 
 
 If a route cannot answer all four, it is not selected. Unselected candidate signals from `UserPromptSubmit` are prompts to consider a route, not mandatory actions. A named strong pre-action route is different: execute that one route before material work, subject to its bounded skip or evidence-unavailable outcome. Keep the decision compact; do not turn it into a generic task taxonomy.
 
+## Acceptance Seed
+
+The pre-action controller should carry a light, transient acceptance seed alongside the route decision:
+
+- the outcome and target or scope;
+- the minimum observable signal;
+- the evidence path when observation is needed;
+- any material unresolved preference, user-owned choice, or risk.
+
+This is not a fifth route or a required form. Fixed, low-risk direct work may use an implicit seed without hook context or an extra verifier. Substantive implementation, modification, delivery, or observable claims should make the minimum signal explicit when it is not already clear. Block only when a missing target, signal, evidence boundary, user choice, or authorization would materially change the direction or make the result unreliable. Do not turn a planned check into evidence, and do not treat a verified claim as an overall completion verdict. Carry the seed into a selected route or exact verifier brief; the controller owns its interpretation and final acceptance.
+
 ## Strong Pre-Action Routes
 
 The prompt hook has a deliberately narrow role: it names a route only when a prompt has a strong, safe signal. A selected route is a pre-action execution contract to obtain that one signal before material work, not a request for a later compliance review:
