@@ -1,4 +1,6 @@
 .agents/
+.claude/
+.serena/
 skills-lock.json
 __pycache__/
 *.py[cod]
