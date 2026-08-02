@@ -33,7 +33,7 @@ implications. The active controller must consume that Brief before material gene
 search results into the task, copy an existing artifact, or treat the scout as the final evaluator. Verification and
 evaluation remain optional downstream capabilities.
 
-For a hook-selected public discovery route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
+For a bounded public-discovery assignment, including a hook-selected route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
 
 An explicit source or network constraint in the current user request overrides this generic route authorization. Do not invoke external discovery under that constraint; use only explicitly permitted local evidence or take the direct path. This is a per-request boundary, not a default project policy.
 
@@ -55,7 +55,7 @@ These references describe the current project plugin. The current agent files an
 Use only the module that can change the selected decision:
 
 - `capability-harness:context-scout` for one bounded missing-context question before generation or recommendation;
-- `capability-harness:evidence-researcher` for one bounded repository or explicitly authorized current-source question;
+- `capability-harness:evidence-researcher` for one bounded repository or current public-source question;
 - `capability-harness:independent-brancher` for one materially different candidate when anchoring or a real trade-off remains;
 - `capability-harness:execution-verifier` for one exact claim with an identified target, permitted effects, and observable acceptance signal;
 - `capability-harness:skeptical-evaluator` for actual candidate artifacts or results whose material quality is not settled by deterministic checks.

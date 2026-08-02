@@ -23,6 +23,12 @@ The prompt hook has a deliberately narrow role: it names a route only when a pro
 
 The hook does not claim to understand every task or launch a worker itself. The active controller executes the selected route exactly once, or records its bounded skip or unavailable-evidence outcome. A leading slash is not ownership evidence by itself; command expansion is handled by Claude Code's command lifecycle. `context-scout` may return its direct-route skip when it cannot identify a plausible bounded context gap. Fixed, low-ambiguity work remains direct, and a user may opt out with `[harness:off]`. An explicit source or network constraint in the current prompt suppresses external discovery while still permitting relevant local project inspection; this is not a default project policy.
 
+Task length, a review request, or an artifact medium alone does not establish a context gap. An artifact needs an independent
+quality or unresolved-decision signal before discovery is selected. Conversely, implementation does not suppress discovery
+when the prompt explicitly identifies unfamiliar, unresolved, ambiguous, or materially competing domain decisions. An
+explicit request not to delegate keeps the prompt hook silent; the active controller may still perform work directly within
+the user's other constraints.
+
 ## Direct Path
 
 Proceed directly when the task is low consequence, adequately specified, and no available evidence, observation, or independent alternative can materially change the result. Direct does not mean unverified: perform a check when the user explicitly requests one or when a concrete claim needs observation. For the prompt hook, the direct path is silent and emits no additional context.

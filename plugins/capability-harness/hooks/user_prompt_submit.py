@@ -19,7 +19,7 @@ from common import (  # noqa: E402
 def route_context(route: str, reason: str, external_discovery_disallowed: bool = False) -> str:
     contract = (
         "This is a selected pre-action route, not a generic suggestion. Before material work, the active controller "
-        "must execute exactly this one route once. If the route is unavailable or its bounded result is not useful, "
+        "must execute exactly this one route once. If the route is unavailable, unsafe, or its bounded result is not useful, "
         "return the route's explicit skip or unavailable-evidence outcome and then continue; do not silently omit it, "
         "and do not add unrelated workers or a post-hoc completion gate. "
     )
@@ -27,35 +27,40 @@ def route_context(route: str, reason: str, external_discovery_disallowed: bool =
         external_follow_up = (
             "External discovery is disabled for this prompt; use local project evidence only."
             if external_discovery_disallowed
-            else "If local inspection exposes one remaining current external uncertainty, use one bounded "
+            else "If the minimum local inspection exposes one remaining current external uncertainty, use one bounded "
             "capability-harness:evidence-researcher brief for that exact question."
         )
         return (
             "Capability-harness selected pre-action route: project inspection. "
-            f"Reason: {reason} {contract}Before materially generating, modifying, or recommending, inspect the relevant "
-            "current files, configuration, history, and local conventions. Do not substitute generic web guidance "
-            f"for repository evidence. {external_follow_up}"
+            f"Reason: {reason} {contract}Before materially generating, modifying, or recommending, inspect only the "
+            "current files, configuration, history, or local conventions that can change the decision. Do not broaden "
+            "inspection mechanically, and do not substitute generic web guidance for repository evidence. "
+            f"{external_follow_up}"
         )
     if route == "evidence_research":
         return (
             "Capability-harness selected pre-action route: focused evidence research. "
             f"Reason: {reason} {contract}Before materially generating or recommending, invoke "
-            "capability-harness:evidence-researcher once for the one fact that can change the approach. Its brief must "
-            "include the original task, exact evidence question, public official-or-primary source scope, public "
-            "non-sensitive network authorization, a Findings/Evidence return, and a stop condition of answering that "
-            "one question. Never include private prompts, source code, identifiers, credentials, or repository data in a "
+            "capability-harness:evidence-researcher once for the one fact that can change the approach. Give it the "
+            "original task, exact evidence question, and any explicit source or data constraints. This selected route "
+            "authorizes public, non-sensitive research from current official or primary sources; an explicit user source "
+            "or network constraint overrides that default. The agent's own contract supplies its return format and stop "
+            "condition. Never include private prompts, source code, identifiers, credentials, or repository data in a "
             "query. Use the finding to make the decision, not as a post-hoc citation."
         )
     if route == "context_discovery":
         return (
             "Capability-harness selected pre-action route: bounded context discovery. "
             f"Reason: {reason} {contract}Before material generation or recommendation, invoke "
-            "capability-harness:context-scout once with the original request and the one construction, design, or "
-            "selection decision it must inform. Its brief must state public, non-sensitive network authorization and "
-            "return a Pre-action Decision Brief with context gaps, findings, applicability, plan implications, and "
-            "uncertainty. A plausible material context gap is enough to search; do not require advance proof that the "
-            "search will improve the result. Stop after 3-5 focused public searches or when the brief has actionable "
-            "input. Search across direct, component, and adjacent-principle evidence. Do not put private prompt or "
+            "capability-harness:context-scout once with the original request, the one construction, design, or selection "
+            "decision it must inform, and any explicit source or data constraints. This selected route authorizes public, "
+            "non-sensitive discovery; an explicit user source or network constraint overrides that default. The agent's "
+            "own contract supplies its Pre-action Decision Brief format and stop condition. A plausible material "
+            "context gap is enough "
+            "to search; do not require advance proof that search will improve the result. Use only searches or repository "
+            "inspections that inform the selected decision, stop as soon as the Brief has actionable input or information "
+            "value is clearly diminishing, and use five focused searches or inspections as an upper bound rather than a "
+            "target. Search across direct, component, and adjacent-principle evidence. Do not put private prompt or "
             "repository details into queries. Feed the returned Brief into the construction or selection plan before "
             "material work; do not merely cite it or paste raw results. A scout direct-route skip is the valid basis for "
             "proceeding without search; do not silently downgrade this route because direct generation is faster."

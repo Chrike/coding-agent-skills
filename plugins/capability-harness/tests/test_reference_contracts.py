@@ -66,6 +66,19 @@ class ReferenceContractTests(unittest.TestCase):
             for heading in headings:
                 self.assertIn(heading, contracts)
 
+    def test_search_contracts_inherit_public_scope_and_stop_on_information_value(self) -> None:
+        context_scout = (PLUGIN_ROOT / "agents" / "context-scout.md").read_text(encoding="utf-8")
+        evidence_researcher = (PLUGIN_ROOT / "agents" / "evidence-researcher.md").read_text(encoding="utf-8")
+        contracts = (REFERENCE_ROOT / "capability-contracts.md").read_text(encoding="utf-8")
+
+        for content in (context_scout, evidence_researcher):
+            self.assertIn("does not need to repeat a network-authorization sentence", content)
+        self.assertIn("upper bound rather than a target", context_scout)
+        self.assertIn("clearly diminishing", context_scout)
+        self.assertIn("information value", context_scout)
+        self.assertIn("upper bound rather than a target", contracts)
+        self.assertNotIn("3-5", contracts)
+
     def test_contract_reference_keeps_execution_verifier_evidence_only(self) -> None:
         contracts = (REFERENCE_ROOT / "capability-contracts.md").read_text(encoding="utf-8")
         self.assertIn("It does not modify source files, repair defects, assign severity, recommend a fix", contracts)

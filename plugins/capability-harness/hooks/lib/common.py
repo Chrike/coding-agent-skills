@@ -64,6 +64,15 @@ NO_EXTERNAL_DISCOVERY_PATTERNS = [
     r"\b(do not (?:use )?search|don't (?:use )?search|do not browse(?: the web)?|don't browse(?: the web)?|without browsing(?: the web)?|no web|no internet|no external sources|do not use external sources)\b",
     r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料)",
 ]
+DELEGATION_DISALLOWED_PATTERNS = [
+    r"\b(?:do not|don't)\s+(?:delegate|use\s+(?:an?\s+)?(?:sub-?agents?|agents?))\b",
+    r"\bwithout\s+(?:delegation|sub-?agents?)\b",
+    r"(?:不要|不许|无需|不需要)(?:委派|调用(?:子)?代理|使用(?:子)?代理)",
+]
+STRONG_CONTEXT_GAP_PATTERNS = [
+    r"\b(unfamiliar|novel|non-trivial|open-ended|unresolved|ambiguous|unknown|trade-?off)\b",
+    r"(陌生|新颖|非平凡|开放式|未解决|不明确|未知|取舍|权衡)",
+]
 OPEN_ENDED_PATTERNS = [
     r"\b(unfamiliar|novel|complex|non-trivial|open-ended|unresolved|ambiguous|difficult|hard|deep|in-depth|trade-?off|unknown|design|recommend|architecture|strategy|compare|optimi[sz]e)\b",
     r"(陌生|新颖|复杂|困难|开放式|未解决|不明确|未知|深入|取舍|权衡|推荐|设计|架构|策略|比较|优化)",
@@ -105,15 +114,18 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     current = any_match(stripped, CURRENT_PATTERNS)
     implementation = any_match(stripped, IMPLEMENT_PATTERNS)
     artifact = any_match(stripped, ARTIFACT_PATTERNS)
-    quality = any_match(stripped, QUALITY_PATTERNS) or artifact
+    quality = any_match(stripped, QUALITY_PATTERNS)
     external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS)
     fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
+    delegation_disallowed = any_match(stripped, DELEGATION_DISALLOWED_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
     controller_owned = any_match(stripped, CONTROLLER_OWNED_PATTERNS) and not explicit_harness
     project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
-    open_ended_signal = len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)
+    open_ended_signal = any_match(stripped, STRONG_CONTEXT_GAP_PATTERNS) or (
+        len(stripped) >= 40 and any_match(stripped, OPEN_ENDED_PATTERNS)
+    )
     substantive = not trivial and (
         len(stripped) >= 100
         or current
@@ -134,6 +146,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "external_guidance": external_guidance,
         "fully_specified": fully_specified,
         "external_discovery_disallowed": external_discovery_disallowed,
+        "delegation_disallowed": delegation_disallowed,
         "project_dependent": project,
         "high_consequence": high_consequence,
         "open_ended_signal": open_ended_signal,
@@ -149,7 +162,7 @@ def candidate_actions(classification: dict[str, bool]) -> dict[str, bool]:
     artifact = classification.get("visual_or_artifact", False)
     open_ended = bool(
         classification.get("substantive")
-        and not classification.get("implementation")
+        and classification.get("open_ended_signal")
         and not classification.get("project_dependent")
         and not classification.get("current_or_version_specific")
         and not classification.get("high_consequence")
@@ -184,6 +197,8 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
         return "direct", "The request is low-complexity."
     if classification.get("controller_owned"):
         return "direct", "An explicit controller boundary owns this invocation."
+    if classification.get("delegation_disallowed"):
+        return "direct", "The user explicitly disallowed delegation for this invocation."
 
     candidates = candidate_actions(classification)
     if candidates["project_inspection"]:

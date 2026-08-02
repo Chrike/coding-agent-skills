@@ -42,7 +42,7 @@ The project-scoped `UserPromptSubmit` hook identifies a small set of strong prom
 
 For open-ended or unfamiliar work selected for context discovery, the active controller invokes `context-scout` once before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 
-The command hooks require Python 3.9 or later on `PATH`. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
+The command hooks require a Python 3.9 or later executable named `python` on `PATH`. The checked-in Hook configuration invokes that exact command; a host that exposes Python only as `python3` or `py` must provide a compatible `python` launcher before enabling the plugin. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
 
 The JSON cases under `skills/capability-harness/evals/` are maintenance calibration data, not automated Hook tests and not the `claude plugin eval` early-access format.
 

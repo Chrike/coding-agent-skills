@@ -19,9 +19,12 @@ Load the source without installing it:
 claude --plugin-dir .\plugins\capability-harness
 ```
 
-Inside the session, inspect `/context`, `/agents`, and `/hooks` to confirm the Skill, five namespaced agents, and two scoped hooks are discoverable. The fifth agent is `capability-harness:context-scout`.
+Inside the session, inspect `/context` and `/hooks`, then use the `@` mention typeahead or `claude plugin details` to confirm the Skill, five namespaced agents, and two scoped hooks are discoverable. The fifth agent is `capability-harness:context-scout`.
 
 ## Repository validation
+
+The command hooks require a Python 3.9 or later executable named `python` on `PATH`; the Hook configuration invokes that
+exact command.
 
 ```powershell
 claude plugin validate .\plugins\capability-harness --strict

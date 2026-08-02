@@ -16,7 +16,7 @@ The capability plane contains repository inspection, current-source retrieval, l
 
 - `skills/capability-harness/SKILL.md` — decision-first method capsule and module-selection rules;
 - `agents/context-scout.md` — bounded assessment and discovery of omitted context that can change one decision;
-- `agents/evidence-researcher.md` — bounded repository or explicitly authorized current-source evidence;
+- `agents/evidence-researcher.md` — bounded repository or current public-source evidence;
 - `agents/independent-brancher.md` — one materially different candidate;
 - `agents/execution-verifier.md` — one bounded observable check; command execution requires an exact controller brief and remains subject to host permissions;
 - `agents/skeptical-evaluator.md` — independent judgment over supplied artifacts or results;

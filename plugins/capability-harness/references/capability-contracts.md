@@ -8,8 +8,12 @@ Every delegated task must have a narrow objective, explicit boundaries, a fixed 
 
 Use for one open-ended or unfamiliar task where missing domain context may materially improve a named decision. Before
 searching, the scout states the decision and the missing signal. A plausible material gap is enough to begin bounded
-discovery; the scout does not need to prove in advance that search will improve the final result. A discovery response
-must include:
+discovery; the scout does not need to prove in advance that search will improve the final result. A bounded public-discovery
+assignment, including a hook-selected route, inherits authorization for generic public, non-sensitive discovery, while
+explicit user source, network, and data constraints
+override that default. The controller need not repeat return headings or the stop condition. The scout infers obvious,
+low-risk context and blocks only when the question, a material user-owned choice, or a source or data boundary remains
+unresolved. A discovery response must include:
 
 ```markdown
 ## Capability decision
@@ -38,14 +42,19 @@ When no plausible bounded source can supply useful task context, the scout retur
 - the fixed constraint, sufficient local evidence, unavailable signal, or intrinsic capability limit
 ```
 
-The scout may add `## Search path`, `## Noise excluded`, and `## Uncertainty`. It uses at most 3-5 focused direct, component,
-and adjacent searches, does not copy an existing artifact, and does not choose or implement the final result. Verification
-and evaluation are separate optional routes, not prerequisites for this contract. For an incomplete brief, return the
-blocked-brief form below.
+The scout may add `## Search path`, `## Noise excluded`, and `## Uncertainty`. It uses only focused direct, component, and
+adjacent searches that inform the selected decision, stops when the Brief is actionable or information value is clearly
+diminishing, and treats five searches or inspections as an upper bound rather than a target. It does not copy an existing
+artifact or choose or implement the final result. Verification and evaluation are separate optional routes, not prerequisites
+for this contract. Return the blocked-brief form below only for a material missing decision or source or data boundary.
 
 ## Evidence researcher
 
-Use for one bounded repository question or explicitly authorized current official or primary-source question. The complete response must include:
+Use for one bounded repository question or current official or primary-source question. A bounded public-evidence
+assignment, including a hook-selected route, inherits authorization for generic public, non-sensitive research, while
+explicit user source, network, and data constraints override that default. The controller need not repeat the evidence standard, return headings, or stop condition. The researcher
+infers an obvious low-risk source scope and blocks only when the question or a material source or data boundary remains
+unresolved. The complete response must include:
 
 ```markdown
 ## Findings

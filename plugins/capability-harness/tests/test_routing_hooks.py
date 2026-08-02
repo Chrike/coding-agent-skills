@@ -43,7 +43,7 @@ class RoutingHookTests(unittest.TestCase):
             "Implement the current version-specific API behavior in this project and verify it."
         )
         self.assertIn("selected pre-action route: project inspection", context)
-        self.assertIn("inspect the relevant current files", context)
+        self.assertIn("inspect only the current files", context)
         self.assertIn("evidence-researcher", context)
         self.assertNotIn("context-scout once", context)
 
@@ -56,6 +56,8 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("invoke capability-harness:context-scout once", context)
         self.assertIn("direct, component, and adjacent-principle", context)
         self.assertIn("Pre-action Decision Brief", context)
+        self.assertIn("authorizes public, non-sensitive discovery", context)
+        self.assertIn("upper bound rather than a target", context)
         self.assertIn("do not require advance proof", context)
         self.assertNotIn("Validation-cues", context)
 
@@ -75,17 +77,53 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("selected pre-action route: bounded context discovery", context)
         self.assertIn("invoke capability-harness:context-scout once", context)
 
+    def test_unfamiliar_implementation_selects_context_discovery(self) -> None:
+        context = self.context_for(
+            "Implement a parser for an unfamiliar calendrical notation with unresolved domain rules."
+        )
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+
+    def test_short_strong_context_gap_selects_context_discovery(self) -> None:
+        context = self.context_for("Implement an unfamiliar codec.")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+
+    def test_quality_sensitive_artifact_still_selects_context_discovery(self) -> None:
+        context = self.context_for("Create a high-quality visual artifact with coherent composition.")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+
     def test_fully_specified_artifact_task_suppresses_optional_context_discovery(self) -> None:
         self.assertIsNone(
             self.submit("Create a 24x24 red circular icon with fixed dimensions and color, without visual innovation.")
+        )
+
+    def test_artifact_keyword_alone_stays_direct(self) -> None:
+        self.assertIsNone(self.submit("Create a blue circle SVG."))
+
+    def test_review_request_without_context_gap_stays_direct(self) -> None:
+        self.assertIsNone(self.submit("Review this supplied function for correctness."))
+
+    def test_long_fixed_transformation_without_context_gap_stays_direct(self) -> None:
+        self.assertIsNone(
+            self.submit(
+                "Summarize the supplied passage into three bullets, preserve every date and proper noun, "
+                "and use neutral language with no added commentary."
+            )
+        )
+
+    def test_completed_observable_claim_does_not_trigger_context_discovery(self) -> None:
+        self.assertIsNone(
+            self.submit(
+                "The implementation is complete, but the final claim depends on one bounded observable runtime "
+                "behavior that has not been checked."
+            )
         )
 
     def test_current_external_question_selects_focused_evidence_research(self) -> None:
         context = self.context_for("What is the current official API behavior for this product?")
         self.assertIn("selected pre-action route: focused evidence research", context)
         self.assertIn("invoke capability-harness:evidence-researcher once", context)
-        self.assertIn("official-or-primary source scope", context)
-        self.assertIn("Findings/Evidence return", context)
+        self.assertIn("authorizes public, non-sensitive research", context)
+        self.assertIn("own contract supplies its return format and stop condition", context)
 
     def test_version_specific_qualifier_selects_focused_evidence_research(self) -> None:
         context = self.context_for("What version is currently supported by this product?")
@@ -99,6 +137,14 @@ class RoutingHookTests(unittest.TestCase):
 
     def test_explicit_no_search_overrides_current_external_evidence_route(self) -> None:
         self.assertIsNone(self.submit("当前官方 API 版本是什么？不要搜索网络。"))
+
+    def test_explicit_no_delegation_suppresses_agent_route(self) -> None:
+        self.assertIsNone(
+            self.submit("What is the current official API behavior? Do not delegate to an agent.")
+        )
+
+    def test_explicit_chinese_no_delegation_suppresses_agent_route(self) -> None:
+        self.assertIsNone(self.submit("当前官方 API 行为是什么？不要调用子代理。"))
 
     def test_low_complexity_prompt_is_direct(self) -> None:
         self.assertIsNone(self.submit("hello"))
