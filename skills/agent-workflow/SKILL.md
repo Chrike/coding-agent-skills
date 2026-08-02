@@ -42,7 +42,7 @@ Hand off to explicit human review when the remaining decision is policy, taste, 
 - Reuse the user- or host-selected execution substrate when one is already selected.
 - Otherwise, prefer direct subagents for bounded slices owned by the controller.
 - Use Agent Teams only when the host supports, enables, and approves them, and peer communication or shared coordination materially helps the task.
-- Use a project-specific workflow runtime only when it is explicitly invoked or already owns the scope and is available.
+- Use a dynamic workflow only when it is available and either was explicitly selected or already owns the scope; never infer workflow selection from task length, file count, or broad reconnaissance.
 - If parallel or independent-agent execution is unavailable and the acceptance contract does not require independent context, execute the slices sequentially in the controller flow while preserving separate scopes, evidence, acceptance, integration, and exit contracts.
 - If fresh-context independence, blind review, independent candidate generation, or another form of context independence is itself an acceptance requirement, do not substitute same-context sequential passes. Mark that requirement `unverified` or `blocked`, report the unavailable capability, preserve any completed non-independent evidence separately, and return any capability or authorization decision to the user or upper controller.
 - Never claim that parallel execution, an agent launch, an independent review, or fresh-context verification occurred when the host did not provide it.

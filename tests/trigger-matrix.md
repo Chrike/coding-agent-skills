@@ -18,6 +18,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Continue this paused task using the current repository-local issue or work-item draft. | Base default behavior |
 | What is the current goal and why are you doing this? | Base default behavior |
 | We are still inspecting these files; do not start rewriting yet. | Base default behavior |
+| Read the current project to prepare for a later review; do not begin the review yet. | Base default behavior; keep one owner and do not start a dynamic workflow or multi-agent fan-out. |
 | You have enough context now. Make the requested code change instead of giving me another plan. | Base default behavior |
 | Fix only the reported bug. Do not clean up neighboring code or add helper layers. | Base default behavior |
 | What did you actually finish, what failed, and what is still unverified? | Base default behavior |
