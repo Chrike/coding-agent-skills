@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 当前阶段：阶段 4（Meta + Define 第一批吸收；`using-agent-skills` 已实施，`interview-me` 待实施）。
+- 当前阶段：阶段 4（Meta + Define 第一批吸收；`using-agent-skills` 与 `interview-me` 已实施，待批次提交记录与汇报）。
 - 计划建立日期：2026-08-03。
 - 当前根项目：`E:\projects\_drafts`，Git 分支 `migrate-meta-define`，迁移基线 revision `f82a1b2`。
 - 审查输入：`absorb-agent-skills-master-prompt.md`。
@@ -1704,7 +1704,7 @@
 | 生命周期/面 | Target 条目或基础设施单元 | 暂定动作 | 优先级 | 当前状态 |
 | --- | --- | --- | --- | --- |
 | Meta | `using-agent-skills`（含 SessionStart/DoD 依赖） | 合并/协调重叠 | P1 | 已确认，阶段 4 已完成 |
-| Define | `interview-me` | 新增/改写引入 | P1 | 已确认，阶段 4 源码审计已完成，待实施 |
+| Define | `interview-me` | 新增/改写引入 | P1 | 已确认，阶段 4 已完成 |
 | Define | `idea-refine` | 新增/改写引入 | P2 | 已确认 |
 | Define | `spec-driven-development` | 合并/协调重叠 | P0 | 已确认 |
 | Plan | `planning-and-task-breakdown` | 合并/协调重叠 | P0 | 已确认 |
@@ -1843,9 +1843,10 @@
 
 - Meta / `using-agent-skills`：已完成独立 source audit、窄合并改写、README/测试/来源记录同步和聚焦静态验证；未新增 runtime Skill、未启用 SessionStart hook、未执行 target hook/script/eval。
 - Meta / `using-agent-skills` changed files：`prompts/CLAUDE.fragment.md`、`README.md`、`README.zh-CN.md`、`tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`、`CREDITS.md`、本文件。
-- Define / `interview-me`：target source audit 已完成；current-owned Skill 及共享 README/路由测试尚未修改，下一项仍是独立实施。
+- Define / `interview-me`：已完成独立 target/current source audit、current-owned Skill 改写、README/测试/来源记录同步和聚焦静态验证；未创建默认 intent 工件或自动 handoff。
+- Define / `interview-me` changed files：`skills/interview-me/SKILL.md`、`README.md`、`README.zh-CN.md`、`tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`、`CREDITS.md`、本文件。
 - 当前批次未吸收 `idea-refine`、`spec-driven-development` 或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 正在处理 Meta + Define 第一批。`using-agent-skills` 的实现已完成但其独立本地 commit 尚待提交后记录；随后只处理 `interview-me`，完成并汇报该生命周期批次后暂停。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Meta + Define 第一批实现已完成，当前只剩独立本地 commit 与批次记录核对。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作；完成批次汇报后暂停，不进入 `idea-refine` 或其他下一批条目。

@@ -41,6 +41,10 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 
 | Prompt | Expected routing |
 | --- | --- |
+| Interview me before we plan this dashboard. | `interview-me`; ask one question at a time and do not create a plan yet |
+| Help me clarify what I actually want before we choose an approach. | `interview-me`; return a confirmed intent statement in chat |
+| Grill me one question at a time about this product idea. | `interview-me`; attach a visible `GUESS` to each question |
+| Interview me first, then give me a plan after I confirm the intent. | `interview-me` then `plan-work`; do not enter planning before explicit confirmation |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
 | Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |

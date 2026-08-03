@@ -11,6 +11,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
 | Fix this small TypeScript error. | `issue-workflow`, `decision-map`, standalone meta-skill or SessionStart discovery hook | ordinary coding should stay light; lifecycle discovery must not add a second runtime layer |
+| Build me a dashboard for our metrics. | `interview-me` | ordinary underspecification alone does not start an interview; ask the smallest material question in the base flow or proceed from safe defaults |
+| Make it faster. | `interview-me` | do not use intent interviewing merely because the request is short; route any actual performance diagnosis to its applicable owner |
+| Interview me about missing requirements during CI. | `interview-me` | no live responsive user is available; report the blocker and do not guess or persist an intent artifact |
+| Are we sure this existing implementation plan is right? | `interview-me` | a reliability challenge to an existing direction belongs to `reliability-check`, not pre-decision intent interviewing |
 | Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
