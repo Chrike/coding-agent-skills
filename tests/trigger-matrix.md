@@ -34,6 +34,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | The focused test passes, but an acceptance criterion, directly affected contract, or identified behavioral risk remains uncovered. | Base default behavior; complete the required verification before deciding whether to stop expanding checks |
 | The context is getting long, but the task is still executable. Keep going instead of stopping early just to hand off. | Base default behavior |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | Base default behavior |
+| This implementation has a concrete technical tradeoff; explain the concern and a workable alternative before I choose. | Base default behavior; surface the disagreement without activating review or planning unless the request separately asks for it. |
+| This non-trivial change relies on assumptions that could alter scope; state only those material assumptions before acting. | Base default behavior; do not require a universal fixed template or approval gate. |
 
 ## Workflow Skill Cases
 
@@ -245,6 +247,7 @@ These are representative checks that default-layer handling still happens in the
 | Prompt | Expected routing |
 | --- | --- |
 | Which workflow should handle this? | Routes from `routing-contract.md` and the skill descriptions without inventing a new router layer. |
+| Which skill applies to this request? | Uses the maintained prompt, current skill descriptions, and routing contract; does not invoke a standalone meta-skill or SessionStart discovery hook. |
 | Review the trigger boundaries. | Checks the routing contract and the trigger tests rather than inventing new trigger rules. |
 
 ## Failure Signals

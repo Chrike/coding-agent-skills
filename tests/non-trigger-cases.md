@@ -10,7 +10,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
-| Fix this small TypeScript error. | `issue-workflow`, `decision-map` | ordinary coding should stay light |
+| Fix this small TypeScript error. | `issue-workflow`, `decision-map`, standalone meta-skill or SessionStart discovery hook | ordinary coding should stay light; lifecycle discovery must not add a second runtime layer |
 | Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |

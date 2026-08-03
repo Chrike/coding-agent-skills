@@ -18,6 +18,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | User Need | Layer |
 | --- | --- |
 | Ordinary coding, code questions, straightforward fixes | Base default behavior |
+| Choosing an applicable skill or composing clearly matching skills | Maintained prompt + current skill descriptions + this contract; choose the smallest applicable owner and do not create a standalone meta-router or automatic lifecycle chain |
 | Unclear bug, flaky behavior, regression, slow path, repeated failed fix | `debug-systematically` |
 | Test design, TDD, mocks, flaky tests caused primarily by test design or timing strategy, regression coverage, or a non-obvious test seam/level/acceptance signal | `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method. If the seam question exposes unresolved ownership, dependency, interface, or architecture pressure, resolve `design-codebase` first and return the remaining test-design decision to `test-strategy` when installed, available, and applicable; otherwise preserve the host's existing testing method |
 | Explicit review, feedback, done/fixed/passing check, development-artifact ready/finalize/send gate, or a behaviorally high-risk completed change needing focused readiness evidence before a done claim | `review-and-finish` |
