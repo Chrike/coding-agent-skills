@@ -41,6 +41,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 
 | Prompt | Expected routing |
 | --- | --- |
+| Help me refine this product idea before we plan it. | `idea-refine`; separate the problem from the first solution and explore a small set of directions |
+| Ideate on this process concept. | `idea-refine`; return a concept-level comparison, not an implementation plan |
+| Stress-test this concept before we choose an implementation approach. | `idea-refine`; evaluate value, feasibility, differentiation, and assumptions without opening an existing-plan review |
 | Interview me before we plan this dashboard. | `interview-me`; ask one question at a time and do not create a plan yet |
 | Help me clarify what I actually want before we choose an approach. | `interview-me`; return a confirmed intent statement in chat |
 | Grill me one question at a time about this product idea. | `interview-me`; attach a visible `GUESS` to each question |

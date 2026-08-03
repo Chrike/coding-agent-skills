@@ -60,6 +60,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 
 | Skill                | Use when                                                     |
 | -------------------- | ------------------------------------------------------------ |
+| `idea-refine`        | The user explicitly asks to ideate, refine, explore alternatives, or converge on a concept before planning |
 | `interview-me`       | The user explicitly asks for one-question-at-a-time intent clarification before planning or implementation |
 | `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped Git working-tree discard, named branch deletion, named worktree removal, or branch wrap-up choice |
 | `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
@@ -128,6 +129,7 @@ The current runtime surface is organized as follows:
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
+- `idea-refine` handles explicit concept exploration and convergence without automatically entering implementation planning.
 - `interview-me` handles an explicit request for pre-planning intent clarification without automatically entering a downstream workflow.
 - `plugins/capability-harness/` optionally adds project-scoped decision-first routing plus namespaced context discovery, evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
 - `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
@@ -157,8 +159,9 @@ Add these if you regularly ask for explicit planning, design, reassessment, or m
 
 ### Optional Explicit-Intent Workflows
 
-Add these if you want natural-language routing for intent clarification, branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
+Add these if you want natural-language routing for concept exploration, intent clarification, branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
 
+- `idea-refine`
 - `interview-me`
 - `finish-branch`
 - `issue-workflow`

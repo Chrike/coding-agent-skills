@@ -11,10 +11,13 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
 | Fix this small TypeScript error. | `issue-workflow`, `decision-map`, standalone meta-skill or SessionStart discovery hook | ordinary coding should stay light; lifecycle discovery must not add a second runtime layer |
-| Build me a dashboard for our metrics. | `interview-me` | ordinary underspecification alone does not start an interview; ask the smallest material question in the base flow or proceed from safe defaults |
-| Make it faster. | `interview-me` | do not use intent interviewing merely because the request is short; route any actual performance diagnosis to its applicable owner |
+| Build me a dashboard for our metrics. | `interview-me`, `idea-refine` | ordinary underspecification alone does not start an interview or ideation session; ask the smallest material question in the base flow or proceed from safe defaults |
+| Make it faster. | `interview-me`, `idea-refine` | do not use intent interviewing or concept refinement merely because the request is short; route any actual performance diagnosis to its applicable owner |
 | Interview me about missing requirements during CI. | `interview-me` | no live responsive user is available; report the blocker and do not guess or persist an intent artifact |
-| Are we sure this existing implementation plan is right? | `interview-me` | a reliability challenge to an existing direction belongs to `reliability-check`, not pre-decision intent interviewing |
+| Are we sure this existing implementation plan is right? | `interview-me`, `idea-refine` | a reliability challenge to an existing direction belongs to `reliability-check`, not pre-decision intent interviewing or concept refinement |
+| Stress-test my existing implementation plan. | `idea-refine` | an existing plan challenge belongs to `reliability-check` or `review-and-finish`, not pre-decision ideation |
+| Plan this refactor. | `idea-refine` | implementation planning belongs to `plan-work` unless the user separately asks to refine the concept first |
+| Turn this into a PRD. | `idea-refine` | PRD and tracker-ready artifact work belongs to `issue-workflow`, not concept refinement |
 | Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |

@@ -60,6 +60,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 | 技能                | 适用场景                                                     |
 | ------------------- | ------------------------------------------------------------ |
+| `idea-refine`       | 用户明确要求在规划前发散、改写、比较方案或收敛一个概念       |
 | `interview-me`      | 用户明确要求在规划或实现前，以一次一个问题的方式澄清真实意图 |
 | `finish-branch`     | 显式提交、分支推送、当前分支 PR 准备或创建、本地分支或指定远程 PR 合并、范围化 Git 工作树丢弃、指定分支删除、指定 worktree 移除，或分支收尾选择 |
 | `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
@@ -127,6 +128,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
+- `idea-refine` 处理用户明确提出的概念发散与收敛，不自动进入实现规划。
 - `interview-me` 处理用户明确提出的规划前意图澄清，不自动进入下游工作流。
 - `plugins/capability-harness/` 可选地增加项目级的决策优先路由，以及带命名空间的上下文发现、证据、独立方案、验证与评估能力，同时保持独立 Skill 的职责边界不变。
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
@@ -156,8 +158,9 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 ### 可选显式意图工作流
 
-如果您希望意图澄清、分支动作、持久化工件、维护或校准类工作可以通过自然语言路由，而不要求用户记住 skill 名称，可添加以下技能：
+如果您希望概念探索、意图澄清、分支动作、持久化工件、维护或校准类工作可以通过自然语言路由，而不要求用户记住 skill 名称，可添加以下技能：
 
+- `idea-refine`
 - `interview-me`
 - `finish-branch`
 - `issue-workflow`
