@@ -32,6 +32,12 @@ Prefer a focused Markdown contract or plugin-local test over a new corpus. If a 
 
 Do not copy the target's full fixture corpus, fixed Web/Core Web Vitals targets, universal checklist thresholds, Tier-3 executor permissions, temporary Git workflow, or `evals/results` delivery layer into this repository without a separately scoped decision.
 
+## Current corpus disposition
+
+The target's 24 cases and 45 fixtures remain comparison evidence; this repository does not copy that corpus or treat its runner as a source of runtime instructions. The current maintenance surface represents deterministic structure and routing through the focused validators, Markdown contracts, and plugin-local tests already named above.
+
+The target's execution and dialogue records, fixture materialization, patch/workspace behavior, and ownerless negative cases are not promoted to a universal current gate. A case with no defensible current owner remains explicitly out of catalog; a browser/runtime case remains `UNVERIFIED` without an authorized live channel. This preserves the distinction between a useful maintenance case and evidence that would require a model, host, browser, network, CI, or production environment.
+
 ## Results and failure states
 
 Report `complete`, `failed`, `blocked`, `skipped`, or `unverified` separately. A deterministic checker failing to find a source marker is not evidence that runtime behavior failed, and a static pass is not evidence that a host or model followed the Skill. Keep local reports out of runtime installation paths and do not create a CI or deployment gate merely because a check exists.
