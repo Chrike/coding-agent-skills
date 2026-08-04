@@ -1712,7 +1712,7 @@
 | Build | `test-driven-development` | 跳过 | P1 | 已确认 |
 | Build | `context-engineering` | 新增/改写引入 | P1 | 已确认 |
 | Build | `source-driven-development` | 跳过 | P0 | 已确认 |
-| Build | `doubt-driven-development` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（合并到 `agent-workflow` fresh-context reference，待独立提交记录） |
+| Build | `doubt-driven-development` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（合并到 `agent-workflow` fresh-context reference，commit `ef133f7`） |
 | Build | `frontend-ui-engineering` | 新增/改写引入 | P1 | 已确认 |
 | Build | `api-and-interface-design` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（并入 `design-codebase` 的 API/interface reference，commit `722e65f`） |
 | Verify | `browser-testing-with-devtools` | 新增/改写引入 | P0 | 已确认 |
@@ -1850,9 +1850,9 @@
 - Build / `api-and-interface-design`：已将项目事实优先的消费者可观察 contract lens 合并到 `skills/design-codebase/references/api-and-interface-design.md`，并在 `design-codebase` references 中登记；未创建新 API owner、固定协议规范或自动迁移/发布动作。已补充 API contract 的正向路由及固定约定/自动副作用的非触发案例；`git diff --check`、相对引用和 13 项关键静态标记检查通过；独立本地 commit：`722e65f`。
 - Plan / `planning-and-task-breakdown`：已在 `skills/plan-work/references/plan-template.md` 中补充每个步骤的 `Acceptance criteria` 与 `Verification` 分离；未创建第二个 Plan owner、默认 `tasks/*`、审批门或固定拆分阈值。已完成模板和相对范围的静态检查；独立本地 commit：`89ed5fb`。
 - Build / `incremental-implementation`：已将 contract-first、risk-first、扩展前 acceptance/evidence 检查和窄而可回退的增量规则合并到 `skills/plan-work/references/vertical-slices.md`；未创建新 Build owner、自动 commit、固定阈值、全套命令或 feature-flag 门。已补充多文件但上下文已明确的非触发案例；`git diff --check` 与 10 项关键静态标记检查通过；独立本地 commit：`c1581f0`。
-- Build / `doubt-driven-development`：已将去锚定 `ARTIFACT + CONTRACT` 输入包、adversarial mismatch framing、四类 reconcile 分类和 independence gap 规则合并到 `skills/agent-workflow/references/fresh-context-verification.md`；未创建新 doubt owner、普遍 fresh review、跨模型 CLI、自动 orchestrator 或 branch action。已补充跨模块但下一步明确时不自动启动 review loop 的非触发案例；验证与独立 commit 待记录。
+- Build / `doubt-driven-development`：已将去锚定 `ARTIFACT + CONTRACT` 输入包、adversarial mismatch framing、四类 reconcile 分类和 independence gap 规则合并到 `skills/agent-workflow/references/fresh-context-verification.md`；未创建新 doubt owner、普遍 fresh review、跨模型 CLI、自动 orchestrator 或 branch action。已补充跨模块但下一步明确时不自动启动 review loop 的非触发案例；`git diff --check` 与 14 项关键静态标记检查通过；独立本地 commit：`ef133f7`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次正在按条目串行处理：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 已完成改写、待独立提交，其余获批条目尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次正在按条目串行处理：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，其余获批条目尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。
