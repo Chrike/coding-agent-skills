@@ -1731,7 +1731,7 @@
 | Infrastructure/agents | `security-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（条件式 trust-boundary prompts 合并到 `security-and-hardening`，commit `0ca2867`） |
 | Infrastructure/agents | `test-engineer` persona | 跳过 | P0 | 已确认 |
 | Infrastructure/agents | `web-performance-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（source/artifact web audit lens 合并到 `performance-optimization`，commit `ec08152`） |
-| Infrastructure/orchestration | `orchestration-patterns` + `docs/agents.md`（命令文件不随之修改） | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/orchestration | `orchestration-patterns` + `docs/agents.md`（命令文件不随之修改） | 合并/协调重叠 | P0 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
 | Infrastructure/references | `accessibility-checklist` | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/references | `definition-of-done` | 保留现状不动 | P0 | 已确认 |
 | Infrastructure/references | `observability-checklist` | 合并/协调重叠 | P0 | 已确认 |
@@ -1868,6 +1868,7 @@
 - Infrastructure / `security-checklist`：已将 target reference 改写为 `security-and-hardening` 内的条件式 threat/access/integration/data/dependency/evidence prompt set；未引入 universal OWASP/STRIDE、固定阈值、secret-scanning/install/audit 命令、pre-commit/release gate 或自动修复。`git diff --check`、conditional-reference markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`68ccac7`。
 - Infrastructure / `web-performance-auditor`：已将 target 的 Quick/Deep、source-only `potential impact`、artifact source labeling、framework/rendering identification 与窄 web lens 改写并合并到 `performance-optimization`；未保留固定 CWV/预算/样本 gate、Lighthouse/CrUX/RUM 命令、工具安装、live capture、监控、修复或分支动作。`git diff --check`、web-audit markers、正负触发合同、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`ec08152`。
 - Infrastructure / `performance-checklist`：已将 target reference 改写为 `performance-optimization` 内的条件式 loading/resource、rendering/input、data/backend、correctness/evidence prompt set；未引入固定 CWV/响应/包大小阈值、命令、profiling、安装、生产负载、RUM、release gate 或分支动作。`git diff --check`、conditional-checklist markers、negative-contract marker、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`fa5ad2d`。
+- Infrastructure / `orchestration-patterns` + `docs/agents.md`：已将 direct-owner、no-router/no-persona-chain、host-capability reuse、subagent/team distinction 与 observed-support evidence 合并到 `agent-workflow`；未吸收 target-specific command wiring、固定 `/ship` fan-out、Agent Teams setup、manifest discovery claims 或第二 orchestration owner。聚焦静态验证与独立本地 commit 待完成。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点

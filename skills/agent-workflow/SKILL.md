@@ -47,6 +47,13 @@ Hand off to explicit human review when the remaining decision is policy, taste, 
 - If fresh-context independence, blind review, independent candidate generation, or another form of context independence is itself an acceptance requirement, do not substitute same-context sequential passes. Mark that requirement `unverified` or `blocked`, report the unavailable capability, preserve any completed non-independent evidence separately, and return any capability or authorization decision to the user or upper controller.
 - Never claim that parallel execution, an agent launch, an independent review, or fresh-context verification occurred when the host did not provide it.
 
+## Host And Persona Relationships
+
+- The user or an explicitly selected host command/workflow is the outer controller; a leaf worker or persona never selects or invokes sibling owners. A routing-only persona adds no domain value.
+- Direct single-owner execution is the default. Repeat a wrapper only when it preserves a stable, bounded composition; do not automate lifecycle checkpoints or paraphrase user handoffs.
+- Reuse a host-provided `Explore`, `Plan`, or `general-purpose` capability when its actual tool boundary fits instead of adding a near-duplicate persona. A persona file or manifest does not prove discovery, fresh context, tool availability, team support, or isolation; record those facts as `unverified` until observed.
+- Use subagents for independent reports and teammates only when peer communication is materially needed and the host supports and enables it. No fixed persona fan-out or command-specific orchestration is implied by a target example.
+
 ## Decomposition Contract
 
 Before multi-agent execution:

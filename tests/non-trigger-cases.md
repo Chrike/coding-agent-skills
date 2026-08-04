@@ -178,6 +178,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Host multi-agent capability is available; fix this one coherent bug. | `agent-workflow` | host multi-agent capability alone is not an orchestration trigger |
 | Update the titles in these two unrelated Markdown files. | `agent-workflow` | small mechanical edits whose coordination cost exceeds the benefit should remain with one owner |
 | A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
+| Add a router persona whose job is to decide which owner or persona should run next. | automatic meta-router or second orchestration owner | Routing has no domain value here; keep the user or selected host workflow as controller and invoke the smallest applicable owner directly. |
+| Make one persona invoke security, test, and performance personas from its own report. | persona-to-persona orchestration | Leaf workers keep one perspective and return recommendations; the controller or user owns composition and handoff. |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
 | Summarize all the user questions from above, not your own answers. | `reliability-check`, `issue-workflow` | summary-object correction should stay in the default layer rather than becoming corrective analysis or artifact drafting |
 | This is not a new task; only change the output format to a table. | `plan-work`, `reliability-check` | a format correction should not be misread as task replacement or corrective workflow |

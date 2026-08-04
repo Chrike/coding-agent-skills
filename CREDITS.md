@@ -175,3 +175,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a concrete-release readiness owner with a release packet, criterion-level `VERIFIED`/`FAILED / BLOCKER`/`UNVERIFIED` evidence, separate repository and production claims, project-specific rollout/rollback semantics, and explicit action owners.
 - Not retained: universal launch checklists, fixed rollout percentages or time windows, fixed thresholds or Web metrics, mandatory feature flags, fixed persona fan-out, sequential-as-parallel claims, automatic deploy/flag/migration/rollback/notification/monitoring, or branch and publication actions.
+
+## `orchestration-patterns` and `docs/agents.md`
+
+- Source: `addyosmani/agent-skills`, references `orchestration-patterns.md` and `docs/agents.md`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: host/persona relationship guidance under `agent-workflow`: direct ownership first, no router or persona-to-persona calls, reuse of fitting host capabilities, and explicit separation between subagent reports, teammate communication, and observed host support.
+- Not retained: target-specific `/ship` fan-out, command/persona wiring, fixed lifecycle orchestration, Agent Teams setup claims, manifest-based proof of discovery or fresh context, nested controllers, or a second orchestration owner.
