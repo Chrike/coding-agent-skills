@@ -1759,7 +1759,7 @@
 | Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（bounded host-command coordination in `shipping-and-launch` + non-trigger contract，commit `34d8ff2`） |
 | Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认，阶段 4 按确认跳过（current `performance-optimization` owns explicit measure-first performance work; no target specialist command or fixed CWV gate copied） |
 | Infrastructure/commands | `validate-commands.js` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current repository has no multi-tool command surface to validate; no target wrapper copied） |
-| Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认 |
+| Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认，阶段 4 保留现状（Claude Code 优先；Markdown/optional plugin boundaries remain explicit） |
 | Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/distribution | Codex 与 `.agents` manifests | 跳过 | P1 | 已确认 |
 | Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认 |
@@ -1892,6 +1892,7 @@
 - Infrastructure/commands / `/review`、`/code-simplify`：按确认跳过；host `/code-review`、`/simplify`、current `review-and-finish` 和 the explicit opt-in simplify plugin retain their ownership; 不复制 target review/simplify command、second review owner、automatic cleanup 或 branch action。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/webperf`：按确认跳过；current `performance-optimization` 已覆盖显式 measure-first performance claims 和 source-only/artifact-backed honesty，不复制 target specialist command、fixed Web Vitals gate、DevTools/Lighthouse setup 或 automatic profiling. 仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `validate-commands.js`：按确认跳过；当前仓库没有待验证的多工具 command surface，且 manifest/README 不证明其他宿主的 discovery、permission 或 command behavior；不复制 target cross-tool command parity wrapper，也不运行 target validator。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/distribution / multi-tool scope + root README：保留 current Claude Code-first positioning、plain-Markdown portability 和 optional self-contained plugin boundary；未复制 target marketplace identity、multi-host setup claims、root command surface 或 broad host support. 仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
