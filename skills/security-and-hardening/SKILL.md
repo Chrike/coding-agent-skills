@@ -60,6 +60,18 @@ Use only the prompts that match the mapped path; they are questions, not mandato
 - For AI or agent actions, treat model or retrieved output as untrusted, enforce permissions in code, bound consumption, and require confirmation for destructive actions.
 - If a dependency or installation boundary is in scope, identify the owning manifest, lockfile, and lifecycle-script policy before interpreting an advisory; do not execute installs or audits as part of analysis.
 
+## Conditional Checklist
+
+When a scoped question warrants a checklist, inspect only the applicable rows:
+
+- **Threat model:** name the asset, actor, entry point, trust boundary, invariant, and concrete abuse path before choosing controls.
+- **Access and input:** check authentication, authorization and resource scope, boundary validation, encoding or parameterization, upload handling, and redirect or server-fetch constraints when present.
+- **Integrations and data:** check webhook authenticity, token scope, response and log disclosure, storage or transport exposure, and error detail only where the path crosses that boundary.
+- **Automation and dependencies:** treat model output, retrieved content, package metadata, and install scripts as untrusted inputs; confirm code-enforced permissions and the owning dependency boundary without installing or executing them.
+- **Evidence:** record the exact source or authorized observation, assumptions, controls, gaps, and impact. Static checklist completion cannot prove runtime isolation, exploit resistance, deployment configuration, or secret absence.
+
+This reference is a scoped prompt set, not a universal OWASP, STRIDE, severity, pre-commit, or release gate.
+
 ## Evidence Record
 
 Use distinct headings so a recommendation cannot be mistaken for an observed fact:

@@ -104,6 +104,14 @@
 - Retained in this suite: a framework-neutral threat-boundary method that maps the relevant asset, actor, entry point, trust boundary, security invariant, abuse path, and focused evidence; selects only applicable lenses; and uses concrete, conditional prompts for resource scope, untrusted sinks, integrations, sensitive data, and AI/tool permissions.
 - Not retained: blanket STRIDE/OWASP/header/CORS/rate-limit gates, a standalone persona or fixed audit output, target commands/hooks/evals, fixed library or framework settings, requesting/reading/printing real credentials, tokens, cookies, keys, or secrets, exploit or dependency/script execution without action-specific authorization, automatic remediation, completion or readiness judgment, and branch or publication actions.
 
+## `security-checklist`
+
+- Source: `addyosmani/agent-skills`, reference `security-checklist.md`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a conditional threat, access/input, integration/data, automation/dependency, and evidence prompt set under `security-and-hardening`.
+- Not retained: universal OWASP/STRIDE, fixed headers/CORS/rate-limit/severity thresholds, secret-scanning commands, install or audit execution, pre-commit or release gates, code examples as requirements, and automatic remediation or branch actions.
+
 ## `performance-optimization`
 
 - Source: `addyosmani/agent-skills`, skill `performance-optimization`, with comparison evidence from its `performance-checklist` reference and `web-performance-auditor` agent.
