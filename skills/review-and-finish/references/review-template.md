@@ -11,6 +11,22 @@ Use when the user asks for a code review, PR review, branch review, or review si
 5. Group findings that share one root cause instead of reporting the same issue at every affected call site.
 6. Avoid style nits unless they affect correctness, maintainability, or documented standards.
 
+## Optional Review Lenses
+
+Use these lenses only when they clarify the reviewed change; they do not create a mandatory gate or a second review owner.
+
+### Context And Tests First
+
+- State the intended behavior and relevant requirements before judging the implementation.
+- Read relevant tests before the implementation when they exist; use them as evidence of intended behavior and regression coverage.
+- Treat missing tests as a finding only when the acceptance context or risk requires that evidence. Do not require tests for every change by default.
+
+### Structural Remedy
+
+When a finding is structural, propose the narrowest concrete remedy instead of only naming complexity. Depending on the evidence, consider replacing repeated conditionals with an explicit model or dispatcher, separating orchestration from domain logic, moving feature logic to its owning layer, reusing a canonical helper, making a type boundary explicit, or deleting a pass-through wrapper.
+
+These are review recommendations, not automatic refactoring instructions. Do not edit code, delete dead code, run branch actions, or broaden the review scope merely because a remedy is suggested.
+
 ## Output
 
 Lead with findings:

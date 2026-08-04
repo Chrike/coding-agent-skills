@@ -4,14 +4,14 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 A lightweight skill suite for Claude Code-assisted development.
 
-The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
+The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, security analysis, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
 
 ## What This Repository Contains
 
 This repository contains:
 
 - runtime skill source folders under `skills/`
-- optional self-contained Claude Code plugins under `plugins/`
+- optional self-contained Claude Code plugins under `plugins/`, including the explicit opt-in `simplify-protected-blocks` hook plugin
 - the maintained always-on instruction prompt under `prompts/`
 - explicit opt-in saved-workflow source under `workflows/`
 - maintenance and validation material under `tests/`
@@ -31,6 +31,7 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 - `plugins/` holds optional namespaced capability packages. Install each plugin as a unit; its Skills, agents, and hooks do not replace the standalone `skills/` surface.
 - `workflows/` holds explicit opt-in saved-workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
 - Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
+- Skill selection uses the maintained prompt, current skill descriptions, and this routing contract; the suite does not require a SessionStart meta-skill injection or an automatic full-lifecycle chain.
 - High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill; the optional Capability Harness supports a decision-first choice of context discovery, evidence, and verification and never authorizes side effects.
 - `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
 - External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
@@ -47,7 +48,15 @@ These can be selected by the agent when the request clearly matches.
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
 | `test-strategy`        | Test design, TDD, mocks, flaky tests, regression coverage, or a non-obvious test seam/level/acceptance signal |
-| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change |
+| `context-engineering`  | Explicit task-context audits, focused context packs, bounded context/rules setup, or observed context-specific quality degradation |
+| `frontend-ui-engineering` | Non-trivial UI, accessibility, responsive, interaction, design-system, or user-visible state work |
+| `browser-testing-with-devtools` | Explicit live browser/DevTools evidence requests or a browser-only evidence gap |
+| `performance-optimization` | An explicit performance goal or metric, measured baseline/regression, identified bottleneck, or performance audit/experiment request; framework-neutral measure-first analysis with no automatic profiling or remediation |
+| `ci-cd-and-automation` | An explicit request to design, audit, or modify a repository-owned CI/CD or automation definition; keep hosted runs, branch policy, deployment, and Git actions separate |
+| `observability-and-instrumentation` | An explicit operational telemetry question or concrete observability gap; choose the minimum project-conforming signal without automatic monitoring or runtime actions |
+| `shipping-and-launch` | An explicit readiness, rollout, or rollback question for a concrete production release; report GO/BLOCK/UNVERIFIED without performing launch actions |
+| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change; its existing review template also provides optional tests-first and structural-remedy lenses without adding another owner |
+| `security-and-hardening` | Explicit security audits, threat models, hardening requests, or a concrete non-trivial trust-boundary risk identified by an active owner; select only applicable lenses and keep remediation, readiness, and branch actions with their owners |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
@@ -59,8 +68,10 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 
 | Skill                | Use when                                                     |
 | -------------------- | ------------------------------------------------------------ |
+| `idea-refine`        | The user explicitly asks to ideate, refine, explore alternatives, or converge on a concept before planning |
+| `interview-me`       | The user explicitly asks for one-question-at-a-time intent clarification before planning or implementation |
 | `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped Git working-tree discard, named branch deletion, named worktree removal, or branch wrap-up choice |
-| `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
+| `issue-workflow`     | Explicit technical specs through its chat-first, non-tracker `spec-authoring` mode; PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |
 | `skill-refactorer`   | Coding-agent prompt or skill maintenance, migration, stale-scaffolding cleanup |
@@ -114,6 +125,7 @@ This is a recommended host configuration for the full suite, not a repository-en
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
 - `tests/` contains routing and boundary checks used to maintain the suite.
+- `CREDITS.md` records the external skill sources whose verified rules were selectively rewritten into this suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
 - Runtime prompt maintenance should keep one closely related decision family per rule where practical, preserve a matching positive or negative regression case for new behavior, keep explanatory text out of the runtime layer, avoid duplicating procedures already owned by a Skill, and record whether removed text was merged, moved to an owning Skill or maintenance document, or found to have no independent behavior value. These are maintenance checks, not runtime instructions.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
@@ -124,12 +136,22 @@ The current runtime surface is organized as follows:
 
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
+- `security-and-hardening` provides narrow, framework-neutral security analysis for explicit audits, threat models, hardening requests, or concrete trust-boundary risks.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
+- `idea-refine` handles explicit concept exploration and convergence without automatically entering implementation planning.
+- `interview-me` handles an explicit request for pre-planning intent clarification without automatically entering a downstream workflow.
 - `plugins/capability-harness/` optionally adds project-scoped decision-first routing plus namespaced context discovery, evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
 - `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
-- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
+- `context-engineering` handles explicit task-context audits, focused context packs, and bounded context setup without automatically persisting rules or taking over reliability or handoff workflows.
+- `frontend-ui-engineering` handles non-trivial UI/accessibility behavior and responsive or design-system decisions without taking over architecture, testing, browser runtime evidence, or completion review.
+- `browser-testing-with-devtools` supplies only explicitly requested live browser/DevTools evidence through an already configured and authorized channel; it does not own UI implementation, test design, debugging, performance optimization, or completion judgment.
+- `performance-optimization` runs narrow, framework-neutral, measure-first experiments for explicit performance claims; it labels field, lab, trace, benchmark, and other evidence, attributes one bottleneck/change at a time, accounts for variance, and hands browser evidence, implementation, review, and branch actions to their owners.
+- `ci-cd-and-automation` handles explicit repository-owned pipeline-definition work; it distinguishes definition, local, hosted, required-status, and deployment evidence without running hosted workflows or changing remote policy.
+- `observability-and-instrumentation` handles explicit operational telemetry questions and concrete signal gaps; it selects project-conforming logs, metrics, traces, or alerts while keeping runtime backends and monitoring actions separate.
+- `shipping-and-launch` judges concrete production-release readiness and release-specific rollout or rollback evidence as `GO`, `BLOCK`, or `UNVERIFIED`; it does not execute launch actions.
+- `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
 
 ## Recommended Start
 
@@ -144,17 +166,27 @@ Start with the smallest set that matches your actual workflow.
 
 ### Optional Automatic Skills
 
-Add these if you regularly ask for explicit planning, design, reassessment, or multi-agent orchestration:
+Add these if you regularly ask for explicit planning, design, reassessment, security analysis, performance experiments, CI/CD definition work, operational telemetry, or multi-agent orchestration:
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `context-engineering`
+- `frontend-ui-engineering`
+- `browser-testing-with-devtools`
+- `performance-optimization`
+- `ci-cd-and-automation`
+- `observability-and-instrumentation`
+- `shipping-and-launch`
 - `agent-workflow`
+- `security-and-hardening`
 
 ### Optional Explicit-Intent Workflows
 
-Add these if you want natural-language routing for branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
+Add these if you want natural-language routing for concept exploration, intent clarification, branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
 
+- `idea-refine`
+- `interview-me`
 - `finish-branch`
 - `issue-workflow`
 - `memory-handoff`

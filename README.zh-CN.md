@@ -4,14 +4,14 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 一套面向 Claude Code 辅助开发的轻量级技能套件。
 
-目标是在保持日常编码高效的同时，为代理提供清晰的工作流，以便在实际需要时进行调试、测试、规划、评审、交接、可靠性修正及任务委派。
+目标是在保持日常编码高效的同时，为代理提供清晰的工作流，以便在实际需要时进行调试、测试、规划、安全分析、评审、交接、可靠性修正及任务委派。
 
 ## 仓库内容
 
 本仓库包含：
 
 - 位于 `skills/` 下的运行时技能源码目录
-- 位于 `plugins/` 下的可选、自包含 Claude Code 插件
+- 位于 `plugins/` 下的可选、自包含 Claude Code 插件，包括显式选择的 `simplify-protected-blocks` 保护块 hook 插件
 - 位于 `prompts/` 下的常驻默认行为提示词源码
 - 位于 `workflows/` 下的显式选择 saved-workflow 源码
 - 位于 `tests/` 下的维护与验证材料
@@ -31,6 +31,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `plugins/` 承载带命名空间的可选能力包。每个插件应作为整体安装；其中的 Skill、agent 与 hook 不替代独立的 `skills/` 能力面。
 - `workflows/` 承载显式选择的 saved-workflow 源码，不是宿主发现目录，也不参与普通 skill 路由。
 - 显式意图工作流应从清晰的自然语言意图路由，而不是要求用户记住 skill 名称后手动调用。
+- Skill 选择以维护中的 prompt、当前 Skill description 和本路由合同为准；本套件不要求 SessionStart meta-skill 注入，也不自动串起完整生命周期。
 - 高风险副作用、持久化工件和破坏性动作，应在所属 skill 内部做保护；可选的 Capability Harness 以决策优先方式选择上下文发现、证据与验证，从不授权副作用。
 - `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
 - 外部分析、审查记录、迁移说明及其他参考材料可以帮助维护判断，但除非用户明确指定它们是当前指令源，否则它们不应变成主动运行时指令。
@@ -47,7 +48,15 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | 原因不明的 Bug、不稳定行为、回归问题、性能瓶颈、反复修复失败 |
 | `test-strategy`        | 测试设计、TDD、Mock、不稳定测试、回归覆盖，或非显而易见的测试层级/接缝/验收信号 |
-| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据 |
+| `context-engineering`  | 显式任务上下文审计、聚焦 context pack、范围化上下文/规则配置，或已观察到的上下文特定质量退化 |
+| `frontend-ui-engineering` | 非平凡 UI、可访问性、响应式、交互、设计系统或用户可见状态工作 |
+| `browser-testing-with-devtools` | 显式的真实浏览器/DevTools 证据请求，或浏览器专属的证据缺口 |
+| `performance-optimization` | 明确的性能目标或指标、已测量的基线/回归、已识别的瓶颈，或显式性能审计/实验请求；框架中立、先测量且不自动 profiling 或修复 |
+| `ci-cd-and-automation` | 明确要求设计、审查或修改 repository-owned CI/CD 或自动化定义；将 hosted run、分支策略、部署和 Git 动作分开 |
+| `observability-and-instrumentation` | 明确的运行时 telemetry 问题或具体可观测性缺口；选择符合项目约定的最小信号，不自动执行监控或运行时动作 |
+| `shipping-and-launch` | 针对具体 production release 的明确就绪、rollout 或 rollback 问题；报告 GO/BLOCK/UNVERIFIED，不执行发布动作 |
+| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据；现有 review template 还提供可选的 tests-first 与 structural-remedy lens，不新增其他 owner |
+| `security-and-hardening` | 显式安全审计、威胁建模、加固请求，或活动 owner 识别出的具体且非平凡的信任边界风险；仅选择适用 lens，并将修复、就绪判断和分支动作交给对应 owner |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
@@ -59,8 +68,10 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 | 技能                | 适用场景                                                     |
 | ------------------- | ------------------------------------------------------------ |
+| `idea-refine`       | 用户明确要求在规划前发散、改写、比较方案或收敛一个概念       |
+| `interview-me`      | 用户明确要求在规划或实现前，以一次一个问题的方式澄清真实意图 |
 | `finish-branch`     | 显式提交、分支推送、当前分支 PR 准备或创建、本地分支或指定远程 PR 合并、范围化 Git 工作树丢弃、指定分支删除、指定 worktree 移除，或分支收尾选择 |
-| `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
+| `issue-workflow`    | 通过 chat-first、非 tracker 的 `spec-authoring` 模式处理显式技术 spec；以及 PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 显式项目版本化、共享或可审阅的 Markdown 参考 lesson；不用于自动加载的 `CLAUDE.md` 或 `.claude/rules/` 指令 |
 | `skill-refactorer`  | coding-agent prompt/skill 维护、迁移、过时脚手架清理          |
@@ -113,6 +124,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `workflows/` 存放显式 saved-workflow 源码；调用前将审阅过的文件复制到 `.claude/workflows/` 或 `~/.claude/workflows/`。
 - `tests/` 存放用于维护本套件的路由与边界检查。
+- `CREDITS.md` 记录经过核实、并被选择性改写进本套件的外部技能来源。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
 - 维护运行时 prompt 时，原则上让每条规则只承载一个紧密相关的决策族；新行为应有对应的正向或负向回归案例；解释性文字不进入运行时层；Skill 已完整拥有的程序不在全局重复；删除内容应记录为合并、迁移到所属 Skill/维护文档，或无独立行为价值。这些是维护检查，不是运行时指令。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
@@ -123,12 +135,22 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
+- `security-and-hardening` 为显式安全审计、威胁建模、加固请求或具体信任边界风险提供框架中立的窄安全分析。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
+- `idea-refine` 处理用户明确提出的概念发散与收敛，不自动进入实现规划。
+- `interview-me` 处理用户明确提出的规划前意图澄清，不自动进入下游工作流。
 - `plugins/capability-harness/` 可选地增加项目级的决策优先路由，以及带命名空间的上下文发现、证据、独立方案、验证与评估能力，同时保持独立 Skill 的职责边界不变。
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
-- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
+- `context-engineering` 负责显式任务上下文审计、聚焦 context pack 和范围化上下文配置，不自动持久化规则，也不接管可靠性复核或交接流程。
+- `frontend-ui-engineering` 负责非平凡 UI/可访问性行为以及响应式或设计系统决策，不接管架构、测试、浏览器运行时证据或完成评审。
+- `browser-testing-with-devtools` 仅通过已配置且获授权的通道提供显式请求的真实浏览器/DevTools 证据，不负责 UI 实现、测试设计、调试、性能优化或完成判断。
+- `performance-optimization` 为显式性能主张运行窄范围、框架中立、先测量的实验；标注 field、lab、trace、benchmark 与其他证据，逐次归因一个瓶颈/变更，记录方差，并将浏览器证据、实现、评审和分支动作交给对应 owner。
+- `ci-cd-and-automation` 处理明确要求的 repository-owned pipeline 定义工作；区分 definition、local、hosted、required-status 和 deployment evidence，不运行 hosted workflow 或修改远程策略。
+- `observability-and-instrumentation` 处理明确的运行时 telemetry 问题和可观测性缺口；选择符合项目约定的 logs、metrics、traces 或 alerts，并将运行时 backend 与监控动作分开。
+- `shipping-and-launch` 针对具体 production release 判断就绪与 rollout/rollback 证据，输出 `GO`、`BLOCK` 或 `UNVERIFIED`，不执行发布动作。
+- `finish-branch`、`issue-workflow`（包含其 `spec-authoring` 模式）、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、requirements/spec 与跟踪工件、持久化 lesson 及维护类的显式意图请求。
 
 ## 推荐起步
 
@@ -143,17 +165,27 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计、重新评估或多代理编排，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估、安全分析、性能实验、CI/CD 定义工作、运行时 telemetry 或多代理编排，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `context-engineering`
+- `frontend-ui-engineering`
+- `browser-testing-with-devtools`
+- `performance-optimization`
+- `ci-cd-and-automation`
+- `observability-and-instrumentation`
+- `shipping-and-launch`
 - `agent-workflow`
+- `security-and-hardening`
 
 ### 可选显式意图工作流
 
-如果您希望分支动作、持久化工件、维护或校准类工作可以通过自然语言路由，而不要求用户记住 skill 名称，可添加以下技能：
+如果您希望概念探索、意图澄清、分支动作、持久化工件、维护或校准类工作可以通过自然语言路由，而不要求用户记住 skill 名称，可添加以下技能：
 
+- `idea-refine`
+- `interview-me`
 - `finish-branch`
 - `issue-workflow`
 - `memory-handoff`

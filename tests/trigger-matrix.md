@@ -34,11 +34,41 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | The focused test passes, but an acceptance criterion, directly affected contract, or identified behavioral risk remains uncovered. | Base default behavior; complete the required verification before deciding whether to stop expanding checks |
 | The context is getting long, but the task is still executable. Keep going instead of stopping early just to hand off. | Base default behavior |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | Base default behavior |
+| This implementation has a concrete technical tradeoff; explain the concern and a workable alternative before I choose. | Base default behavior; surface the disagreement without activating review or planning unless the request separately asks for it. |
+| This non-trivial change relies on assumptions that could alter scope; state only those material assumptions before acting. | Base default behavior; do not require a universal fixed template or approval gate. |
 
 ## Workflow Skill Cases
 
 | Prompt | Expected routing |
 | --- | --- |
+| Help me refine this product idea before we plan it. | `idea-refine`; separate the problem from the first solution and explore a small set of directions |
+| Ideate on this process concept. | `idea-refine`; return a concept-level comparison, not an implementation plan |
+| Stress-test this concept before we choose an implementation approach. | `idea-refine`; evaluate value, feasibility, differentiation, and assumptions without opening an existing-plan review |
+| Interview me before we plan this dashboard. | `interview-me`; ask one question at a time and do not create a plan yet |
+| Help me clarify what I actually want before we choose an approach. | `interview-me`; return a confirmed intent statement in chat |
+| Grill me one question at a time about this product idea. | `interview-me`; attach a visible `GUESS` to each question |
+| Interview me first, then give me a plan after I confirm the intent. | `interview-me` then `plan-work`; do not enter planning before explicit confirmation |
+| Write a structured specification before coding this feature. | `issue-workflow` in `spec-authoring` mode; return a non-tracker draft in chat and stop |
+| Use spec-first development for this feature, then stop before implementation. | `issue-workflow` in `spec-authoring` mode; do not create tasks or invoke planning automatically |
+| Update the named technical specification after this scope decision changed. | `issue-workflow` in `spec-authoring` mode; update only the explicitly named artifact if persistence is requested |
+| Audit the context I'm using for this task and tell me what is missing. | `context-engineering`; return a focused, read-only context audit in chat |
+| The agent keeps inventing APIs; audit the task context and return only the relevant sources and gaps. | `context-engineering`; diagnose the context-specific quality problem without changing code or rules automatically |
+| Configure the named project rules file for this task, but do not run commands. | `context-engineering`; read the named target first and limit any write to the explicitly requested artifact |
+| Build a keyboard-accessible dialog with the existing design system and meaningful loading, error, and empty states. | `frontend-ui-engineering`; use project facts and choose behavior-specific evidence without automatic browser/tool setup |
+| Make this page responsive and preserve keyboard focus across the interaction. | `frontend-ui-engineering`; handle UI behavior and accessibility while leaving architecture, test design, and runtime browser evidence with their owners |
+| Inspect the live DOM and console for the already configured browser page, then report what you observed. | `browser-testing-with-devtools`; collect only the requested runtime evidence and separate observations from inference and gaps |
+| The API p95 latency regression is measured in the supplied query report; compare one bottleneck hypothesis against the same workload and preserve result correctness. | `performance-optimization`; label the supplied evidence source, define the claim packet, attribute one change, and report variance and gaps without silently editing code |
+| Run a framework-neutral performance experiment for the identified list-rendering bottleneck; define the metric and baseline before comparing one candidate change. | `performance-optimization`; use only applicable lenses and do not assume a framework, fixed budget, or automatic benchmark/tool setup |
+| Audit memory use for the import workload and distinguish field, lab, trace, benchmark, or other evidence where available. | `performance-optimization`; report `not measured` when no measurement artifact is available and keep correctness ahead of the metric |
+| Run a source-only web performance audit for the named route and label structural findings as potential impact without inventing Web Vitals. | `performance-optimization`; identify the rendering model, choose applicable web lenses, and keep source observations separate from runtime measurement |
+| Inspect the repository's existing workflow and design the smallest CI jobs and dependencies needed to prove the requested acceptance checks. | `ci-cd-and-automation`; read provider and toolchain facts, separate definition from hosted evidence, and do not run or publish the workflow automatically |
+| Modify the repository-owned pipeline so the named artifact is produced and failures have explicit downstream semantics. | `ci-cd-and-automation`; keep the change scoped to the definition and do not change branch protection, auto-merge, deployment, or Git state |
+| Define the smallest telemetry needed to answer why payment retries fail, without logging secrets or using unbounded metric labels. | `observability-and-instrumentation`; start from operational questions, choose structured logs or metrics as applicable, and report runtime backend gaps as `UNVERIFIED` |
+| Add a correlation field and bounded latency distribution for the named service boundary, using the project's existing telemetry conventions. | `observability-and-instrumentation`; preserve data minimization and separate repository instrumentation from dashboard, alert-channel, and production actions |
+| Assess whether release v2.4 is ready for the named staging-to-production rollout, including current telemetry, on-call, and rollback evidence. | `shipping-and-launch`; build a release packet, mark each criterion `VERIFIED`, `FAILED / BLOCKER`, or `UNVERIFIED`, and keep deployment separate |
+| Plan the rollback boundary for this concrete production migration, including the prior revision, data semantics, owner, and post-rollback verification. | `shipping-and-launch`; report release-specific evidence and do not run rollback, migration, flag, notification, or Git actions |
+| Perform a focused security audit of this authentication boundary and report the invariant, abuse path, controls, and evidence gaps without changing code. | `security-and-hardening`; map the asset, actor, entry point, trust boundary, invariant, abuse path, and focused evidence; do not run a blanket audit |
+| The active owner identified a user-controlled webhook URL reaching a server-side fetch; threat-model that trust boundary and ask the smallest SSRF evidence question. | `security-and-hardening`; select the applicable URL/webhook lens and report `UNVERIFIED` when runtime or environment evidence is unavailable |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
 | Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |
@@ -96,6 +126,8 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Clarify the domain distinction between Order and Fulfillment before choosing a module boundary. | `design-codebase` |
 | Implement this integration, but ownership of the remote dependency is non-obvious and existing patterns do not safely settle where it belongs. | `design-codebase`, then implementation |
 | The architecture boundary is unresolved and the rollout also needs compatibility sequencing. | `design-codebase`, then `plan-work` when available |
+| Define the consumer-visible contract for this public endpoint, including input, output, and error behavior; leave test proof for the testing workflow. | `design-codebase`; `test-strategy` only for a remaining test-design or acceptance decision |
+| Record an ADR for the selected hard-to-reverse architecture decision after checking the repository's existing location, numbering, headings, status, and supersession convention. | `design-codebase`; use the ADR reference, require user agreement for persistence, and preserve prior records rather than deleting them |
 | Compare genuinely independent candidate implementations, assign independent review scopes, and integrate the result for a high-stakes artifact. | active domain method + `agent-workflow` candidate/review panel |
 | Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |
@@ -182,6 +214,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Plan this refactor. | `plan-work` |
 | Give me a two-step implementation plan for renaming this public API parameter; do not edit files. | `plan-work`; return a proportionate chat plan only, with no implementation. |
 | Compare two rollout strategies for this software database migration before coding. | `plan-work`; compare implementation and rollout approaches without editing. |
+| Plan the deprecation of public API v1 with a consumer inventory, replacement decision, compatibility window, usage-gated removal criteria, and expand/contract options. | `plan-work`; read the deprecation-and-migration reference while keeping architecture, test proof, readiness, deployment, and branch actions with their owners |
 | Write the implementation plan to `docs/plans/cache-refactor.md`. | `plan-work`; the explicitly named plan file may be created or updated, and no other planning path is chosen. |
 | Plan this migration, but the required deployment configuration cannot be inspected. | `plan-work`; state the evidence gap and either provide a clearly provisional plan or ask the smallest question that changes it; do not invent paths, commands, dependencies, or existing patterns. |
 | Implement this migration, but a load-bearing compatibility and sequencing decision cannot be safely inferred. | `plan-work` |
@@ -245,6 +278,7 @@ These are representative checks that default-layer handling still happens in the
 | Prompt | Expected routing |
 | --- | --- |
 | Which workflow should handle this? | Routes from `routing-contract.md` and the skill descriptions without inventing a new router layer. |
+| Which skill applies to this request? | Uses the maintained prompt, current skill descriptions, and routing contract; does not invoke a standalone meta-skill or SessionStart discovery hook. |
 | Review the trigger boundaries. | Checks the routing contract and the trigger tests rather than inventing new trigger rules. |
 
 ## Failure Signals

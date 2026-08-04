@@ -9,9 +9,17 @@
         "debug-systematically",
         "test-strategy",
         "review-and-finish",
+        "security-and-hardening",
         "plan-work",
         "design-codebase",
         "reliability-check",
+        "context-engineering",
+        "frontend-ui-engineering",
+        "browser-testing-with-devtools",
+        "performance-optimization",
+        "ci-cd-and-automation",
+        "observability-and-instrumentation",
+        "shipping-and-launch",
         "agent-workflow"
       ]
     },
@@ -19,6 +27,8 @@
       "title": "Explicit-Intent Workflow Skills",
       "description": "Runtime skills for branch actions, durable artifacts, maintenance, and calibration work that should route from clear natural-language intent rather than requiring users to remember skill names.",
       "skills": [
+        "idea-refine",
+        "interview-me",
         "finish-branch",
         "issue-workflow",
         "memory-handoff",

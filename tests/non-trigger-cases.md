@@ -4,18 +4,133 @@ Use this file to validate that the current skill suite does not route ordinary w
 
 This file contains negative routing examples for ordinary work.
 
+## Security Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Add ordinary input validation for this request field. | `security-and-hardening` | Routine boundary validation without a concrete, non-trivial trust-boundary risk stays in the base implementation flow. |
+| Review these changes for correctness and readability. | `security-and-hardening` | Generic review belongs to `review-and-finish`; security analysis requires an explicit security scope or a concrete trust-boundary risk. |
+| Design this routine API endpoint using the existing project conventions. | `security-and-hardening` | Routine API design does not make security analysis the owner; an unresolved architecture or ownership decision belongs to `design-codebase`. |
+| Choose the test level, fixture, and assertions for this endpoint. | `security-and-hardening` | Test design belongs to `test-strategy` unless a separate security analysis request or concrete trust-boundary risk is present. |
+| Make every change run an automatic security audit and remediate all findings. | automatic `security-and-hardening` audit or remediation | The security owner does not create a blanket audit gate or silently remediate; a scoped audit still needs a focused question and action-specific authorization for execution. |
+| Apply the full OWASP, headers, CORS, rate-limit, and dependency checklist to every change. | automatic universal security checklist | Security lenses are selected from the mapped asset, actor, entry point, invariant, and abuse path; the owner does not impose a fixed checklist or execute dependency audits automatically. |
+
+## Performance Owner Must Stay Narrow
+
+These prompt shapes should not trigger the performance owner unless the request supplies a concrete performance claim or explicitly asks for an audit or experiment:
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Make it faster. | `performance-optimization` | There is no explicit goal, metric, baseline, identified bottleneck, or audit/experiment request; keep the request in the base flow and clarify only what materially changes the work. |
+| Users say the service became slower, but no path, metric, baseline, or bottleneck is known; diagnose the regression. | `performance-optimization` | Unknown slow paths and regressions belong to `debug-systematically`, which establishes the signal before performance attribution. |
+| Choose the benchmark seam, fixture, assertions, and acceptance signal for this performance experiment. | `performance-optimization` | Benchmark/test seam, fixture, assertion, and acceptance design belongs to `test-strategy`. |
+| Inspect the live browser trace and report the current interaction timing. | `performance-optimization` | The explicit live runtime evidence request belongs to `browser-testing-with-devtools`; performance analysis must not replace that evidence provider. |
+| Compare cache ownership and query boundaries as an architecture decision before optimizing. | `performance-optimization` | Architecture, ownership, interface, and dependency trade-offs belong to `design-codebase`. |
+| Review this performance patch for correctness and readability. | `performance-optimization` | Generic review belongs to `review-and-finish`; a performance concern in a review does not create a second review owner. |
+| Make every change run a profiler; install Lighthouse, a benchmark package, and RUM automatically. | automatic profiling/tool setup or an automatic `performance-optimization` run | Tool availability or a blanket request does not authorize profiling, `npx`, installation, network/external services, monitoring/RUM, or project commands; inspect and obtain action-specific authorization first. |
+| Treat a static web scan as measured LCP, INP, CLS, or a passing Core Web Vitals score. | fabricated performance measurement | Source-only findings are potential impact and metrics are not measured unless an authorized artifact or runtime observation supplies them. |
+| Require every performance task to satisfy every web checklist row, fixed response target, bundle budget, and measurement command. | automatic universal performance checklist | The checklist is conditional on the claim and project facts; it does not impose fixed thresholds, tools, samples, or release gates. |
+
+## CI/CD Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Run the unit tests and fix the failing assertion. | `ci-cd-and-automation` | Ordinary test execution and test design belong to the base flow or `test-strategy`; CI definition work is not implied. |
+| The hosted CI job failed on the last revision; diagnose the root cause. | `ci-cd-and-automation` | Unknown pipeline or product failure belongs to `debug-systematically` first; the CI owner may return only after a concrete definition boundary is identified. |
+| GitHub Actions is available in this repository. | `ci-cd-and-automation` | Existing tool or provider availability alone does not create a pipeline-definition request. |
+| Enable branch protection, required status checks, or auto-merge. | automatic remote-policy change | Repository-owned definition analysis does not authorize hosted policy changes; resolve the named host or repository administrator action separately. |
+| Run the hosted workflow, deploy the release, or roll back production. | automatic hosted execution or deployment | Static definition work does not authorize provider execution, deployment, rollback, or external-service access. |
+| Make every repository use lint, type, test, build, security, E2E, and bundle gates. | automatic universal CI gate | Gate selection must follow project acceptance, risk, toolchain, and evidence cost; the owner does not impose a fixed checklist. |
+
+## Observability Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Add a temporary log while diagnosing this active failure. | `observability-and-instrumentation` | Active diagnosis belongs to `debug-systematically`; persistent telemetry design can be revisited only when a concrete operational question remains. |
+| This feature will run in production, so add logs, metrics, traces, and an alert automatically. | automatic `observability-and-instrumentation` instrumentation | Production presence alone is not a trigger, and the owner does not impose a universal signal set or launch gate. |
+| The monitoring vendor or dashboard tool is already installed. | `observability-and-instrumentation` | Tool availability alone does not provide an operational question or authorize a backend, alert, network, or production action. |
+| Send test traffic, inject a staging failure, and fire the new alert to the on-call channel. | automatic runtime monitoring action | Runtime observation, test traffic, failure injection, and alert publication require their own environment and action-specific authorization. |
+| Add user IDs, full request bodies, or raw error messages to metric labels. | automatic sensitive telemetry design | Fields and labels must be minimal, allowlisted, bounded, and reviewed for privacy and cardinality; do not expand data capture by default. |
+
+## Launch Owner Must Stay Evidence-Only
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Is this ordinary implementation done? | `shipping-and-launch` | Generic completion and repository readiness belong to `review-and-finish`; a production launch question must name a concrete release or evidence gap. |
+| Deploy this release to production now. | automatic deployment | Launch readiness can assess evidence or plan the action, but deployment requires the explicitly named owner, target, and separate authorization. |
+| The feature flag is available; enable it for 5% of users for 24 hours. | automatic rollout or flag action | Tool or flag availability does not authorize traffic, timing, audience, or external state changes; do not impose fixed percentages or windows. |
+| Use the target's universal launch checklist and fixed error, latency, or Web metric thresholds. | automatic universal launch gate | Release criteria must come from the concrete project's acceptance, SLO, environment, and evidence; target checklists are comparison input only. |
+| The sponsor says ship today even though staging and rollback evidence are missing. | authority-pressure-driven `GO` | Missing required evidence is `UNVERIFIED` or a known blocker; urgency, date, or sponsor does not satisfy a release criterion. |
+| Roll back with `git revert`, a database command, or a provider action. | automatic rollback | Rollback planning and evidence remain separate from executing Git, migration, provider, or data actions. |
+
+## Host `/ship` Composition Must Stay Bounded
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Invoke a target-provided `/ship` command that fans out to fixed review, security, and test personas. | automatic fixed persona fan-out or a second orchestration owner | The target command is comparison evidence; the host command remains the outer controller and `agent-workflow` decides whether genuinely independent slices are worth coordinating. |
+| Run `/ship` and execute its rollback plan immediately. | automatic rollback, deployment, migration, flag, notification, monitoring, publication, or Git action | A launch verdict and rollback plan remain evidence and planning outputs; each external or persistent action needs its own target and authorization. |
+| Use `/ship` for an ordinary repository done check with no concrete release. | `shipping-and-launch` | Generic completion and repository readiness belong to `review-and-finish`; launch readiness requires a named release or release-specific evidence gap. |
+
+## Protected-Block Hooks Must Stay Opt-In
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Enable protected-block hooks for every repository and every simplify run. | automatic protected-block hook installation | The plugin is an explicit optional install; standalone skills and host `/code-simplify` remain unchanged. |
+| Protect a symlink or path outside the project root, or recover it outside the root. | external-path hook side effect | The current plugin ignores symlinks and outside paths and keeps recovery inside the selected project root. |
+| Treat a local protected-block test or static hook contract as proof of host event ordering or runtime isolation. | live host hook claim | Static and local evidence cannot prove host payload shape, ordering, permissions, or runtime isolation. |
+
+## Deprecation Reference Must Stay Planning-Only
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| The replacement is settled; implement the next approved migration slice. | automatic deprecation planning | Settled migration context should guide implementation; do not reopen the planning reference without a new compatibility or sequencing decision. |
+| Deprecate every old API and delete unused code automatically. | automatic migration, notification, or removal | The reference records consumer evidence and removal criteria; it does not authorize notices, traffic changes, backfills, deletion, deployment, or branch actions. |
+| The migration failed in CI; diagnose the root cause. | `plan-work` deprecation reference | An unknown failure belongs to `debug-systematically`; planning does not replace diagnosis. |
+| Use the deprecation reference for every feature release. | automatic `plan-work` migration workflow | The reference is conditional on an explicit deprecation, replacement, consumer migration, or compatibility-transition question. |
+
+## ADR Guidance Must Stay Conditional
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Update the README after this small implementation change. | a documentation or ADR workflow | Ordinary code-adjacent documentation stays in the base flow; architecture and persistence are not implied by a small edit. |
+| Create an ADR automatically for every architecture or API change. | automatic ADR creation or persistence | An ADR requires a qualifying hard-to-reverse, surprising decision, real alternatives, existing-convention inspection, and user agreement; an event is not write authorization. |
+| Update the named decision map with the unresolved choices. | ADR workflow | Unresolved decision frontiers belong to `decision-map`; an ADR records a selected rationale rather than replacing the map. |
+| There is no existing ADR directory; create `docs/decisions/001.md` without asking. | guessed ADR path or numbering | Propose a location and format in chat when no convention exists; do not introduce a second scheme or persist it automatically. |
+| Delete superseded ADRs during documentation cleanup. | automatic ADR deletion | Preserve historical records and write a successor that supersedes them; cleanup is not implied by a documentation request. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:
 
 | Prompt Shape | Must Not Trigger | Why |
 | --- | --- | --- |
-| Fix this small TypeScript error. | `issue-workflow`, `decision-map` | ordinary coding should stay light |
+| Fix this small TypeScript error. | `issue-workflow`, `decision-map`, standalone meta-skill or SessionStart discovery hook | ordinary coding should stay light; lifecycle discovery must not add a second runtime layer |
+| Build me a dashboard for our metrics. | `interview-me`, `idea-refine` | ordinary underspecification alone does not start an interview or ideation session; ask the smallest material question in the base flow or proceed from safe defaults |
+| Make it faster. | `interview-me`, `idea-refine` | do not use intent interviewing or concept refinement merely because the request is short; route any actual performance diagnosis to its applicable owner |
+| Interview me about missing requirements during CI. | `interview-me` | no live responsive user is available; report the blocker and do not guess or persist an intent artifact |
+| Are we sure this existing implementation plan is right? | `interview-me`, `idea-refine` | a reliability challenge to an existing direction belongs to `reliability-check`, not pre-decision intent interviewing or concept refinement |
+| Stress-test my existing implementation plan. | `idea-refine` | an existing plan challenge belongs to `reliability-check` or `review-and-finish`, not pre-decision ideation |
+| Plan this refactor. | `idea-refine` | implementation planning belongs to `plan-work` unless the user separately asks to refine the concept first |
+| Turn this into a PRD. | `idea-refine` | PRD and tracker-ready artifact work belongs to `issue-workflow`, not concept refinement |
 | Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
-| Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
+| Start a new feature; no specification exists. | `issue-workflow` spec-authoring mode | absence of a spec alone is not an explicit spec-authoring request |
+| This change touches multiple files. | `issue-workflow` spec-authoring mode | file count alone must not trigger a specification workflow |
+| The implementation mentions adapters and event-driven architecture; choose a reasonable default and continue. | `issue-workflow` spec-authoring mode | architecture vocabulary without an explicit spec request or unresolved design decision must not trigger spec-authoring |
+| This will take more than 30 minutes. | `issue-workflow` spec-authoring mode | duration alone must not trigger a specification workflow |
+| Plan this feature. | `issue-workflow` spec-authoring mode | implementation planning belongs to `plan-work`, not spec-authoring by implication |
+| Implement the approved specification. | `issue-workflow` spec-authoring mode | a settled spec guides execution; it does not reopen authoring or create a lifecycle gate |
+| Create `tasks/plan.md` automatically for this feature. | `issue-workflow` spec-authoring mode | no automatic or guessed spec/task path is authorized |
+| Write a technical specification before coding; include the verification command, but do not run anything. | automatic command or downstream command execution from `issue-workflow` | spec-authoring may describe testing intent, but it must not execute commands without a separate explicit request and authorization |
+| Commit the specification and reference it in a PR. | `issue-workflow` spec-authoring mode | spec authoring does not authorize branch actions; use `finish-branch` only for an explicit branch request |
+| Change this label in a Vue component. | `plan-work`, `design-codebase`, `frontend-ui-engineering`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
 | Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map`, `plan-work`, `design-codebase`, `test-strategy`, `review-and-finish` | a clear direct edit should not become a planning, design, test-design, or review workflow |
-| Implement or continue the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff`, `reliability-check` | settled planning should guide execution without reopening planning, reassessment, or handoff workflows |
+| Use the existing REST naming and error conventions for this small endpoint edit; do not revisit the contract. | `design-codebase`, `plan-work` | fixed project conventions and a settled contract should guide a direct edit without reopening interface design or rollout planning |
+| Design this API and automatically update every consumer, run migrations, and publish it. | automatic migration, command, or publication | contract design can identify compatibility conditions, but it does not authorize consumer changes, migrations, commands, or release actions |
+| This change spans several files, but the behavior, contract, and next safe slice are already clear. | `plan-work`, `agent-workflow` | file count alone must not trigger planning or orchestration when execution context is settled |
+| This UI change touches several components but follows existing patterns and has no new interaction or accessibility decision. | `frontend-ui-engineering` | UI file count alone must not trigger the UI domain workflow |
+| Change this button's focus style and responsive class in the component; do not inspect a live page. | `browser-testing-with-devtools` | ordinary UI implementation without an explicit runtime-evidence request stays with the UI or base owner |
+| Implement or continue the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff`, `reliability-check`, `frontend-ui-engineering` | settled planning should guide execution without reopening planning, reassessment, handoff, or UI design workflows |
 | Start implementing the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |
 | Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |
 | You already have enough context. Stop planning and implement the next step. | `plan-work`, `reliability-check` | sufficient context should lead to execution rather than another planning loop |
@@ -35,6 +150,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `reliability-check` | ordinary strategy or approach preference changes are not reliability challenges unless the user challenges a prior reliability conclusion |
 | Implement A and also outline B in the same reply. | `reliability-check` | ordinary multi-part requests must not invent multi-concern reliability reassessment |
 | Reassess whether the suite is green by running the repo verify script that may install or hit the network. | `reliability-check` automatic verification | inspect effects; do not treat reassessment as automatic verification authorization for install, network, or other material side effects |
+| Start a new session and load the project context. | `context-engineering` | a new session alone is not an explicit context audit or setup request |
+| The conversation is long; compact it and create a handoff. | `context-engineering` | compaction and checkpoint work belongs to `memory-handoff`, not context-engineering by implication |
+| Are we relying on stale context or the wrong source? | `context-engineering` | an explicit stale-source or reliability challenge belongs to `reliability-check` |
+| Read these files before implementing the already-clear edit. | `context-engineering` | routine source reading is part of ordinary execution, not a context-audit workflow |
 | We are still inspecting these files; do not start rewriting yet. | `reliability-check`, `plan-work`, `design-codebase` | stage alignment should stay in the default layer unless the user explicitly asks for corrective reassessment or a new workflow |
 | This example is only to clarify the intent, not the implementation direction. | `plan-work`, `design-codebase`, `reliability-check` | clarifying examples should not be turned into task instructions by default |
 | We already cancelled that older direction. Continue with the current task only. | `reliability-check`, `decision-map` | settled cancellations should hold without reopening adjacent tracks |
@@ -45,7 +164,9 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
 | Explain what a stack trace is. | `debug-systematically` | generic explanation is not diagnosis of an active unclear failure |
 | The task spans many files, but the failure and exact fix are already clear. | `debug-systematically` | size alone does not require a diagnostic loop when no root-cause uncertainty remains |
+| Diagnose why the checkout intermittently fails and find the root cause; do not collect browser evidence as a separate deliverable. | `browser-testing-with-devtools` | root-cause diagnosis belongs to `debug-systematically`; that owner may request a browser-only signal without transferring diagnosis here |
 | This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` when available; otherwise preserve the host's existing testing method unless a non-obvious ownership or dependency boundary is demonstrated |
+| Choose the test level, fixtures, and assertions for this browser flow; do not collect live browser data. | `browser-testing-with-devtools` | test design and acceptance proof belong to `test-strategy`; browser evidence is not needed to choose the test seam |
 | Explain what red-green-refactor means; do not propose a project change. | `test-strategy` | generic testing explanation is not an explicit test-strategy decision or TDD implementation request |
 | The product behavior is unclear; diagnose the root cause before selecting a test. | `test-strategy` | unresolved product behavior or root cause belongs to `debug-systematically` first |
 | Retry ownership and ordering are unresolved across callers; decide the architecture boundary first. | `test-strategy` | unresolved ownership or interface boundaries belong to `design-codebase` first |
@@ -63,6 +184,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Who owns this directory according to CODEOWNERS? | `design-codebase` | repository or team ownership lookup is not a codebase architecture decision |
 | Claude Code itself is misbehaving; inspect the session logs. | `debug-systematically` | host runtime issues should not route into the project debugging skill; they should use bundled `/debug` instead |
 | `/code-review` | `review-and-finish` | an explicit bundled review command should stay with the host review engine instead of re-entering the project review skill |
+| Apply the existing review template's optional tests-first and structural-remedy lenses. | `code-review-and-quality` | keep the work inside `review-and-finish`; do not create a second owner or infer a branch action |
 | Tell me whether this draft is actually ready to send. | `finish-branch` | artifact readiness and PASS/BLOCK-style delivery checks should stay inside `review-and-finish` unless the user explicitly asks for branch actions or delegated verification |
 | Add one focused verifier or Explore for one search/evidence question, but do not reopen planning. | `agent-workflow`, `plan-work` | one defined focused delegation is ordinary execution while settled planning stays settled; it is not multi-agent orchestration |
 | This multi-file change is still one coherent owner scope. | `agent-workflow` | multi-file alone must not trigger multi-agent orchestration |
@@ -72,6 +194,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Host multi-agent capability is available; fix this one coherent bug. | `agent-workflow` | host multi-agent capability alone is not an orchestration trigger |
 | Update the titles in these two unrelated Markdown files. | `agent-workflow` | small mechanical edits whose coordination cost exceeds the benefit should remain with one owner |
 | A host multi-agent workflow for this scope is already running. | `agent-workflow` | do not start a second orchestration layer over an active workflow |
+| Add a router persona whose job is to decide which owner or persona should run next. | automatic meta-router or second orchestration owner | Routing has no domain value here; keep the user or selected host workflow as controller and invoke the smallest applicable owner directly. |
+| Make one persona invoke security, test, and performance personas from its own report. | persona-to-persona orchestration | Leaf workers keep one perspective and return recommendations; the controller or user owns composition and handoff. |
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `plan-work`, `design-codebase` | a strategy change should not be misread as a new task or redesign request by default |
 | Summarize all the user questions from above, not your own answers. | `reliability-check`, `issue-workflow` | summary-object correction should stay in the default layer rather than becoming corrective analysis or artifact drafting |
 | This is not a new task; only change the output format to a table. | `plan-work`, `reliability-check` | a format correction should not be misread as task replacement or corrective workflow |
@@ -110,6 +234,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Consult this lesson and then clean up any stale lessons you notice. | implicit mutation during consult | consultation remains read-only; do not infer update, prune, delete, rename, or index-write authority |
 | This completed change has a large diff and took multiple agents, but it affects no behavioral high-risk area. | `review-and-finish` | diff size, duration, and agent count alone do not require a focused readiness check |
 | This completed authorization change needs one readiness review before the done claim. | `agent-workflow` | a single high-risk completion review belongs to `review-and-finish`, not a candidate/review panel |
+| This cross-module change has a clear next implementation step; continue it without starting a fresh review loop. | `agent-workflow`, `review-and-finish` | cross-module scope alone does not create a universal doubt cycle or completion review; use a bounded verifier only for a concrete blind spot |
 | Before changing this config, check that the evidence supports that exact action first. | `reliability-check`, `review-and-finish` | evidence-before-action should stay in the default layer unless the user explicitly asks for reassessment or completion review |
 | This review file is only reference input; do not treat it as the active instruction source unless I explicitly say so. | `reliability-check`, `issue-workflow`, `decision-map` | reference-vs-instruction handling should stay in the default layer unless the user explicitly asks for corrective reassessment or a durable artifact workflow |
 | Update the handoff with the latest checkpoint before we compress. | `review-and-finish` | explicit checkpoint and compression work should stay in `memory-handoff` (**needs-review:** no dedicated routing-eval destination) |
@@ -127,6 +252,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Update tracker item ABC-123. | direct unguarded external action | exact tracker, item, target operation, and authorization must be resolved before remote mutation |
 | Draft an issue in chat only. | remote tracker publication | drafting in chat does not authorize publishing to a tracker |
 | Static contract checks pass, so runtime behavior is proven. | runtime completion claim | static contract evidence cannot establish live model behavior |
+| The live DOM is required, but the authorized browser/DevTools channel is unavailable; install it, run `npx`, or start MCP automatically. | automatic browser/MCP/server/dependency setup | An explicit evidence request may report `BLOCKED`/`UNVERIFIED`, but unavailable tools never authorize setup or static substitution. |
 | Run the formatter on this file. | `review-and-finish` | ordinary formatting is not review or completion verification |
 | Explain why this migration exists. | `review-and-finish` | explanation is not readiness verification |
 | Report what has been completed so far and what remains. | `review-and-finish` | an ordinary progress summary is not completion verification |

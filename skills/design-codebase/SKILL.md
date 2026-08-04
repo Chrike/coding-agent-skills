@@ -58,6 +58,7 @@ Use these checks to support the runbook rather than replace it:
 
 - Read [deep-modules.md](references/deep-modules.md) when caller complexity, duplicated coordination, or interface leakage may indicate a shallow module.
 - Read [deepening.md](references/deepening.md) when consolidating shallow modules or deciding where a demonstrated seam belongs.
+- Read [api-and-interface-design.md](references/api-and-interface-design.md) when a consumer-visible API, service boundary, or interface contract needs explicit input/output, error, boundary-validation, or compatibility criteria.
 - Read [design-it-twice.md](references/design-it-twice.md) when the decision is non-obvious enough to compare materially distinct interface options.
 - Read [domain-modeling.md](references/domain-modeling.md) when the architecture decision depends on domain terminology, glossary work, or recording an ADR.
 - Read [prototypes.md](references/prototypes.md) only when runnable feedback is the fastest discriminating method for the active design question.
