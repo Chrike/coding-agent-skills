@@ -95,3 +95,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: optional tests-first context reading and a narrow structural-remedy lens, merged into the existing `review-and-finish` template without creating another review owner.
 - Not retained: every-change review gates, a second Skill/persona/command, multi-model review loops, fixed size thresholds, automatic remediation or cleanup, and commit, push, merge, PR, publish, or deploy actions.
+
+## `security-and-hardening`
+
+- Source: `addyosmani/agent-skills`, skill `security-and-hardening`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a framework-neutral threat-boundary method that maps the relevant asset, actor, entry point, trust boundary, security invariant, abuse path, and focused evidence; selects only applicable lenses; and distinguishes observed evidence, assumptions, risks, controls, gaps, and recommendations.
+- Not retained: blanket STRIDE/OWASP/header/CORS/rate-limit gates, target agents or personas, commands, hooks, or evals, fixed library or framework settings, requesting/reading/printing real credentials, tokens, cookies, keys, or secrets, exploit or dependency/script execution without action-specific authorization, automatic remediation, completion or readiness judgment, and branch or publication actions.

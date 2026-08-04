@@ -4,7 +4,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 一套面向 Claude Code 辅助开发的轻量级技能套件。
 
-目标是在保持日常编码高效的同时，为代理提供清晰的工作流，以便在实际需要时进行调试、测试、规划、评审、交接、可靠性修正及任务委派。
+目标是在保持日常编码高效的同时，为代理提供清晰的工作流，以便在实际需要时进行调试、测试、规划、安全分析、评审、交接、可靠性修正及任务委派。
 
 ## 仓库内容
 
@@ -52,6 +52,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `frontend-ui-engineering` | 非平凡 UI、可访问性、响应式、交互、设计系统或用户可见状态工作 |
 | `browser-testing-with-devtools` | 显式的真实浏览器/DevTools 证据请求，或浏览器专属的证据缺口 |
 | `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据；现有 review template 还提供可选的 tests-first 与 structural-remedy lens，不新增其他 owner |
+| `security-and-hardening` | 显式安全审计、威胁建模、加固请求，或活动 owner 识别出的具体且非平凡的信任边界风险；仅选择适用 lens，并将修复、就绪判断和分支动作交给对应 owner |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
@@ -130,6 +131,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 - `prompts/CLAUDE.fragment.md` 定义常驻默认行为层。
 - `debug-systematically`、`test-strategy` 与 `review-and-finish` 覆盖核心编码执行工作流。
+- `security-and-hardening` 为显式安全审计、威胁建模、加固请求或具体信任边界风险提供框架中立的窄安全分析。
 - `agent-workflow` 在存在真正独立切片时覆盖多代理编排方法。
 - `idea-refine` 处理用户明确提出的概念发散与收敛，不自动进入实现规划。
 - `interview-me` 处理用户明确提出的规划前意图澄清，不自动进入下游工作流。
@@ -155,7 +157,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计、重新评估或多代理编排，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估、安全分析或多代理编排，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
@@ -164,6 +166,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `frontend-ui-engineering`
 - `browser-testing-with-devtools`
 - `agent-workflow`
+- `security-and-hardening`
 
 ### 可选显式意图工作流
 

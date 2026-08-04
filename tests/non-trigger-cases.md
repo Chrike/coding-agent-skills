@@ -4,6 +4,16 @@ Use this file to validate that the current skill suite does not route ordinary w
 
 This file contains negative routing examples for ordinary work.
 
+## Security Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Add ordinary input validation for this request field. | `security-and-hardening` | Routine boundary validation without a concrete, non-trivial trust-boundary risk stays in the base implementation flow. |
+| Review these changes for correctness and readability. | `security-and-hardening` | Generic review belongs to `review-and-finish`; security analysis requires an explicit security scope or a concrete trust-boundary risk. |
+| Design this routine API endpoint using the existing project conventions. | `security-and-hardening` | Routine API design does not make security analysis the owner; an unresolved architecture or ownership decision belongs to `design-codebase`. |
+| Choose the test level, fixture, and assertions for this endpoint. | `security-and-hardening` | Test design belongs to `test-strategy` unless a separate security analysis request or concrete trust-boundary risk is present. |
+| Make every change run an automatic security audit and remediate all findings. | automatic `security-and-hardening` audit or remediation | The security owner does not create a blanket audit gate or silently remediate; a scoped audit still needs a focused question and action-specific authorization for execution. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:

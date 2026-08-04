@@ -4,7 +4,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 
 A lightweight skill suite for Claude Code-assisted development.
 
-The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
+The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, security analysis, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
 
 ## What This Repository Contains
 
@@ -52,6 +52,7 @@ These can be selected by the agent when the request clearly matches.
 | `frontend-ui-engineering` | Non-trivial UI, accessibility, responsive, interaction, design-system, or user-visible state work |
 | `browser-testing-with-devtools` | Explicit live browser/DevTools evidence requests or a browser-only evidence gap |
 | `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change; its existing review template also provides optional tests-first and structural-remedy lenses without adding another owner |
+| `security-and-hardening` | Explicit security audits, threat models, hardening requests, or a concrete non-trivial trust-boundary risk identified by an active owner; select only applicable lenses and keep remediation, readiness, and branch actions with their owners |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
 | `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
@@ -131,6 +132,7 @@ The current runtime surface is organized as follows:
 
 - `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
 - `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
+- `security-and-hardening` provides narrow, framework-neutral security analysis for explicit audits, threat models, hardening requests, or concrete trust-boundary risks.
 - `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
 - `idea-refine` handles explicit concept exploration and convergence without automatically entering implementation planning.
 - `interview-me` handles an explicit request for pre-planning intent clarification without automatically entering a downstream workflow.
@@ -156,7 +158,7 @@ Start with the smallest set that matches your actual workflow.
 
 ### Optional Automatic Skills
 
-Add these if you regularly ask for explicit planning, design, reassessment, or multi-agent orchestration:
+Add these if you regularly ask for explicit planning, design, reassessment, security analysis, or multi-agent orchestration:
 
 - `plan-work`
 - `design-codebase`
@@ -165,6 +167,7 @@ Add these if you regularly ask for explicit planning, design, reassessment, or m
 - `frontend-ui-engineering`
 - `browser-testing-with-devtools`
 - `agent-workflow`
+- `security-and-hardening`
 
 ### Optional Explicit-Intent Workflows
 
