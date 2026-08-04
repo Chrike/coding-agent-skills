@@ -1768,7 +1768,7 @@
 | Infrastructure/docs | 文档/manifest 声明的验证与 CI 门 | 保留现状不动 | P1 | 已确认，阶段 4 保留现状（local validator/contract checks remain evidence-only; no hosted CI or release gate inferred） |
 | Infrastructure/docs | `comparison.md` | 跳过 | P2 | 已确认，阶段 4 按确认跳过（target comparison document is evidence only; no current runtime/documentation need） |
 | Infrastructure/metadata | `.gitattributes`、`.gitignore` | 保留现状不动 | P2 | 已确认，阶段 4 保留现状（`.gitattributes` absent; current `.gitignore` remains project-local and no target metadata copied） |
-| Infrastructure/attribution | LICENSE 与 manifest license metadata | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/attribution | LICENSE 与 manifest license metadata | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（CREDITS source-license clarification, commit `dc9f7ef`; no root LICENSE or manifest license mutation） |
 
 ### 阶段 3 的两个独立范围决策
 
@@ -1901,6 +1901,7 @@
 - Infrastructure/docs / validation and CI gates：保留 current local validators, routing/eval contracts, and plugin-local tests as maintenance evidence only；不宣称 hosted CI enforcement、required status、manifest discovery、release gate 或 deployment proof。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/docs / `comparison.md`：按确认跳过；target comparison prose 已由 `MIGRATION_PLAN.md`、`CREDITS.md` 和 current contracts 的证据边界替代，不复制第二份长期 comparison narrative，也不把 target conclusions 当 runtime instruction。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/metadata / `.gitattributes`、`.gitignore`：保留 current metadata state；当前 `.gitattributes` 不存在，`.gitignore` 仅保留 project-local runtime/cache exclusions，未复制 target attributes、workflow/generated-file policy 或额外 cleanup scope。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/attribution / LICENSE + manifest metadata：已在 `CREDITS.md` 明确按 target 实际 GNU AGPL v3 `LICENSE` 归因，并把 target manifest 的 MIT 字段记录为不采纳的 metadata inconsistency；未创建 root LICENSE、未改变 current plugin manifests、未作法律结论或发布动作。`git diff --check`、source/license markers 和 changed-path scope 检查通过；独立本地 commit：`dc9f7ef`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
