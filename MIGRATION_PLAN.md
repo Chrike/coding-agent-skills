@@ -1734,7 +1734,7 @@
 | Infrastructure/orchestration | `orchestration-patterns` + `docs/agents.md`（命令文件不随之修改） | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（host/persona relationship guidance 合并到 `agent-workflow`，commit `d5cafaf`） |
 | Infrastructure/references | `accessibility-checklist` | 合并/协调重叠 | P1 | 已确认，阶段 4 完成（page-shell、键盘、表单和 motion prompts 合并到 UI reference，commit `97a9bdf`） |
 | Infrastructure/references | `definition-of-done` | 保留现状不动 | P0 | 已确认 |
-| Infrastructure/references | `observability-checklist` | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/references | `observability-checklist` | 合并/协调重叠 | P0 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
 | Infrastructure/references | `performance-checklist` | 合并/协调重叠 | P1 | 已确认，阶段 4 完成（条件式 performance prompt set 合并到 `performance-optimization`，commit `fa5ad2d`） |
 | Infrastructure/references | `security-checklist` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（条件式 security prompt set 合并到 `security-and-hardening`，commit `68ccac7`） |
 | Infrastructure/references | `testing-patterns` | 跳过 | P1 | 已确认 |
@@ -1870,6 +1870,7 @@
 - Infrastructure / `performance-checklist`：已将 target reference 改写为 `performance-optimization` 内的条件式 loading/resource、rendering/input、data/backend、correctness/evidence prompt set；未引入固定 CWV/响应/包大小阈值、命令、profiling、安装、生产负载、RUM、release gate 或分支动作。`git diff --check`、conditional-checklist markers、negative-contract marker、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`fa5ad2d`。
 - Infrastructure / `orchestration-patterns` + `docs/agents.md`：已将 direct-owner、no-router/no-persona-chain、host-capability reuse、subagent/team distinction 与 observed-support evidence 合并到 `agent-workflow`；未吸收 target-specific command wiring、固定 `/ship` fan-out、Agent Teams setup、manifest discovery claims 或第二 orchestration owner。`git diff --check`、host/persona markers、negative-contract markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`d5cafaf`。
 - Infrastructure / `accessibility-checklist`：已将 target 中的 page-shell/skip path、自然键盘顺序、autocomplete/error focus、motion pause 与 text-size prompts 合并到现有 UI accessibility reference；未引入固定 WCAG/浏览器/axe gate、自动工具执行、第二 UI owner 或全局 checklist。`git diff --check`、accessibility markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`97a9bdf`。
+- Infrastructure / `observability-checklist`：已将 target 中 conditional log/correlation、metric distribution/queue、trace propagation 与 symptom-based alert/dashboard prompts 合并到 `observability-and-instrumentation`；未引入 universal RED/USE/full-trace、固定阈值、vendor setup、dashboard/alert publication、test traffic、failure injection、production access 或 launch gate。聚焦静态验证与独立本地 commit 待完成。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点

@@ -168,6 +168,14 @@
 - Retained in this suite: a question-driven telemetry owner for minimum useful structured logs, metrics, traces, or alerts; project-conforming schema and context; bounded cardinality; data minimization; and separate definition, static, local, runtime, and operational-response evidence.
 - Not retained: triggers for every production feature or I/O PR, mandatory RED/USE/full tracing/alert checklists, fixed vendor or dependency choices, automatic dashboards or monitoring, test traffic, failure injection, remote alert actions, unbounded labels, sensitive payload logging, deployment, or branch actions.
 
+## `observability-checklist`
+
+- Source: `addyosmani/agent-skills`, reference `observability-checklist.md`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: conditional prompts for structured events and correlation, bounded distributions and queue signals, relevant trace propagation, and symptom-based alert/dashboard questions under `observability-and-instrumentation`.
+- Not retained: mandatory RED/USE/full tracing, fixed labels or thresholds, vendor/bootstrap requirements, dashboard or alert publication, test traffic, failure injection, production access, pre-launch gates, or branch actions.
+
 ## `shipping-and-launch`
 
 - Source: `addyosmani/agent-skills`, skill `shipping-and-launch`.

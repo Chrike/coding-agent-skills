@@ -41,6 +41,17 @@ Read the existing logger, meter, tracer, naming, sampling, redaction, configurat
 
 Allowlist the smallest fields needed to answer the question. Never read, print, or add secrets, credentials, tokens, passwords, full request bodies, storage contents, or unredacted personal data. Do not use user IDs, raw URLs, error text, or unbounded values as metric labels. Treat correlation IDs and trace context as sensitive operational data whose propagation and retention still need project justification.
 
+## Conditional Signal Checklist
+
+When the selected signal makes the prompt material, check:
+
+- **Structured logs:** stable event names, allowlisted fields, justified correlation across outbound or asynchronous boundaries, actionable levels, and metadata-only dependency calls.
+- **Metrics:** a distribution when percentile questions matter, bounded status or route classes, and queue depth, age, or processing duration only when the operational question needs them.
+- **Traces:** propagation across the relevant request or job path, spans around meaningful units of work, and no secrets or unredacted personal data in attributes.
+- **Alerts and dashboards:** a symptom or invariant, a named response or runbook, project-backed threshold and duration evidence, and views that answer the stated questions; remote configuration and test firing remain separate actions.
+
+These are conditional prompts, not a universal RED/USE, full-trace, alert, dashboard, vendor, retention, or launch gate.
+
 ## Verification And Evidence
 
 Separate these claims:
