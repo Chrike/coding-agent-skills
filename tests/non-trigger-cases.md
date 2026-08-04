@@ -28,6 +28,17 @@ These prompt shapes should not trigger the performance owner unless the request 
 | Review this performance patch for correctness and readability. | `performance-optimization` | Generic review belongs to `review-and-finish`; a performance concern in a review does not create a second review owner. |
 | Make every change run a profiler; install Lighthouse, a benchmark package, and RUM automatically. | automatic profiling/tool setup or an automatic `performance-optimization` run | Tool availability or a blanket request does not authorize profiling, `npx`, installation, network/external services, monitoring/RUM, or project commands; inspect and obtain action-specific authorization first. |
 
+## CI/CD Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Run the unit tests and fix the failing assertion. | `ci-cd-and-automation` | Ordinary test execution and test design belong to the base flow or `test-strategy`; CI definition work is not implied. |
+| The hosted CI job failed on the last revision; diagnose the root cause. | `ci-cd-and-automation` | Unknown pipeline or product failure belongs to `debug-systematically` first; the CI owner may return only after a concrete definition boundary is identified. |
+| GitHub Actions is available in this repository. | `ci-cd-and-automation` | Existing tool or provider availability alone does not create a pipeline-definition request. |
+| Enable branch protection, required status checks, or auto-merge. | automatic remote-policy change | Repository-owned definition analysis does not authorize hosted policy changes; resolve the named host or repository administrator action separately. |
+| Run the hosted workflow, deploy the release, or roll back production. | automatic hosted execution or deployment | Static definition work does not authorize provider execution, deployment, rollback, or external-service access. |
+| Make every repository use lint, type, test, build, security, E2E, and bundle gates. | automatic universal CI gate | Gate selection must follow project acceptance, risk, toolchain, and evidence cost; the owner does not impose a fixed checklist. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:

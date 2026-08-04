@@ -119,3 +119,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: commit-craft guidance merged into `finish-branch` after explicit commit authorization: keep a logical, independently reviewable scope where practical, use relevant evidence without universal gates, and write an intent-bearing message.
 - Not retained: `Always` activation, automatic commit, fixed line-count or branch policies, mandatory npm/lint/type/Husky gates, reset/cleanup, tag push, feature-flag policy, and any push, merge, PR, deployment, or publication action inferred from commit guidance.
+
+## `ci-cd-and-automation`
+
+- Source: `addyosmani/agent-skills`, skill `ci-cd-and-automation`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a narrow repository-owned pipeline-definition method that reads actual provider and toolchain facts, defines scoped triggers/jobs/dependencies/artifacts/secret references/failure semantics, and distinguishes definition, local, hosted, required-status, and deployment evidence.
+- Not retained: universal lint/type/test/build/security/E2E/bundle gates, GitHub/Node/Prisma/Playwright/Vercel prescriptions, fixed time or threshold budgets, hosted execution, branch protection or auto-merge changes, credential access, network or installation, automatic commit/push/merge, deployment, rollback, or publication.
