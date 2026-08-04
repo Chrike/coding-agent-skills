@@ -1745,7 +1745,7 @@
 | Infrastructure/evals | `run-evals.js` Tier 2/Tier 3 runner | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（current-owned `tests/check_routing_contract.py`，commit `1b4065a`；Tier 3 保持未执行） |
 | Infrastructure/evals | `run-evals-test.js` | 新增/改写引入 | P1 | 已确认 |
 | Infrastructure/evals | `validate-skills.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned `tests/validate_suite.py` 与 focused tests，commit `03db3b3`） |
-| Infrastructure/evals | `skill-lint.js` | 新增/改写引入 | P1 | 已确认 |
+| Infrastructure/evals | `skill-lint.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned lint extensions in `tests/validate_suite.py`，commit `458d435`） |
 | Infrastructure/eval corpus | 24 cases + 45 fixtures 维护资产 | 新增/改写引入 | P1 | 已确认 |
 | Infrastructure/eval corpus | ownerless negative / stale-boundary 审计 | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认 |
@@ -1877,6 +1877,7 @@
 - Infrastructure/evals / eval README：已将 target 的三层证据、case ownership、runtime/fixture 不可替代性和失败状态改写为 current-owned `tests/eval-contract.md`；未复制第二 routing layer、固定 rank/similarity gate、headless executor、browser/network/CI 或持久结果层。`git diff --check`、Markdown/source markers 和 changed-path scope 检查通过；独立本地 commit：`332d71b`。
 - Infrastructure/evals / validate-skills：已将 target 的结构 wrapper 改写为 current-owned `tests/validate_suite.py`，检查 Skill 目录/frontmatter、presentation-only catalog references、维护合同路径和本地 Markdown links；`idea-refine`、`interview-me` 的已知未分组状态保留为 warning，不引入 target required sections、trigger regex、固定 gate 或插件/宿主 runtime claim。`python tests/validate_suite.py`、3 个 focused unit tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`03db3b3`。
 - Infrastructure/evals / run-evals Tier 2：已将 target 的静态 routing/collision 形状改写为 current-owned `tests/check_routing_contract.py`，核对已安装 owner、README/contract coverage 和 owner-like stale tokens；lexical overlap 仅作 informational output，不引入 rank/similarity floor 或自动 gate。Tier 3 headless Claude、fixture Git workspace、browser/network、external grader 和 `evals/results` 保持未执行/未创建。`python tests/check_routing_contract.py`、3 个 focused unit tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`1b4065a`。
+- Infrastructure/evals / skill-lint：已将 target 的可迁移结构规则收窄为目录 slug、frontmatter、非空 Skill body 与本地 Markdown link 检查，保留 current frontmatter/trigger/body 自主性；未复制 target required sections、固定 trigger regex、exemption 表或 universal gate。`python tests/validate_suite.py`、4 个 focused unit tests 和 `git diff --check` 通过；独立本地 commit：`458d435`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
