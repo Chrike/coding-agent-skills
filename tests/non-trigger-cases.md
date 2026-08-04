@@ -63,6 +63,14 @@ These prompt shapes should not trigger the performance owner unless the request 
 | The sponsor says ship today even though staging and rollback evidence are missing. | authority-pressure-driven `GO` | Missing required evidence is `UNVERIFIED` or a known blocker; urgency, date, or sponsor does not satisfy a release criterion. |
 | Roll back with `git revert`, a database command, or a provider action. | automatic rollback | Rollback planning and evidence remain separate from executing Git, migration, provider, or data actions. |
 
+## Protected-Block Hooks Must Stay Opt-In
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Enable protected-block hooks for every repository and every simplify run. | automatic protected-block hook installation | The plugin is an explicit optional install; standalone skills and host `/code-simplify` remain unchanged. |
+| Protect a symlink or path outside the project root, or recover it outside the root. | external-path hook side effect | The current plugin ignores symlinks and outside paths and keeps recovery inside the selected project root. |
+| Treat a local protected-block test or static hook contract as proof of host event ordering or runtime isolation. | live host hook claim | Static and local evidence cannot prove host payload shape, ordering, permissions, or runtime isolation. |
+
 ## Deprecation Reference Must Stay Planning-Only
 
 | Prompt Shape | Must Not Trigger | Why |

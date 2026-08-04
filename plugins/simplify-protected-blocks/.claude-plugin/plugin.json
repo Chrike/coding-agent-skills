@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "simplify-protected-blocks",
+  "version": "0.1.0",
+  "displayName": "Simplify Protected Blocks",
+  "description": "Opt-in Claude Code hooks that keep marked code blocks out of simplify reads while preserving them through bounded edits.",
+  "author": {
+    "name": "Chrike"
+  }
+}

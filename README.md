@@ -11,7 +11,7 @@ The goal is to keep ordinary coding fast while still giving the agent clear work
 This repository contains:
 
 - runtime skill source folders under `skills/`
-- optional self-contained Claude Code plugins under `plugins/`
+- optional self-contained Claude Code plugins under `plugins/`, including the explicit opt-in `simplify-protected-blocks` hook plugin
 - the maintained always-on instruction prompt under `prompts/`
 - explicit opt-in saved-workflow source under `workflows/`
 - maintenance and validation material under `tests/`

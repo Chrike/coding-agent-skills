@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-hooks.json",
+  "description": "Opt-in protected-block hooks for bounded simplify workflows.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^Read$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "-B",
+              "${CLAUDE_PLUGIN_ROOT}/hooks/protected_blocks.py",
+              "read"
+            ],
+            "timeout": 5,
+            "statusMessage": "Protecting marked blocks"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^(Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "-B",
+              "${CLAUDE_PLUGIN_ROOT}/hooks/protected_blocks.py",
+              "write"
+            ],
+            "timeout": 5,
+            "statusMessage": "Restoring protected blocks"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "-B",
+              "${CLAUDE_PLUGIN_ROOT}/hooks/protected_blocks.py",
+              "stop"
+            ],
+            "timeout": 5,
+            "statusMessage": "Restoring protected files"
+          }
+        ]
+      }
+    ]
+  }
+}

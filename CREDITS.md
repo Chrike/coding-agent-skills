@@ -191,3 +191,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: host/persona relationship guidance under `agent-workflow`: direct ownership first, no router or persona-to-persona calls, reuse of fitting host capabilities, and explicit separation between subagent reports, teammate communication, and observed host support.
 - Not retained: target-specific `/ship` fan-out, command/persona wiring, fixed lifecycle orchestration, Agent Teams setup claims, manifest-based proof of discovery or fresh context, nested controllers, or a second orchestration owner.
+
+## `code-simplification` protected-block hook
+
+- Source: `addyosmani/agent-skills`, the `simplify-ignore` hook and its protected-block guidance.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: an explicit opt-in, current-owned plugin with project-root and symlink boundaries, standard-library Python hooks, bounded backup/restore state, and fail-open behavior for unknown payloads or host events.
+- Not retained: automatic installation, target Bash/jq dependencies, network or shell execution, unbounded in-place filtering, target command ownership, external-path recovery, or claims that static/local checks prove host hook ordering or runtime isolation.

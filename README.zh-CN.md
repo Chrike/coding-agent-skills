@@ -11,7 +11,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 本仓库包含：
 
 - 位于 `skills/` 下的运行时技能源码目录
-- 位于 `plugins/` 下的可选、自包含 Claude Code 插件
+- 位于 `plugins/` 下的可选、自包含 Claude Code 插件，包括显式选择的 `simplify-protected-blocks` 保护块 hook 插件
 - 位于 `prompts/` 下的常驻默认行为提示词源码
 - 位于 `workflows/` 下的显式选择 saved-workflow 源码
 - 位于 `tests/` 下的维护与验证材料
