@@ -1719,7 +1719,7 @@
 | Verify | `debugging-and-error-recovery` | 保留现状不动 | P0 | 已确认，阶段 4 独立核实为 no-op |
 | Review | `code-review-and-quality` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（合并可选 tests-first 与 structural-remedy lenses 到 `review-and-finish` template，commit `3df0e10`） |
 | Review | `code-simplification` | 跳过 | P0 | 已确认 |
-| Review | `security-and-hardening` | 新增/改写引入 | P0 | 实现已完成；聚焦静态验证与独立提交待完成 |
+| Review | `security-and-hardening` | 新增/改写引入 | P0 | 已确认，阶段 4 已完成（窄触发、框架中立的安全分析 owner，commit `05cfbf2`） |
 | Review | `performance-optimization` | 合并/协调重叠 | P1 | 已确认 |
 | Ship | `git-workflow-and-versioning` | 合并/协调重叠 | P0 | 已确认 |
 | Ship | `ci-cd-and-automation` | 新增/改写引入 | P0 | 已确认 |
@@ -1856,9 +1856,9 @@
 - Verify / `browser-testing-with-devtools`：已完成窄触发、框架/工具中立的 browser-runtime evidence Skill 实现，并同步双语 README、`skills.sh.json`、路由/正负触发合同和来源记录；未安装/配置浏览器工具、启动服务器、执行浏览器/网络/依赖动作或取得 live runtime 证据。`git diff --check`、frontmatter、catalog JSON、路由/正负触发合同、来源记录、固定规则排除和独立静态审查通过；独立本地 commit：`1f32856`。
 - Verify / `debugging-and-error-recovery`：已独立核实为 no-op；保留 `debug-systematically` 作为唯一项目调试 owner，未创建第二 debug owner、未修改 runtime Skill、未创建空 commit。
 - Review / `code-review-and-quality`：已将可选的 tests-first context reading 与 structural-remedy lens 合并到现有 `skills/review-and-finish/references/review-template.md`，未新增第二 Review owner、宿主 `/code-review` 替代路径、command、persona、hook、自动修复或 branch action。`git diff --check`、template marker、双语 README、非触发合同、GNU AGPL v3 来源和 changed-path scope 检查通过；独立本地 commit：`3df0e10`。
-- Review / `security-and-hardening`：已完成窄触发、框架中立的安全分析 owner 及其 README、catalog、路由/正负触发合同和来源记录改写；实现已完成，聚焦静态验证与独立本地 commit 待完成。未执行 exploit、依赖安装、网络/外部服务、脚本、凭据、分支或其他外部动作。
+- Review / `security-and-hardening`：已完成窄触发、框架中立的安全分析 owner 及其 README、catalog、路由/正负触发合同和来源记录改写；未执行 exploit、依赖安装、网络/外部服务、脚本、凭据、分支或其他外部动作。`git diff --check`、frontmatter、25 项 Skill marker、catalog JSON、双语文档、路由/正负触发合同、来源记录、handoff 修正和 changed-path scope 检查通过；独立本地 commit：`05cfbf2`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次正在按条目处理：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过，`security-and-hardening` 实现已完成，聚焦静态验证与独立提交待完成；`performance-optimization` 尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。当前暂停于 `security-and-hardening` 的聚焦静态验证与独立提交之前，不自动进入 performance、Ship 或基础设施。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次正在按条目处理：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过；`security-and-hardening` 独立提交为 `05cfbf2`；`performance-optimization` 尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。当前暂停于 Review 最后一条 `performance-optimization` 处理之前，不自动进入 Ship 或基础设施。
