@@ -50,6 +50,7 @@ These can be selected by the agent when the request clearly matches.
 | `test-strategy`        | Test design, TDD, mocks, flaky tests, regression coverage, or a non-obvious test seam/level/acceptance signal |
 | `context-engineering`  | Explicit task-context audits, focused context packs, bounded context/rules setup, or observed context-specific quality degradation |
 | `frontend-ui-engineering` | Non-trivial UI, accessibility, responsive, interaction, design-system, or user-visible state work |
+| `browser-testing-with-devtools` | Explicit live browser/DevTools evidence requests or a browser-only evidence gap |
 | `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
 | `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
@@ -139,6 +140,7 @@ The current runtime surface is organized as follows:
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
 - `context-engineering` handles explicit task-context audits, focused context packs, and bounded context setup without automatically persisting rules or taking over reliability or handoff workflows.
 - `frontend-ui-engineering` handles non-trivial UI/accessibility behavior and responsive or design-system decisions without taking over architecture, testing, browser runtime evidence, or completion review.
+- `browser-testing-with-devtools` supplies only explicitly requested live browser/DevTools evidence through an already configured and authorized channel; it does not own UI implementation, test design, debugging, performance optimization, or completion judgment.
 - `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
 
 ## Recommended Start
@@ -161,6 +163,7 @@ Add these if you regularly ask for explicit planning, design, reassessment, or m
 - `reliability-check`
 - `context-engineering`
 - `frontend-ui-engineering`
+- `browser-testing-with-devtools`
 - `agent-workflow`
 
 ### Optional Explicit-Intent Workflows

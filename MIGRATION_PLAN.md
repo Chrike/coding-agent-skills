@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 当前阶段：阶段 4（Plan + Build 批次实施中；Define 第二批已完成，`spec-driven-development` 独立提交为 `ec2cdac`）。
+- 当前阶段：阶段 4（Verify 批次实施中；Plan + Build 已完成，Define 第二批已完成，`spec-driven-development` 独立提交为 `ec2cdac`）。
 - 计划建立日期：2026-08-03。
 - 当前根项目：`E:\projects\_drafts`，Git 分支 `migrate-meta-define`，迁移基线 revision `f82a1b2`。
 - 审查输入：`absorb-agent-skills-master-prompt.md`。
@@ -1715,8 +1715,8 @@
 | Build | `doubt-driven-development` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（合并到 `agent-workflow` fresh-context reference，commit `ef133f7`） |
 | Build | `frontend-ui-engineering` | 新增/改写引入 | P1 | 已确认，阶段 4 已完成（新增框架中立的 UI/a11y owner 与 skill-local checklist，commit `bdd87b6`） |
 | Build | `api-and-interface-design` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（并入 `design-codebase` 的 API/interface reference，commit `722e65f`） |
-| Verify | `browser-testing-with-devtools` | 新增/改写引入 | P0 | 已确认 |
-| Verify | `debugging-and-error-recovery` | 保留现状不动 | P0 | 已确认 |
+| Verify | `browser-testing-with-devtools` | 新增/改写引入 | P0 | 已确认，阶段 4 实现完成；待聚焦验证与独立 commit |
+| Verify | `debugging-and-error-recovery` | 保留现状不动 | P0 | 已确认，阶段 4 独立核实为 no-op |
 | Review | `code-review-and-quality` | 合并/协调重叠 | P0 | 已确认 |
 | Review | `code-simplification` | 跳过 | P0 | 已确认 |
 | Review | `security-and-hardening` | 新增/改写引入 | P0 | 已确认 |
@@ -1853,8 +1853,10 @@
 - Build / `doubt-driven-development`：已将去锚定 `ARTIFACT + CONTRACT` 输入包、adversarial mismatch framing、四类 reconcile 分类和 independence gap 规则合并到 `skills/agent-workflow/references/fresh-context-verification.md`；未创建新 doubt owner、普遍 fresh review、跨模型 CLI、自动 orchestrator 或 branch action。已补充跨模块但下一步明确时不自动启动 review loop 的非触发案例；`git diff --check` 与 14 项关键静态标记检查通过；独立本地 commit：`ef133f7`。
 - Build / `context-engineering`：已新增窄触发、默认只读的 `skills/context-engineering/SKILL.md`，并同步双语 README、`skills.sh.json`、路由/正负触发合同和来源记录；未自动创建规则文件、执行命令、compact、MCP 或下游 handoff。`git diff --check`、frontmatter、catalog JSON、26 项关键静态标记和 target-rule 排除检查通过；独立本地 commit：`6d8e137`。
 - Build / `frontend-ui-engineering`：已新增框架中立、窄触发的 `skills/frontend-ui-engineering/SKILL.md` 与 skill-local accessibility checklist，并同步双语 README、`skills.sh.json`、路由/正负触发合同和来源记录；未引入固定框架/断点、自动浏览器或 a11y 工具、架构/测试/完成 owner。`git diff --check`、frontmatter、相对引用、catalog JSON、双语 README/路由/触发合同和固定规则排除检查通过；独立本地 commit：`bdd87b6`。
+- Verify / `browser-testing-with-devtools`：已完成窄触发、框架/工具中立的 browser-runtime evidence Skill 实现，并同步双语 README、`skills.sh.json`、路由/正负触发合同和来源记录；未安装/配置浏览器工具、启动服务器、执行浏览器/网络/依赖动作或取得 live runtime 证据。聚焦验证与该条目的独立本地 commit 待后续完成。
+- Verify / `debugging-and-error-recovery`：已独立核实为 no-op；保留 `debug-systematically` 作为唯一项目调试 owner，未创建第二 debug owner、未修改 runtime Skill、未创建空 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；其余生命周期条目尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。此处为 Plan + Build 批次暂停点，不自动进入 Verify、Review、Ship 或基础设施。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；其余生命周期条目尚未处理。Verify 批次中，`browser-testing-with-devtools` 的实现已完成，聚焦验证与该条目的独立本地 commit 仍待完成；`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。当前暂停于 Verify/browser 的聚焦验证与独立 commit 之前，不自动进入 Review、Ship 或基础设施。

@@ -56,6 +56,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Configure the named project rules file for this task, but do not run commands. | `context-engineering`; read the named target first and limit any write to the explicitly requested artifact |
 | Build a keyboard-accessible dialog with the existing design system and meaningful loading, error, and empty states. | `frontend-ui-engineering`; use project facts and choose behavior-specific evidence without automatic browser/tool setup |
 | Make this page responsive and preserve keyboard focus across the interaction. | `frontend-ui-engineering`; handle UI behavior and accessibility while leaving architecture, test design, and runtime browser evidence with their owners |
+| Inspect the live DOM and console for the already configured browser page, then report what you observed. | `browser-testing-with-devtools`; collect only the requested runtime evidence and separate observations from inference and gaps |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
 | Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |

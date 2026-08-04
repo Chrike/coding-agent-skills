@@ -79,3 +79,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a framework-neutral UI/a11y behavior baseline for semantic controls, names, keyboard/focus, dynamic and form states, responsive use, project design-system fit, and behavior-specific evidence through a narrow automatic workflow Skill and skill-local checklist.
 - Not retained: broad triggers for every UI edit, React/Tailwind/state-library prescriptions, fixed breakpoints or component-size limits, generic visual recipes, blanket WCAG/tool/browser checks, automatic browser/MCP/axe execution, and architecture, testing, or completion ownership.
+
+## `browser-testing-with-devtools`
+
+- Source: `addyosmani/agent-skills`, skill `browser-testing-with-devtools`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a narrow browser-runtime evidence provider for explicit live DOM, console, network, screenshot, focus, accessibility, or runtime-performance claims; minimum-signal selection; action-specific authorization; secret and untrusted-browser-content boundaries; separate observed data, inference, and gaps reporting; and `BLOCKED`/`UNVERIFIED` handling when the authorized channel or environment is unavailable.
+- Not retained: broad triggers for all browser-facing work, Chrome/provider-specific installation or MCP/settings setup, `npx` or server startup, automatic navigation or interaction, universal console/network/screenshot/accessibility/performance gates, credential or storage inspection, and UI, test, debugging, performance, completion, or branch ownership.

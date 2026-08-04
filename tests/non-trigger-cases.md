@@ -35,6 +35,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Design this API and automatically update every consumer, run migrations, and publish it. | automatic migration, command, or publication | contract design can identify compatibility conditions, but it does not authorize consumer changes, migrations, commands, or release actions |
 | This change spans several files, but the behavior, contract, and next safe slice are already clear. | `plan-work`, `agent-workflow` | file count alone must not trigger planning or orchestration when execution context is settled |
 | This UI change touches several components but follows existing patterns and has no new interaction or accessibility decision. | `frontend-ui-engineering` | UI file count alone must not trigger the UI domain workflow |
+| Change this button's focus style and responsive class in the component; do not inspect a live page. | `browser-testing-with-devtools` | ordinary UI implementation without an explicit runtime-evidence request stays with the UI or base owner |
 | Implement or continue the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff`, `reliability-check`, `frontend-ui-engineering` | settled planning should guide execution without reopening planning, reassessment, handoff, or UI design workflows |
 | Start implementing the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |
 | Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |
@@ -69,7 +70,9 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | This test is flaky because it waits with sleep; fix the test design. | `debug-systematically` | flaky tests caused primarily by wait strategy or test shape should stay in `test-strategy` |
 | Explain what a stack trace is. | `debug-systematically` | generic explanation is not diagnosis of an active unclear failure |
 | The task spans many files, but the failure and exact fix are already clear. | `debug-systematically` | size alone does not require a diagnostic loop when no root-cause uncertainty remains |
+| Diagnose why the checkout intermittently fails and find the root cause; do not collect browser evidence as a separate deliverable. | `browser-testing-with-devtools` | root-cause diagnosis belongs to `debug-systematically`; that owner may request a browser-only signal without transferring diagnosis here |
 | This module is hard to test. Help me choose mocks. | `design-codebase` | ordinary test design belongs to `test-strategy` when available; otherwise preserve the host's existing testing method unless a non-obvious ownership or dependency boundary is demonstrated |
+| Choose the test level, fixtures, and assertions for this browser flow; do not collect live browser data. | `browser-testing-with-devtools` | test design and acceptance proof belong to `test-strategy`; browser evidence is not needed to choose the test seam |
 | Explain what red-green-refactor means; do not propose a project change. | `test-strategy` | generic testing explanation is not an explicit test-strategy decision or TDD implementation request |
 | The product behavior is unclear; diagnose the root cause before selecting a test. | `test-strategy` | unresolved product behavior or root cause belongs to `debug-systematically` first |
 | Retry ownership and ordering are unresolved across callers; decide the architecture boundary first. | `test-strategy` | unresolved ownership or interface boundaries belong to `design-codebase` first |
@@ -152,6 +155,7 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Update tracker item ABC-123. | direct unguarded external action | exact tracker, item, target operation, and authorization must be resolved before remote mutation |
 | Draft an issue in chat only. | remote tracker publication | drafting in chat does not authorize publishing to a tracker |
 | Static contract checks pass, so runtime behavior is proven. | runtime completion claim | static contract evidence cannot establish live model behavior |
+| The live DOM is required, but the authorized browser/DevTools channel is unavailable; install it, run `npx`, or start MCP automatically. | automatic browser/MCP/server/dependency setup | An explicit evidence request may report `BLOCKED`/`UNVERIFIED`, but unavailable tools never authorize setup or static substitution. |
 | Run the formatter on this file. | `review-and-finish` | ordinary formatting is not review or completion verification |
 | Explain why this migration exists. | `review-and-finish` | explanation is not readiness verification |
 | Report what has been completed so far and what remains. | `review-and-finish` | an ordinary progress summary is not completion verification |
