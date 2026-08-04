@@ -51,6 +51,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Write a structured specification before coding this feature. | `issue-workflow` in `spec-authoring` mode; return a non-tracker draft in chat and stop |
 | Use spec-first development for this feature, then stop before implementation. | `issue-workflow` in `spec-authoring` mode; do not create tasks or invoke planning automatically |
 | Update the named technical specification after this scope decision changed. | `issue-workflow` in `spec-authoring` mode; update only the explicitly named artifact if persistence is requested |
+| Audit the context I'm using for this task and tell me what is missing. | `context-engineering`; return a focused, read-only context audit in chat |
+| The agent keeps inventing APIs; audit the task context and return only the relevant sources and gaps. | `context-engineering`; diagnose the context-specific quality problem without changing code or rules automatically |
+| Configure the named project rules file for this task, but do not run commands. | `context-engineering`; read the named target first and limit any write to the explicitly requested artifact |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
 | Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |

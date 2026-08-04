@@ -63,3 +63,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a de-anchored `ARTIFACT` plus `CONTRACT` packet, adversarial mismatch framing, and bounded reconciliation categories in the existing `agent-workflow` fresh-context reference.
 - Not retained: universal fresh review for every non-trivial decision, mandatory cross-model CLI offers, automatic orchestrators, persona nesting, unbounded review loops, or commit/branch actions.
+
+## `context-engineering`
+
+- Source: `addyosmani/agent-skills`, skill `context-engineering`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: explicit context audits, focused context packs, source-backed conflict and gap reporting, and bounded context/rules setup with a read-only default.
+- Not retained: automatic new-session or task-switch triggers, fixed token/line thresholds, default rules-file creation, automatic compaction, MCP or external-context setup, command execution, or downstream lifecycle handoffs.

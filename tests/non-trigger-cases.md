@@ -54,6 +54,10 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Do not use the smallest patch; solve the same bug with a more maintainable approach. | `reliability-check` | ordinary strategy or approach preference changes are not reliability challenges unless the user challenges a prior reliability conclusion |
 | Implement A and also outline B in the same reply. | `reliability-check` | ordinary multi-part requests must not invent multi-concern reliability reassessment |
 | Reassess whether the suite is green by running the repo verify script that may install or hit the network. | `reliability-check` automatic verification | inspect effects; do not treat reassessment as automatic verification authorization for install, network, or other material side effects |
+| Start a new session and load the project context. | `context-engineering` | a new session alone is not an explicit context audit or setup request |
+| The conversation is long; compact it and create a handoff. | `context-engineering` | compaction and checkpoint work belongs to `memory-handoff`, not context-engineering by implication |
+| Are we relying on stale context or the wrong source? | `context-engineering` | an explicit stale-source or reliability challenge belongs to `reliability-check` |
+| Read these files before implementing the already-clear edit. | `context-engineering` | routine source reading is part of ordinary execution, not a context-audit workflow |
 | We are still inspecting these files; do not start rewriting yet. | `reliability-check`, `plan-work`, `design-codebase` | stage alignment should stay in the default layer unless the user explicitly asks for corrective reassessment or a new workflow |
 | This example is only to clarify the intent, not the implementation direction. | `plan-work`, `design-codebase`, `reliability-check` | clarifying examples should not be turned into task instructions by default |
 | We already cancelled that older direction. Continue with the current task only. | `reliability-check`, `decision-map` | settled cancellations should hold without reopening adjacent tracks |

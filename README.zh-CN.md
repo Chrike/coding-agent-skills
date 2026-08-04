@@ -48,6 +48,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | ---------------------- | ------------------------------------------------------------ |
 | `debug-systematically` | 原因不明的 Bug、不稳定行为、回归问题、性能瓶颈、反复修复失败 |
 | `test-strategy`        | 测试设计、TDD、Mock、不稳定测试、回归覆盖，或非显而易见的测试层级/接缝/验收信号 |
+| `context-engineering`  | 显式任务上下文审计、聚焦 context pack、范围化上下文/规则配置，或已观察到的上下文特定质量退化 |
 | `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据 |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
@@ -134,6 +135,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
+- `context-engineering` 负责显式任务上下文审计、聚焦 context pack 和范围化上下文配置，不自动持久化规则，也不接管可靠性复核或交接流程。
 - `finish-branch`、`issue-workflow`（包含其 `spec-authoring` 模式）、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、requirements/spec 与跟踪工件、持久化 lesson 及维护类的显式意图请求。
 
 ## 推荐起步
@@ -154,6 +156,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `plan-work`
 - `design-codebase`
 - `reliability-check`
+- `context-engineering`
 - `agent-workflow`
 
 ### 可选显式意图工作流
