@@ -13,6 +13,7 @@
         "design-codebase",
         "reliability-check",
         "context-engineering",
+        "frontend-ui-engineering",
         "agent-workflow"
       ]
     },

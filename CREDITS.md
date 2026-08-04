@@ -71,3 +71,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: explicit context audits, focused context packs, source-backed conflict and gap reporting, and bounded context/rules setup with a read-only default.
 - Not retained: automatic new-session or task-switch triggers, fixed token/line thresholds, default rules-file creation, automatic compaction, MCP or external-context setup, command execution, or downstream lifecycle handoffs.
+
+## `frontend-ui-engineering`
+
+- Source: `addyosmani/agent-skills`, skill `frontend-ui-engineering` and its accessibility checklist.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a framework-neutral UI/a11y behavior baseline for semantic controls, names, keyboard/focus, dynamic and form states, responsive use, project design-system fit, and behavior-specific evidence through a narrow automatic workflow Skill and skill-local checklist.
+- Not retained: broad triggers for every UI edit, React/Tailwind/state-library prescriptions, fixed breakpoints or component-size limits, generic visual recipes, blanket WCAG/tool/browser checks, automatic browser/MCP/axe execution, and architecture, testing, or completion ownership.
