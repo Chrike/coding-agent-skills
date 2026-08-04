@@ -1753,7 +1753,7 @@
 | Infrastructure/eval corpus | fixture realism / 窄 gate | 保留现状不动 | P2 | 已确认，阶段 4 保留现状（不把 fixture realism 扩展为 universal gate） |
 | Infrastructure/eval delivery | results/CI 接入边界 | 新增/改写引入 | P2 | 已确认，阶段 4 完成（current-owned `tests/eval-contract.md` boundary retained；不创建 `evals/results` 或 CI gate） |
 | Infrastructure/commands | `/spec`、`/plan`、`/planning` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current `issue-workflow`/`plan-work` ownership retained; no target commands copied） |
-| Infrastructure/commands | `/build` | 跳过 | P0 | 已确认 |
+| Infrastructure/commands | `/build` | 跳过 | P0 | 已确认，阶段 4 按确认跳过（current base execution + `plan-work`/`test-strategy` ownership retained; no target autonomous build command） |
 | Infrastructure/commands | `/test` | 跳过 | P1 | 已确认 |
 | Infrastructure/commands | `/review`、`/code-simplify` | 跳过 | P0 | 已确认 |
 | Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（bounded host-command coordination in `shipping-and-launch` + non-trigger contract，commit `34d8ff2`） |
@@ -1887,6 +1887,7 @@
 - Infrastructure/eval delivery / results and CI：沿用 current-owned `tests/eval-contract.md` 的 delivery boundary；不创建 `evals/results`、hosted CI status、deployment gate、external grader output 或 publication path，也不把 local static pass 变成 release authorization。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/ship`：已将 target command 的有效 host-controller/merge 形状收窄合并到 `shipping-and-launch`，要求 `agent-workflow` fit check 后才可能协调真正独立 slices；未复制固定三 persona fan-out、顺序伪 parallel、rollback/deploy/Git actions 或第二 orchestration owner。`git diff --check`、shipping/non-trigger markers 和 changed-path scope 检查通过；独立本地 commit：`34d8ff2`。
 - Infrastructure/commands / `/spec`、`/plan`、`/planning`：按确认跳过；当前 `issue-workflow` 的 chat-first `spec-authoring` 和 `plan-work` 已覆盖所需 owner，不复制 target command files、默认 `SPEC.md`/`tasks/*` persistence、自动 handoff 或 command execution。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/commands / `/build`：按确认跳过；当前 base execution、`plan-work` 和 `test-strategy` 已覆盖 settled implementation、planning 和 test-design boundaries，不复制 target autonomous build command、automatic full-plan execution、per-task commit 或 downstream handoff。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
