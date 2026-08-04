@@ -39,6 +39,16 @@ These prompt shapes should not trigger the performance owner unless the request 
 | Run the hosted workflow, deploy the release, or roll back production. | automatic hosted execution or deployment | Static definition work does not authorize provider execution, deployment, rollback, or external-service access. |
 | Make every repository use lint, type, test, build, security, E2E, and bundle gates. | automatic universal CI gate | Gate selection must follow project acceptance, risk, toolchain, and evidence cost; the owner does not impose a fixed checklist. |
 
+## Observability Owner Must Stay Narrow
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Add a temporary log while diagnosing this active failure. | `observability-and-instrumentation` | Active diagnosis belongs to `debug-systematically`; persistent telemetry design can be revisited only when a concrete operational question remains. |
+| This feature will run in production, so add logs, metrics, traces, and an alert automatically. | automatic `observability-and-instrumentation` instrumentation | Production presence alone is not a trigger, and the owner does not impose a universal signal set or launch gate. |
+| The monitoring vendor or dashboard tool is already installed. | `observability-and-instrumentation` | Tool availability alone does not provide an operational question or authorize a backend, alert, network, or production action. |
+| Send test traffic, inject a staging failure, and fire the new alert to the on-call channel. | automatic runtime monitoring action | Runtime observation, test traffic, failure injection, and alert publication require their own environment and action-specific authorization. |
+| Add user IDs, full request bodies, or raw error messages to metric labels. | automatic sensitive telemetry design | Fields and labels must be minimal, allowlisted, bounded, and reviewed for privacy and cardinality; do not expand data capture by default. |
+
 ## Deprecation Reference Must Stay Planning-Only
 
 | Prompt Shape | Must Not Trigger | Why |

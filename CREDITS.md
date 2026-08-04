@@ -143,3 +143,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a compact ADR convention-discovery and lifecycle lens in `design-codebase`: inspect location, format, numbering, headings, status, and tooling; preserve prior records; and supersede with a linked successor when a selected decision changes.
 - Not retained: a second documentation owner, automatic README/API/comment/changelog or ADR writes, a guessed `docs/decisions/` path, universal documentation checklists, automatic cleanup, or publication and branch actions.
+
+## `observability-and-instrumentation`
+
+- Source: `addyosmani/agent-skills`, skill `observability-and-instrumentation`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a question-driven telemetry owner for minimum useful structured logs, metrics, traces, or alerts; project-conforming schema and context; bounded cardinality; data minimization; and separate definition, static, local, runtime, and operational-response evidence.
+- Not retained: triggers for every production feature or I/O PR, mandatory RED/USE/full tracing/alert checklists, fixed vendor or dependency choices, automatic dashboards or monitoring, test traffic, failure injection, remote alert actions, unbounded labels, sensitive payload logging, deployment, or branch actions.

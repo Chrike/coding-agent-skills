@@ -18,6 +18,7 @@
         "browser-testing-with-devtools",
         "performance-optimization",
         "ci-cd-and-automation",
+        "observability-and-instrumentation",
         "agent-workflow"
       ]
     },

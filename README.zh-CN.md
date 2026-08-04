@@ -53,6 +53,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `browser-testing-with-devtools` | 显式的真实浏览器/DevTools 证据请求，或浏览器专属的证据缺口 |
 | `performance-optimization` | 明确的性能目标或指标、已测量的基线/回归、已识别的瓶颈，或显式性能审计/实验请求；框架中立、先测量且不自动 profiling 或修复 |
 | `ci-cd-and-automation` | 明确要求设计、审查或修改 repository-owned CI/CD 或自动化定义；将 hosted run、分支策略、部署和 Git 动作分开 |
+| `observability-and-instrumentation` | 明确的运行时 telemetry 问题或具体可观测性缺口；选择符合项目约定的最小信号，不自动执行监控或运行时动作 |
 | `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据；现有 review template 还提供可选的 tests-first 与 structural-remedy lens，不新增其他 owner |
 | `security-and-hardening` | 显式安全审计、威胁建模、加固请求，或活动 owner 识别出的具体且非平凡的信任边界风险；仅选择适用 lens，并将修复、就绪判断和分支动作交给对应 owner |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
@@ -146,6 +147,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `browser-testing-with-devtools` 仅通过已配置且获授权的通道提供显式请求的真实浏览器/DevTools 证据，不负责 UI 实现、测试设计、调试、性能优化或完成判断。
 - `performance-optimization` 为显式性能主张运行窄范围、框架中立、先测量的实验；标注 field、lab、trace、benchmark 与其他证据，逐次归因一个瓶颈/变更，记录方差，并将浏览器证据、实现、评审和分支动作交给对应 owner。
 - `ci-cd-and-automation` 处理明确要求的 repository-owned pipeline 定义工作；区分 definition、local、hosted、required-status 和 deployment evidence，不运行 hosted workflow 或修改远程策略。
+- `observability-and-instrumentation` 处理明确的运行时 telemetry 问题和可观测性缺口；选择符合项目约定的 logs、metrics、traces 或 alerts，并将运行时 backend 与监控动作分开。
 - `finish-branch`、`issue-workflow`（包含其 `spec-authoring` 模式）、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、requirements/spec 与跟踪工件、持久化 lesson 及维护类的显式意图请求。
 
 ## 推荐起步
@@ -161,7 +163,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计、重新评估、安全分析、性能实验、CI/CD 定义工作或多代理编排，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估、安全分析、性能实验、CI/CD 定义工作、运行时 telemetry 或多代理编排，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
@@ -171,6 +173,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `browser-testing-with-devtools`
 - `performance-optimization`
 - `ci-cd-and-automation`
+- `observability-and-instrumentation`
 - `agent-workflow`
 - `security-and-hardening`
 
