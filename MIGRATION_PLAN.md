@@ -1763,7 +1763,7 @@
 | Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认，阶段 4 no-op/coordination（现有 self-contained plugin manifests 保持；不创建 root marketplace manifest） |
 | Infrastructure/distribution | Codex 与 `.agents` manifests | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 Codex host discovery/permissions；不复制 target manifests） |
 | Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 host package/command discovery、permissions 或 runtime） |
-| Infrastructure/docs | adoption/getting-started 与平台 setup docs | 保留现状不动 | P1 | 已确认 |
+| Infrastructure/docs | adoption/getting-started 与平台 setup docs | 保留现状不动 | P1 | 已确认，阶段 4 保留现状（current README/README.zh-CN and plugin-local docs remain source of truth） |
 | Infrastructure/docs | contributor/anatomy/rule 基础设施 | 跳过 | P1 | 已确认 |
 | Infrastructure/docs | 文档/manifest 声明的验证与 CI 门 | 保留现状不动 | P1 | 已确认 |
 | Infrastructure/docs | `comparison.md` | 跳过 | P2 | 已确认 |
@@ -1896,6 +1896,7 @@
 - Infrastructure/distribution / Claude/plugin manifest：现有 `capability-harness` 与 `simplify-protected-blocks` manifests 已是 current-owned self-contained plugin boundaries；不创建 target-style root manifest、marketplace identity、broad skill/agent/command discovery claim 或新的 plugin precedence。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / Codex 与 `.agents` manifests：按确认跳过；target manifest/static setup text 不证明 Codex host discovery、permission、command/hook support 或 runtime behavior，当前不增加 `.codex-plugin`/`.agents` surface。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / Antigravity/Gemini wrappers + commands：按确认跳过；target setup docs/commands 不证明这些宿主的 package discovery、permission、hook/command precedence 或 runtime behavior，当前不增加 wrappers 或 command surfaces。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/docs / adoption/getting-started + platform setup docs：保留 current README/README.zh-CN、plugin-local README 和 workflow docs；未复制 target full-lifecycle onboarding, host-specific setup claims, install commands, marketplace/network steps 或 additional runtime surfaces。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
