@@ -1721,7 +1721,7 @@
 | Review | `code-simplification` | 跳过 | P0 | 已确认 |
 | Review | `security-and-hardening` | 新增/改写引入 | P0 | 已确认，阶段 4 已完成（窄触发、框架中立的安全分析 owner，commit `05cfbf2`） |
 | Review | `performance-optimization` | 合并/协调重叠 | P1 | 已确认，阶段 4 已完成（窄范围、框架中立、先测量的性能实验 owner，commit `145eba9`） |
-| Ship | `git-workflow-and-versioning` | 合并/协调重叠 | P0 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
+| Ship | `git-workflow-and-versioning` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（将显式 commit 授权后的 commit-craft 合并到 `finish-branch`，commit `78afc84`） |
 | Ship | `ci-cd-and-automation` | 新增/改写引入 | P0 | 已确认 |
 | Ship | `deprecation-and-migration` | 合并/协调重叠 | P0 | 已确认 |
 | Ship | `documentation-and-adrs` | 合并/协调重叠 | P0 | 已确认 |
@@ -1858,9 +1858,9 @@
 - Review / `code-review-and-quality`：已将可选的 tests-first context reading 与 structural-remedy lens 合并到现有 `skills/review-and-finish/references/review-template.md`，未新增第二 Review owner、宿主 `/code-review` 替代路径、command、persona、hook、自动修复或 branch action。`git diff --check`、template marker、双语 README、非触发合同、GNU AGPL v3 来源和 changed-path scope 检查通过；独立本地 commit：`3df0e10`。
 - Review / `security-and-hardening`：已完成窄触发、框架中立的安全分析 owner 及其 README、catalog、路由/正负触发合同和来源记录改写；未执行 exploit、依赖安装、网络/外部服务、脚本、凭据、分支或其他外部动作。`git diff --check`、frontmatter、25 项 Skill marker、catalog JSON、双语文档、路由/正负触发合同、来源记录、handoff 修正和 changed-path scope 检查通过；独立本地 commit：`05cfbf2`。
 - Review / `performance-optimization`：已完成窄范围、框架中立、先测量的性能实验 owner 实现，并同步 `skills.sh.json`、双语 README、路由/正负触发合同和来源记录；未执行 benchmark、profiling、Lighthouse、CrUX、RUM/monitoring、工具安装、网络/外部服务、代码/配置修复或分支动作。`git diff --check`、frontmatter、catalog JSON、双语 README、路由/正负触发合同、来源记录、performance exclusions 和 changed-path scope 检查通过；独立本地 commit：`145eba9`。
-- Ship / `git-workflow-and-versioning`：已将显式 commit 授权后的逻辑原子、独立可审阅范围、相关证据和解释 why 的消息 craft 合并到 `finish-branch`，并补充 finish-branch 行为合同；未引入 Always 触发、自动 commit、固定门禁、reset/cleanup、tag push 或其他 branch action。聚焦静态验证与独立本地 commit 待完成。
+- Ship / `git-workflow-and-versioning`：已将显式 commit 授权后的逻辑原子、独立可审阅范围、相关证据和解释 why 的消息 craft 合并到 `finish-branch`，并补充 finish-branch 行为合同；未引入 Always 触发、自动 commit、固定门禁、reset/cleanup、tag push 或其他 branch action。`git diff --check`、finish-branch markers、行为合同、GNU AGPL v3 来源和 changed-path scope 检查通过；独立本地 commit：`78afc84`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次已完成：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过；`security-and-hardening` 独立提交为 `05cfbf2`；`performance-optimization` 独立提交为 `145eba9`。Ship 批次正在按条目处理：`git-workflow-and-versioning` 实现已完成，聚焦验证与独立提交待完成。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。当前暂停于 Ship 首条目聚焦验证和独立提交完成之前，不自动进入 Infrastructure/agents。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次已完成：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过；`security-and-hardening` 独立提交为 `05cfbf2`；`performance-optimization` 独立提交为 `145eba9`。Ship 批次正在按条目处理：`git-workflow-and-versioning` 独立提交为 `78afc84`；其余五个 Ship 条目尚未处理。未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。当前暂停于 Ship 下一条目处理之前，不自动进入 Infrastructure/agents。
