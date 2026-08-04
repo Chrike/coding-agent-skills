@@ -39,3 +39,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a project-fact-first contract lens for consumer-observable inputs, outputs, errors, boundary validation, additive compatibility, and behavioral verification through public seams, as a reference under `design-codebase`.
 - Not retained: a second API owner, fixed REST/GraphQL/TypeScript conventions, unconditional internal trust, default pagination or error shapes, automatic migration/consumer updates, command execution, publication, or branch actions.
+
+## `planning-and-task-breakdown`
+
+- Source: `addyosmani/agent-skills`, skill `planning-and-task-breakdown`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: the distinction between a per-step observable `Acceptance criteria` result and the separate `Verification` evidence, added to the existing `plan-work` durable template.
+- Not retained: a second Plan owner, default `tasks/*` files, fixed checkpoints or approval gates, file/time thresholds, universal Definition of Done, mandatory dependency graphs, or automatic parallelization and branch actions.

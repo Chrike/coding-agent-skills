@@ -30,11 +30,15 @@ Use this for durable plans, handoffs, or work that spans sessions. Keep it speci
 
 1. <Step that produces a meaningful, reviewable change.>
    - Likely files:
+   - Acceptance criteria:
+     - <Observable result that must be true when this step is complete.>
    - Verification:
    - Depends on:
 
 2. <Next step.>
    - Likely files:
+   - Acceptance criteria:
+     - <Observable result that must be true when this step is complete.>
    - Verification:
    - Depends on:
 
@@ -53,6 +57,6 @@ Use this for durable plans, handoffs, or work that spans sessions. Keep it speci
 Before presenting the plan:
 
 - Remove placeholders such as `TBD`, `TODO`, "handle edge cases", or "write tests" without detail.
-- Confirm every step has a visible outcome and a verification idea.
+- Confirm every step separates its observable acceptance result from the evidence used to verify it.
 - Confirm file paths and commands are based on inspected project context, not guesses.
 - Keep commits, branches, PRs, and issue publication out unless requested.
