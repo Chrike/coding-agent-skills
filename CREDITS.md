@@ -205,5 +205,5 @@
 - Source: `addyosmani/agent-skills`, `evals/README.md`, `run-evals.js`, `validate-skills.js`, `skill-lint.js`, and `run-evals-test.js`.
 - License basis: GNU AGPL v3, following the source repository's `LICENSE`.
 - Reference: https://github.com/addyosmani/agent-skills
-- Retained in this suite: a three-tier evidence distinction, current-owned deterministic structure/routing checks, explicit plugin-local tests, pairwise owner cases, and `UNVERIFIED` handling for host/model/browser/runtime claims, documented in `tests/eval-contract.md` and implemented initially by `tests/validate_suite.py` with focused tests.
+- Retained in this suite: a three-tier evidence distinction, current-owned deterministic structure/routing checks, explicit plugin-local tests, pairwise owner cases, and `UNVERIFIED` handling for host/model/browser/runtime claims, documented in `tests/eval-contract.md` and implemented by `tests/validate_suite.py` and `tests/check_routing_contract.py` with focused tests.
 - Not retained: a second runtime router, universal rank or similarity gates, target headless Claude executors, automatic fixture Git workspaces, browser/network/dependency execution, external graders, persistent eval results, CI integration, or target prompt-shaped corpus instructions.
