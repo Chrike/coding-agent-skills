@@ -38,6 +38,12 @@ The target's 24 cases and 45 fixtures remain comparison evidence; this repositor
 
 The target's execution and dialogue records, fixture materialization, patch/workspace behavior, and ownerless negative cases are not promoted to a universal current gate. A case with no defensible current owner remains explicitly out of catalog; a browser/runtime case remains `UNVERIFIED` without an authorized live channel. This preserves the distinction between a useful maintenance case and evidence that would require a model, host, browser, network, CI, or production environment.
 
+## Ownership audit
+
+Pairwise negative cases are useful only when the maintained routing contract can name the owner that should win. The current evaluator reports stale owner-like tokens, while an ownerless negative remains explicitly out of catalog instead of being assigned to improve a score. This keeps a missing owner, an intentionally out-of-catalog case, and an unavailable runtime capability distinct.
+
+Do not infer ownership from lexical proximity, a target phase label, a fixture path, or an instruction-shaped expected output. Re-check the current Skill description and routing contract before adding a new case or changing an owner claim.
+
 ## Results and failure states
 
 Report `complete`, `failed`, `blocked`, `skipped`, or `unverified` separately. A deterministic checker failing to find a source marker is not evidence that runtime behavior failed, and a static pass is not evidence that a host or model followed the Skill. Keep local reports out of runtime installation paths and do not create a CI or deployment gate merely because a check exists.
