@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 当前阶段：阶段 4（Infrastructure 全部已批准子批次——agents、orchestration、references、hooks、evals、commands、distribution、docs、metadata、attribution——均已完成；Ship、Review、Verify、Plan + Build 已完成，Define 第二批已完成，`spec-driven-development` 独立提交为 `ec2cdac`）。
+- 当前阶段：阶段 6 已完成（Infrastructure 全部已批准子批次——agents、orchestration、references、hooks、evals、commands、distribution、docs、metadata、attribution——均已完成；Ship、Review、Verify、Plan + Build 已完成，Define 第二批已完成，阶段 5 可靠性自查与阶段 6 全仓库收尾一致性检查均已记录；阶段 7 等待用户再次确认）。
 - 计划建立日期：2026-08-03。
 - 当前根项目：`E:\projects\_drafts`，Git 分支 `migrate-meta-define`，迁移基线 revision `f82a1b2`。
 - 审查输入：`absorb-agent-skills-master-prompt.md`。
@@ -1904,6 +1904,24 @@
 - Infrastructure/attribution / LICENSE + manifest metadata：已在 `CREDITS.md` 明确按 target 实际 GNU AGPL v3 `LICENSE` 归因，并把 target manifest 的 MIT 字段记录为不采纳的 metadata inconsistency；未创建 root LICENSE、未改变 current plugin manifests、未作法律结论或发布动作。`git diff --check`、source/license markers 和 changed-path scope 检查通过；独立本地 commit：`dc9f7ef`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
+## 阶段 5：定期可靠性自查（完成于 2026-08-04）
+
+- [已核对] 本次收尾结论直接重读了当前 `MIGRATION_PLAN.md` 的阶段 5/6/7 与暂停点、双语 README、`skills.sh.json`、维护 prompt、routing/trigger/non-trigger/eval 合同、来源记录，以及 validator、routing evaluator 和相关测试源；未用 target 摘要、旧记忆或命令输出替代当前源文件。
+- [已核对] 没有因为 target 的规模或已完成批次而提高默认流程强度；当前 prompt、routing contract、negative cases、`agent-workflow` fit check 与各 owner 仍保留轻量默认、按风险/证据缺口升级和宿主能力让位边界。
+- [已核对] 迁移账本中的实现提交、迁移记录提交、当前验证结果与 Git 状态相互一致；收尾检查发现的 skills.sh 展示分组遗漏已在本次阶段 6 修正，而不是保留为无说明的 warning。
+- [已核对] action-specific authorization、review/branch 分离、失败/停止条件和证据诚实性仍由当前 prompt、owner Skill 与维护合同共同表达；没有把静态通过升级为宿主或 runtime 通过。
+
+## 阶段 6：全仓库收尾一致性检查（完成于 2026-08-04）
+
+- [通过] README 的技能表、Capability Map、Repository Layout 与 Recommended Start 均覆盖当前 23 个 `skills/*/SKILL.md`；英文与简体中文 README 的对应章节、技能清单、能力边界和推荐集合已核对，无缺失技能名。
+- [已修正] `skills.sh.json` 的 Explicit-Intent Workflow Skills 分组已补入 `idea-refine` 与 `interview-me`；当前 catalog 无重复或 unknown skill，也不再产生未分组 warning。
+- [通过] routing contract、trigger matrix、non-trigger cases 与当前 Skill descriptions 的 owner/routing 边界已由 `validate_suite.py` 和 `check_routing_contract.py` 核对；lexical overlap 仍仅为 informational observation，不构成 universal ranking gate。
+- [通过] `CREDITS.md` 已覆盖每项已吸收借鉴内容的 source、GNU AGPL v3 license basis、retained 与 not-retained 边界；target manifest 的 MIT 元数据不被当作当前许可结论。
+- [通过] Capability Boundaries 仍准确区分 `prompts/`、`skills/`、`plugins/`、`workflows/`、`tests/`、host-owned commands、branch owner 与 release-readiness owner；未创建第二 meta-router、Review/Build/Ship owner 或自动生命周期链。
+- [通过] 仓库内验证包括 `python tests/validate_suite.py`、`python tests/check_routing_contract.py`、tests discover 的 16 项 current-owned tests、Capability Harness 的 66 项 plugin-local tests、`simplify-protected-blocks` 的 3 项 plugin-local tests，以及 `git diff --check`；验证结果与对应 evidence tier 分开记录。
+- [未验证] 未执行 target scripts/hooks/evals/commands、hosted CI、browser/DevTools、network、external service、deployment、production traffic、monitoring、rollback 或真实 credentials/secrets；live host/model/runtime、host hook ordering/isolation、CI enforcement、production health、rollback safety 与 data integrity 均保持 `UNVERIFIED`，没有由静态或本地通过替代。
+- [边界] 两个未跟踪比较输入 `absorb-agent-skills-master-prompt.md` 与 `agent-skills-main/` 未 staging、未删除、未清理；阶段 7 归档/收尾尚未开始。
+
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次已完成：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过；`security-and-hardening` 独立提交为 `05cfbf2`；`performance-optimization` 独立提交为 `145eba9`。Ship 批次已完成：`git-workflow-and-versioning` 独立提交为 `78afc84`；`ci-cd-and-automation` 独立提交为 `4647b11`；`deprecation-and-migration` 独立提交为 `a329d9a`；`documentation-and-adrs` 独立提交为 `ae0ba21`；`observability-and-instrumentation` 独立提交为 `5882531`；`shipping-and-launch` 独立提交为 `d689afb`。Infrastructure 全部已批准子批次已完成，包含 agents、orchestration、references、hooks、evals、commands、distribution、docs、metadata 与 attribution。最终静态验证：`validate_suite.py`、`check_routing_contract.py`、current eval contract tests、4 个 plugin-local test files、Python compile 和 `git diff --check` 均通过；validator 保留 `idea-refine`、`interview-me` 两个已知未分组 warning。未执行 push、merge、PR、部署、target 删除、cleanup、target scripts/hooks/evals/commands、CI、浏览器、网络、外部服务或真实凭据/secret 动作。当前暂停于本次 Infrastructure 批次完成之后，等待用户确认任何后续未获批范围；两个未跟踪比较输入 `absorb-agent-skills-master-prompt.md` 与 `agent-skills-main/` 保持原样，未 staging 或删除。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成，Plan + Build 批次已完成获批的 Plan/Build 条目：`api-and-interface-design` 独立提交为 `722e65f`，`planning-and-task-breakdown` 独立提交为 `89ed5fb`，`incremental-implementation` 独立提交为 `c1581f0`，`doubt-driven-development` 独立提交为 `ef133f7`，`context-engineering` 独立提交为 `6d8e137`，`frontend-ui-engineering` 独立提交为 `bdd87b6`。`test-driven-development` 和 `source-driven-development` 按确认跳过；Verify 批次已完成：`browser-testing-with-devtools` 独立提交为 `1f32856`，`debugging-and-error-recovery` 已独立核实为 no-op，未创建第二个 debug owner 或空 commit。Review 批次已完成：`code-review-and-quality` 独立提交为 `3df0e10`；`code-simplification` 按确认跳过；`security-and-hardening` 独立提交为 `05cfbf2`；`performance-optimization` 独立提交为 `145eba9`。Ship 批次已完成：`git-workflow-and-versioning` 独立提交为 `78afc84`；`ci-cd-and-automation` 独立提交为 `4647b11`；`deprecation-and-migration` 独立提交为 `a329d9a`；`documentation-and-adrs` 独立提交为 `ae0ba21`；`observability-and-instrumentation` 独立提交为 `5882531`；`shipping-and-launch` 独立提交为 `d689afb`。Infrastructure 全部已批准子批次已完成，包含 agents、orchestration、references、hooks、evals、commands、distribution、docs、metadata 与 attribution。最终静态验证：`validate_suite.py`、`check_routing_contract.py`、current eval contract tests、4 个 plugin-local test files、Python compile 和 `git diff --check` 均通过；validator 当前无 error 或 warning。未执行 push、merge、PR、部署、target 删除、cleanup、target scripts/hooks/evals/commands、CI、浏览器、网络、外部服务或真实凭据/secret 动作。阶段 6 收尾检查已完成，当前暂停等待用户确认是否进入阶段 7；两个未跟踪比较输入 `absorb-agent-skills-master-prompt.md` 与 `agent-skills-main/` 保持原样，未 staging 或删除。

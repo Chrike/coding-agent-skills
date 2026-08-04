@@ -27,6 +27,8 @@
       "title": "Explicit-Intent Workflow Skills",
       "description": "Runtime skills for branch actions, durable artifacts, maintenance, and calibration work that should route from clear natural-language intent rather than requiring users to remember skill names.",
       "skills": [
+        "idea-refine",
+        "interview-me",
         "finish-branch",
         "issue-workflow",
         "memory-handoff",
