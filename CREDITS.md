@@ -47,3 +47,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: the distinction between a per-step observable `Acceptance criteria` result and the separate `Verification` evidence, added to the existing `plan-work` durable template.
 - Not retained: a second Plan owner, default `tasks/*` files, fixed checkpoints or approval gates, file/time thresholds, universal Definition of Done, mandatory dependency graphs, or automatic parallelization and branch actions.
+
+## `incremental-implementation`
+
+- Source: `addyosmani/agent-skills`, skill `incremental-implementation`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: optional contract-first and risk-first slice selection, checking a slice's acceptance evidence before expanding it, and keeping increments narrow and independently revertable in the existing `plan-work` vertical-slice reference.
+- Not retained: multi-file or line-count auto-triggers, mandatory per-slice commits, universal test/build/type/lint commands, feature-flag requirements, automatic branch actions, and a second Build execution owner.

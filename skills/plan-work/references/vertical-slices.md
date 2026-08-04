@@ -25,6 +25,13 @@ Use vertical slices when a feature, refactor, or PRD is too large to implement s
    - Verification:
 ```
 
+## Choose The Next Slice
+
+- Use contract-first slicing when independently developed consumers need a shared interface; settle the observable contract before splitting implementation work across sides of the boundary.
+- Use risk-first slicing when one uncertainty could invalidate the rest of the approach; prove that uncertainty with the smallest safe slice before building on it.
+- Before expanding a slice, check its stated acceptance result and the evidence that supports it. A passing check does not by itself prove unrelated acceptance criteria.
+- Keep increments narrow and easy to revert by avoiding unrelated cleanup or speculative abstractions. Branch actions remain separately authorized.
+
 ## Avoid
 
 - "Build backend", then "build frontend", then "write tests" as separate horizontal slices.
