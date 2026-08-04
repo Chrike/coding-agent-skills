@@ -1760,7 +1760,7 @@
 | Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认，阶段 4 按确认跳过（current `performance-optimization` owns explicit measure-first performance work; no target specialist command or fixed CWV gate copied） |
 | Infrastructure/commands | `validate-commands.js` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current repository has no multi-tool command surface to validate; no target wrapper copied） |
 | Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认，阶段 4 保留现状（Claude Code 优先；Markdown/optional plugin boundaries remain explicit） |
-| Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认 |
+| Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认，阶段 4 no-op/coordination（现有 self-contained plugin manifests 保持；不创建 root marketplace manifest） |
 | Infrastructure/distribution | Codex 与 `.agents` manifests | 跳过 | P1 | 已确认 |
 | Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认 |
 | Infrastructure/docs | adoption/getting-started 与平台 setup docs | 保留现状不动 | P1 | 已确认 |
@@ -1893,6 +1893,7 @@
 - Infrastructure/commands / `/webperf`：按确认跳过；current `performance-optimization` 已覆盖显式 measure-first performance claims 和 source-only/artifact-backed honesty，不复制 target specialist command、fixed Web Vitals gate、DevTools/Lighthouse setup 或 automatic profiling. 仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `validate-commands.js`：按确认跳过；当前仓库没有待验证的多工具 command surface，且 manifest/README 不证明其他宿主的 discovery、permission 或 command behavior；不复制 target cross-tool command parity wrapper，也不运行 target validator。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / multi-tool scope + root README：保留 current Claude Code-first positioning、plain-Markdown portability 和 optional self-contained plugin boundary；未复制 target marketplace identity、multi-host setup claims、root command surface 或 broad host support. 仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/distribution / Claude/plugin manifest：现有 `capability-harness` 与 `simplify-protected-blocks` manifests 已是 current-owned self-contained plugin boundaries；不创建 target-style root manifest、marketplace identity、broad skill/agent/command discovery claim 或新的 plugin precedence。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
