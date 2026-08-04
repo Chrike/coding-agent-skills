@@ -55,3 +55,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: optional contract-first and risk-first slice selection, checking a slice's acceptance evidence before expanding it, and keeping increments narrow and independently revertable in the existing `plan-work` vertical-slice reference.
 - Not retained: multi-file or line-count auto-triggers, mandatory per-slice commits, universal test/build/type/lint commands, feature-flag requirements, automatic branch actions, and a second Build execution owner.
+
+## `doubt-driven-development`
+
+- Source: `addyosmani/agent-skills`, skill `doubt-driven-development`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a de-anchored `ARTIFACT` plus `CONTRACT` packet, adversarial mismatch framing, and bounded reconciliation categories in the existing `agent-workflow` fresh-context reference.
+- Not retained: universal fresh review for every non-trivial decision, mandatory cross-model CLI offers, automatic orchestrators, persona nesting, unbounded review loops, or commit/branch actions.

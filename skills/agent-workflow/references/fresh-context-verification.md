@@ -32,6 +32,26 @@ Do not give the verifier the controller's original reasoning unless the task tru
 - the verifier reports blocker, mismatch, or no issue found
 - the verifier does not claim absolute correctness
 
+## De-anchored review packet
+
+When the controller chooses a fresh-context mismatch check, pass only the smallest reviewable `ARTIFACT` and its `CONTRACT`:
+
+- `ARTIFACT`: the relevant diff, decision, proposal, or assertion being checked.
+- `CONTRACT`: the observable behavior, constraints, acceptance boundary, or scope the artifact must satisfy.
+
+Omit the controller's claim, reasoning, and journey unless the evidence question genuinely requires them. Ask the verifier to look for contract violations, unstated assumptions, hidden coupling, edge cases, and broken project conventions rather than to approve the artifact. This packet is a method for a bounded verifier, not a requirement to start fresh review for every non-trivial change.
+
+## Reconcile findings
+
+The controller owns the conclusion. Re-read the artifact and contract before classifying each finding:
+
+1. **Contract misread** — the contract was unclear or incomplete; clarify it before deciding whether the finding survives.
+2. **Valid and actionable** — the artifact violates the contract and needs a change.
+3. **Valid trade-off** — the concern is real, but accepting it is cheaper or safer; record the trade-off and its boundary.
+4. **Noise** — the concern does not apply under the supplied contract or project evidence; record why rather than silently ignoring it.
+
+If fresh-context independence is unavailable, do not describe a sequential reread as fresh verification; preserve the independence gap as `UNVERIFIED` or `BLOCKED` when it affects the acceptance claim.
+
 ## Controller rules
 
 - reuse implementation evidence when it identifies the final code state, command or observation, and result
