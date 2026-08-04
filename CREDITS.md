@@ -87,3 +87,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a narrow browser-runtime evidence provider for explicit live DOM, console, network, screenshot, focus, accessibility, or runtime-performance claims; minimum-signal selection; action-specific authorization; secret and untrusted-browser-content boundaries; separate observed data, inference, and gaps reporting; and `BLOCKED`/`UNVERIFIED` handling when the authorized channel or environment is unavailable.
 - Not retained: broad triggers for all browser-facing work, Chrome/provider-specific installation or MCP/settings setup, `npx` or server startup, automatic navigation or interaction, universal console/network/screenshot/accessibility/performance gates, credential or storage inspection, and UI, test, debugging, performance, completion, or branch ownership.
+
+## `code-review-and-quality`
+
+- Source: `addyosmani/agent-skills`, skill `code-review-and-quality`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: optional tests-first context reading and a narrow structural-remedy lens, merged into the existing `review-and-finish` template without creating another review owner.
+- Not retained: every-change review gates, a second Skill/persona/command, multi-model review loops, fixed size thresholds, automatic remediation or cleanup, and commit, push, merge, PR, publish, or deploy actions.

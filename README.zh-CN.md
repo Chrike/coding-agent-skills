@@ -51,7 +51,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `context-engineering`  | 显式任务上下文审计、聚焦 context pack、范围化上下文/规则配置，或已观察到的上下文特定质量退化 |
 | `frontend-ui-engineering` | 非平凡 UI、可访问性、响应式、交互、设计系统或用户可见状态工作 |
 | `browser-testing-with-devtools` | 显式的真实浏览器/DevTools 证据请求，或浏览器专属的证据缺口 |
-| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据 |
+| `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据；现有 review template 还提供可选的 tests-first 与 structural-remedy lens，不新增其他 owner |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
 | `design-codebase`      | 架构、接缝、接口、适配器、领域语言、原型设计，或被非显而易见的架构/所有权/接口/依赖边界决策阻塞的实现 |
 | `reliability-check`    | 针对幻觉、猜测、过时上下文、方向错误、无依据的自信、源码与记忆混淆、示例与任务混淆的显式重新评估 |
