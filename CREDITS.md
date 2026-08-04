@@ -135,3 +135,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: an on-demand `plan-work` reference for consumer inventory, replacement or no-replacement decisions, notification and compatibility windows, exception ownership, usage-gated removal criteria, and conditional expand/contract planning.
 - Not retained: a second migration owner, compulsory deadlines, universal feature flags or adapters, claims that additive changes are always safe, automatic down migrations, notices, traffic changes, backfills, deployment, deletion, or branch actions.
+
+## `documentation-and-adrs`
+
+- Source: `addyosmani/agent-skills`, skill `documentation-and-adrs`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a compact ADR convention-discovery and lifecycle lens in `design-codebase`: inspect location, format, numbering, headings, status, and tooling; preserve prior records; and supersede with a linked successor when a selected decision changes.
+- Not retained: a second documentation owner, automatic README/API/comment/changelog or ADR writes, a guessed `docs/decisions/` path, universal documentation checklists, automatic cleanup, or publication and branch actions.

@@ -48,6 +48,16 @@ These prompt shapes should not trigger the performance owner unless the request 
 | The migration failed in CI; diagnose the root cause. | `plan-work` deprecation reference | An unknown failure belongs to `debug-systematically`; planning does not replace diagnosis. |
 | Use the deprecation reference for every feature release. | automatic `plan-work` migration workflow | The reference is conditional on an explicit deprecation, replacement, consumer migration, or compatibility-transition question. |
 
+## ADR Guidance Must Stay Conditional
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Update the README after this small implementation change. | a documentation or ADR workflow | Ordinary code-adjacent documentation stays in the base flow; architecture and persistence are not implied by a small edit. |
+| Create an ADR automatically for every architecture or API change. | automatic ADR creation or persistence | An ADR requires a qualifying hard-to-reverse, surprising decision, real alternatives, existing-convention inspection, and user agreement; an event is not write authorization. |
+| Update the named decision map with the unresolved choices. | ADR workflow | Unresolved decision frontiers belong to `decision-map`; an ADR records a selected rationale rather than replacing the map. |
+| There is no existing ADR directory; create `docs/decisions/001.md` without asking. | guessed ADR path or numbering | Propose a location and format in chat when no convention exists; do not introduce a second scheme or persist it automatically. |
+| Delete superseded ADRs during documentation cleanup. | automatic ADR deletion | Preserve historical records and write a successor that supersedes them; cleanup is not implied by a documentation request. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:
