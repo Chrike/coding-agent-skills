@@ -199,3 +199,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: an explicit opt-in, current-owned plugin with project-root and symlink boundaries, standard-library Python hooks, bounded backup/restore state, and fail-open behavior for unknown payloads or host events.
 - Not retained: automatic installation, target Bash/jq dependencies, network or shell execution, unbounded in-place filtering, target command ownership, external-path recovery, or claims that static/local checks prove host hook ordering or runtime isolation.
+
+## `evals` and validation framework
+
+- Source: `addyosmani/agent-skills`, `evals/README.md`, `run-evals.js`, `validate-skills.js`, `skill-lint.js`, and `run-evals-test.js`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a three-tier evidence distinction, current-owned deterministic structure/routing checks, explicit plugin-local tests, pairwise owner cases, and `UNVERIFIED` handling for host/model/browser/runtime claims, documented in `tests/eval-contract.md`.
+- Not retained: a second runtime router, universal rank or similarity gates, target headless Claude executors, automatic fixture Git workspaces, browser/network/dependency execution, external graders, persistent eval results, CI integration, or target prompt-shaped corpus instructions.

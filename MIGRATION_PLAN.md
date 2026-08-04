@@ -1741,7 +1741,7 @@
 | Infrastructure/hooks | SessionStart meta injection（三文件） | 合并/协调重叠 | P1 | 已确认，阶段 4 no-op（当前 prompt 已覆盖 material assumptions 与 technical tradeoffs；未启用第二 SessionStart router） |
 | Infrastructure/hooks | SDD WebFetch cache（三文件） | 跳过 | P0 | 已确认，阶段 4 按确认跳过（不缓存 prompt-shaped WebFetch 结果） |
 | Infrastructure/hooks | simplify protected-block filter/restore（三文件） | 新增/改写引入 | P0 | 已确认，阶段 4 完成（current-owned `simplify-protected-blocks` plugin，commit `e147a4a`） |
-| Infrastructure/evals | eval README 分层说明 | 合并/协调重叠 | P1 | 已确认 |
+| Infrastructure/evals | eval README 分层说明 | 合并/协调重叠 | P1 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
 | Infrastructure/evals | `run-evals.js` Tier 2/Tier 3 runner | 合并/协调重叠 | P0 | 已确认 |
 | Infrastructure/evals | `run-evals-test.js` | 新增/改写引入 | P1 | 已确认 |
 | Infrastructure/evals | `validate-skills.js` | 新增/改写引入 | P1 | 已确认 |
@@ -1874,6 +1874,7 @@
 - Infrastructure / SessionStart meta injection：已核对 target hook 与当前 prompt；material assumptions、technical tradeoffs、source/evidence 和 action-specific boundaries 已由现有 always-on prompt/Skills 覆盖，因此保持 no-op，不启用第二全局 router，也未执行 target hook。无实现 commit。
 - Infrastructure / SDD WebFetch cache：按确认跳过；target 缓存 prompt-shaped、URL-keyed 内容并引入 curl/jq、ETag/HTTP、持久 cache 与 network side effects，不能证明当前问题获得 exact current source。未复制、注册或执行 target hook。无实现 commit。
 - Infrastructure / simplify protected-block hook：已新增显式 opt-in 的 `plugins/simplify-protected-blocks`，使用标准库 Python 实现 project-root/symlink 边界、bounded backup/restore、Read/Edit|Write/Stop hook wiring 与 fail-open payload handling；同步双语 README、非触发合同、CREDITS 和 plugin-local tests。未执行 target hook、未改变 host `/code-simplify`、未引入 shell/jq/network/外部路径或自动安装。`git diff --check`、Python AST/JSON、3 个 plugin-local unit tests、临时目录 backup/update/restore lifecycle、README/contract/source markers 和 changed-path scope 检查通过；独立本地 commit：`e147a4a`。
+- Infrastructure/evals / eval README：已将 target 的三层证据、case ownership、runtime/fixture 不可替代性和失败状态改写为 current-owned `tests/eval-contract.md`；未复制第二 routing layer、固定 rank/similarity gate、headless executor、browser/network/CI 或持久结果层。聚焦静态验证与独立本地 commit 待完成。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
