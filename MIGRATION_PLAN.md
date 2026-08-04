@@ -1748,7 +1748,7 @@
 | Infrastructure/evals | `skill-lint.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned lint extensions in `tests/validate_suite.py`，commit `458d435`） |
 | Infrastructure/eval corpus | 24 cases + 45 fixtures 维护资产 | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned corpus disposition in `tests/eval-contract.md`，commit `c4da121`；不复制完整 corpus） |
 | Infrastructure/eval corpus | ownerless negative / stale-boundary 审计 | 合并/协调重叠 | P1 | 已确认，阶段 4 完成（ownership audit in `tests/eval-contract.md`，commit `153e9a7`） |
-| Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认 |
+| Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认，阶段 4 保持跳过/`UNVERIFIED`（无授权 live browser/DevTools channel；未运行 target browser case） |
 | Infrastructure/eval corpus | hidden patch/materialization 边界 | 保留现状不动 | P1 | 已确认 |
 | Infrastructure/eval corpus | fixture realism / 窄 gate | 保留现状不动 | P2 | 已确认 |
 | Infrastructure/eval delivery | results/CI 接入边界 | 新增/改写引入 | P2 | 已确认 |
@@ -1881,6 +1881,7 @@
 - Infrastructure/evals / run-evals-test：已将 target 的 case/schema/fixture regression 形状收窄为 `tests/test_eval_contract.py` 的两个 current-owned deterministic contract tests，并复用 validator/routing focused tests；未创建临时 Git workspace、patch materializer、headless executor、browser/network runner、rank floor 或 external grader。`python tests/test_eval_contract.py`、validator/routing tests 和 `git diff --check` 通过；独立本地 commit：`37f5ef9`。
 - Infrastructure/eval corpus / 24 cases + 45 fixtures：已把 target corpus 保留为比较证据，维护面仅记录 deterministic structure/routing、owner availability、runtime evidence 和 explicit `UNVERIFIED` 边界；未复制 prompt-shaped corpus、fixtures、fixture Git workflow 或 results layer。`tests/eval-contract.md`、contract tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`c4da121`。
 - Infrastructure/eval corpus / ownerless negative / stale-boundary audit：已明确 pairwise owner claim、ownerless out-of-catalog、stale owner-like token 和 unavailable runtime capability 的分离；未为通过率强配 owner，也未把 fixture/path/expected output 当作权限或 ownership 证据。`tests/test_eval_contract.py`、routing checks、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`153e9a7`。
+- Infrastructure/eval corpus / browser runtime capability gate：保持跳过并标记 `UNVERIFIED`；未配置或授权 live browser/DevTools channel，未执行 target browser case、network、screenshot、DOM 或 console observation，也未把静态 fixture 当作 runtime 证据。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
