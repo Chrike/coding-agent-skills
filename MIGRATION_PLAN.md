@@ -1750,7 +1750,7 @@
 | Infrastructure/eval corpus | ownerless negative / stale-boundary 审计 | 合并/协调重叠 | P1 | 已确认，阶段 4 完成（ownership audit in `tests/eval-contract.md`，commit `153e9a7`） |
 | Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认，阶段 4 保持跳过/`UNVERIFIED`（无授权 live browser/DevTools channel；未运行 target browser case） |
 | Infrastructure/eval corpus | hidden patch/materialization 边界 | 保留现状不动 | P1 | 已确认，阶段 4 保留现状（不复制 patch/workspace materializer 或 temporary Git path） |
-| Infrastructure/eval corpus | fixture realism / 窄 gate | 保留现状不动 | P2 | 已确认 |
+| Infrastructure/eval corpus | fixture realism / 窄 gate | 保留现状不动 | P2 | 已确认，阶段 4 保留现状（不把 fixture realism 扩展为 universal gate） |
 | Infrastructure/eval delivery | results/CI 接入边界 | 新增/改写引入 | P2 | 已确认 |
 | Infrastructure/commands | `/spec`、`/plan`、`/planning` | 跳过 | P1 | 已确认 |
 | Infrastructure/commands | `/build` | 跳过 | P0 | 已确认 |
@@ -1883,6 +1883,7 @@
 - Infrastructure/eval corpus / ownerless negative / stale-boundary audit：已明确 pairwise owner claim、ownerless out-of-catalog、stale owner-like token 和 unavailable runtime capability 的分离；未为通过率强配 owner，也未把 fixture/path/expected output 当作权限或 ownership 证据。`tests/test_eval_contract.py`、routing checks、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`153e9a7`。
 - Infrastructure/eval corpus / browser runtime capability gate：保持跳过并标记 `UNVERIFIED`；未配置或授权 live browser/DevTools channel，未执行 target browser case、network、screenshot、DOM 或 console observation，也未把静态 fixture 当作 runtime 证据。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/eval corpus / hidden patch/materialization：保持现状不动；不复制 target 的 patch application、fixture-to-workspace materialization、temporary Git baseline 或 cleanup behavior，也不把静态 patch shape 当作 live executor evidence。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/eval corpus / fixture realism：保持窄 gate 和现状不动；不复制 target fixture completeness/realism 作为普遍门槛，也不把 fixture 存在性、路径或内容当作 runtime behavior evidence。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
