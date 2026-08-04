@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 当前阶段：阶段 4（Define 第二批：`idea-refine` 已独立提交，`spec-driven-development` 的 `issue-workflow/spec-authoring` 合并已实施并通过聚焦静态验证，待独立提交记录）。
+- 当前阶段：阶段 4 已完成并暂停（Define 第二批：`idea-refine` 已独立提交，`spec-driven-development` 已并入 `issue-workflow/spec-authoring`，独立提交为 `ec2cdac`）。
 - 计划建立日期：2026-08-03。
 - 当前根项目：`E:\projects\_drafts`，Git 分支 `migrate-meta-define`，迁移基线 revision `f82a1b2`。
 - 审查输入：`absorb-agent-skills-master-prompt.md`。
@@ -1706,7 +1706,7 @@
 | Meta | `using-agent-skills`（含 SessionStart/DoD 依赖） | 合并/协调重叠 | P1 | 已确认，阶段 4 已完成 |
 | Define | `interview-me` | 新增/改写引入 | P1 | 已确认，阶段 4 已完成 |
 | Define | `idea-refine` | 新增/改写引入 | P2 | 已确认，阶段 4 已完成 |
-| Define | `spec-driven-development` | 合并/协调重叠 | P0 | 已确认，阶段 4 实施完成，聚焦静态验证通过，待独立提交记录（并入 `issue-workflow/spec-authoring`） |
+| Define | `spec-driven-development` | 合并/协调重叠 | P0 | 已确认，阶段 4 已完成（并入 `issue-workflow/spec-authoring`，commit `ec2cdac`） |
 | Plan | `planning-and-task-breakdown` | 合并/协调重叠 | P0 | 已确认 |
 | Build | `incremental-implementation` | 合并/协调重叠 | P0 | 已确认 |
 | Build | `test-driven-development` | 跳过 | P1 | 已确认 |
@@ -1846,9 +1846,9 @@
 - Define / `interview-me`：已完成独立 target/current source audit、current-owned Skill 改写、README/测试/来源记录同步和聚焦静态验证；未创建默认 intent 工件或自动 handoff；独立本地 commit：`aaeedb1`。
 - Define / `interview-me` changed files：`skills/interview-me/SKILL.md`、`README.md`、`README.zh-CN.md`、`tests/routing-contract.md`、`tests/trigger-matrix.md`、`tests/non-trigger-cases.md`、`CREDITS.md`、本文件。
 - Define / `idea-refine`：已完成独立 target/current source audit、current-owned Skill 改写、README/测试/来源记录同步和聚焦静态验证；未迁移初始化脚本或示例文档，未创建默认概念文件；独立本地 commit：`edfc886`。
-- Define / `spec-driven-development`：已将结构化 spec 字段改写合并到 `skills/issue-workflow/SKILL.md` 的显式 `spec-authoring` 模式；未创建新 spec owner、默认 `SPEC.md`/`tasks/*`、自动 handoff 或 branch action。已补充架构词汇与自动命令执行的非触发案例；`git diff --check` 及关键 frontmatter、路由、边界、双语 README、测试和来源标记静态检查通过；独立 commit 待记录。
+- Define / `spec-driven-development`：已将结构化 spec 字段改写合并到 `skills/issue-workflow/SKILL.md` 的显式 `spec-authoring` 模式；未创建新 spec owner、默认 `SPEC.md`/`tasks/*`、自动 handoff 或 branch action。已补充架构词汇与自动命令执行的非触发案例；`git diff --check` 及关键 frontmatter、路由、边界、双语 README、测试和来源标记静态检查通过；独立本地 commit：`ec2cdac`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
 
-阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 `idea-refine` 已完成实现和独立提交，`spec-driven-development` 的 `issue-workflow/spec-authoring` 合并已完成并通过聚焦静态验证。当前只剩该条目的独立提交记录；未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。
+阶段 3 的逐项动作和两个范围决策已获用户确认；阶段 4 的 Define 第二批已完成：`idea-refine` 独立提交为 `edfc886`，`spec-driven-development` 的 `issue-workflow/spec-authoring` 合并独立提交为 `ec2cdac`，并通过聚焦静态验证。当前在 Define 第二批完成后的暂停点；未执行 push、merge、PR、部署、target 删除、hook/eval/CI/浏览器或外部服务动作。
