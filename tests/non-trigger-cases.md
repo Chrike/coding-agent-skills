@@ -14,6 +14,20 @@ This file contains negative routing examples for ordinary work.
 | Choose the test level, fixture, and assertions for this endpoint. | `security-and-hardening` | Test design belongs to `test-strategy` unless a separate security analysis request or concrete trust-boundary risk is present. |
 | Make every change run an automatic security audit and remediate all findings. | automatic `security-and-hardening` audit or remediation | The security owner does not create a blanket audit gate or silently remediate; a scoped audit still needs a focused question and action-specific authorization for execution. |
 
+## Performance Owner Must Stay Narrow
+
+These prompt shapes should not trigger the performance owner unless the request supplies a concrete performance claim or explicitly asks for an audit or experiment:
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Make it faster. | `performance-optimization` | There is no explicit goal, metric, baseline, identified bottleneck, or audit/experiment request; keep the request in the base flow and clarify only what materially changes the work. |
+| Users say the service became slower, but no path, metric, baseline, or bottleneck is known; diagnose the regression. | `performance-optimization` | Unknown slow paths and regressions belong to `debug-systematically`, which establishes the signal before performance attribution. |
+| Choose the benchmark seam, fixture, assertions, and acceptance signal for this performance experiment. | `performance-optimization` | Benchmark/test seam, fixture, assertion, and acceptance design belongs to `test-strategy`. |
+| Inspect the live browser trace and report the current interaction timing. | `performance-optimization` | The explicit live runtime evidence request belongs to `browser-testing-with-devtools`; performance analysis must not replace that evidence provider. |
+| Compare cache ownership and query boundaries as an architecture decision before optimizing. | `performance-optimization` | Architecture, ownership, interface, and dependency trade-offs belong to `design-codebase`. |
+| Review this performance patch for correctness and readability. | `performance-optimization` | Generic review belongs to `review-and-finish`; a performance concern in a review does not create a second review owner. |
+| Make every change run a profiler; install Lighthouse, a benchmark package, and RUM automatically. | automatic profiling/tool setup or an automatic `performance-optimization` run | Tool availability or a blanket request does not authorize profiling, `npx`, installation, network/external services, monitoring/RUM, or project commands; inspect and obtain action-specific authorization first. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:

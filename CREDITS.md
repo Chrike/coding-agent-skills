@@ -103,3 +103,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a framework-neutral threat-boundary method that maps the relevant asset, actor, entry point, trust boundary, security invariant, abuse path, and focused evidence; selects only applicable lenses; and distinguishes observed evidence, assumptions, risks, controls, gaps, and recommendations.
 - Not retained: blanket STRIDE/OWASP/header/CORS/rate-limit gates, target agents or personas, commands, hooks, or evals, fixed library or framework settings, requesting/reading/printing real credentials, tokens, cookies, keys, or secrets, exploit or dependency/script execution without action-specific authorization, automatic remediation, completion or readiness judgment, and branch or publication actions.
+
+## `performance-optimization`
+
+- Source: `addyosmani/agent-skills`, skill `performance-optimization`, with comparison evidence from its `performance-checklist` reference and `web-performance-auditor` agent.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a framework-neutral measure-first method that defines the claim, metric, scope, workload, comparison, and correctness invariant; labels evidence sources; attributes one bottleneck and one change at a time; accounts for run-to-run variance; and reports a correctness-gated keep, revert, or inconclusive recommendation with observed measurements, inference, and gaps separated.
+- Not retained: fixed budgets, thresholds, sample counts, time or size limits; Core Web Vitals, Lighthouse, RUM/CrUX, or other fixed web-tooling requirements; target agents or personas, commands, hooks, evals, or fixtures; automatic benchmarks or profiling; monitoring, RUM setup, production load, remediation, code/configuration edits, deployment/publication, or branch actions.

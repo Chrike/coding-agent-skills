@@ -51,6 +51,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `context-engineering`  | 显式任务上下文审计、聚焦 context pack、范围化上下文/规则配置，或已观察到的上下文特定质量退化 |
 | `frontend-ui-engineering` | 非平凡 UI、可访问性、响应式、交互、设计系统或用户可见状态工作 |
 | `browser-testing-with-devtools` | 显式的真实浏览器/DevTools 证据请求，或浏览器专属的证据缺口 |
+| `performance-optimization` | 明确的性能目标或指标、已测量的基线/回归、已识别的瓶颈，或显式性能审计/实验请求；框架中立、先测量且不自动 profiling 或修复 |
 | `review-and-finish`    | 代码评审、评审反馈、完成/修复/通过验证、PR 反馈，或行为风险高的完成变更的聚焦就绪证据；现有 review template 还提供可选的 tests-first 与 structural-remedy lens，不新增其他 owner |
 | `security-and-hardening` | 显式安全审计、威胁建模、加固请求，或活动 owner 识别出的具体且非平凡的信任边界风险；仅选择适用 lens，并将修复、就绪判断和分支动作交给对应 owner |
 | `plan-work`            | 规划、方案对比、路线图、任务拆解、垂直切片，或实现请求中无法安全推断的方法/依赖/顺序/迁移/兼容性/范围决策 |
@@ -142,6 +143,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `context-engineering` 负责显式任务上下文审计、聚焦 context pack 和范围化上下文配置，不自动持久化规则，也不接管可靠性复核或交接流程。
 - `frontend-ui-engineering` 负责非平凡 UI/可访问性行为以及响应式或设计系统决策，不接管架构、测试、浏览器运行时证据或完成评审。
 - `browser-testing-with-devtools` 仅通过已配置且获授权的通道提供显式请求的真实浏览器/DevTools 证据，不负责 UI 实现、测试设计、调试、性能优化或完成判断。
+- `performance-optimization` 为显式性能主张运行窄范围、框架中立、先测量的实验；标注 field、lab、trace、benchmark 与其他证据，逐次归因一个瓶颈/变更，记录方差，并将浏览器证据、实现、评审和分支动作交给对应 owner。
 - `finish-branch`、`issue-workflow`（包含其 `spec-authoring` 模式）、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、requirements/spec 与跟踪工件、持久化 lesson 及维护类的显式意图请求。
 
 ## 推荐起步
@@ -157,7 +159,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 
 ### 可选自动技能
 
-如果您经常需要显式规划、设计、重新评估、安全分析或多代理编排，可添加以下技能：
+如果您经常需要显式规划、设计、重新评估、安全分析、性能实验或多代理编排，可添加以下技能：
 
 - `plan-work`
 - `design-codebase`
@@ -165,6 +167,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `context-engineering`
 - `frontend-ui-engineering`
 - `browser-testing-with-devtools`
+- `performance-optimization`
 - `agent-workflow`
 - `security-and-hardening`
 

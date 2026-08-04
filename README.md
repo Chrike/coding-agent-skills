@@ -51,6 +51,7 @@ These can be selected by the agent when the request clearly matches.
 | `context-engineering`  | Explicit task-context audits, focused context packs, bounded context/rules setup, or observed context-specific quality degradation |
 | `frontend-ui-engineering` | Non-trivial UI, accessibility, responsive, interaction, design-system, or user-visible state work |
 | `browser-testing-with-devtools` | Explicit live browser/DevTools evidence requests or a browser-only evidence gap |
+| `performance-optimization` | An explicit performance goal or metric, measured baseline/regression, identified bottleneck, or performance audit/experiment request; framework-neutral measure-first analysis with no automatic profiling or remediation |
 | `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change; its existing review template also provides optional tests-first and structural-remedy lenses without adding another owner |
 | `security-and-hardening` | Explicit security audits, threat models, hardening requests, or a concrete non-trivial trust-boundary risk identified by an active owner; select only applicable lenses and keep remediation, readiness, and branch actions with their owners |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
@@ -143,6 +144,7 @@ The current runtime surface is organized as follows:
 - `context-engineering` handles explicit task-context audits, focused context packs, and bounded context setup without automatically persisting rules or taking over reliability or handoff workflows.
 - `frontend-ui-engineering` handles non-trivial UI/accessibility behavior and responsive or design-system decisions without taking over architecture, testing, browser runtime evidence, or completion review.
 - `browser-testing-with-devtools` supplies only explicitly requested live browser/DevTools evidence through an already configured and authorized channel; it does not own UI implementation, test design, debugging, performance optimization, or completion judgment.
+- `performance-optimization` runs narrow, framework-neutral, measure-first experiments for explicit performance claims; it labels field, lab, trace, benchmark, and other evidence, attributes one bottleneck/change at a time, accounts for variance, and hands browser evidence, implementation, review, and branch actions to their owners.
 - `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
 
 ## Recommended Start
@@ -158,7 +160,7 @@ Start with the smallest set that matches your actual workflow.
 
 ### Optional Automatic Skills
 
-Add these if you regularly ask for explicit planning, design, reassessment, security analysis, or multi-agent orchestration:
+Add these if you regularly ask for explicit planning, design, reassessment, security analysis, performance experiments, or multi-agent orchestration:
 
 - `plan-work`
 - `design-codebase`
@@ -166,6 +168,7 @@ Add these if you regularly ask for explicit planning, design, reassessment, secu
 - `context-engineering`
 - `frontend-ui-engineering`
 - `browser-testing-with-devtools`
+- `performance-optimization`
 - `agent-workflow`
 - `security-and-hardening`
 
