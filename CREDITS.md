@@ -77,7 +77,7 @@
 - Source: `addyosmani/agent-skills`, skill `frontend-ui-engineering` and its accessibility checklist.
 - License basis: GNU AGPL v3, following the source repository's `LICENSE`.
 - Reference: https://github.com/addyosmani/agent-skills
-- Retained in this suite: a framework-neutral UI/a11y behavior baseline for semantic controls, names, keyboard/focus, dynamic and form states, responsive use, project design-system fit, and behavior-specific evidence through a narrow automatic workflow Skill and skill-local checklist.
+- Retained in this suite: a framework-neutral UI/a11y behavior baseline for semantic controls, names, page-shell and skip-path structure, keyboard/focus, dynamic and form states, responsive use, motion/text-size use, project design-system fit, and behavior-specific evidence through a narrow automatic workflow Skill and skill-local checklist.
 - Not retained: broad triggers for every UI edit, React/Tailwind/state-library prescriptions, fixed breakpoints or component-size limits, generic visual recipes, blanket WCAG/tool/browser checks, automatic browser/MCP/axe execution, and architecture, testing, or completion ownership.
 
 ## `browser-testing-with-devtools`

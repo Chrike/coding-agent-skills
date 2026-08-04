@@ -8,6 +8,7 @@ Use this checklist selectively when the affected UI behavior makes the correspon
 - [ ] Interactive controls have a visible or equivalent accessible name.
 - [ ] Images have useful alternatives, or are explicitly decorative.
 - [ ] Headings, lists, tables, labels, and relationships match the content structure.
+- [ ] When the page shell or long navigation is in scope, language, title, heading structure, and a skip-to-content path are meaningful.
 - [ ] Links navigate and buttons act; a non-semantic element is not used as a substitute without a demonstrated need.
 
 ## Keyboard And Focus
@@ -17,11 +18,13 @@ Use this checklist selectively when the affected UI behavior makes the correspon
 - [ ] Custom menus, dialogs, popovers, and other widgets have the project-required keyboard behavior.
 - [ ] An overlay does not strand focus; when the project behavior requires it, focus returns to the invoking control on close.
 - [ ] No interaction introduces an unintended keyboard trap.
+- [ ] Positive `tabindex` and click-only non-semantic shortcuts do not replace natural keyboard order and native controls.
 
 ## State, Forms, And Feedback
 
 - [ ] Loading, empty, success, disabled, unavailable, and error states are meaningful for the affected flow.
 - [ ] Form fields have associated labels, useful instructions, and errors that identify the affected field or summary.
+- [ ] Common or sensitive inputs use the project's supported autocomplete behavior when applicable; submission errors have a clear summary, association, and focus target.
 - [ ] Dynamic status changes are perceivable without relying on color or timing alone.
 - [ ] Validation, permission, and destructive-action feedback is understandable and actionable.
 
@@ -31,6 +34,7 @@ Use this checklist selectively when the affected UI behavior makes the correspon
 - [ ] Color is not the only signal for status, error, selection, or difference.
 - [ ] Content remains usable under the project's supported viewport, zoom, and text-size conditions.
 - [ ] Touch targets, spacing, motion, and flashing follow the project's applicable standards and content needs.
+- [ ] Non-essential motion can be paused or avoided where the affected flow requires it, and zoom or text-size use remains usable.
 - [ ] Existing design tokens and components are reused instead of introducing arbitrary values or a generic visual recipe.
 
 ## Evidence Selection
