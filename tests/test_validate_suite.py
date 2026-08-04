@@ -25,7 +25,7 @@ class ValidateSuiteTests(unittest.TestCase):
         suite.CONTRACT_FILES = self.original_contracts
         self.temp_dir.cleanup()
 
-    def write_skill(self, name, body=""):
+    def write_skill(self, name, body="Content.\n"):
         directory = suite.SKILLS_DIR / name
         directory.mkdir(parents=True, exist_ok=True)
         (directory / "SKILL.md").write_text(
@@ -38,6 +38,14 @@ class ValidateSuiteTests(unittest.TestCase):
         (suite.SKILLS_DIR / "alpha" / "notes.md").write_text("notes\n", encoding="utf-8")
         errors, warnings = suite.validate_skills()
         self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+
+    def test_skill_name_and_body_lints_are_current_owned(self):
+        self.write_skill("bad_name")
+        self.write_skill("empty", "")
+        errors, warnings = suite.validate_skills()
+        self.assertIn("bad_name: directory name is not a lowercase Skill slug", errors)
+        self.assertIn("empty: Skill body is empty", errors)
         self.assertEqual(warnings, [])
 
     def test_catalog_reports_duplicates_unknowns_and_omissions(self):

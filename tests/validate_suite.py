@@ -20,6 +20,7 @@ CONTRACT_FILES = (
 FRONTMATTER = re.compile(r"\A---\s*\n(?P<body>.*?)\n---\s*(?:\n|\Z)", re.S)
 LOCAL_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 FENCE = re.compile(r"^(`{3,}|~{3,}).*?^\1\s*$", re.M | re.S)
+SKILL_NAME = re.compile(r"[a-z][a-z0-9]*(?:-[a-z0-9]+)*\Z")
 
 
 def parse_frontmatter(text: str) -> Dict[str, str] | None:
@@ -71,10 +72,15 @@ def validate_skills() -> Tuple[List[str], List[str]]:
         if frontmatter is None:
             errors.append(f"{directory.name}: missing or malformed frontmatter")
             continue
+        if SKILL_NAME.fullmatch(directory.name) is None:
+            errors.append(f"{directory.name}: directory name is not a lowercase Skill slug")
         if frontmatter.get("name") != directory.name:
             errors.append(
                 f"{directory.name}: frontmatter name does not match directory"
             )
+        frontmatter_match = FRONTMATTER.match(text)
+        if frontmatter_match is not None and not text[frontmatter_match.end() :].strip():
+            errors.append(f"{directory.name}: Skill body is empty")
         description = frontmatter.get("description", "")
         if not description:
             errors.append(f"{directory.name}: missing description")
