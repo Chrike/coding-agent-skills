@@ -45,6 +45,8 @@ Read [plan-template.md](references/plan-template.md) when producing a durable im
 
 Read [vertical-slices.md](references/vertical-slices.md) when splitting a feature, refactor, or PRD into independently useful chunks.
 
+Read [deprecation-and-migration.md](references/deprecation-and-migration.md) when the plan explicitly retires, replaces, migrates, or compatibility-transitions an API, system, feature, dependency, consumer, or data shape.
+
 Read [design-questions.md](references/design-questions.md) when the request is still too vague to plan safely.
 
 ## Exit To Implementation

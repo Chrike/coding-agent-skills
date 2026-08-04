@@ -208,6 +208,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Plan this refactor. | `plan-work` |
 | Give me a two-step implementation plan for renaming this public API parameter; do not edit files. | `plan-work`; return a proportionate chat plan only, with no implementation. |
 | Compare two rollout strategies for this software database migration before coding. | `plan-work`; compare implementation and rollout approaches without editing. |
+| Plan the deprecation of public API v1 with a consumer inventory, replacement decision, compatibility window, usage-gated removal criteria, and expand/contract options. | `plan-work`; read the deprecation-and-migration reference while keeping architecture, test proof, readiness, deployment, and branch actions with their owners |
 | Write the implementation plan to `docs/plans/cache-refactor.md`. | `plan-work`; the explicitly named plan file may be created or updated, and no other planning path is chosen. |
 | Plan this migration, but the required deployment configuration cannot be inspected. | `plan-work`; state the evidence gap and either provide a clearly provisional plan or ask the smallest question that changes it; do not invent paths, commands, dependencies, or existing patterns. |
 | Implement this migration, but a load-bearing compatibility and sequencing decision cannot be safely inferred. | `plan-work` |

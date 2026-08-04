@@ -127,3 +127,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a narrow repository-owned pipeline-definition method that reads actual provider and toolchain facts, defines scoped triggers/jobs/dependencies/artifacts/secret references/failure semantics, and distinguishes definition, local, hosted, required-status, and deployment evidence.
 - Not retained: universal lint/type/test/build/security/E2E/bundle gates, GitHub/Node/Prisma/Playwright/Vercel prescriptions, fixed time or threshold budgets, hosted execution, branch protection or auto-merge changes, credential access, network or installation, automatic commit/push/merge, deployment, rollback, or publication.
+
+## `deprecation-and-migration`
+
+- Source: `addyosmani/agent-skills`, skill `deprecation-and-migration`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: an on-demand `plan-work` reference for consumer inventory, replacement or no-replacement decisions, notification and compatibility windows, exception ownership, usage-gated removal criteria, and conditional expand/contract planning.
+- Not retained: a second migration owner, compulsory deadlines, universal feature flags or adapters, claims that additive changes are always safe, automatic down migrations, notices, traffic changes, backfills, deployment, deletion, or branch actions.

@@ -39,6 +39,15 @@ These prompt shapes should not trigger the performance owner unless the request 
 | Run the hosted workflow, deploy the release, or roll back production. | automatic hosted execution or deployment | Static definition work does not authorize provider execution, deployment, rollback, or external-service access. |
 | Make every repository use lint, type, test, build, security, E2E, and bundle gates. | automatic universal CI gate | Gate selection must follow project acceptance, risk, toolchain, and evidence cost; the owner does not impose a fixed checklist. |
 
+## Deprecation Reference Must Stay Planning-Only
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| The replacement is settled; implement the next approved migration slice. | automatic deprecation planning | Settled migration context should guide implementation; do not reopen the planning reference without a new compatibility or sequencing decision. |
+| Deprecate every old API and delete unused code automatically. | automatic migration, notification, or removal | The reference records consumer evidence and removal criteria; it does not authorize notices, traffic changes, backfills, deletion, deployment, or branch actions. |
+| The migration failed in CI; diagnose the root cause. | `plan-work` deprecation reference | An unknown failure belongs to `debug-systematically`; planning does not replace diagnosis. |
+| Use the deprecation reference for every feature release. | automatic `plan-work` migration workflow | The reference is conditional on an explicit deprecation, replacement, consumer migration, or compatibility-transition question. |
+
 ## Heavy Skills Must Not Trigger By Default
 
 These prompt shapes should not trigger the named skills unless the user clearly asks for that kind of workflow or action:
