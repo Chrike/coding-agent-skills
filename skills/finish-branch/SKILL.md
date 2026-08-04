@@ -47,8 +47,10 @@ Ask the user to choose; do not infer a branch action from readiness language.
 
 - Resolve the exact file scope, staged and unstaged handling, generated files, unrelated changes, obvious sensitive material, and commit message before committing.
 - Stage only the authorized scope. Do not use a broad `git add -A` unless all resulting paths were inspected and belong to that scope.
+- When a commit is explicitly authorized, keep it one logical, independently reviewable change where the scope permits; keep unrelated behavior, refactors, formatting, generated output, and cleanup separate.
+- Use the relevant available verification evidence for that scope, but do not impose a universal test, lint, type, build, line-count, branch, or toolchain gate and do not claim a check passed when it was not run.
+- Write a message that explains the intent or why, not only the changed paths; preserve a user-supplied message unless it is invalid or unsafe, in which case report the blocker.
 - If the file scope is ambiguous, ask for it. If only the message is missing, derive a concise message from the inspected diff and repository convention and report the chosen message.
-- Preserve a user-supplied message unless it is invalid or unsafe, in which case report the blocker.
 - Do not create an empty commit unless the user explicitly requests one.
 - A commit request does not authorize push or any subsequent branch action.
 
