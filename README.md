@@ -54,6 +54,7 @@ These can be selected by the agent when the request clearly matches.
 | `performance-optimization` | An explicit performance goal or metric, measured baseline/regression, identified bottleneck, or performance audit/experiment request; framework-neutral measure-first analysis with no automatic profiling or remediation |
 | `ci-cd-and-automation` | An explicit request to design, audit, or modify a repository-owned CI/CD or automation definition; keep hosted runs, branch policy, deployment, and Git actions separate |
 | `observability-and-instrumentation` | An explicit operational telemetry question or concrete observability gap; choose the minimum project-conforming signal without automatic monitoring or runtime actions |
+| `shipping-and-launch` | An explicit readiness, rollout, or rollback question for a concrete production release; report GO/BLOCK/UNVERIFIED without performing launch actions |
 | `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change; its existing review template also provides optional tests-first and structural-remedy lenses without adding another owner |
 | `security-and-hardening` | Explicit security audits, threat models, hardening requests, or a concrete non-trivial trust-boundary risk identified by an active owner; select only applicable lenses and keep remediation, readiness, and branch actions with their owners |
 | `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
@@ -149,6 +150,7 @@ The current runtime surface is organized as follows:
 - `performance-optimization` runs narrow, framework-neutral, measure-first experiments for explicit performance claims; it labels field, lab, trace, benchmark, and other evidence, attributes one bottleneck/change at a time, accounts for variance, and hands browser evidence, implementation, review, and branch actions to their owners.
 - `ci-cd-and-automation` handles explicit repository-owned pipeline-definition work; it distinguishes definition, local, hosted, required-status, and deployment evidence without running hosted workflows or changing remote policy.
 - `observability-and-instrumentation` handles explicit operational telemetry questions and concrete signal gaps; it selects project-conforming logs, metrics, traces, or alerts while keeping runtime backends and monitoring actions separate.
+- `shipping-and-launch` judges concrete production-release readiness and release-specific rollout or rollback evidence as `GO`, `BLOCK`, or `UNVERIFIED`; it does not execute launch actions.
 - `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
 
 ## Recommended Start
@@ -175,6 +177,7 @@ Add these if you regularly ask for explicit planning, design, reassessment, secu
 - `performance-optimization`
 - `ci-cd-and-automation`
 - `observability-and-instrumentation`
+- `shipping-and-launch`
 - `agent-workflow`
 - `security-and-hardening`
 

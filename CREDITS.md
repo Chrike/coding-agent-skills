@@ -151,3 +151,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: a question-driven telemetry owner for minimum useful structured logs, metrics, traces, or alerts; project-conforming schema and context; bounded cardinality; data minimization; and separate definition, static, local, runtime, and operational-response evidence.
 - Not retained: triggers for every production feature or I/O PR, mandatory RED/USE/full tracing/alert checklists, fixed vendor or dependency choices, automatic dashboards or monitoring, test traffic, failure injection, remote alert actions, unbounded labels, sensitive payload logging, deployment, or branch actions.
+
+## `shipping-and-launch`
+
+- Source: `addyosmani/agent-skills`, skill `shipping-and-launch`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a concrete-release readiness owner with a release packet, criterion-level `VERIFIED`/`FAILED / BLOCKER`/`UNVERIFIED` evidence, separate repository and production claims, project-specific rollout/rollback semantics, and explicit action owners.
+- Not retained: universal launch checklists, fixed rollout percentages or time windows, fixed thresholds or Web metrics, mandatory feature flags, fixed persona fan-out, sequential-as-parallel claims, automatic deploy/flag/migration/rollback/notification/monitoring, or branch and publication actions.

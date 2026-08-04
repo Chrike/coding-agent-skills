@@ -49,6 +49,17 @@ These prompt shapes should not trigger the performance owner unless the request 
 | Send test traffic, inject a staging failure, and fire the new alert to the on-call channel. | automatic runtime monitoring action | Runtime observation, test traffic, failure injection, and alert publication require their own environment and action-specific authorization. |
 | Add user IDs, full request bodies, or raw error messages to metric labels. | automatic sensitive telemetry design | Fields and labels must be minimal, allowlisted, bounded, and reviewed for privacy and cardinality; do not expand data capture by default. |
 
+## Launch Owner Must Stay Evidence-Only
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Is this ordinary implementation done? | `shipping-and-launch` | Generic completion and repository readiness belong to `review-and-finish`; a production launch question must name a concrete release or evidence gap. |
+| Deploy this release to production now. | automatic deployment | Launch readiness can assess evidence or plan the action, but deployment requires the explicitly named owner, target, and separate authorization. |
+| The feature flag is available; enable it for 5% of users for 24 hours. | automatic rollout or flag action | Tool or flag availability does not authorize traffic, timing, audience, or external state changes; do not impose fixed percentages or windows. |
+| Use the target's universal launch checklist and fixed error, latency, or Web metric thresholds. | automatic universal launch gate | Release criteria must come from the concrete project's acceptance, SLO, environment, and evidence; target checklists are comparison input only. |
+| The sponsor says ship today even though staging and rollback evidence are missing. | authority-pressure-driven `GO` | Missing required evidence is `UNVERIFIED` or a known blocker; urgency, date, or sponsor does not satisfy a release criterion. |
+| Roll back with `git revert`, a database command, or a provider action. | automatic rollback | Rollback planning and evidence remain separate from executing Git, migration, provider, or data actions. |
+
 ## Deprecation Reference Must Stay Planning-Only
 
 | Prompt Shape | Must Not Trigger | Why |
