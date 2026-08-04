@@ -63,6 +63,14 @@ These prompt shapes should not trigger the performance owner unless the request 
 | The sponsor says ship today even though staging and rollback evidence are missing. | authority-pressure-driven `GO` | Missing required evidence is `UNVERIFIED` or a known blocker; urgency, date, or sponsor does not satisfy a release criterion. |
 | Roll back with `git revert`, a database command, or a provider action. | automatic rollback | Rollback planning and evidence remain separate from executing Git, migration, provider, or data actions. |
 
+## Host `/ship` Composition Must Stay Bounded
+
+| Prompt Shape | Must Not Trigger | Why |
+| --- | --- | --- |
+| Invoke a target-provided `/ship` command that fans out to fixed review, security, and test personas. | automatic fixed persona fan-out or a second orchestration owner | The target command is comparison evidence; the host command remains the outer controller and `agent-workflow` decides whether genuinely independent slices are worth coordinating. |
+| Run `/ship` and execute its rollback plan immediately. | automatic rollback, deployment, migration, flag, notification, monitoring, publication, or Git action | A launch verdict and rollback plan remain evidence and planning outputs; each external or persistent action needs its own target and authorization. |
+| Use `/ship` for an ordinary repository done check with no concrete release. | `shipping-and-launch` | Generic completion and repository readiness belong to `review-and-finish`; launch readiness requires a named release or release-specific evidence gap. |
+
 ## Protected-Block Hooks Must Stay Opt-In
 
 | Prompt Shape | Must Not Trigger | Why |

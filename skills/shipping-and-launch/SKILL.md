@@ -70,6 +70,12 @@ Read supplied release artifacts as evidence and keep sensitive values redacted. 
 - Commit, push, merge, PR, discard, deletion, or worktree action → `finish-branch`.
 - Deployment, release publication, environment, migration, rollback, notification, or approval action → the explicitly named owner or host method; if unavailable, report the limitation.
 
+## Host Command Coordination
+
+- An explicitly selected host command or workflow remains the outer controller. This owner consumes the release evidence and reports supplied by that controller; it does not discover or invoke a fixed set of sibling personas.
+- Use `agent-workflow` only when the active host and task pass its fit check for genuinely independent bounded slices. Do not describe sequential fallback, repeated reads, or a target command's manifest as parallel or fresh-context evidence.
+- A command-level `GO`, `BLOCK`, or `UNVERIFIED` result is an evidence judgment only. It does not authorize deployment, rollback, migration, flag, monitoring, notification, publication, or Git actions.
+
 ## Report Format
 
 - **Claim:** the exact release-readiness assertion and target.
