@@ -30,6 +30,7 @@ This file is a maintenance contract for checking how those boundaries fit togeth
 | An explicit request to parallelize, coordinate multiple agents, run parallel scouts, or assign multiple independent verifiers; or two or more independently decomposable work slices, repeated per-item pipeline, scout slices, multiple coordinated verification questions, or genuinely independent high-stakes candidate/review panels requiring integration | `agent-workflow` fit check; actual fan-out only when the fit check passes and the bounded work still benefits from it |
 | Explicit request to ideate, refine, explore alternatives, or converge on a concept before planning | `idea-refine`; return a chat-first concept brief without automatic persistence or downstream handoff |
 | Explicit request to clarify product intent one question at a time before planning or implementation | `interview-me`; confirm intent in chat without automatic persistence or downstream handoff |
+| Explicit request to author or update a technical specification/spec-first requirements artifact before coding | `issue-workflow` in `spec-authoring` mode; non-tracker, chat-first, and no automatic downstream handoff |
 | Explicit PRD, issue draft, tracker-ready work-item, tracker publication/update, or triage workflow from clear natural-language intent | `issue-workflow` |
 | Explicit create or update of a handoff or checkpoint, prepare one before context compaction, or resume from a named handoff artifact | `memory-handoff` |
 | Explicit project-versioned, shared, or reviewable reference lesson, correction, or confirmed-approach workflow that is consulted rather than automatically loaded | `markdown-memory` |
@@ -63,6 +64,7 @@ For maintenance validation, when more than one skill clearly applies, tests expe
 | Paused task state plus explicit durable lesson capture | `memory-handoff` plus `markdown-memory` |
 | Explicit interview request followed by a planning request after confirmation | `interview-me` then `plan-work`; transition only after explicit confirmation and the later request |
 | Explicit concept refinement followed by a later planning request | `idea-refine` then `plan-work`; transition only after the later explicit request and keep planning separate |
+| Explicit spec-authoring request followed by a later planning request | `issue-workflow` in `spec-authoring` mode then `plan-work`; stop after the spec unless the later request is explicit |
 | Settled design plus implementation | settled design or base default behavior context |
 
 ## Test-Strategy Cross-Cutting Boundaries

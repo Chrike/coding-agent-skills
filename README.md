@@ -63,7 +63,7 @@ These skills are for requests that are not ordinary coding flow, but still shoul
 | `idea-refine`        | The user explicitly asks to ideate, refine, explore alternatives, or converge on a concept before planning |
 | `interview-me`       | The user explicitly asks for one-question-at-a-time intent clarification before planning or implementation |
 | `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped Git working-tree discard, named branch deletion, named worktree removal, or branch wrap-up choice |
-| `issue-workflow`     | PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
+| `issue-workflow`     | Explicit technical specs through its chat-first, non-tracker `spec-authoring` mode; PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
 | `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
 | `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |
 | `skill-refactorer`   | Coding-agent prompt or skill maintenance, migration, stale-scaffolding cleanup |
@@ -135,7 +135,7 @@ The current runtime surface is organized as follows:
 - `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
 - `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
 - `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
-- `finish-branch`, `issue-workflow`, `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, durable artifacts, and maintenance work.
+- `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
 
 ## Recommended Start
 

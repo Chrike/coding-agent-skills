@@ -63,7 +63,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 | `idea-refine`       | 用户明确要求在规划前发散、改写、比较方案或收敛一个概念       |
 | `interview-me`      | 用户明确要求在规划或实现前，以一次一个问题的方式澄清真实意图 |
 | `finish-branch`     | 显式提交、分支推送、当前分支 PR 准备或创建、本地分支或指定远程 PR 合并、范围化 Git 工作树丢弃、指定分支删除、指定 worktree 移除，或分支收尾选择 |
-| `issue-workflow`    | PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
+| `issue-workflow`    | 通过 chat-first、非 tracker 的 `spec-authoring` 模式处理显式技术 spec；以及 PRD、Issue 草稿、可录入跟踪系统的工作项、跟踪系统发布/更新、分诊 |
 | `memory-handoff`    | 上下文压缩、交接、检查点更新、状态恢复                       |
 | `markdown-memory`   | 显式项目版本化、共享或可审阅的 Markdown 参考 lesson；不用于自动加载的 `CLAUDE.md` 或 `.claude/rules/` 指令 |
 | `skill-refactorer`  | coding-agent prompt/skill 维护、迁移、过时脚手架清理          |
@@ -134,7 +134,7 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `workflows/` 存放面向有界、会话内程序化执行试点的显式 saved-workflow 源码；它不是普通 skill 路由层。
 - `plan-work` 与 `design-codebase` 覆盖显式规划与架构决策，以及存在未解决、承重的规划或设计决策的实现请求。
 - `reliability-check` 与 `memory-handoff` 负责纠偏式重新评估与恢复态连续性。
-- `finish-branch`、`issue-workflow`、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、持久化工件与维护类的显式意图请求。
+- `finish-branch`、`issue-workflow`（包含其 `spec-authoring` 模式）、`markdown-memory`、`skill-refactorer` 与 `decision-map` 覆盖分支动作、requirements/spec 与跟踪工件、持久化 lesson 及维护类的显式意图请求。
 
 ## 推荐起步
 

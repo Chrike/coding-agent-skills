@@ -48,6 +48,9 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Help me clarify what I actually want before we choose an approach. | `interview-me`; return a confirmed intent statement in chat |
 | Grill me one question at a time about this product idea. | `interview-me`; attach a visible `GUESS` to each question |
 | Interview me first, then give me a plan after I confirm the intent. | `interview-me` then `plan-work`; do not enter planning before explicit confirmation |
+| Write a structured specification before coding this feature. | `issue-workflow` in `spec-authoring` mode; return a non-tracker draft in chat and stop |
+| Use spec-first development for this feature, then stop before implementation. | `issue-workflow` in `spec-authoring` mode; do not create tasks or invoke planning automatically |
+| Update the named technical specification after this scope decision changed. | `issue-workflow` in `spec-authoring` mode; update only the explicitly named artifact if persistence is requested |
 | This test is flaky; diagnose it. | `debug-systematically` |
 | The API returns stale state intermittently, and the existing test only reproduces it sometimes. Diagnose the underlying product behavior. | `debug-systematically` |
 | Request latency tripled after a dependency upgrade; establish a baseline and identify the regression cause. | `debug-systematically` |

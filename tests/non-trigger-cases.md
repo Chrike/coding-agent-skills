@@ -19,6 +19,15 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Plan this refactor. | `idea-refine` | implementation planning belongs to `plan-work` unless the user separately asks to refine the concept first |
 | Turn this into a PRD. | `idea-refine` | PRD and tracker-ready artifact work belongs to `issue-workflow`, not concept refinement |
 | Plan a seven-day vacation to Kyoto. | `plan-work` | non-software planning is outside this software implementation workflow |
+| Start a new feature; no specification exists. | `issue-workflow` spec-authoring mode | absence of a spec alone is not an explicit spec-authoring request |
+| This change touches multiple files. | `issue-workflow` spec-authoring mode | file count alone must not trigger a specification workflow |
+| The implementation mentions adapters and event-driven architecture; choose a reasonable default and continue. | `issue-workflow` spec-authoring mode | architecture vocabulary without an explicit spec request or unresolved design decision must not trigger spec-authoring |
+| This will take more than 30 minutes. | `issue-workflow` spec-authoring mode | duration alone must not trigger a specification workflow |
+| Plan this feature. | `issue-workflow` spec-authoring mode | implementation planning belongs to `plan-work`, not spec-authoring by implication |
+| Implement the approved specification. | `issue-workflow` spec-authoring mode | a settled spec guides execution; it does not reopen authoring or create a lifecycle gate |
+| Create `tasks/plan.md` automatically for this feature. | `issue-workflow` spec-authoring mode | no automatic or guessed spec/task path is authorized |
+| Write a technical specification before coding; include the verification command, but do not run anything. | automatic command or downstream command execution from `issue-workflow` | spec-authoring may describe testing intent, but it must not execute commands without a separate explicit request and authorization |
+| Commit the specification and reference it in a PR. | `issue-workflow` spec-authoring mode | spec authoring does not authorize branch actions; use `finish-branch` only for an explicit branch request |
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
 | Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map`, `plan-work`, `design-codebase`, `test-strategy`, `review-and-finish` | a clear direct edit should not become a planning, design, test-design, or review workflow |

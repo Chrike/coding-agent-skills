@@ -23,3 +23,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: explicit concept-level divergence and convergence, selective problem-reframing lenses, small materially different alternatives, user-value/feasibility/differentiation evaluation, assumption tiers, MVP/first-experiment thinking, and an explicit Not Doing list.
 - Not retained: automatic vague-request triggers, `stress-test my plan` routing, fixed question/variation counts, `/ideate` command assumptions, `docs/ideas` initialization or default persistence, automatic planning/issue/implementation handoffs, and example prose as runtime instructions.
+
+## `spec-driven-development`
+
+- Source: `addyosmani/agent-skills`, skill `spec-driven-development`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: explicit spec-authoring fields for objective, evidence-backed context, material assumptions, behavior/success criteria, boundaries, testing intent, non-goals, and open questions, as a non-tracker draft mode inside `issue-workflow`.
+- Not retained: broad automatic triggers, universal review gates, default `SPEC.md`/`tasks/*` paths, automatic PLAN/TASKS/IMPLEMENT handoffs, command execution, commit/PR requirements, and target-specific sibling invocation.
