@@ -120,6 +120,14 @@
 - Retained in this suite: a framework-neutral measure-first method that defines the claim, metric, scope, workload, comparison, and correctness invariant; labels evidence sources; supports source-only versus artifact-backed web audits with metric honesty and framework identification; attributes one bottleneck and one change at a time; accounts for run-to-run variance; and reports a correctness-gated keep, revert, or inconclusive recommendation with observed measurements, inference, and gaps separated.
 - Not retained: fixed budgets, thresholds, sample counts, time or size limits; Core Web Vitals, Lighthouse, RUM/CrUX, or other fixed web-tooling requirements; target agents or personas, commands, hooks, evals, or fixtures; automatic benchmarks or profiling; monitoring, RUM setup, production load, remediation, code/configuration edits, deployment/publication, or branch actions.
 
+## `performance-checklist`
+
+- Source: `addyosmani/agent-skills`, reference `performance-checklist.md`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a conditional loading/resource, rendering/input, data/backend, and correctness/evidence prompt set under `performance-optimization`.
+- Not retained: fixed Core Web Vitals or response targets, bundle budgets, framework recipes, Lighthouse/DevTools/CrUX commands, profiling or dependency installation, production load, monitoring/RUM, and release or branch gates.
+
 ## `git-workflow-and-versioning`
 
 - Source: `addyosmani/agent-skills`, skill `git-workflow-and-versioning`.

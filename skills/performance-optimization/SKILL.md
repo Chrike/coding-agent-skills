@@ -42,6 +42,17 @@ For a scoped web or browser performance question:
 - When an authorized artifact exists, name its source and keep field, lab, trace, and benchmark evidence distinct; unavailable values remain `UNVERIFIED`.
 - Choose only the relevant loading, rendering/input, network/data, or resource lens. Consider resource dimensions or priority, long main-thread work, layout stability, code splitting or third-party loading, caching, or parallel I/O only when tied to the claim and correctness invariant.
 
+## Conditional Checklist
+
+For a web or service performance scope, inspect only the applicable prompts:
+
+- **Loading and resources:** critical resource priority, reserved dimensions, deferred non-critical work, asset format, caching, and third-party cost.
+- **Rendering and input:** long tasks, event-handler work, layout thrash or instability, list size, scheduling, and interaction responsiveness.
+- **Data and backend:** bounded queries, indexes, pagination, batching, connection or worker saturation, and compression or caching where the claim concerns them.
+- **Correctness and evidence:** keep the output, freshness, ordering, error, and resource invariants explicit; tie each observation to its source and label unmeasured items rather than filling a scorecard.
+
+This is a conditional prompt set, not a universal Web Vitals target, bundle budget, sample count, command list, or release gate.
+
 ## Measurement Discipline
 
 1. Establish a baseline before evaluating a change. Use the same meaningful method for baseline and comparison, with the same workload, data state, and environment where practical. State any unavoidable difference.

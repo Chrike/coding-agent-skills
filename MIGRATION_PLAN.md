@@ -1735,7 +1735,7 @@
 | Infrastructure/references | `accessibility-checklist` | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/references | `definition-of-done` | 保留现状不动 | P0 | 已确认 |
 | Infrastructure/references | `observability-checklist` | 合并/协调重叠 | P0 | 已确认 |
-| Infrastructure/references | `performance-checklist` | 合并/协调重叠 | P1 | 已确认 |
+| Infrastructure/references | `performance-checklist` | 合并/协调重叠 | P1 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
 | Infrastructure/references | `security-checklist` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（条件式 security prompt set 合并到 `security-and-hardening`，commit `68ccac7`） |
 | Infrastructure/references | `testing-patterns` | 跳过 | P1 | 已确认 |
 | Infrastructure/hooks | SessionStart meta injection（三文件） | 合并/协调重叠 | P1 | 已确认 |
@@ -1867,6 +1867,7 @@
 - Infrastructure / `security-auditor`：已将 target persona 的条件式 trust-boundary prompts 合并到现有 `security-and-hardening` owner，并保留单一安全分析责任；未保留独立 persona、固定 OWASP/STRIDE gate、PoC、命令、hook、eval、exploit、依赖安装或分支动作。`git diff --check`、owner/negative-contract markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`0ca2867`。
 - Infrastructure / `security-checklist`：已将 target reference 改写为 `security-and-hardening` 内的条件式 threat/access/integration/data/dependency/evidence prompt set；未引入 universal OWASP/STRIDE、固定阈值、secret-scanning/install/audit 命令、pre-commit/release gate 或自动修复。`git diff --check`、conditional-reference markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`68ccac7`。
 - Infrastructure / `web-performance-auditor`：已将 target 的 Quick/Deep、source-only `potential impact`、artifact source labeling、framework/rendering identification 与窄 web lens 改写并合并到 `performance-optimization`；未保留固定 CWV/预算/样本 gate、Lighthouse/CrUX/RUM 命令、工具安装、live capture、监控、修复或分支动作。`git diff --check`、web-audit markers、正负触发合同、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`ec08152`。
+- Infrastructure / `performance-checklist`：已将 target reference 改写为 `performance-optimization` 内的条件式 loading/resource、rendering/input、data/backend、correctness/evidence prompt set；未引入固定 CWV/响应/包大小阈值、命令、profiling、安装、生产负载、RUM、release gate 或分支动作。聚焦静态验证与独立本地 commit 待完成。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点

@@ -29,6 +29,7 @@ These prompt shapes should not trigger the performance owner unless the request 
 | Review this performance patch for correctness and readability. | `performance-optimization` | Generic review belongs to `review-and-finish`; a performance concern in a review does not create a second review owner. |
 | Make every change run a profiler; install Lighthouse, a benchmark package, and RUM automatically. | automatic profiling/tool setup or an automatic `performance-optimization` run | Tool availability or a blanket request does not authorize profiling, `npx`, installation, network/external services, monitoring/RUM, or project commands; inspect and obtain action-specific authorization first. |
 | Treat a static web scan as measured LCP, INP, CLS, or a passing Core Web Vitals score. | fabricated performance measurement | Source-only findings are potential impact and metrics are not measured unless an authorized artifact or runtime observation supplies them. |
+| Require every performance task to satisfy every web checklist row, fixed response target, bundle budget, and measurement command. | automatic universal performance checklist | The checklist is conditional on the claim and project facts; it does not impose fixed thresholds, tools, samples, or release gates. |
 
 ## CI/CD Owner Must Stay Narrow
 
