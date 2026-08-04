@@ -1746,7 +1746,7 @@
 | Infrastructure/evals | `run-evals-test.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned `tests/test_eval_contract.py`，commit `37f5ef9`；与 validator/routing focused tests 分离） |
 | Infrastructure/evals | `validate-skills.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned `tests/validate_suite.py` 与 focused tests，commit `03db3b3`） |
 | Infrastructure/evals | `skill-lint.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned lint extensions in `tests/validate_suite.py`，commit `458d435`） |
-| Infrastructure/eval corpus | 24 cases + 45 fixtures 维护资产 | 新增/改写引入 | P1 | 已确认 |
+| Infrastructure/eval corpus | 24 cases + 45 fixtures 维护资产 | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned corpus disposition in `tests/eval-contract.md`，commit `c4da121`；不复制完整 corpus） |
 | Infrastructure/eval corpus | ownerless negative / stale-boundary 审计 | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认 |
 | Infrastructure/eval corpus | hidden patch/materialization 边界 | 保留现状不动 | P1 | 已确认 |
@@ -1879,6 +1879,7 @@
 - Infrastructure/evals / run-evals Tier 2：已将 target 的静态 routing/collision 形状改写为 current-owned `tests/check_routing_contract.py`，核对已安装 owner、README/contract coverage 和 owner-like stale tokens；lexical overlap 仅作 informational output，不引入 rank/similarity floor 或自动 gate。Tier 3 headless Claude、fixture Git workspace、browser/network、external grader 和 `evals/results` 保持未执行/未创建。`python tests/check_routing_contract.py`、3 个 focused unit tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`1b4065a`。
 - Infrastructure/evals / skill-lint：已将 target 的可迁移结构规则收窄为目录 slug、frontmatter、非空 Skill body 与本地 Markdown link 检查，保留 current frontmatter/trigger/body 自主性；未复制 target required sections、固定 trigger regex、exemption 表或 universal gate。`python tests/validate_suite.py`、4 个 focused unit tests 和 `git diff --check` 通过；独立本地 commit：`458d435`。
 - Infrastructure/evals / run-evals-test：已将 target 的 case/schema/fixture regression 形状收窄为 `tests/test_eval_contract.py` 的两个 current-owned deterministic contract tests，并复用 validator/routing focused tests；未创建临时 Git workspace、patch materializer、headless executor、browser/network runner、rank floor 或 external grader。`python tests/test_eval_contract.py`、validator/routing tests 和 `git diff --check` 通过；独立本地 commit：`37f5ef9`。
+- Infrastructure/eval corpus / 24 cases + 45 fixtures：已把 target corpus 保留为比较证据，维护面仅记录 deterministic structure/routing、owner availability、runtime evidence 和 explicit `UNVERIFIED` 边界；未复制 prompt-shaped corpus、fixtures、fixture Git workflow 或 results layer。`tests/eval-contract.md`、contract tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`c4da121`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
