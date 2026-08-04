@@ -33,6 +33,15 @@ Write a compact experiment packet before interpreting a result:
 
 Select only the applicable lens or lenses. Latency, rendering/loading, query/data access, memory, throughput, and resource use are options, not a universal checklist. Do not impose Core Web Vitals, Lighthouse, RUM/CrUX, fixed budgets, fixed sample counts, fixed time or size limits, or a framework/library recipe when the claim does not require them.
 
+## Web Audit Mode
+
+For a scoped web or browser performance question:
+
+- Identify the framework, rendering model, and project asset/runtime conventions before making stack-specific suggestions.
+- When no measurement artifact exists, use source mode: report structural observations as `potential impact` and state that metrics are `not measured`; do not infer LCP, INP, CLS, or another runtime value from source shape.
+- When an authorized artifact exists, name its source and keep field, lab, trace, and benchmark evidence distinct; unavailable values remain `UNVERIFIED`.
+- Choose only the relevant loading, rendering/input, network/data, or resource lens. Consider resource dimensions or priority, long main-thread work, layout stability, code splitting or third-party loading, caching, or parallel I/O only when tied to the claim and correctness invariant.
+
 ## Measurement Discipline
 
 1. Establish a baseline before evaluating a change. Use the same meaningful method for baseline and comparison, with the same workload, data state, and environment where practical. State any unavoidable difference.
