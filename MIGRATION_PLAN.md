@@ -1762,7 +1762,7 @@
 | Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认，阶段 4 保留现状（Claude Code 优先；Markdown/optional plugin boundaries remain explicit） |
 | Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认，阶段 4 no-op/coordination（现有 self-contained plugin manifests 保持；不创建 root marketplace manifest） |
 | Infrastructure/distribution | Codex 与 `.agents` manifests | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 Codex host discovery/permissions；不复制 target manifests） |
-| Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认 |
+| Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 host package/command discovery、permissions 或 runtime） |
 | Infrastructure/docs | adoption/getting-started 与平台 setup docs | 保留现状不动 | P1 | 已确认 |
 | Infrastructure/docs | contributor/anatomy/rule 基础设施 | 跳过 | P1 | 已确认 |
 | Infrastructure/docs | 文档/manifest 声明的验证与 CI 门 | 保留现状不动 | P1 | 已确认 |
@@ -1895,6 +1895,7 @@
 - Infrastructure/distribution / multi-tool scope + root README：保留 current Claude Code-first positioning、plain-Markdown portability 和 optional self-contained plugin boundary；未复制 target marketplace identity、multi-host setup claims、root command surface 或 broad host support. 仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / Claude/plugin manifest：现有 `capability-harness` 与 `simplify-protected-blocks` manifests 已是 current-owned self-contained plugin boundaries；不创建 target-style root manifest、marketplace identity、broad skill/agent/command discovery claim 或新的 plugin precedence。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / Codex 与 `.agents` manifests：按确认跳过；target manifest/static setup text 不证明 Codex host discovery、permission、command/hook support 或 runtime behavior，当前不增加 `.codex-plugin`/`.agents` surface。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/distribution / Antigravity/Gemini wrappers + commands：按确认跳过；target setup docs/commands 不证明这些宿主的 package discovery、permission、hook/command precedence 或 runtime behavior，当前不增加 wrappers 或 command surfaces。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
