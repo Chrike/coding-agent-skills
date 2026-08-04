@@ -1728,7 +1728,7 @@
 | Ship | `observability-and-instrumentation` | 新增/改写引入 | P0 | 已确认，阶段 4 已完成（新增问题驱动、项目约定优先的 telemetry owner，commit `5882531`） |
 | Ship | `shipping-and-launch` | 新增/改写引入 | P0 | 已确认，阶段 4 已完成（新增 concrete-release launch-readiness owner，commit `d689afb`） |
 | Infrastructure/agents | `code-reviewer` persona | 跳过 | P0 | 已确认 |
-| Infrastructure/agents | `security-auditor` persona | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/agents | `security-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
 | Infrastructure/agents | `test-engineer` persona | 跳过 | P0 | 已确认 |
 | Infrastructure/agents | `web-performance-auditor` persona | 合并/协调重叠 | P0 | 已确认 |
 | Infrastructure/orchestration | `orchestration-patterns` + `docs/agents.md`（命令文件不随之修改） | 合并/协调重叠 | P0 | 已确认 |
@@ -1864,6 +1864,7 @@
 - Ship / `documentation-and-adrs`：已将 ADR convention discovery、冲突暴露、用户同意、status 和 successor/supersession 历史规则合并到 `design-codebase` 的 domain-modeling reference，并同步路由/正负触发合同和来源记录；未新增 documentation owner、自动创建路径、默认落盘、删除历史或发布动作。`git diff --check`、relative reference、ADR markers、路由/正负触发合同、来源记录、documentation exclusions 和 changed-path scope 检查通过；独立本地 commit：`ae0ba21`。
 - Ship / `observability-and-instrumentation`：已新增问题驱动、项目约定优先的 telemetry owner，并同步 catalog、双语 README、路由/正负触发合同和来源记录；未执行 dashboard/alert publication、监控配置、网络、依赖安装、test traffic、failure injection、production access、部署或 Git 动作。`git diff --check`、frontmatter、catalog JSON、双语 README、路由/正负触发合同、来源记录、observability exclusions 和 changed-path scope 检查通过；独立本地 commit：`5882531`。
 - Ship / `shipping-and-launch`：已新增只针对 concrete production release 的 launch-readiness owner，并同步 catalog、双语 README、路由/正负触发合同和来源记录；未执行 deploy、publish、flag、migration、rollback、monitoring、traffic、notification、credential、secret 或 Git 动作。`git diff --check`、frontmatter、catalog JSON、双语 README、路由/正负触发合同、来源记录、shipping exclusions 和 changed-path scope 检查通过；独立本地 commit：`d689afb`。
+- Infrastructure / `security-auditor`：已将 target persona 的条件式 trust-boundary prompts 合并到现有 `security-and-hardening` owner，并保留单一安全分析责任；未保留独立 persona、固定 OWASP/STRIDE gate、PoC、命令、hook、eval、exploit、依赖安装或分支动作。聚焦静态验证与独立本地 commit 待完成。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点

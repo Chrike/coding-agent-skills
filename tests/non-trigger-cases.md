@@ -13,6 +13,7 @@ This file contains negative routing examples for ordinary work.
 | Design this routine API endpoint using the existing project conventions. | `security-and-hardening` | Routine API design does not make security analysis the owner; an unresolved architecture or ownership decision belongs to `design-codebase`. |
 | Choose the test level, fixture, and assertions for this endpoint. | `security-and-hardening` | Test design belongs to `test-strategy` unless a separate security analysis request or concrete trust-boundary risk is present. |
 | Make every change run an automatic security audit and remediate all findings. | automatic `security-and-hardening` audit or remediation | The security owner does not create a blanket audit gate or silently remediate; a scoped audit still needs a focused question and action-specific authorization for execution. |
+| Apply the full OWASP, headers, CORS, rate-limit, and dependency checklist to every change. | automatic universal security checklist | Security lenses are selected from the mapped asset, actor, entry point, invariant, and abuse path; the owner does not impose a fixed checklist or execute dependency audits automatically. |
 
 ## Performance Owner Must Stay Narrow
 

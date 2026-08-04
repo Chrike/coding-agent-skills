@@ -49,6 +49,17 @@ Use only the lenses that fit the mapped asset, actor, entry point, and boundary:
 
 STRIDE, OWASP, security headers, CORS, rate limits, and any other category are optional lenses only when the concrete question makes them relevant. None is a universal gate or a substitute for mapping the actual invariant and abuse path.
 
+## Concrete Prompts When A Lens Applies
+
+Use only the prompts that match the mapped path; they are questions, not mandatory controls:
+
+- For untrusted data entering markup, queries, commands, paths, or interpreters, identify boundary validation, encoding or parameterization, and the sink; do not assume framework defaults or denylist-only validation.
+- For identity and resource access, check authentication, authorization, tenant or resource scope, session/reset/replay behavior, and abuse resistance only where the path uses them.
+- For external integrations, check webhook authenticity, redirect and URL/SSRF boundaries, token scope, and third-party trust only where those crossings exist.
+- For sensitive data, check response, logging, storage, transport, backup, and error-disclosure paths against the minimum required exposure.
+- For AI or agent actions, treat model or retrieved output as untrusted, enforce permissions in code, bound consumption, and require confirmation for destructive actions.
+- If a dependency or installation boundary is in scope, identify the owning manifest, lockfile, and lifecycle-script policy before interpreting an advisory; do not execute installs or audits as part of analysis.
+
 ## Evidence Record
 
 Use distinct headings so a recommendation cannot be mistaken for an observed fact:
