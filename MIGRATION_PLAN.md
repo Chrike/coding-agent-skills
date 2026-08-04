@@ -1756,7 +1756,7 @@
 | Infrastructure/commands | `/build` | 跳过 | P0 | 已确认 |
 | Infrastructure/commands | `/test` | 跳过 | P1 | 已确认 |
 | Infrastructure/commands | `/review`、`/code-simplify` | 跳过 | P0 | 已确认 |
-| Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（bounded host-command coordination in `shipping-and-launch` + non-trigger contract，commit `34d8ff2`） |
 | Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认 |
 | Infrastructure/commands | `validate-commands.js` | 跳过 | P1 | 已确认 |
 | Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认 |
@@ -1885,6 +1885,7 @@
 - Infrastructure/eval corpus / hidden patch/materialization：保持现状不动；不复制 target 的 patch application、fixture-to-workspace materialization、temporary Git baseline 或 cleanup behavior，也不把静态 patch shape 当作 live executor evidence。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/eval corpus / fixture realism：保持窄 gate 和现状不动；不复制 target fixture completeness/realism 作为普遍门槛，也不把 fixture 存在性、路径或内容当作 runtime behavior evidence。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/eval delivery / results and CI：沿用 current-owned `tests/eval-contract.md` 的 delivery boundary；不创建 `evals/results`、hosted CI status、deployment gate、external grader output 或 publication path，也不把 local static pass 变成 release authorization。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/commands / `/ship`：已将 target command 的有效 host-controller/merge 形状收窄合并到 `shipping-and-launch`，要求 `agent-workflow` fit check 后才可能协调真正独立 slices；未复制固定三 persona fan-out、顺序伪 parallel、rollback/deploy/Git actions 或第二 orchestration owner。`git diff --check`、shipping/non-trigger markers 和 changed-path scope 检查通过；独立本地 commit：`34d8ff2`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
