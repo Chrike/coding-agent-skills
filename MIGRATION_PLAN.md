@@ -1739,7 +1739,7 @@
 | Infrastructure/references | `security-checklist` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（条件式 security prompt set 合并到 `security-and-hardening`，commit `68ccac7`） |
 | Infrastructure/references | `testing-patterns` | 跳过 | P1 | 已确认 |
 | Infrastructure/hooks | SessionStart meta injection（三文件） | 合并/协调重叠 | P1 | 已确认，阶段 4 no-op（当前 prompt 已覆盖 material assumptions 与 technical tradeoffs；未启用第二 SessionStart router） |
-| Infrastructure/hooks | SDD WebFetch cache（三文件） | 跳过 | P0 | 已确认 |
+| Infrastructure/hooks | SDD WebFetch cache（三文件） | 跳过 | P0 | 已确认，阶段 4 按确认跳过（不缓存 prompt-shaped WebFetch 结果） |
 | Infrastructure/hooks | simplify protected-block filter/restore（三文件） | 新增/改写引入 | P0 | 已确认 |
 | Infrastructure/evals | eval README 分层说明 | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/evals | `run-evals.js` Tier 2/Tier 3 runner | 合并/协调重叠 | P0 | 已确认 |
@@ -1872,6 +1872,7 @@
 - Infrastructure / `accessibility-checklist`：已将 target 中的 page-shell/skip path、自然键盘顺序、autocomplete/error focus、motion pause 与 text-size prompts 合并到现有 UI accessibility reference；未引入固定 WCAG/浏览器/axe gate、自动工具执行、第二 UI owner 或全局 checklist。`git diff --check`、accessibility markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`97a9bdf`。
 - Infrastructure / `observability-checklist`：已将 target 中 conditional log/correlation、metric distribution/queue、trace propagation 与 symptom-based alert/dashboard prompts 合并到 `observability-and-instrumentation`；未引入 universal RED/USE/full-trace、固定阈值、vendor setup、dashboard/alert publication、test traffic、failure injection、production access 或 launch gate。`git diff --check`、conditional-signal markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`3ff5ece`。
 - Infrastructure / SessionStart meta injection：已核对 target hook 与当前 prompt；material assumptions、technical tradeoffs、source/evidence 和 action-specific boundaries 已由现有 always-on prompt/Skills 覆盖，因此保持 no-op，不启用第二全局 router，也未执行 target hook。无实现 commit。
+- Infrastructure / SDD WebFetch cache：按确认跳过；target 缓存 prompt-shaped、URL-keyed 内容并引入 curl/jq、ETag/HTTP、持久 cache 与 network side effects，不能证明当前问题获得 exact current source。未复制、注册或执行 target hook。无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
