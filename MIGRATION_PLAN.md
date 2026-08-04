@@ -1730,7 +1730,7 @@
 | Infrastructure/agents | `code-reviewer` persona | 跳过 | P0 | 已确认 |
 | Infrastructure/agents | `security-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（条件式 trust-boundary prompts 合并到 `security-and-hardening`，commit `0ca2867`） |
 | Infrastructure/agents | `test-engineer` persona | 跳过 | P0 | 已确认 |
-| Infrastructure/agents | `web-performance-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 实现完成；聚焦验证与独立提交待完成 |
+| Infrastructure/agents | `web-performance-auditor` persona | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（source/artifact web audit lens 合并到 `performance-optimization`，commit `ec08152`） |
 | Infrastructure/orchestration | `orchestration-patterns` + `docs/agents.md`（命令文件不随之修改） | 合并/协调重叠 | P0 | 已确认 |
 | Infrastructure/references | `accessibility-checklist` | 合并/协调重叠 | P1 | 已确认 |
 | Infrastructure/references | `definition-of-done` | 保留现状不动 | P0 | 已确认 |
@@ -1866,7 +1866,7 @@
 - Ship / `shipping-and-launch`：已新增只针对 concrete production release 的 launch-readiness owner，并同步 catalog、双语 README、路由/正负触发合同和来源记录；未执行 deploy、publish、flag、migration、rollback、monitoring、traffic、notification、credential、secret 或 Git 动作。`git diff --check`、frontmatter、catalog JSON、双语 README、路由/正负触发合同、来源记录、shipping exclusions 和 changed-path scope 检查通过；独立本地 commit：`d689afb`。
 - Infrastructure / `security-auditor`：已将 target persona 的条件式 trust-boundary prompts 合并到现有 `security-and-hardening` owner，并保留单一安全分析责任；未保留独立 persona、固定 OWASP/STRIDE gate、PoC、命令、hook、eval、exploit、依赖安装或分支动作。`git diff --check`、owner/negative-contract markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`0ca2867`。
 - Infrastructure / `security-checklist`：已将 target reference 改写为 `security-and-hardening` 内的条件式 threat/access/integration/data/dependency/evidence prompt set；未引入 universal OWASP/STRIDE、固定阈值、secret-scanning/install/audit 命令、pre-commit/release gate 或自动修复。`git diff --check`、conditional-reference markers、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`68ccac7`。
-- Infrastructure / `web-performance-auditor`：已将 target 的 Quick/Deep、source-only `potential impact`、artifact source labeling、framework/rendering identification 与窄 web lens 改写并合并到 `performance-optimization`；未保留固定 CWV/预算/样本 gate、Lighthouse/CrUX/RUM 命令、工具安装、live capture、监控、修复或分支动作。聚焦静态验证与独立本地 commit 待完成。
+- Infrastructure / `web-performance-auditor`：已将 target 的 Quick/Deep、source-only `potential impact`、artifact source labeling、framework/rendering identification 与窄 web lens 改写并合并到 `performance-optimization`；未保留固定 CWV/预算/样本 gate、Lighthouse/CrUX/RUM 命令、工具安装、live capture、监控、修复或分支动作。`git diff --check`、web-audit markers、正负触发合同、GNU AGPL source marker 和 changed-path scope 检查通过；独立本地 commit：`ec08152`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
