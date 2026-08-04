@@ -1751,7 +1751,7 @@
 | Infrastructure/eval corpus | browser runtime capability gate | 跳过 | P1 | 已确认，阶段 4 保持跳过/`UNVERIFIED`（无授权 live browser/DevTools channel；未运行 target browser case） |
 | Infrastructure/eval corpus | hidden patch/materialization 边界 | 保留现状不动 | P1 | 已确认，阶段 4 保留现状（不复制 patch/workspace materializer 或 temporary Git path） |
 | Infrastructure/eval corpus | fixture realism / 窄 gate | 保留现状不动 | P2 | 已确认，阶段 4 保留现状（不把 fixture realism 扩展为 universal gate） |
-| Infrastructure/eval delivery | results/CI 接入边界 | 新增/改写引入 | P2 | 已确认 |
+| Infrastructure/eval delivery | results/CI 接入边界 | 新增/改写引入 | P2 | 已确认，阶段 4 完成（current-owned `tests/eval-contract.md` boundary retained；不创建 `evals/results` 或 CI gate） |
 | Infrastructure/commands | `/spec`、`/plan`、`/planning` | 跳过 | P1 | 已确认 |
 | Infrastructure/commands | `/build` | 跳过 | P0 | 已确认 |
 | Infrastructure/commands | `/test` | 跳过 | P1 | 已确认 |
@@ -1884,6 +1884,7 @@
 - Infrastructure/eval corpus / browser runtime capability gate：保持跳过并标记 `UNVERIFIED`；未配置或授权 live browser/DevTools channel，未执行 target browser case、network、screenshot、DOM 或 console observation，也未把静态 fixture 当作 runtime 证据。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/eval corpus / hidden patch/materialization：保持现状不动；不复制 target 的 patch application、fixture-to-workspace materialization、temporary Git baseline 或 cleanup behavior，也不把静态 patch shape 当作 live executor evidence。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/eval corpus / fixture realism：保持窄 gate 和现状不动；不复制 target fixture completeness/realism 作为普遍门槛，也不把 fixture 存在性、路径或内容当作 runtime behavior evidence。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/eval delivery / results and CI：沿用 current-owned `tests/eval-contract.md` 的 delivery boundary；不创建 `evals/results`、hosted CI status、deployment gate、external grader output 或 publication path，也不把 local static pass 变成 release authorization。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
