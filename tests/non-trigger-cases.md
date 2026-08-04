@@ -31,6 +31,8 @@ These prompt shapes should not trigger the named skills unless the user clearly 
 | Change this label in a Vue component. | `plan-work`, `design-codebase`, `review-and-finish`, `finish-branch` | small edits should not become process |
 | Explain how this service works. | `plan-work`, `design-codebase`, `issue-workflow` | code explanation is not architecture review by default |
 | Add this small request parameter to the endpoint. | `issue-workflow`, `decision-map`, `plan-work`, `design-codebase`, `test-strategy`, `review-and-finish` | a clear direct edit should not become a planning, design, test-design, or review workflow |
+| Use the existing REST naming and error conventions for this small endpoint edit; do not revisit the contract. | `design-codebase`, `plan-work` | fixed project conventions and a settled contract should guide a direct edit without reopening interface design or rollout planning |
+| Design this API and automatically update every consumer, run migrations, and publish it. | automatic migration, command, or publication | contract design can identify compatibility conditions, but it does not authorize consumer changes, migrations, commands, or release actions |
 | Implement or continue the approved steps from this existing plan file. | `plan-work`, `decision-map`, `memory-handoff`, `reliability-check` | settled planning should guide execution without reopening planning, reassessment, or handoff workflows |
 | Start implementing the reviewed fix above. | `review-and-finish`, `reliability-check` | settled review should not restart before new evidence appears |
 | Start implementing the selected design above. | `design-codebase`, `reliability-check` | settled design should guide execution instead of reopening architecture comparison |

@@ -108,6 +108,7 @@ The maintained prompt file is authoritative for default behavior, and skill desc
 | Clarify the domain distinction between Order and Fulfillment before choosing a module boundary. | `design-codebase` |
 | Implement this integration, but ownership of the remote dependency is non-obvious and existing patterns do not safely settle where it belongs. | `design-codebase`, then implementation |
 | The architecture boundary is unresolved and the rollout also needs compatibility sequencing. | `design-codebase`, then `plan-work` when available |
+| Define the consumer-visible contract for this public endpoint, including input, output, and error behavior; leave test proof for the testing workflow. | `design-codebase`; `test-strategy` only for a remaining test-design or acceptance decision |
 | Compare genuinely independent candidate implementations, assign independent review scopes, and integrate the result for a high-stakes artifact. | active domain method + `agent-workflow` candidate/review panel |
 | Parallelize this multi-file bug investigation, but all symptoms share one root cause. | `agent-workflow` fit check, then `debug-systematically` or base default behavior under one owner |
 | Implement independent write slices, but safe worktree isolation is unavailable. | `agent-workflow` with serialized writes |

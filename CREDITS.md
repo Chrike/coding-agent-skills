@@ -31,3 +31,11 @@
 - Reference: https://github.com/addyosmani/agent-skills
 - Retained in this suite: explicit spec-authoring fields for objective, evidence-backed context, material assumptions, behavior/success criteria, boundaries, testing intent, non-goals, and open questions, as a non-tracker draft mode inside `issue-workflow`.
 - Not retained: broad automatic triggers, universal review gates, default `SPEC.md`/`tasks/*` paths, automatic PLAN/TASKS/IMPLEMENT handoffs, command execution, commit/PR requirements, and target-specific sibling invocation.
+
+## `api-and-interface-design`
+
+- Source: `addyosmani/agent-skills`, skill `api-and-interface-design`.
+- License basis: GNU AGPL v3, following the source repository's `LICENSE`.
+- Reference: https://github.com/addyosmani/agent-skills
+- Retained in this suite: a project-fact-first contract lens for consumer-observable inputs, outputs, errors, boundary validation, additive compatibility, and behavioral verification through public seams, as a reference under `design-codebase`.
+- Not retained: a second API owner, fixed REST/GraphQL/TypeScript conventions, unconditional internal trust, default pagination or error shapes, automatic migration/consumer updates, command execution, publication, or branch actions.
