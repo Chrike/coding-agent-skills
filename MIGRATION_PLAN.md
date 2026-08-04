@@ -1764,7 +1764,7 @@
 | Infrastructure/distribution | Codex 与 `.agents` manifests | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 Codex host discovery/permissions；不复制 target manifests） |
 | Infrastructure/distribution | Antigravity/Gemini 包装与命令面 | 跳过 | P1 | 已确认，阶段 4 按确认跳过（不承诺 host package/command discovery、permissions 或 runtime） |
 | Infrastructure/docs | adoption/getting-started 与平台 setup docs | 保留现状不动 | P1 | 已确认，阶段 4 保留现状（current README/README.zh-CN and plugin-local docs remain source of truth） |
-| Infrastructure/docs | contributor/anatomy/rule 基础设施 | 跳过 | P1 | 已确认 |
+| Infrastructure/docs | contributor/anatomy/rule 基础设施 | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current prompt/skills/tests conventions remain source-of-truth; no target contributor rule layer copied） |
 | Infrastructure/docs | 文档/manifest 声明的验证与 CI 门 | 保留现状不动 | P1 | 已确认 |
 | Infrastructure/docs | `comparison.md` | 跳过 | P2 | 已确认 |
 | Infrastructure/metadata | `.gitattributes`、`.gitignore` | 保留现状不动 | P2 | 已确认 |
@@ -1897,6 +1897,7 @@
 - Infrastructure/distribution / Codex 与 `.agents` manifests：按确认跳过；target manifest/static setup text 不证明 Codex host discovery、permission、command/hook support 或 runtime behavior，当前不增加 `.codex-plugin`/`.agents` surface。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/distribution / Antigravity/Gemini wrappers + commands：按确认跳过；target setup docs/commands 不证明这些宿主的 package discovery、permission、hook/command precedence 或 runtime behavior，当前不增加 wrappers 或 command surfaces。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/docs / adoption/getting-started + platform setup docs：保留 current README/README.zh-CN、plugin-local README 和 workflow docs；未复制 target full-lifecycle onboarding, host-specific setup claims, install commands, marketplace/network steps 或 additional runtime surfaces。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/docs / contributor/anatomy/rule infrastructure：按确认跳过；current prompt, Skill frontmatter/body, README classification, plugin-local docs 和 maintenance contracts 已提供实际 source-of-truth，不复制 target contributor checklist、skill anatomy required sections、root rule files 或 universal preflight gate。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
