@@ -1742,7 +1742,7 @@
 | Infrastructure/hooks | SDD WebFetch cache（三文件） | 跳过 | P0 | 已确认，阶段 4 按确认跳过（不缓存 prompt-shaped WebFetch 结果） |
 | Infrastructure/hooks | simplify protected-block filter/restore（三文件） | 新增/改写引入 | P0 | 已确认，阶段 4 完成（current-owned `simplify-protected-blocks` plugin，commit `e147a4a`） |
 | Infrastructure/evals | eval README 分层说明 | 合并/协调重叠 | P1 | 已确认，阶段 4 完成（current-owned `tests/eval-contract.md`，commit `332d71b`） |
-| Infrastructure/evals | `run-evals.js` Tier 2/Tier 3 runner | 合并/协调重叠 | P0 | 已确认 |
+| Infrastructure/evals | `run-evals.js` Tier 2/Tier 3 runner | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（current-owned `tests/check_routing_contract.py`，commit `1b4065a`；Tier 3 保持未执行） |
 | Infrastructure/evals | `run-evals-test.js` | 新增/改写引入 | P1 | 已确认 |
 | Infrastructure/evals | `validate-skills.js` | 新增/改写引入 | P1 | 已确认，阶段 4 完成（current-owned `tests/validate_suite.py` 与 focused tests，commit `03db3b3`） |
 | Infrastructure/evals | `skill-lint.js` | 新增/改写引入 | P1 | 已确认 |
@@ -1876,6 +1876,7 @@
 - Infrastructure / simplify protected-block hook：已新增显式 opt-in 的 `plugins/simplify-protected-blocks`，使用标准库 Python 实现 project-root/symlink 边界、bounded backup/restore、Read/Edit|Write/Stop hook wiring 与 fail-open payload handling；同步双语 README、非触发合同、CREDITS 和 plugin-local tests。未执行 target hook、未改变 host `/code-simplify`、未引入 shell/jq/network/外部路径或自动安装。`git diff --check`、Python AST/JSON、3 个 plugin-local unit tests、临时目录 backup/update/restore lifecycle、README/contract/source markers 和 changed-path scope 检查通过；独立本地 commit：`e147a4a`。
 - Infrastructure/evals / eval README：已将 target 的三层证据、case ownership、runtime/fixture 不可替代性和失败状态改写为 current-owned `tests/eval-contract.md`；未复制第二 routing layer、固定 rank/similarity gate、headless executor、browser/network/CI 或持久结果层。`git diff --check`、Markdown/source markers 和 changed-path scope 检查通过；独立本地 commit：`332d71b`。
 - Infrastructure/evals / validate-skills：已将 target 的结构 wrapper 改写为 current-owned `tests/validate_suite.py`，检查 Skill 目录/frontmatter、presentation-only catalog references、维护合同路径和本地 Markdown links；`idea-refine`、`interview-me` 的已知未分组状态保留为 warning，不引入 target required sections、trigger regex、固定 gate 或插件/宿主 runtime claim。`python tests/validate_suite.py`、3 个 focused unit tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`03db3b3`。
+- Infrastructure/evals / run-evals Tier 2：已将 target 的静态 routing/collision 形状改写为 current-owned `tests/check_routing_contract.py`，核对已安装 owner、README/contract coverage 和 owner-like stale tokens；lexical overlap 仅作 informational output，不引入 rank/similarity floor 或自动 gate。Tier 3 headless Claude、fixture Git workspace、browser/network、external grader 和 `evals/results` 保持未执行/未创建。`python tests/check_routing_contract.py`、3 个 focused unit tests、`git diff --check` 和 changed-path scope 检查通过；独立本地 commit：`1b4065a`。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
