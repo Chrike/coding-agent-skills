@@ -1,5 +1,7 @@
 # External Source Credits
 
+Source license attribution follows the target repository's actual `LICENSE` (GNU AGPL v3). The target manifests' `MIT` metadata is recorded as an inconsistency and is not adopted as a license conclusion for this repository or its current-owned plugins.
+
 ## `using-agent-skills`
 
 - Source: `addyosmani/agent-skills`, skill `using-agent-skills`.
