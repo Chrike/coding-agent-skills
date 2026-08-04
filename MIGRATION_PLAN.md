@@ -1757,7 +1757,7 @@
 | Infrastructure/commands | `/test` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current `test-strategy` owns test design/TDD/evidence; no target command or universal test gate copied） |
 | Infrastructure/commands | `/review`、`/code-simplify` | 跳过 | P0 | 已确认，阶段 4 按确认跳过（host `/code-review`/`/simplify` and current `review-and-finish`/plugin ownership retained） |
 | Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（bounded host-command coordination in `shipping-and-launch` + non-trigger contract，commit `34d8ff2`） |
-| Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认 |
+| Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认，阶段 4 按确认跳过（current `performance-optimization` owns explicit measure-first performance work; no target specialist command or fixed CWV gate copied） |
 | Infrastructure/commands | `validate-commands.js` | 跳过 | P1 | 已确认 |
 | Infrastructure/distribution | 多工具扩展与根 README 定位 | 保留现状不动 | P0 | 已确认 |
 | Infrastructure/distribution | Claude/plugin manifest | 合并/协调重叠 | P1 | 已确认 |
@@ -1890,6 +1890,7 @@
 - Infrastructure/commands / `/build`：按确认跳过；当前 base execution、`plan-work` 和 `test-strategy` 已覆盖 settled implementation、planning 和 test-design boundaries，不复制 target autonomous build command、automatic full-plan execution、per-task commit 或 downstream handoff。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/test`：按确认跳过；current `test-strategy` 已覆盖 test design、TDD mode、fixtures、timing 和 acceptance evidence，不复制 target `/test` command、browser escalation wording、universal test pyramid/coverage gate 或 command execution。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/review`、`/code-simplify`：按确认跳过；host `/code-review`、`/simplify`、current `review-and-finish` 和 the explicit opt-in simplify plugin retain their ownership; 不复制 target review/simplify command、second review owner、automatic cleanup 或 branch action。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/commands / `/webperf`：按确认跳过；current `performance-optimization` 已覆盖显式 measure-first performance claims 和 source-only/artifact-backed honesty，不复制 target specialist command、fixed Web Vitals gate、DevTools/Lighthouse setup 或 automatic profiling. 仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
