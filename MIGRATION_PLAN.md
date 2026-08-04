@@ -1755,7 +1755,7 @@
 | Infrastructure/commands | `/spec`、`/plan`、`/planning` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current `issue-workflow`/`plan-work` ownership retained; no target commands copied） |
 | Infrastructure/commands | `/build` | 跳过 | P0 | 已确认，阶段 4 按确认跳过（current base execution + `plan-work`/`test-strategy` ownership retained; no target autonomous build command） |
 | Infrastructure/commands | `/test` | 跳过 | P1 | 已确认，阶段 4 按确认跳过（current `test-strategy` owns test design/TDD/evidence; no target command or universal test gate copied） |
-| Infrastructure/commands | `/review`、`/code-simplify` | 跳过 | P0 | 已确认 |
+| Infrastructure/commands | `/review`、`/code-simplify` | 跳过 | P0 | 已确认，阶段 4 按确认跳过（host `/code-review`/`/simplify` and current `review-and-finish`/plugin ownership retained） |
 | Infrastructure/commands | `/ship` | 合并/协调重叠 | P0 | 已确认，阶段 4 完成（bounded host-command coordination in `shipping-and-launch` + non-trigger contract，commit `34d8ff2`） |
 | Infrastructure/commands | `/webperf` | 跳过 | P2 | 已确认 |
 | Infrastructure/commands | `validate-commands.js` | 跳过 | P1 | 已确认 |
@@ -1889,6 +1889,7 @@
 - Infrastructure/commands / `/spec`、`/plan`、`/planning`：按确认跳过；当前 `issue-workflow` 的 chat-first `spec-authoring` 和 `plan-work` 已覆盖所需 owner，不复制 target command files、默认 `SPEC.md`/`tasks/*` persistence、自动 handoff 或 command execution。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/build`：按确认跳过；当前 base execution、`plan-work` 和 `test-strategy` 已覆盖 settled implementation、planning 和 test-design boundaries，不复制 target autonomous build command、automatic full-plan execution、per-task commit 或 downstream handoff。仅提交本条 ledger 记录，无实现 commit。
 - Infrastructure/commands / `/test`：按确认跳过；current `test-strategy` 已覆盖 test design、TDD mode、fixtures、timing 和 acceptance evidence，不复制 target `/test` command、browser escalation wording、universal test pyramid/coverage gate 或 command execution。仅提交本条 ledger 记录，无实现 commit。
+- Infrastructure/commands / `/review`、`/code-simplify`：按确认跳过；host `/code-review`、`/simplify`、current `review-and-finish` 和 the explicit opt-in simplify plugin retain their ownership; 不复制 target review/simplify command、second review owner、automatic cleanup 或 branch action。仅提交本条 ledger 记录，无实现 commit。
 - 当前批次未吸收其他 Define/Build 条目或任何未获本条目授权的 agents、references、commands、hooks、evals、manifest 或多工具文档。
 
 ## 当前暂停点
