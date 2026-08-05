@@ -25,6 +25,15 @@ class RoutingContractTests(unittest.TestCase):
         self.assertEqual(result, 0)
         self.assertIn("PASSED: 0 error(s)", output.getvalue())
 
+    def test_security_review_boundary_is_bilingual(self):
+        english = routing.README_FILE.read_text(encoding="utf-8")
+        chinese = (routing.ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+        contract = routing.ROUTING_FILE.read_text(encoding="utf-8")
+
+        self.assertIn("current-diff vulnerability review", english)
+        self.assertIn("当前 diff 的漏洞审查", chinese)
+        self.assertIn("current-diff vulnerability review", contract)
+
 
 if __name__ == "__main__":
     unittest.main()

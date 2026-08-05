@@ -36,6 +36,7 @@ This suite separates runtime responsibilities by role, not by where an idea orig
 - `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
 - External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
 - The bundled `/code-review` command remains host-owned; it should not re-enter the project review skill as a second review path.
+- The bundled `/security-review` command remains host-owned for current-diff vulnerability review. `security-and-hardening` remains the project owner for explicit threat modeling and trust-boundary analysis; it must not become a second diff-review path, and it does not own remediation, readiness, or branch actions.
 - The maintained prompt is model guidance, not deterministic enforcement. Use host permissions or `PreToolUse` hooks when an action must be reliably blocked or confirmed.
 
 ## Skills
@@ -125,7 +126,6 @@ This is a recommended host configuration for the full suite, not a repository-en
 - `prompts/` contains the maintained default-behavior prompt source for host instruction files.
 - `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
 - `tests/` contains routing and boundary checks used to maintain the suite.
-- `CREDITS.md` records the external skill sources whose verified rules were selectively rewritten into this suite.
 - external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
 - Runtime prompt maintenance should keep one closely related decision family per rule where practical, preserve a matching positive or negative regression case for new behavior, keep explanatory text out of the runtime layer, avoid duplicating procedures already owned by a Skill, and record whether removed text was merged, moved to an owning Skill or maintenance document, or found to have no independent behavior value. These are maintenance checks, not runtime instructions.
 - If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.

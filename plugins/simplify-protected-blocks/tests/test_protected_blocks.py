@@ -32,10 +32,13 @@ class ProtectedBlockTests(unittest.TestCase):
         self.assertTrue(list(warnings))
 
     def test_safe_path_rejects_outside_and_symlink_paths(self):
-        with tempfile.TemporaryDirectory() as temporary:
+        with (
+            tempfile.TemporaryDirectory() as temporary,
+            tempfile.TemporaryDirectory() as outside_temporary,
+        ):
             root = Path(temporary)
             inside = root / "inside.js"
-            outside = root.parent / "outside.js"
+            outside = Path(outside_temporary) / "outside.js"
             inside.write_text("x", encoding="utf-8")
             outside.write_text("x", encoding="utf-8")
             link = root / "link.js"

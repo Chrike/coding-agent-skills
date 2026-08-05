@@ -36,6 +36,7 @@ Languages: [English](README.md) | [简体中文](README.zh-CN.md)
 - `tests/` 负责验证维护中的边界，不能变成第二套运行时指令层。
 - 外部分析、审查记录、迁移说明及其他参考材料可以帮助维护判断，但除非用户明确指定它们是当前指令源，否则它们不应变成主动运行时指令。
 - bundled `/code-review` 命令仍由宿主负责；不应在项目 review skill 中再建立一条重复的评审路径。
+- 宿主内置的 `/security-review` 命令仍负责当前 diff 的漏洞审查。`security-and-hardening` 仍是显式威胁建模与信任边界分析的项目 owner；不得把它变成第二条 diff 评审路径，也不负责修复、就绪判断或分支动作。
 - 维护中的 prompt 是面向模型的指导，不是确定性 enforcement；如果某个动作必须可靠地阻止或要求确认，应使用宿主 permissions 或 `PreToolUse` hooks。
 
 ## 技能列表
@@ -124,7 +125,6 @@ Saved workflow 采用显式选择：将审阅过的源码文件复制到一个�
 - `prompts/` 存放宿主常驻默认行为文件的维护源码。
 - `workflows/` 存放显式 saved-workflow 源码；调用前将审阅过的文件复制到 `.claude/workflows/` 或 `~/.claude/workflows/`。
 - `tests/` 存放用于维护本套件的路由与边界检查。
-- `CREDITS.md` 记录经过核实、并被选择性改写进本套件的外部技能来源。
 - 外部参考 skill 仅作为比较输入，不属于 runtime 安装面，任何维护或运行时边界决策都应先完成评估。
 - 维护运行时 prompt 时，原则上让每条规则只承载一个紧密相关的决策族；新行为应有对应的正向或负向回归案例；解释性文字不进入运行时层；Skill 已完整拥有的程序不在全局重复；删除内容应记录为合并、迁移到所属 Skill/维护文档，或无独立行为价值。这些是维护检查，不是运行时指令。
 - 如果摘要说明与维护中的 prompt 文件或技能正文漂移，应更新摘要，而不是在 README 中再写一套规范。
