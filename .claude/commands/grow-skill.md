@@ -3,6 +3,14 @@ description: Use only when the repository maintainer explicitly invokes `/grow-s
 disable-model-invocation: true
 ---
 
+<!--
+Claude Code officially supports both `.claude/commands/<name>.md` and
+`.claude/skills/<name>/SKILL.md` for the same slash command. Keep `/grow-skill`
+here because it is a single-file project-maintenance command that must not be
+part of the product's distributed `skills/` surface; use a Skill location when
+supporting files are needed.
+-->
+
 # Project Development
 
 Grow the project capability surface without turning ordinary coding into a ceremony or creating a second owner.
