@@ -72,7 +72,7 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("Pre-action Decision Brief", context)
 
     def test_open_ended_chinese_question_selects_context_discovery(self) -> None:
-        context = self.context_for("分析一个复杂技术问题，并给出可执行的解决策略和重要限制。")
+        context = self.context_for("分析一个复杂技术问题，其中核心约束尚未解决，并给出可执行的解决策略和重要限制。")
         self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_open_ended_recommendation_selects_context_discovery_without_visual_keywords(self) -> None:
@@ -93,6 +93,33 @@ class RoutingHookTests(unittest.TestCase):
     def test_quality_sensitive_artifact_still_selects_context_discovery(self) -> None:
         context = self.context_for("Create a high-quality visual artifact with coherent composition.")
         self.assertIn("selected pre-action route: bounded context discovery", context)
+
+    def test_explicit_external_standard_can_select_context_discovery(self) -> None:
+        context = self.context_for("Compare against a standard.")
+        self.assertIn("selected pre-action route: bounded context discovery", context)
+
+    def test_generic_quality_and_comparison_terms_stay_direct(self) -> None:
+        for prompt in (
+            "Optimize this logic and compare two options.",
+            "Optimize it.",
+            "Compare options.",
+            "Improve this.",
+            "Design this.",
+            "Recommend one.",
+            "Best option?",
+            "Architecture?",
+            "Strategy?",
+            "优化一下。",
+            "比较选项。",
+            "设计这个。",
+            "推荐一个。",
+            "最好选项？",
+            "架构？",
+            "策略？",
+            "优化这个逻辑并比较两个选项，然后按现有要求选择更好的方案，同时保持当前输入和输出不变即可。",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
 
     def test_fully_specified_artifact_task_suppresses_optional_context_discovery(self) -> None:
         self.assertIsNone(

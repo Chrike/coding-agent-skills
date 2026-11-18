@@ -21,4 +21,3 @@ Use when a failure appears deep in a call stack, but the real bad input or decis
 
 - Stop tracing when you find the earliest place the bad value is created or accepted.
 - If tracing reaches external input, validate at the boundary and document the expected contract.
-- Remove temporary trace logs before completion.

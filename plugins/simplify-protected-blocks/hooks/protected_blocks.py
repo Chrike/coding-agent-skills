@@ -292,6 +292,8 @@ def update_file(root: Path, path: Path) -> None:
         expanded, warnings = expand_text(current, mapping)
         for warning in warnings:
             print(f"simplify-protected-blocks: {path.relative_to(root)}: {warning}", file=sys.stderr)
+        if warnings:
+            return
         filtered, new_mapping, filter_warnings = filter_text(expanded)
         for warning in filter_warnings:
             print(f"simplify-protected-blocks: {path.relative_to(root)}: {warning}", file=sys.stderr)

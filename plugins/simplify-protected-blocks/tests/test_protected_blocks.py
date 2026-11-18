@@ -23,6 +23,39 @@ class ProtectedBlockTests(unittest.TestCase):
         self.assertFalse(list(expand_warnings))
         self.assertEqual(source, expanded)
 
+    def test_missing_placeholder_keeps_original_backup_until_restore(self):
+        originals = {
+            "single": "before\n// simplify-ignore-start: keep one\nsecret_one()\n// simplify-ignore-end\nafter\n",
+            "multiple": (
+                "before\n// simplify-ignore-start: keep one\nsecret_one()\n// simplify-ignore-end\n"
+                "middle\n// simplify-ignore-start: keep two\nsecret_two()\n// simplify-ignore-end\nafter\n"
+            ),
+        }
+        for case, original in originals.items():
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                path = root / "example.js"
+                path.write_text(original, encoding="utf-8")
+                protected_blocks.protect_file(root, path)
+
+                state = protected_blocks.state_paths(root, path)
+                self.assertIsNotNone(state)
+                mapping = protected_blocks.load_mapping(state)
+                self.assertTrue(mapping)
+                placeholder = next(iter(mapping.values()))["placeholder"]
+                with path.open("r", encoding="utf-8", newline="") as handle:
+                    current = handle.read()
+                self.assertIn(placeholder, current)
+                with path.open("w", encoding="utf-8", newline="") as handle:
+                    handle.write(current.replace(placeholder, "", 1))
+
+                protected_blocks.update_file(root, path)
+
+                self.assertEqual(original, state["backup"].read_text(encoding="utf-8"))
+                protected_blocks.restore_all(root)
+                self.assertEqual(original, path.read_text(encoding="utf-8"))
+                self.assertFalse(state["backup"].exists())
+
     def test_unclosed_block_is_not_hidden(self):
         source = "before\n// simplify-ignore-start\nsecret()\n"
         filtered, mapping, warnings = protected_blocks.filter_text(source)

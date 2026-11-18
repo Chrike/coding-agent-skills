@@ -6,14 +6,11 @@ Use tests that describe observable behavior and survive internal refactors.
 
 - Public API, endpoint, UI behavior, CLI command, service boundary, or domain interface.
 - Test names that describe the behavior: "rejects expired token" rather than "calls validateToken".
-- One logical behavior per test.
 - Assertions on returned values, visible state, emitted events, persisted behavior through an interface, or error messages.
-- Existing project fixtures and test utilities.
 
 ## Avoid
 
 - Private method tests.
-- Internal call-count/order assertions.
 - Tests that pass when behavior is broken.
 - Tests that break when only implementation changes.
 - Production methods that exist only for tests.

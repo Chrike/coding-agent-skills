@@ -31,8 +31,8 @@ ARTIFACT_PATTERNS = [
     r"(插画|图像|图片|视觉|界面|图标|海报|动画|图形|渲染|截图|设计稿|原型)",
 ]
 EXTERNAL_GUIDANCE_PATTERNS = [
-    r"\b(recommend|best|architecture|design|strategy|optimi[sz]e|compare|standard|guidance|reference|benchmark|inspiration)\b",
-    r"(推荐|最好|架构|设计|策略|优化|比较|规范|标准|指导|参考|基准|灵感|调研|搜索)",
+    r"\b(standard|guidance|reference|benchmark|inspiration)\b",
+    r"(规范|标准|指导|参考|基准|灵感|调研|搜索)",
 ]
 PROJECT_PATTERNS = [
     r"\b(?:this|current|existing|our)\s+(?:repo(?:sitory)?|project|codebase|file|module|package|configuration|config|test suite)\b",
@@ -74,8 +74,8 @@ STRONG_CONTEXT_GAP_PATTERNS = [
     r"(陌生|新颖|非平凡|开放式|未解决|不明确|未知|取舍|权衡)",
 ]
 OPEN_ENDED_PATTERNS = [
-    r"\b(unfamiliar|novel|complex|non-trivial|open-ended|unresolved|ambiguous|difficult|hard|deep|in-depth|trade-?off|unknown|design|recommend|architecture|strategy|compare|optimi[sz]e)\b",
-    r"(陌生|新颖|复杂|困难|开放式|未解决|不明确|未知|深入|取舍|权衡|推荐|设计|架构|策略|比较|优化)",
+    r"\b(unfamiliar|novel|complex|non-trivial|open-ended|unresolved|ambiguous|difficult|hard|deep|in-depth|trade-?off|unknown|design|recommend|architecture|strategy)\b",
+    r"(陌生|新颖|复杂|困难|开放式|未解决|不明确|未知|深入|取舍|权衡|推荐|设计|架构|策略)",
 ]
 CONTROLLER_OWNED_PATTERNS = [
     r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
