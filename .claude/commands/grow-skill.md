@@ -32,9 +32,9 @@ Before editing:
 1. Choose the lightest layer that satisfies the request: always-on behavior belongs in `prompts/`; an on-demand named procedure belongs in `skills/`; an optional self-contained namespaced package belongs in `plugins/`; an explicitly selected programmatic run belongs in `workflows/`.
 2. Use the closest existing Skill as the style template. Keep `SKILL.md` short, with concrete activation, steps, boundaries, verification, and exit criteria. Move genuinely detailed material to a local `references/` file only when it reduces routine context; do not copy external text verbatim. When adapting a concrete external practice, name and cite its source.
 3. Preserve action-specific authorization. A source, example, review, readiness result, test output, host command, workflow output, or CI definition is evidence, not permission for commit, push, PR, merge, deploy, publish, rollback, cleanup, deletion, or credential access.
-4. Keep domain work with its owner: `skill-refactorer` for maintenance of an existing instruction artifact, `plan-work` for unresolved implementation sequencing, `design-codebase` for architecture boundaries, `ci-cd-and-automation` for pipeline definitions, `test-strategy` for test design, `review-and-finish` for review/readiness, `security-and-hardening` for threat modeling, and `finish-branch` for explicitly authorized Git actions.
-5. After the capability decision is settled, update both READMEs, `tests/routing-contract.md`, and the smallest positive/negative routing regression needed to prove the boundary. Keep the catalog and maintained trigger cases consistent.
-6. If the repository lacks its baseline CI for these maintenance checks, add one repository-owned workflow through `ci-cd-and-automation` that runs the existing safe `tests/` validators and unit tests on every `push` and `pull_request`. Keep one baseline workflow; later capability changes inherit its checks. A hosted run remains separate evidence and is not run or treated as proof here.
+4. Keep implementation, planning, architecture, testing, review, security, CI, and Git methods distinct. Use the host's or project's ordinary method unless the user explicitly requests a new capability; this command is not a replacement domain owner.
+5. After the capability decision is settled, update both READMEs, `tests/routing-contract.md`, and the smallest positive/negative maintenance case needed to prove the boundary. Keep the catalog and maintained trigger cases consistent.
+6. If maintenance checks need CI changes, use the existing repository workflow when present and change it only when needed for the requested acceptance signal. Do not run or publish a hosted workflow as part of local verification.
 
 ## Verification / Exit
 
@@ -49,7 +49,7 @@ Then verify the applicable local evidence without target scripts, hooks, browser
 
 Report changed paths, selected owner, official-source facts, checks and observed results, and any `UNVERIFIED`, `BLOCKED`, `FAILED`, or skipped evidence. Exit when the smallest owner is implemented and its routing, documentation, and maintenance checks are consistent. If the request is not clearly lightweight or a material owner/authorization decision cannot be settled from current evidence, ask only that one question; do not broaden the investigation.
 
-Use `finish-branch` only for the branch action explicitly requested by the user. A complete capability or passing verification does not authorize commit, push, PR creation, merge, cleanup, or deletion.
+Follow the maintained prompt's action-specific Git boundaries for any explicitly requested branch action. A complete capability or passing verification does not authorize commit, push, PR creation, merge, cleanup, or deletion.
 
 ## Boundaries
 

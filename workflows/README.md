@@ -2,7 +2,7 @@
 
 This directory contains versioned Claude Code saved-workflow source for this repository. It is not a Claude Code discovery directory and does not activate a workflow by itself.
 
-To run a reviewed workflow, use Claude Code 2.1.154 or later with dynamic workflows enabled, then copy its source to one explicitly chosen runtime target:
+To run a reviewed workflow, use a Claude Code version with dynamic workflows enabled according to the current host documentation, then copy its source to one explicitly chosen runtime target:
 
 - project: `<project>/.claude/workflows/`
 - user: `~/.claude/workflows/`
@@ -42,7 +42,7 @@ The script cannot read files, run commands, or verify results directly; its leaf
 - [`prompts/CLAUDE.fragment.md`](../prompts/CLAUDE.fragment.md) for lightweight defaults and sole execution ownership
 - [`skills/agent-workflow/SKILL.md`](../skills/agent-workflow/SKILL.md) for worker briefs, integration, and leaf boundaries
 - [`skills/memory-handoff/SKILL.md`](../skills/memory-handoff/SKILL.md) for explicit cross-session checkpoint or resume state
-- [`skills/decision-map/SKILL.md`](../skills/decision-map/SKILL.md) for explicit durable decision frontiers
+- Durable decision-frontier maps are not a retained workflow in this suite; do not treat this session-local pilot or a handoff as an equivalent replacement.
 
 ## Pilot boundary
 

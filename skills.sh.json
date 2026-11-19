@@ -4,37 +4,19 @@
   "groupings": [
     {
       "title": "Automatic Workflow Skills",
-      "description": "Runtime skills that can be selected automatically when a request clearly matches a development workflow boundary.",
+      "description": "Retained runtime skills for coordination and explicit reliability reassessment.",
       "skills": [
-        "debug-systematically",
-        "test-strategy",
-        "review-and-finish",
-        "security-and-hardening",
-        "plan-work",
-        "design-codebase",
-        "reliability-check",
-        "context-engineering",
-        "frontend-ui-engineering",
-        "browser-testing-with-devtools",
-        "performance-optimization",
-        "ci-cd-and-automation",
-        "observability-and-instrumentation",
-        "shipping-and-launch",
-        "agent-workflow"
+        "agent-workflow",
+        "reliability-check"
       ]
     },
     {
       "title": "Explicit-Intent Workflow Skills",
-      "description": "Runtime skills for branch actions, durable artifacts, maintenance, and calibration work that should route from clear natural-language intent rather than requiring users to remember skill names.",
+      "description": "Retained runtime skills for task-state handoff, project lessons, and instruction maintenance.",
       "skills": [
-        "idea-refine",
-        "interview-me",
-        "finish-branch",
-        "issue-workflow",
         "memory-handoff",
         "markdown-memory",
-        "skill-refactorer",
-        "decision-map"
+        "skill-refactorer"
       ]
     }
   ]

@@ -146,4 +146,5 @@ A resume is complete only when:
 - Do not copy large source content into handoff notes. Reference paths instead.
 - Do not make memory updates a default step for ordinary tasks.
 - Do not auto-run `/compact`, commit, push, deploy, delete, or clean branches from this skill.
-- Do not replace `markdown-memory`, `decision-map`, `reliability-check`, `review-and-finish`, or ordinary execution.
+- Do not replace `markdown-memory`, `reliability-check`, ordinary execution, or review.
+- A handoff records task state; it is not a durable decision-frontier map with dependency tracking, stable decision IDs, or successor history.

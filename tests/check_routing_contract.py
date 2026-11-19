@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check current routing-contract ownership without ranking or runtime execution."""
+"""Check maintained routing owners and retired-skill reference closure."""
 
 from __future__ import annotations
 
@@ -12,6 +12,42 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 ROUTING_FILE = ROOT / "tests" / "routing-contract.md"
 README_FILE = ROOT / "README.md"
+EXPECTED_SKILLS = {
+    "agent-workflow",
+    "reliability-check",
+    "memory-handoff",
+    "markdown-memory",
+    "skill-refactorer",
+}
+RETIRED_SKILL_SLUGS = {
+    "browser-testing-with-devtools",
+    "ci-cd-and-automation",
+    "context-engineering",
+    "debug-systematically",
+    "decision-map",
+    "design-codebase",
+    "finish-branch",
+    "frontend-ui-engineering",
+    "idea-refine",
+    "interview-me",
+    "issue-workflow",
+    "observability-and-instrumentation",
+    "performance-optimization",
+    "plan-work",
+    "review-and-finish",
+    "security-and-hardening",
+    "shipping-and-launch",
+    "test-strategy",
+}
+RETIRED_REFERENCE_ROOTS = (
+    ROOT / "prompts",
+    ROOT / "README.md",
+    ROOT / "README.zh-CN.md",
+    ROOT / "skills.sh.json",
+    ROOT / "workflows",
+    ROOT / "tests" / "routing-contract.md",
+    ROOT / ".claude" / "commands" / "grow-skill.md",
+)
 BACKTICK = re.compile(r"`([^`]+)`")
 SLUG = re.compile(r"[a-z][a-z0-9]*(?:-[a-z0-9]+)+\Z")
 WORD = re.compile(r"[a-z][a-z0-9-]{2,}")
@@ -56,17 +92,13 @@ STOPWORDS = {
 NON_SKILL_SLUGS = {
     "adaptive-long-horizon",
     "code-review",
-    "code-simplify",
-    "deprecation-and-migration",
-    "finish-branch",
-    "needs-review",
-    "spec-authoring",
 }
 REQUIRED_HEADINGS = (
     "## Source Of Truth",
-    "## Core Routing",
+    "## Maintained Skills",
+    "## Default Safety And Evidence Boundaries",
     "## Expected Composition",
-    "## Test-Strategy Cross-Cutting Boundaries",
+    "## Retired Branch-Workflow Case Disposition",
     "## Maintenance Use",
 )
 
@@ -111,6 +143,14 @@ def unresolved_slug_tokens(text: str, names: Set[str]) -> Set[str]:
     }
 
 
+def retired_references(text: str) -> Set[str]:
+    return {
+        name
+        for name in RETIRED_SKILL_SLUGS
+        if re.search(rf"(?<![a-z0-9-]){re.escape(name)}(?![a-z0-9-])", text)
+    }
+
+
 def lexical_words(text: str) -> Set[str]:
     return {word for word in WORD.findall(text.lower()) if word not in STOPWORDS}
 
@@ -127,12 +167,42 @@ def lexical_overlaps(descriptions: Dict[str, str]) -> List[Tuple[str, str, List[
     return overlaps
 
 
+def maintained_reference_files() -> List[Path]:
+    files: List[Path] = []
+    for root in RETIRED_REFERENCE_ROOTS:
+        if root.is_file():
+            files.append(root)
+        elif root.is_dir():
+            files.extend(
+                path
+                for path in root.rglob("*")
+                if path.is_file() and path.suffix.lower() in {".md", ".json", ".py", ".js"}
+            )
+    if SKILLS_DIR.is_dir():
+        for name in EXPECTED_SKILLS:
+            skill_root = SKILLS_DIR / name
+            if skill_root.is_dir():
+                files.extend(
+                    path
+                    for path in skill_root.rglob("*")
+                    if path.is_file() and path.suffix.lower() in {".md", ".json", ".py", ".js"}
+                )
+    return sorted(set(files))
+
+
 def run(verbose: bool = False) -> int:
     errors: List[str] = []
     infos: List[str] = []
     names = skill_names()
     if not names:
         errors.append("skills directory has no readable Skill folders")
+    if names != EXPECTED_SKILLS:
+        missing = sorted(EXPECTED_SKILLS - names)
+        unexpected = sorted(names - EXPECTED_SKILLS)
+        errors.append(
+            "skills directory does not match the retained five-skill surface: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
     if not ROUTING_FILE.is_file():
         errors.append("tests/routing-contract.md is missing")
         print("\n".join(f"ERROR: {message}" for message in errors))
@@ -152,9 +222,19 @@ def run(verbose: bool = False) -> int:
     unknown = sorted(unresolved_slug_tokens(routing, names))
     errors.extend(f"routing contract references unresolved owner-like token {token}" for token in unknown)
 
+    for path in maintained_reference_files():
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeError) as exc:
+            errors.append(f"cannot inspect maintained reference {path.relative_to(ROOT)}: {exc}")
+            continue
+        for name in sorted(retired_references(text)):
+            errors.append(f"retired skill reference remains in {path.relative_to(ROOT)}: {name}")
+
     descriptions = {
         name: parse_description(SKILLS_DIR / name / "SKILL.md")
         for name in sorted(names)
+        if (SKILLS_DIR / name / "SKILL.md").is_file()
     }
     for left, right, shared in lexical_overlaps(descriptions):
         infos.append(f"lexical overlap (informational): {left} / {right}: {', '.join(shared)}")

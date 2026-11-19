@@ -13,7 +13,7 @@ Maintain project-governed Markdown reference lessons only when they add future v
 - If the user expects a rule to load automatically in future sessions or apply to matching files, use the appropriate `CLAUDE.md` or `.claude/rules/` instruction scope instead. If that scope is unclear, clarify it rather than silently choosing.
 - Do not create a project lesson merely because the user asks Claude Code to remember a personal preference or host-local learning; use host auto memory when available, and do not convert the request into a project lesson when it is unavailable.
 - If the user is preparing for context compression, handing off current task state, or resuming from a handoff, use `memory-handoff` when installed and available; otherwise leave the request to the host's ordinary workflow rather than converting it into a lesson.
-- If the user is mapping open questions, ticket dependencies, or a decision frontier, use `decision-map` when installed and available; otherwise leave the request to the host's ordinary workflow rather than converting it into a lesson.
+- Do not convert open questions, ticket dependencies, or unresolved decision frontiers into reference lessons. This suite has no retained workflow for maintaining a durable decision map; leave that request to the host's ordinary method or return a chat-only summary.
 - If the repo, docs, code comments, or an existing lesson already capture the point clearly, do not create a new lesson.
 
 ## Artifact Selection
@@ -56,7 +56,7 @@ Provenance and verification are separate. A claim may be user-provided and still
 Do not use this skill for:
 
 - current-task objective, status, changed files, next step, or do-not-do items; those belong in `memory-handoff`
-- open design questions, unresolved options, ticket frontiers, or dependency maps; those belong in `decision-map`
+- open design questions, unresolved options, ticket frontiers, or dependency maps; this skill is not a decision-frontier tracker
 - facts already captured clearly in repo docs, code, or stable project instructions
 - large source excerpts, command logs, turn-by-turn history, or broad meeting notes
 - secrets, credentials, private data, or unrelated personal information

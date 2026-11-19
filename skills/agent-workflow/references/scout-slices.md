@@ -6,7 +6,7 @@ Use this after `agent-workflow` is already active and the problem is still open-
 
 Scout before implementation only after the active domain method or controller identifies two or more orthogonal investigation questions that can progress independently without one shared write scope.
 
-Do not activate scouts merely because the root cause is still unclear. Use `debug-systematically` to establish the diagnostic method for an unclear shared-root failure first; scout only the distinct source, subsystem, or failure-path questions it identifies.
+Do not activate scouts merely because the root cause is still unclear. Keep an unclear shared-root failure under one owner using the host's ordinary debugging method first; scout only the distinct source, subsystem, or failure-path questions that method identifies.
 
 Do not use long exploratory output alone as the reason to fan out.
 

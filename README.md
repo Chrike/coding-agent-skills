@@ -1,209 +1,74 @@
-Languages: [English](README.md) | [简体中文](README.zh-CN.md)
-
 # Coding Agent Skills
 
-A lightweight skill suite for Claude Code-assisted development.
+A small Claude Code instruction suite for lightweight development, explicit multi-agent coordination, reliability reassessment, task handoff, project reference lessons, and maintenance of coding-agent instructions.
 
-The goal is to keep ordinary coding fast while still giving the agent clear workflows for debugging, testing, planning, security analysis, review, handoff, reliability correction, and delegated work when those workflows are actually needed.
+## Scope
 
-## What This Repository Contains
+This repository maintains:
 
-This repository contains:
+- `prompts/CLAUDE.fragment.md`: the always-on default behavior source, including distinct action-authorization, command-effect, Git, persistence, and evidence boundaries.
+- Five on-demand skills: `agent-workflow`, `reliability-check`, `memory-handoff`, `markdown-memory`, and `skill-refactorer`.
+- Optional self-contained Claude Code plugins under `plugins/`.
+- Explicitly selected saved-workflow source under `workflows/`.
+- Maintenance contracts and local validators under `tests/`.
 
-- runtime skill source folders under `skills/`
-- optional self-contained Claude Code plugins under `plugins/`, including the explicit opt-in `simplify-protected-blocks` hook plugin
-- the maintained always-on instruction prompt under `prompts/`
-- explicit opt-in saved-workflow source under `workflows/`
-- maintenance and validation material under `tests/`
+The suite deliberately no longer ships dedicated workflows for general debugging, test strategy, architecture and planning, UI engineering, live browser testing, performance experiments, CI/CD design, operational observability, security threat modeling, production-release readiness, branch finishing, issue/spec authoring, ideation, interviews, or durable decision maps. The retained prompt preserves selected safety and evidence distinctions; it does not replace those removed procedures. Use the host's or project's ordinary method for such work, and do not infer that a similar retained skill provides equivalent coverage.
 
-The suite is designed around a simple rule:
+## Runtime Boundaries
 
-> Start lightweight. Escalate only when the task, risk, or user request justifies it.
-
-It does not try to turn every coding task into a formal process.
-
-## Capability Boundaries
-
-This suite separates runtime responsibilities by role, not by where an idea originally came from.
-
-- `prompts/` holds the always-on default behavior layer for ordinary development work.
-- `skills/` holds named workflow boundaries that should load only when the request clearly needs them.
-- `plugins/` holds optional namespaced capability packages. Install each plugin as a unit; its Skills, agents, and hooks do not replace the standalone `skills/` surface.
-- `workflows/` holds explicit opt-in saved-workflow source; it is not a host discovery directory and does not participate in ordinary skill routing.
-- Explicit-intent workflows should route from clear natural-language intent rather than requiring users to remember skill names.
-- Skill selection uses the maintained prompt, current skill descriptions, and this routing contract; the suite does not require a SessionStart meta-skill injection or an automatic full-lifecycle chain.
-- High-risk side effects, durable artifacts, and destructive actions should be guarded inside the owning skill; the optional Capability Harness supports a decision-first choice of context discovery, evidence, and verification and never authorizes side effects.
-- `tests/` validates the maintained boundaries and must not become a second runtime instruction layer.
-- External analyses, review notes, migration write-ups, and other reference material may inform maintenance decisions, but they do not become active runtime instructions unless the user explicitly designates them as the instruction source.
-- The bundled `/code-review` command remains host-owned; it should not re-enter the project review skill as a second review path.
-- The bundled `/security-review` command remains host-owned for current-diff vulnerability review. `security-and-hardening` remains the project owner for explicit threat modeling and trust-boundary analysis; it must not become a second diff-review path, and it does not own remediation, readiness, or branch actions.
-- The maintained prompt is model guidance, not deterministic enforcement. Use host permissions or `PreToolUse` hooks when an action must be reliably blocked or confirmed.
+- `prompts/` is the maintained source for default instructions; it is model guidance, not deterministic enforcement. Use host permissions or applicable hooks when an action must be reliably blocked or confirmed.
+- `skills/` contains source folders. Their presence here does not by itself prove that Claude Code has installed, discovered, or loaded them.
+- `plugins/` contains optional self-contained packages. Install a plugin as a complete unit; its skills, agents, or hooks do not replace the standalone skill surface.
+- `workflows/` contains versioned saved-workflow source, not a host discovery directory. Copy a reviewed workflow to one explicitly selected runtime target before invoking it; it does not activate from long or multi-file tasks.
+- `tests/` is maintenance material, not a second runtime instruction layer. Markdown cases and static checks do not prove live model routing, plugin loading, hook enforcement, or runtime tool isolation.
+- External analyses, review notes, and examples are evidence, not active instructions, unless the user explicitly designates them as the instruction source.
+- The bundled `/code-review` and `/security-review` commands remain host-owned; the latter is for current-diff vulnerability review, not a replacement for a dedicated threat-modeling workflow.
 
 ## Skills
 
-### Automatic Workflow Skills
+### Automatic selection when clearly applicable
 
-These can be selected by the agent when the request clearly matches.
+| Skill | Use when |
+| --- | --- |
+| `agent-workflow` | The user asks for coordination, or multiple genuinely independent slices, stages, or verifier questions need an integration owner. It performs a fit check first and may decide to stay solo. |
+| `reliability-check` | The user explicitly challenges a conclusion, evidence, source use, active stage, stale context, or workflow/strategy drift. It is not a default preflight. |
 
-| Skill                  | Use when                                                     |
-| ---------------------- | ------------------------------------------------------------ |
-| `debug-systematically` | Unclear bugs, flaky behavior, regressions, slow paths, repeated failed fixes |
-| `test-strategy`        | Test design, TDD, mocks, flaky tests, regression coverage, or a non-obvious test seam/level/acceptance signal |
-| `context-engineering`  | Explicit task-context audits, focused context packs, bounded context/rules setup, or observed context-specific quality degradation |
-| `frontend-ui-engineering` | Non-trivial UI, accessibility, responsive, interaction, design-system, or user-visible state work |
-| `browser-testing-with-devtools` | Explicit live browser/DevTools evidence requests or a browser-only evidence gap |
-| `performance-optimization` | An explicit performance goal or metric, measured baseline/regression, identified bottleneck, or performance audit/experiment request; framework-neutral measure-first analysis with no automatic profiling or remediation |
-| `ci-cd-and-automation` | An explicit request to design, audit, or modify a repository-owned CI/CD or automation definition; keep hosted runs, branch policy, deployment, and Git actions separate |
-| `observability-and-instrumentation` | An explicit operational telemetry question or concrete observability gap; choose the minimum project-conforming signal without automatic monitoring or runtime actions |
-| `shipping-and-launch` | An explicit readiness, rollout, or rollback question for a concrete production release; report GO/BLOCK/UNVERIFIED without performing launch actions |
-| `review-and-finish`    | Code review, review feedback, done/fixed/passing verification, PR feedback, or focused readiness evidence for a behaviorally high-risk completed change; its existing review template also provides optional tests-first and structural-remedy lenses without adding another owner |
-| `security-and-hardening` | Explicit security audits, threat models, hardening requests, or a concrete non-trivial trust-boundary risk identified by an active owner; select only applicable lenses and keep remediation, readiness, and branch actions with their owners |
-| `plan-work`            | Planning, approach comparison, roadmap, task breakdown, vertical slices, or an implementation with approach/dependency/sequencing/migration/compatibility/scope decisions that cannot be safely inferred |
-| `design-codebase`      | Architecture, seams, interfaces, adapters, domain language, prototypes, or an implementation blocked on a non-obvious architecture/ownership/interface/dependency-boundary decision |
-| `reliability-check`    | Explicit reassessment for hallucination, guessing, stale context, wrong direction, unsupported confidence, source-vs-memory confusion, or example-vs-task confusion |
-| `agent-workflow`       | Coordinated multi-agent decomposition, evidence, verification, and integration for independent slices |
+### Explicit-intent skills
 
-### Explicit-Intent Workflow Skills
-
-These skills are for requests that are not ordinary coding flow, but still should route from clear natural-language intent instead of requiring the user to manually invoke a skill by name.
-
-| Skill                | Use when                                                     |
-| -------------------- | ------------------------------------------------------------ |
-| `idea-refine`        | The user explicitly asks to ideate, refine, explore alternatives, or converge on a concept before planning |
-| `interview-me`       | The user explicitly asks for one-question-at-a-time intent clarification before planning or implementation |
-| `finish-branch`      | Explicit commit, branch push, current-branch PR preparation or creation, local branch or named remote PR merge, scoped Git working-tree discard, named branch deletion, named worktree removal, or branch wrap-up choice |
-| `issue-workflow`     | Explicit technical specs through its chat-first, non-tracker `spec-authoring` mode; PRDs, issue drafts, tracker-ready work items, tracker publication/update, triage |
-| `memory-handoff`     | Context compression, handoff, checkpoint updates, resume state |
-| `markdown-memory`    | Explicit project-versioned, shared, or reviewable Markdown reference lessons; not automatically loaded `CLAUDE.md` or `.claude/rules/` instructions |
-| `skill-refactorer`   | Coding-agent prompt or skill maintenance, migration, stale-scaffolding cleanup |
-| `decision-map`       | Durable multi-session decision maps                          |
+| Skill | Use when |
+| --- | --- |
+| `memory-handoff` | The user explicitly requests a task checkpoint, handoff, or resume from a named or repository-standard artifact. |
+| `markdown-memory` | The user explicitly requests a versioned, shared, reviewable project reference lesson. It is not for host auto-memory or task-state handoffs. |
+| `skill-refactorer` | The user explicitly requests maintenance or migration of an existing coding-agent instruction artifact. |
 
 ## Installation
 
-Install only the runtime skill folders you want from `skills/`.
+Install only the skill folders you want from `skills/`. In Claude Code, runtime skill targets include project `.claude/skills/` and user `~/.claude/skills/`; follow the current host documentation for installation and discovery behavior.
 
-In this repository, `skills/`, `prompts/`, and `workflows/` are source directories rather than host runtime paths.
+Use `prompts/CLAUDE.fragment.md` as the maintained source when assembling the host's always-on instruction file. For Claude Code, assemble it into the applicable `CLAUDE.md` instruction scope.
 
-Optional plugins are installed as complete units. For the capability extension, see [plugins/capability-harness/README.md](plugins/capability-harness/README.md); do not copy its Skill, agents, or hooks separately.
+Optional plugins are installed as complete units. The marketplace manifest currently lists `capability-harness`; `plugins/simplify-protected-blocks/` is separate optional source and is not implied to be installed or enabled. See [plugins/capability-harness/README.md](plugins/capability-harness/README.md) for that plugin's scope.
 
-Known host targets:
+To use a saved workflow, review its source and copy it to one explicitly chosen target, such as project `.claude/workflows/` or user `~/.claude/workflows/`, then invoke the installed name. Keep source and installed revisions identifiable when reporting runtime evidence.
 
-- Claude Code runtime skills: project `.claude/skills/` or user `~/.claude/skills/`
-- Claude Code saved workflows: project `.claude/workflows/` or user `~/.claude/workflows/`
+Do not copy `tests/` into runtime install targets.
 
-Saved workflows are opt-in: copy a reviewed source file to one explicitly chosen target and invoke its installed name. They do not replace skill routing or activate from ordinary long or multi-file work.
+## Repository Maintenance
 
-Use `prompts/CLAUDE.fragment.md` as the maintained source for the host's always-on instruction file.
-For Claude Code, that means assembling it into `CLAUDE.md`-based instructions.
-
-Keep `tests/` as maintenance and validation material rather than runtime skills.
-Do not copy `tests/` into `.claude/`, `.agents/`, or other runtime install targets.
-
-### Recommended Host Skill Visibility
-
-When this full skill suite is installed and a host multi-agent workflow is the primary execution substrate, prefer host-local Claude Code settings that keep overlapping bundled skills user-invocable only:
-
-```json
-{
-  "skillOverrides": {
-    "batch": "user-invocable-only",
-    "code-review": "user-invocable-only",
-    "simplify": "user-invocable-only",
-    "loop": "user-invocable-only"
-  }
-}
-```
-
-`user-invocable-only` hides those skills from automatic selection while still leaving them available from the `/` menu. Keep `/debug` at its host default so Claude Code runtime issues stay with the bundled debug flow, while project product debugging stays in `debug-systematically`.
-
-This is a recommended host configuration for the full suite, not a repository-enforced setting for every install.
-
-## Repository Layout
-
-- `skills/` contains runtime skill source folders for this repository.
-- `plugins/` contains optional self-contained Claude Code plugins.
-- `skills.sh.json` controls skills.sh page grouping only; it does not affect runtime behavior or skill routing.
-- `prompts/` contains the maintained default-behavior prompt source for host instruction files.
-- `workflows/` contains explicit saved-workflow source; copy a reviewed file to `.claude/workflows/` or `~/.claude/workflows/` before invoking it.
-- `tests/` contains routing and boundary checks used to maintain the suite.
-- external reference skills are comparison input only; they are not runtime install targets and should be evaluated before any maintenance or runtime-boundary decision.
-- Runtime prompt maintenance should keep one closely related decision family per rule where practical, preserve a matching positive or negative regression case for new behavior, keep explanatory text out of the runtime layer, avoid duplicating procedures already owned by a Skill, and record whether removed text was merged, moved to an owning Skill or maintenance document, or found to have no independent behavior value. These are maintenance checks, not runtime instructions.
-- If summary text drifts from the maintained prompt file or skill bodies, update the summaries instead of creating a second spec in the README.
-
-## Capability Map
-
-The current runtime surface is organized as follows:
-
-- `prompts/CLAUDE.fragment.md` defines the always-on default behavior layer.
-- `debug-systematically`, `test-strategy`, and `review-and-finish` cover core coding execution workflows.
-- `security-and-hardening` provides narrow, framework-neutral security analysis for explicit audits, threat models, hardening requests, or concrete trust-boundary risks.
-- `agent-workflow` covers multi-agent orchestration method when independent slices need coordinated execution.
-- `idea-refine` handles explicit concept exploration and convergence without automatically entering implementation planning.
-- `interview-me` handles an explicit request for pre-planning intent clarification without automatically entering a downstream workflow.
-- `plugins/capability-harness/` optionally adds project-scoped decision-first routing plus namespaced context discovery, evidence, alternative, verification, and evaluation capabilities without changing standalone Skill ownership.
-- `workflows/` contains explicit saved-workflow source for bounded, session-local programmatic execution pilots; it is not ordinary skill routing.
-- `plan-work` and `design-codebase` cover explicit planning and architecture decisions, plus implementation requests with unresolved load-bearing planning or design decisions.
-- `reliability-check` and `memory-handoff` handle corrective reassessment and resume-state continuity.
-- `context-engineering` handles explicit task-context audits, focused context packs, and bounded context setup without automatically persisting rules or taking over reliability or handoff workflows.
-- `frontend-ui-engineering` handles non-trivial UI/accessibility behavior and responsive or design-system decisions without taking over architecture, testing, browser runtime evidence, or completion review.
-- `browser-testing-with-devtools` supplies only explicitly requested live browser/DevTools evidence through an already configured and authorized channel; it does not own UI implementation, test design, debugging, performance optimization, or completion judgment.
-- `performance-optimization` runs narrow, framework-neutral, measure-first experiments for explicit performance claims; it labels field, lab, trace, benchmark, and other evidence, attributes one bottleneck/change at a time, accounts for variance, and hands browser evidence, implementation, review, and branch actions to their owners.
-- `ci-cd-and-automation` handles explicit repository-owned pipeline-definition work; it distinguishes definition, local, hosted, required-status, and deployment evidence without running hosted workflows or changing remote policy.
-- `observability-and-instrumentation` handles explicit operational telemetry questions and concrete signal gaps; it selects project-conforming logs, metrics, traces, or alerts while keeping runtime backends and monitoring actions separate.
-- `shipping-and-launch` judges concrete production-release readiness and release-specific rollout or rollback evidence as `GO`, `BLOCK`, or `UNVERIFIED`; it does not execute launch actions.
-- `finish-branch`, `issue-workflow` (including its `spec-authoring` mode), `markdown-memory`, `skill-refactorer`, and `decision-map` cover explicit-intent requests for branch actions, requirements/spec and tracker artifacts, durable lessons, and maintenance work.
+- Keep each always-on rule focused on one closely related decision family; do not merge independent triggers, owners, failure modes, or evidence levels for the sake of a fixed rule count.
+- New or materially changed behavior should have a corresponding positive or negative maintenance case. These Markdown cases are review aids, not executable routing evaluations.
+- Keep detailed procedures out of the default layer when they are not part of the retained suite; document removed capabilities honestly instead of claiming equivalence.
+- When a skill is removed, update its owners and references, README summaries, catalog entries, and relevant maintenance contracts. A string mention is not proof that a consumer or behavior is fully migrated.
+- If a summary drifts from the maintained prompt or skill body, update the summary rather than creating a second specification in the README.
 
 ## Recommended Start
 
-Start with the smallest set that matches your actual workflow.
+Start with the base prompt. Add only the retained skill that matches an explicit need:
 
-### Core Automatic Set
+- `agent-workflow` for worthwhile coordinated execution.
+- `reliability-check` for an explicit reliability challenge.
+- `memory-handoff` for an explicit task-state handoff or resume.
+- `markdown-memory` for an explicit project reference lesson.
+- `skill-refactorer` for an explicit instruction-artifact maintenance request.
 
-1. Base always-on behavior assembled from `prompts/CLAUDE.fragment.md` into your host instruction file
-2. `debug-systematically`
-3. `test-strategy`
-4. `review-and-finish`
-
-### Optional Automatic Skills
-
-Add these if you regularly ask for explicit planning, design, reassessment, security analysis, performance experiments, CI/CD definition work, operational telemetry, or multi-agent orchestration:
-
-- `plan-work`
-- `design-codebase`
-- `reliability-check`
-- `context-engineering`
-- `frontend-ui-engineering`
-- `browser-testing-with-devtools`
-- `performance-optimization`
-- `ci-cd-and-automation`
-- `observability-and-instrumentation`
-- `shipping-and-launch`
-- `agent-workflow`
-- `security-and-hardening`
-
-### Optional Explicit-Intent Workflows
-
-Add these if you want natural-language routing for concept exploration, intent clarification, branch actions, durable artifacts, maintenance, or calibration work without requiring users to remember skill names:
-
-- `idea-refine`
-- `interview-me`
-- `finish-branch`
-- `issue-workflow`
-- `memory-handoff`
-- `markdown-memory`
-- `skill-refactorer`
-- `decision-map`
-
-## Customization
-
-Keep changes small.
-
-Good changes:
-
-- tighten a trigger
-- remove workflows you do not use
-- clarify when to stop
-- add a reference for a repeated real failure
-- turn repeated failures into durable behavior rules only when they belong in the always-on layer; keep concrete regression cases in `tests/`
-
-Avoid changes that make every task slower.
+For removed domain workflows, use the host's or project's existing method; this repository makes no claim that its retained skills replace them.

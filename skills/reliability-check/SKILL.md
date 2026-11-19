@@ -121,14 +121,6 @@ Do not invent extra concerns from an ordinary multi-part request. Do not turn th
 
 ## Boundaries
 
-This skill does not replace:
-
-- the ordinary implementation flow for straightforward work.
-- `debug-systematically` for code bugs and root-cause diagnosis.
-- `test-strategy` for testing choices and regression proof.
-- `review-and-finish` for explicit code review, feedback handling, or completion verification.
-- `finish-branch` for explicit branch-ending actions.
-- `plan-work` for requested implementation planning.
-- `memory-handoff` for routine compression and resume.
+This skill does not replace ordinary implementation, debugging, testing, planning, review, or Git handling. Keep those with the host's ordinary method or an explicitly selected owner. Use `memory-handoff` only for an explicit checkpoint or resume request.
 
 Do not turn this into a universal "think harder" step, a general fact-checking workflow, a long checklist, or a default preflight for normal tasks.

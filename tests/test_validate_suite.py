@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import check_routing_contract as routing
 import validate_suite as suite
 
 
@@ -50,7 +51,7 @@ class ValidateSuiteTests(unittest.TestCase):
 
     def test_catalog_reports_duplicates_unknowns_and_omissions(self):
         self.write_skill("alpha")
-        self.write_skill("idea-refine")
+        self.write_skill("skill-refactorer")
         suite.CATALOG_FILE.write_text(
             json.dumps({"groupings": [{"skills": ["alpha", "alpha", "missing"]}]}),
             encoding="utf-8",
@@ -58,7 +59,7 @@ class ValidateSuiteTests(unittest.TestCase):
         errors, warnings = suite.validate_catalog()
         self.assertIn("skills.sh.json: duplicate skill alpha", errors)
         self.assertIn("skills.sh.json: unknown skill missing", errors)
-        self.assertIn("skills.sh.json: skill idea-refine is not in a presentation grouping", warnings)
+        self.assertIn("skills.sh.json: skill skill-refactorer is not in a presentation grouping", warnings)
 
     def test_strict_mode_fails_for_warnings(self):
         self.write_skill("alpha")
@@ -70,6 +71,18 @@ class ValidateSuiteTests(unittest.TestCase):
             result = suite.run(strict=True)
         self.assertEqual(result, 1)
         self.assertIn("FAILED: 1 error(s), 1 warning(s)", output.getvalue())
+
+
+class RoutingContractTests(unittest.TestCase):
+    def test_retired_references_use_whole_slug_boundaries(self):
+        self.assertEqual(
+            routing.retired_references("retired plan-work; keep plan-workflow"),
+            {"plan-work"},
+        )
+
+    def test_host_owned_commands_are_not_unresolved_skill_slugs(self):
+        text = "Use `/code-review` or `/adaptive-long-horizon`."
+        self.assertEqual(routing.unresolved_slug_tokens(text, routing.EXPECTED_SKILLS), set())
 
 
 if __name__ == "__main__":

@@ -11,9 +11,9 @@ Preserve durable intent while removing outdated procedure text. Requests like â€
 
 - Use this skill only for explicit maintenance or migration of existing coding-agent instruction artifacts.
 - Do not use it for ordinary implementation, code refactoring, review, planning, explanation, translation, or general-purpose prompt editing.
-- If the user is designing a new skill, comparing workflow structures, or requesting an implementation plan, use `plan-work` when installed and available; otherwise leave that work to the host's ordinary planning flow.
+- If the user is designing a new skill, comparing workflow structures, or requesting an implementation plan, leave that work to the host's ordinary planning method.
 - If the user explicitly challenges evidence, source use, or whether the correct files were read, use `reliability-check` when installed and available; otherwise leave that work to the host's ordinary flow.
-- If the user wants review findings, feedback handling, or completion verification, use `review-and-finish` when installed and available; otherwise leave that work to the host's ordinary review flow.
+- If the user wants review findings, feedback handling, or completion verification, leave that work to the host's ordinary review method.
 
 ## Resolve Scope And Mode
 

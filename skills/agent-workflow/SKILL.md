@@ -134,12 +134,11 @@ After results return:
 
 ## Method Ownership
 
-Named sibling skills are optional routing targets, not guaranteed capabilities. Route to one only when it is installed, available, and applicable; otherwise preserve the host domain method or define a task-specific acceptance contract. Do not invent an unavailable invocation.
-
 - This skill owns only decomposition, assignment, dependency ordering, evidence handoff, verification coordination, and integration.
-- The active domain skill owns the debugging, testing, design, review, feedback, or completion method.
-- Do not invent a second search, debugging, testing, design, or review procedure beside the active domain method.
-- Translate the active domain method into non-overlapping delegated slices instead of running a parallel procedure.
+- The active domain method remains with the host or the task's explicitly selected owner; orchestration does not create or replace that method.
+- Do not invent a second search, debugging, testing, design, review, or completion procedure beside the active method.
+- If the task needs a domain workflow that this suite no longer provides, preserve the host's ordinary method or define a task-specific acceptance contract; do not claim an unavailable suite workflow.
+- Translate the active method into non-overlapping delegated slices instead of running a parallel procedure.
 
 ## Single-Owner Execution
 
@@ -189,12 +188,6 @@ Reuse any isolation already in effect. Introduce additional isolation only when 
 
 ## Boundaries
 
-Use an installed, available, and applicable more specific workflow instead when the real task is:
+Keep planning, architecture, debugging, test design, review, and Git actions with the host's ordinary method or an explicitly selected owner. Do not create a new domain procedure merely to make delegated work look complete. Use `memory-handoff` only for an explicit checkpoint or resume request.
 
-- `plan-work` for deciding what to build
-- `debug-systematically` for unclear shared-root failures
-- `review-and-finish` for explicit code review, feedback, or completion evidence
-- `finish-branch` for explicit commits, PRs, or branch wrap-up
-- `memory-handoff` for compression and session resume
-
-If the named workflow is unavailable or inapplicable, preserve the host domain method or define a task-specific acceptance contract rather than inventing an invocation. This skill handles multi-agent method and integration; it does not upgrade ordinary implementation into a multi-agent workflow.
+This skill handles multi-agent method and integration; it does not upgrade ordinary implementation into a multi-agent workflow.
