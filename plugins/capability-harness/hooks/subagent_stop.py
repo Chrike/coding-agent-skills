@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import re
 import sys
-from typing import Any
+from typing import Any, Optional
 
 
 PLUGIN_PREFIX = "capability-harness:"
@@ -48,22 +48,39 @@ ENUMS = {
 }
 
 
-def invalid_enum(lines: list[str], heading: str, allowed: set[str]) -> bool:
+def invalid_enum(lines: list[tuple[Optional[str], bool]], heading: str, allowed: set[str]) -> bool:
     body = section_body(lines, heading)
+    body = [item for item in body if not item[1]]
     if not body:
         return True
     if heading == "## Evidence result":
         body = body[:1]
-    for line in body:
+
+    statuses = "|".join(re.escape(item) for item in sorted(allowed, key=len, reverse=True))
+    separators = r"\s:;,.—–：；，、。！？（）()!"
+    checked = False
+    for line, in_fence in body:
+        if in_fence:
+            continue
+        if heading == "## Hard-constraint verdict" and line[:1].isspace():
+            continue
+        checked = True
         value = re.sub(r"[*_`]", "", re.sub(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)", "", line)).strip().lower()
-        if not any(re.match(rf"^{re.escape(item)}(?:$|[\s:;,.—–])", value) for item in allowed):
-            return True
-    return False
+        if re.match(rf"^(?:{statuses})(?:$|[{separators}])", value):
+            continue
+        if heading == "## Hard-constraint verdict" and re.match(
+            rf"^.+?[:：]\s*(?:{statuses})(?:$|[{separators}])", value
+        ):
+            continue
+        return True
+    return not checked
 
 
-def empty_list_item(lines: list[str]) -> bool:
+def empty_list_item(lines: list[tuple[Optional[str], bool]]) -> bool:
     in_section = False
-    for line in lines:
+    for line, in_fence in lines:
+        if in_fence or line is None:
+            continue
         if is_top_level_heading(line):
             in_section = True
         elif in_section and re.fullmatch(r"\s*(?:[-*+]\s*|\d+[.)]\s*)", line):
@@ -79,8 +96,8 @@ def read_event() -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def top_level_lines(message: str) -> list[str]:
-    lines: list[str] = []
+def fenced_lines(message: str) -> list[tuple[Optional[str], bool]]:
+    lines: list[tuple[Optional[str], bool]] = []
     fence_char = ""
     fence_length = 0
 
@@ -99,16 +116,24 @@ def top_level_lines(message: str) -> list[str]:
             if marker_char == fence_char and marker_length >= fence_length and not remainder.strip():
                 fence_char = ""
                 fence_length = 0
+                lines.append((None, True))
+            else:
+                lines.append((line, True))
             continue
 
         if marker_length >= 3:
             fence_char = marker_char
             fence_length = marker_length
+            lines.append((None, True))
             continue
 
-        lines.append(line)
+        lines.append((line, False))
 
     return lines
+
+
+def top_level_lines(message: str) -> list[str]:
+    return [line for line, in_fence in fenced_lines(message) if line is not None and not in_fence]
 
 
 def has_heading(lines: list[str], heading: str) -> bool:
@@ -119,20 +144,32 @@ def is_top_level_heading(line: str) -> bool:
     return line.startswith("## ")
 
 
-def section_body(lines: list[str], heading: str) -> list[str]:
+def section_body(
+    lines: list[tuple[Optional[str], bool]], heading: str
+) -> list[tuple[str, bool]]:
     target = heading.casefold()
-    for index, line in enumerate(lines):
-        if line.casefold() != target:
+    for index, (line, in_fence) in enumerate(lines):
+        if in_fence or line is None or line.casefold() != target:
             continue
-        end = next(
-            (candidate_index for candidate_index in range(index + 1, len(lines)) if is_top_level_heading(lines[candidate_index])),
-            len(lines),
-        )
-        return [line.strip() for line in lines[index + 1 : end] if line.strip()]
+        end = len(lines)
+        for candidate_index in range(index + 1, len(lines)):
+            candidate_line, candidate_in_fence = lines[candidate_index]
+            if not candidate_in_fence and candidate_line is not None and is_top_level_heading(candidate_line):
+                end = candidate_index
+                break
+        return [
+            (body_line, body_in_fence)
+            for body_line, body_in_fence in lines[index + 1 : end]
+            if body_line is not None and body_line.strip()
+        ]
     return []
 
 
-def contract_problems(lines: list[str], headings: list[str]) -> list[str]:
+def contract_problems(
+    lines: list[str],
+    headings: list[str],
+    structured_lines: list[tuple[Optional[str], bool]],
+) -> list[str]:
     missing = [heading for heading in headings if not has_heading(lines, heading)]
     problems: list[str] = []
     if missing:
@@ -145,10 +182,14 @@ def contract_problems(lines: list[str], headings: list[str]) -> list[str]:
     ]
     if positions != sorted(positions):
         problems.append("Required headings are out of order")
-    if empty_list_item(lines):
+    if empty_list_item(structured_lines):
         problems.append("Sections cannot contain an empty list item")
 
-    empty = [heading for heading in headings if has_heading(lines, heading) and not section_body(lines, heading)]
+    empty = [
+        heading
+        for heading in headings
+        if has_heading(lines, heading) and not section_body(structured_lines, heading)
+    ]
     if empty:
         problems.append(f"Empty sections: {', '.join(empty)}")
     return problems
@@ -165,11 +206,16 @@ def main() -> int:
         return 0
 
     message = str(event.get("last_assistant_message") or "")
+    structured_lines = fenced_lines(message)
     lines = top_level_lines(message)
     if local_name in BLOCKABLE and (
         has_heading(lines, "## Blocked brief") or has_heading(lines, "## Required next input")
     ):
-        problems = contract_problems(lines, ["## Blocked brief", "## Required next input"])
+        problems = contract_problems(
+            lines,
+            ["## Blocked brief", "## Required next input"],
+            structured_lines,
+        )
         if not problems:
             if has_heading(lines, "## Skip reason"):
                 problems.append("Blocked brief cannot also include a skip contract")
@@ -185,7 +231,11 @@ def main() -> int:
         return 0
 
     if local_name == "context-scout" and has_heading(lines, "## Skip reason"):
-        problems = contract_problems(lines, ["## Capability decision", "## Skip reason"])
+        problems = contract_problems(
+            lines,
+            ["## Capability decision", "## Skip reason"],
+            structured_lines,
+        )
         if not problems:
             normal_only = [heading for heading in EXPECTED[local_name] if heading != "## Capability decision"]
             if any(has_heading(lines, heading) for heading in normal_only):
@@ -201,10 +251,10 @@ def main() -> int:
         json.dump({"decision": "block", "reason": reason}, sys.stdout, ensure_ascii=False)
         return 0
 
-    problems = contract_problems(lines, EXPECTED[local_name])
+    problems = contract_problems(lines, EXPECTED[local_name], structured_lines)
     if not problems and local_name in ENUMS:
         heading, allowed = ENUMS[local_name]
-        if invalid_enum(lines, heading, allowed):
+        if invalid_enum(structured_lines, heading, allowed):
             problems.append(f"{heading} must begin with one of: {', '.join(sorted(allowed))}")
     if not problems:
         return 0

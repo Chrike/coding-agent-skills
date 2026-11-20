@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "prompt": "A workflow is already selected for this localized fix; follow it without adding another controller.",
+      "prompt": "A workflow is already selected for this localized security review in the current project; follow it without adding another controller.",
       "expected_output": "Respects the explicit boundary and proceeds without invoking the capability harness or any Harness agent.",
       "assertions": [
         "The user's explicit workflow boundary is respected.",

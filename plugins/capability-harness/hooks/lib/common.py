@@ -56,13 +56,14 @@ TRIVIAL_PATTERNS = [
     r"^(你好|谢谢|好的|可以|是|否)[。！! ]*$",
 ]
 FIXED_SCOPE_PATTERNS = [
-    r"\b(fixed dimensions?|fixed color|exactly|no (?:visual )?(?:exploration|innovation|reference))\b",
-    r"(固定尺寸|固定颜色|精确生成|仅生成|只需|无需参考|不需要参考|不需要视觉创新|不要视觉创新)",
+    r"\b(?:fixed dimensions?|fixed color|exact(?:ly)?\s+(?:color|size|dimensions?|pixels?|width|height|match|copy|format)|no (?:visual )?(?:exploration|innovation|reference))\b",
+    r"(固定尺寸|固定颜色|精确生成|仅生成|只需(?:按此|照做)|无需参考|不需要参考|不需要视觉创新|不要视觉创新)",
 ]
 # These are explicit per-prompt source constraints, not a global search policy.
 NO_EXTERNAL_DISCOVERY_PATTERNS = [
     r"\b(do not (?:use )?search|don't (?:use )?search|do not browse(?: the web)?|don't browse(?: the web)?|without browsing(?: the web)?|no web|no internet|no external sources|do not use external sources)\b",
     r"(不需要搜索|无需搜索|不要搜索|不搜索|不要联网|不联网|不要浏览(?:网页|网络)?|不浏览(?:网页|网络)?|仅使用本地资料|只使用本地资料|仅限本地资料)",
+    r"(?:不要|不用|别|禁止|严禁|无需|不需要)(?:使用|用)?(?:外部|在线|网络|联网)?(?:搜索|检索|查网|联网|浏览)",
 ]
 DELEGATION_DISALLOWED_PATTERNS = [
     r"\b(?:do not|don't)\s+(?:delegate|use\s+(?:an?\s+)?(?:sub-?agents?|agents?))\b",
@@ -71,7 +72,7 @@ DELEGATION_DISALLOWED_PATTERNS = [
 ]
 STRONG_CONTEXT_GAP_PATTERNS = [
     r"\b(unfamiliar|novel|non-trivial|open-ended|unresolved|ambiguous|unknown|trade-?off)\b",
-    r"(陌生|新颖|非平凡|开放式|未解决|不明确|未知|取舍|权衡)",
+    r"(陌生|新颖|全新|非平凡|开放式|未解决|不明确|未知|取舍|权衡)",
 ]
 OPEN_ENDED_PATTERNS = [
     r"\b(unfamiliar|novel|complex|non-trivial|open-ended|unresolved|ambiguous|difficult|hard|deep|in-depth|trade-?off|unknown|design|recommend|architecture|strategy)\b",
@@ -79,8 +80,10 @@ OPEN_ENDED_PATTERNS = [
 ]
 CONTROLLER_OWNED_PATTERNS = [
     r"(?:already|currently) selected (?:implementation|domain|test|review) workflow",
+    r"(?:workflow|controller)\s+is\s+already\s+selected",
     r"(?:workflow|controller) already owns",
-    r"(?:do not|don't|without) add (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
+    r"(?:do not|don't|without) add(?:ing)? (?:a )?(?:supplementary|additional|extra) (?:quality|harness|review) pass",
+    r"(?:without|do not|don't) add(?:ing)? another (?:controller|pass|harness)",
     r"(?:不要|无需|不需要).*(?:额外|补充|新增).*(?:Harness|审查|质量|流程|代理)",
 ]
 # A leading slash is not ownership evidence here: real command expansion has
@@ -118,9 +121,9 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     implementation = any_match(stripped, IMPLEMENT_PATTERNS)
     artifact = any_match(stripped, ARTIFACT_PATTERNS)
     quality = any_match(stripped, QUALITY_PATTERNS)
-    external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS)
-    fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
+    external_guidance = any_match(stripped, EXTERNAL_GUIDANCE_PATTERNS) and not external_discovery_disallowed
+    fully_specified = any_match(stripped, FIXED_SCOPE_PATTERNS)
     delegation_disallowed = any_match(stripped, DELEGATION_DISALLOWED_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
     explicit_host_command = any_match(stripped, EXPLICIT_HOST_COMMAND_PATTERNS)
@@ -184,20 +187,12 @@ def candidate_actions(classification: dict[str, bool]) -> dict[str, bool]:
                 or open_ended
             )
         ),
-        "observable_check": bool(classification.get("implementation") or artifact),
-        "independent_comparison": bool(quality and not fully_specified),
         "high_consequence_review": bool(classification.get("high_consequence")),
     }
 
 
 def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
-    """Choose the strongest safe default before the controller starts material work.
-
-    The hook is intentionally conservative: it only selects a route when prompt
-    signals make the next source of evidence clear. The active controller still
-    owns the task and may continue directly only after a selected leaf worker
-    returns a bounded skip or the requested evidence is unavailable.
-    """
+    """Choose the strongest safe default before the controller starts material work."""
     if not classification.get("substantive"):
         return "direct", "The request is low-complexity."
     if classification.get("explicit_host_command"):

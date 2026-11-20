@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+from typing import Optional
 
 
 LIB = Path(__file__).resolve().parent / "lib"
@@ -73,27 +74,74 @@ def route_context(route: str, reason: str, external_discovery_disallowed: bool =
     )
 
 
+def has_harness_opt_out(prompt: str) -> bool:
+    quote: Optional[str] = None
+    closing_quotes = {"“": "”", "‘": "’"}
+    token = "[harness:off]"
+    index = 0
+    while index < len(prompt):
+        character = prompt[index]
+        if quote is not None:
+            if quote.startswith("`"):
+                if prompt.startswith(quote, index):
+                    index += len(quote)
+                    quote = None
+                else:
+                    index += 1
+                continue
+            if character == "\\":
+                index += 2
+                continue
+            if character == quote:
+                quote = None
+            index += 1
+            continue
+        if character == "`":
+            run_length = len(prompt[index:]) - len(prompt[index:].lstrip("`"))
+            quote = "`" * run_length
+            index += run_length
+            continue
+        if character in {'"', "“", "‘"}:
+            quote = closing_quotes.get(character, character)
+            index += 1
+            continue
+        if character == "'":
+            previous = prompt[index - 1] if index else ""
+            following = prompt[index + 1] if index + 1 < len(prompt) else ""
+            if not previous.isalnum() and not following.isalnum():
+                quote = "'"
+                index += 1
+                continue
+        if prompt[index : index + len(token)].casefold() == token:
+            previous = prompt[index - 1] if index else ""
+            following_index = index + len(token)
+            following = prompt[following_index] if following_index < len(prompt) else ""
+            if not previous.isalnum() and not following.isalnum():
+                return True
+        index += 1
+    return False
+
+
 def main() -> int:
     event = read_stdin_json()
     prompt = str(event.get("prompt") or "")
-    if "[harness:off]" in prompt.lower():
+    if has_harness_opt_out(prompt):
         return 0
 
     classification = classify_prompt(prompt)
-    if classification.get("controller_owned"):
-        return 0
-
     route, reason = select_pre_action_route(classification)
     if route == "direct":
         return 0
-
-    context = route_context(route, reason, bool(classification.get("external_discovery_disallowed")))
 
     json_output(
         {
             "hookSpecificOutput": {
                 "hookEventName": "UserPromptSubmit",
-                "additionalContext": context,
+                "additionalContext": route_context(
+                    route,
+                    reason,
+                    bool(classification.get("external_discovery_disallowed")),
+                ),
             }
         }
     )

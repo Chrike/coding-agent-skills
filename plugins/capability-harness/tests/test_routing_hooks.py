@@ -11,6 +11,8 @@ import unittest
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 USER_PROMPT_HOOK = PLUGIN_ROOT / "hooks" / "user_prompt_submit.py"
 HOOKS_CONFIG = PLUGIN_ROOT / "hooks" / "hooks.json"
+sys.path.insert(0, str(PLUGIN_ROOT / "hooks" / "lib"))
+from common import classify_prompt
 
 
 class RoutingHookTests(unittest.TestCase):
@@ -126,6 +128,17 @@ class RoutingHookTests(unittest.TestCase):
             self.submit("Create a 24x24 red circular icon with fixed dimensions and color, without visual innovation.")
         )
 
+    def test_fixed_scope_words_do_not_hide_open_ended_tradeoffs(self) -> None:
+        for prompt in (
+            "Design an exactly-once delivery system with unresolved trade-offs.",
+            "帮我设计一个复杂系统，只需考虑核心架构权衡。",
+            "帮我设计一个全新的微服务架构方案",
+            "设计一个复杂系统，服务边界尚未解决，只需生成架构建议，并指出关键权衡和风险。",
+        ):
+            with self.subTest(prompt=prompt):
+                context = self.context_for(prompt)
+                self.assertIn("selected pre-action route: bounded context discovery", context)
+
     def test_artifact_keyword_alone_stays_direct(self) -> None:
         self.assertIsNone(self.submit("Create a blue circle SVG."))
 
@@ -168,6 +181,13 @@ class RoutingHookTests(unittest.TestCase):
     def test_explicit_no_search_overrides_current_external_evidence_route(self) -> None:
         self.assertIsNone(self.submit("当前官方 API 版本是什么？不要搜索网络。"))
 
+    def test_chinese_external_search_constraints_suppress_guidance_and_routing(self) -> None:
+        prompt = "不要用外部搜索，分析一下当前的最新API版本。"
+        self.assertIsNone(self.submit(prompt))
+        classification = classify_prompt(prompt)
+        self.assertTrue(classification["external_discovery_disallowed"])
+        self.assertFalse(classification["external_guidance"])
+
     def test_explicit_no_delegation_suppresses_agent_route(self) -> None:
         self.assertIsNone(
             self.submit("What is the current official API behavior? Do not delegate to an agent.")
@@ -197,6 +217,15 @@ class RoutingHookTests(unittest.TestCase):
         self.assertIn("selected pre-action route: project inspection", context)
         self.assertNotIn("focused evidence research", context)
 
+    def test_local_function_security_review_keeps_external_evidence_route(self) -> None:
+        for prompt in (
+            "Fix a security vulnerability in this function.",
+            "检查一下这段代码的内存安全漏洞。",
+        ):
+            with self.subTest(prompt=prompt):
+                context = self.context_for(prompt)
+                self.assertIn("selected pre-action route: focused evidence research", context)
+
     def test_explicit_host_commands_bypass_pre_action_routes(self) -> None:
         for prompt in (
             "/security-review on this PR",
@@ -220,6 +249,14 @@ class RoutingHookTests(unittest.TestCase):
     def test_explicit_controller_ownership_is_silent_without_command_name_heuristics(self) -> None:
         self.assertIsNone(
             self.submit("The selected review workflow already owns this change; do not add another controller.")
+        )
+
+    def test_selected_workflow_without_another_controller_is_silent(self) -> None:
+        self.assertIsNone(
+            self.submit(
+                "A workflow is already selected for this localized security review in the current project; "
+                "follow it without adding another controller."
+            )
         )
 
     def test_slash_prefixed_natural_language_is_not_assumed_controller_owned(self) -> None:
@@ -286,6 +323,14 @@ class RoutingHookTests(unittest.TestCase):
             )
             self.assertIsNone(output)
             self.assertFalse((Path(directory) / ".claude" / "capability-harness").exists())
+
+    def test_quoted_or_backticked_opt_out_literal_does_not_disable_routing(self) -> None:
+        for literal in ('"[harness:off]"', "'[harness:off]'", "`[harness:off]`", "```\n[harness:off]\n```", "prefix[harness:off]suffix"):
+            with self.subTest(literal=literal):
+                context = self.context_for(
+                    f"Explain a difficult unfamiliar domain problem with unresolved trade-offs; the literal {literal} is documentation."
+                )
+                self.assertIn("selected pre-action route: bounded context discovery", context)
 
     def test_substantive_prompt_does_not_write_runtime_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

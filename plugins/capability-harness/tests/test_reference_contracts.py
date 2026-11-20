@@ -110,7 +110,7 @@ class ReferenceContractTests(unittest.TestCase):
         installation = (REFERENCE_ROOT / "installation.md").read_text(encoding="utf-8")
         self.assertIn("--scope local", installation)
         self.assertIn("does not install or modify the user's global Claude Code configuration", installation)
-        self.assertNotIn("C:\\Users\\wang\\.claude", installation)
+        self.assertNotRegex(installation, r"C:\\Users\\[^\\]+\\.claude")
         self.assertNotIn("scripts/install_claude.py", installation)
 
 

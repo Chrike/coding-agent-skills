@@ -99,6 +99,18 @@ class SubagentStopHookTests(unittest.TestCase):
             }
         )
 
+    def test_accepts_nonempty_fenced_code_as_section_body(self) -> None:
+        self.assert_allowed(
+            {
+                "agent_type": "capability-harness:execution-verifier",
+                "last_assistant_message": (
+                    "## Verification target\n- claim\n## Checks executed\n"
+                    "```text\nrun check\n- \n```\n"
+                    "## Evidence result\n- unverified: no runtime evidence"
+                ),
+            }
+        )
+
     def test_accepts_unverified_execution_result(self) -> None:
         self.assert_allowed(
             {
@@ -107,6 +119,18 @@ class SubagentStopHookTests(unittest.TestCase):
                     "## Verification target\n- runtime claim and current artifact\n"
                     "## Checks executed\n- None; the host did not authorize execution\n"
                     "## Evidence result\n- unverified; no runtime evidence was obtained"
+                ),
+            }
+        )
+
+    def test_ignores_fenced_notes_before_execution_result_enum(self) -> None:
+        self.assert_allowed(
+            {
+                "agent_type": "capability-harness:execution-verifier",
+                "last_assistant_message": (
+                    "## Verification target\n- claim\n## Checks executed\n- check\n"
+                    "## Evidence result\n```text\nimplementation note\n```\n"
+                    "- supports-claim: observed"
                 ),
             }
         )
@@ -150,6 +174,81 @@ class SubagentStopHookTests(unittest.TestCase):
                         "## Comparative judgment\n- keep\n## Decisive evidence\n- result"
                     ),
                 })
+
+    def test_accepts_fullwidth_enum_punctuation(self) -> None:
+        cases = (
+            (
+                "execution-verifier",
+                "## Verification target\n- claim\n## Checks executed\n- check\n"
+                "## Evidence result\n- supports-claim：测试通过",
+            ),
+            (
+                "skeptical-evaluator",
+                "## Hard-constraint verdict\n- pass（约束满足）\n"
+                "## Comparative judgment\n- keep\n## Decisive evidence\n- result",
+            ),
+        )
+        for agent, message in cases:
+            with self.subTest(agent=agent):
+                self.assert_allowed(
+                    {"agent_type": f"capability-harness:{agent}", "last_assistant_message": message}
+                )
+
+    def test_accepts_skeptical_indented_continuations_and_condition_first_verdicts(self) -> None:
+        self.assert_allowed(
+            {
+                "agent_type": "capability-harness:skeptical-evaluator",
+                "last_assistant_message": (
+                    "## Hard-constraint verdict\n"
+                    "- latency below 50ms: pass\n"
+                    "  observed p99 latency was 42ms\n"
+                    "- fail: the required offline mode is absent\n"
+                    "## Comparative judgment\n- keep\n## Decisive evidence\n- result"
+                ),
+            }
+        )
+
+    def test_rejects_enum_prefix_extensions(self) -> None:
+        cases = (
+            (
+                "execution-verifier",
+                "## Verification target\n- claim\n## Checks executed\n- check\n"
+                "## Evidence result\n- supports-claimable",
+            ),
+            (
+                "skeptical-evaluator",
+                "## Hard-constraint verdict\n- passenger\n"
+                "## Comparative judgment\n- keep\n## Decisive evidence\n- result",
+            ),
+        )
+        for agent, message in cases:
+            with self.subTest(agent=agent):
+                self.assert_blocked(
+                    {"agent_type": f"capability-harness:{agent}", "last_assistant_message": message}
+                )
+
+    def test_rejects_skeptical_verdict_with_only_indented_continuations(self) -> None:
+        self.assert_blocked(
+            {
+                "agent_type": "capability-harness:skeptical-evaluator",
+                "last_assistant_message": (
+                    "## Hard-constraint verdict\n"
+                    "  pass: indented continuation without a top-level verdict\n"
+                    "## Comparative judgment\n- keep\n## Decisive evidence\n- result"
+                ),
+            }
+        )
+
+    def test_rejects_enum_like_text_only_inside_fenced_code(self) -> None:
+        self.assert_blocked(
+            {
+                "agent_type": "capability-harness:execution-verifier",
+                "last_assistant_message": (
+                    "## Verification target\n- claim\n## Checks executed\n- check\n"
+                    "## Evidence result\n```text\nsupports-claim: from code\n```"
+                ),
+            }
+        )
 
     def test_blocks_empty_list_items_in_required_sections(self) -> None:
         self.assert_blocked({
