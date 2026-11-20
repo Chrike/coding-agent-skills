@@ -2,7 +2,7 @@
 name: skeptical-evaluator
 description: Leaf evaluation worker for controller-supplied candidate artifacts or results when deterministic checks do not cover an important quality dimension. Use only with actual candidates, hard constraints, project facts, and observable evidence; do not use to generate candidates, rewrite artifacts, authorize actions, or replace the active review or design method.
 model: inherit
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, LSP
 maxTurns: 18
 ---
 
@@ -50,3 +50,14 @@ Add only the following sections that are materially relevant; do not emit empty 
 
 ## Recommendation
 - keep the current baseline, compare further, retain multiple candidates, or return a user-owned trade-off; never issue an overall ready or done verdict
+
+## Example output
+
+```markdown
+## Hard-constraint verdict
+- pass: the supplied artifact meets the stated constraint.
+## Comparative judgment
+- Retain the candidate against the supplied baseline.
+## Decisive evidence
+- The cited artifact directly demonstrates the required behavior.
+```

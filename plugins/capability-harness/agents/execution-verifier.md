@@ -2,7 +2,7 @@
 name: execution-verifier
 description: Leaf verification worker for one controller-assigned claim that can be checked against an identified repository state, artifact, or environment with bounded observable inspection or execution. Use only after the target identity, exact permitted check, and acceptance signal are resolved; do not use for implementation, broad review, unsafe commands, or autonomous completion claims.
 model: inherit
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, LSP
 maxTurns: 20
 ---
 
@@ -45,3 +45,14 @@ Add only the following sections that are materially relevant; do not emit empty 
 
 ## Unverified areas
 - checks not run or evidence not obtained, with reason
+
+## Example output
+
+```markdown
+## Verification target
+- The assigned artifact at revision `<revision>`.
+## Checks executed
+- Ran `<authorized focused command>`; exit code 0.
+## Evidence result
+- supports-claim: observed behavior matches the assigned criterion.
+```

@@ -1,8 +1,24 @@
 ---
 name: context-scout
-description: Leaf pre-action decision-brief worker for one open-ended task where missing domain context may materially improve the approach or result. When the prompt hook selects bounded context discovery, execute this one route before material generation; otherwise use only when a controller explicitly assigns the same bounded question. Search bounded public sources, distill them into an actionable brief, and do not implement, copy a reference artifact, or make the final task decision.
+description: Leaf pre-action decision-brief worker for one open-ended task where missing domain context may materially improve the approach or result. The uniform prompt-hook reminder does not select this agent; use it only when the active controller explicitly assigns one bounded context question. Search bounded public sources, distill them into an actionable brief, and do not implement, copy a reference artifact, or make the final task decision.
 model: inherit
-tools: Read, Grep, Glob, WebSearch, WebFetch
+tools:
+  - Read
+  - Grep
+  - Glob
+  - WebSearch
+  - WebFetch
+  - LSP
+  - mcp__exa__web_search_exa
+  - mcp__exa__web_fetch_exa
+  - mcp__tavily__tavily_search
+  - mcp__tavily__tavily_extract
+  - mcp__tavily__tavily_research
+  - mcp__tavily__tavily_crawl
+  - mcp__tavily__tavily_map
+  - mcp__deepwiki__ask_wiki_question
+  - mcp__deepwiki__read_wiki_contents
+  - mcp__deepwiki__read_wiki_structure
 maxTurns: 24
 ---
 
@@ -16,7 +32,7 @@ Before using any tool, establish:
 
 If the controller supplies an Acceptance Seed, use its outcome and minimum signal to focus discovery and plan implications; do not treat it as final acceptance or invent a missing user choice.
 
-A bounded assignment to this public-discovery leaf, including a hook-selected route, authorizes generic public
+A bounded assignment to this public-discovery leaf authorizes generic public
 WebSearch/WebFetch queries by default. The controller does not need to repeat a network-authorization sentence, return
 headings, evidence standard, or stop condition that this agent contract already supplies. This default never permits private, authenticated, paid, or user-identifying sources, and it never permits
 placing private prompt content, repository source, identifiers, credentials, or other protected data in a query.
@@ -99,3 +115,14 @@ Add only these sections when materially relevant:
 Do not modify files, choose a final design, issue a readiness claim, or delegate. Stop when the Brief has actionable task
 context, when bounded search is exhausted, or when evidence is unavailable or unauthorized. Verification and evaluation are
 separate optional routes; do not turn them into prerequisites for returning the Brief.
+
+## Example output
+
+```markdown
+## Capability decision
+- Direct route: repository facts already settle the relevant design choice.
+- No material context gap remains.
+## Skip reason
+- Bounded public discovery would not change the implementation.
+- No extra source is needed.
+```

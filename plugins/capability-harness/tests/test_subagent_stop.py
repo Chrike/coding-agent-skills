@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import unittest
@@ -10,6 +11,27 @@ import unittest
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 HOOK = PLUGIN_ROOT / "hooks" / "subagent_stop.py"
 HOOKS_CONFIG = PLUGIN_ROOT / "hooks" / "hooks.json"
+EXPECTED_TOOL_ALLOWLISTS = {
+    "context-scout": {
+        "Read", "Grep", "Glob", "WebSearch", "WebFetch", "LSP",
+        "mcp__exa__web_search_exa", "mcp__exa__web_fetch_exa",
+        "mcp__tavily__tavily_search", "mcp__tavily__tavily_extract",
+        "mcp__tavily__tavily_research", "mcp__tavily__tavily_crawl", "mcp__tavily__tavily_map",
+        "mcp__deepwiki__ask_wiki_question", "mcp__deepwiki__read_wiki_contents",
+        "mcp__deepwiki__read_wiki_structure",
+    },
+    "evidence-researcher": {
+        "Read", "Grep", "Glob", "WebSearch", "WebFetch", "LSP",
+        "mcp__exa__web_search_exa", "mcp__exa__web_fetch_exa",
+        "mcp__tavily__tavily_search", "mcp__tavily__tavily_extract",
+        "mcp__tavily__tavily_research", "mcp__tavily__tavily_crawl", "mcp__tavily__tavily_map",
+        "mcp__deepwiki__ask_wiki_question", "mcp__deepwiki__read_wiki_contents",
+        "mcp__deepwiki__read_wiki_structure",
+    },
+    "independent-brancher": {"Read", "Grep", "Glob", "LSP"},
+    "execution-verifier": {"Read", "Grep", "Glob", "Bash", "LSP"},
+    "skeptical-evaluator": {"Read", "Grep", "Glob", "LSP"},
+}
 
 
 class SubagentStopHookTests(unittest.TestCase):
@@ -66,6 +88,44 @@ class SubagentStopHookTests(unittest.TestCase):
                         "last_assistant_message": message,
                     }
                 )
+
+    def test_agent_examples_satisfy_subagent_stop_contract(self) -> None:
+        agents = (
+            "context-scout",
+            "evidence-researcher",
+            "independent-brancher",
+            "execution-verifier",
+            "skeptical-evaluator",
+        )
+        pattern = re.compile(r"(?ms)^## Example output\n\n```markdown\n(.*?)\n```\s*\Z")
+        for agent in agents:
+            with self.subTest(agent=agent):
+                content = (PLUGIN_ROOT / "agents" / f"{agent}.md").read_text(encoding="utf-8")
+                match = pattern.search(content)
+                self.assertIsNotNone(match, f"{agent} must end with one fenced output example")
+                assert match is not None
+                example = match.group(1)
+                self.assertGreaterEqual(len(example.splitlines()), 5)
+                self.assertLessEqual(len(example.splitlines()), 8)
+                self.assert_allowed(
+                    {
+                        "agent_type": f"capability-harness:{agent}",
+                        "last_assistant_message": example,
+                    }
+                )
+
+    def test_agent_tool_allowlists_preserve_leaf_permissions(self) -> None:
+        for agent, expected_tools in EXPECTED_TOOL_ALLOWLISTS.items():
+            with self.subTest(agent=agent):
+                content = (PLUGIN_ROOT / "agents" / f"{agent}.md").read_text(encoding="utf-8")
+                frontmatter = content.split("---", 2)[1]
+                match = re.search(r"(?ms)^tools:(.*?)(?=^[A-Za-z][\w-]*:|\Z)", frontmatter)
+                self.assertIsNotNone(match, f"{agent} must declare an explicit tool allowlist")
+                assert match is not None
+                raw_tools = match.group(1).strip()
+                listed_tools = re.findall(r"(?m)^\s*-\s*([^\s]+)\s*$", raw_tools)
+                tools = set(listed_tools or (tool.strip() for tool in raw_tools.split(",")))
+                self.assertEqual(tools, expected_tools)
 
     def test_accepts_case_insensitive_exact_headings(self) -> None:
         self.assert_allowed(

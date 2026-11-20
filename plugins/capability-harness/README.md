@@ -4,7 +4,7 @@ A self-contained Claude Code plugin for project-scoped, decision-first capabilit
 
 The plugin is a bounded control plane. Existing domain Skills keep implementation and repair ownership, and `agent-workflow` keeps multi-agent coordination ownership when it is already active. Plugin components are namespaced, so they do not replace the repository's standalone Skills or user-level agents.
 
-The `references/` directory contains maintainer-facing protocol documentation migrated from the initial harness. It is linked from the Skill and is not loaded as an additional runtime component. `tests/` contains deterministic maintenance tests, while `skills/capability-harness/evals/` contains calibration cases; neither directory launches agents or hooks during normal use.
+The three maintainer references cover routing and operations, canonical capability contracts, and evidence, evaluation, and recovery; they are not an additional runtime instruction layer. `tests/` contains deterministic maintenance tests, while `skills/capability-harness/evals/` contains calibration cases; neither directory launches agents or hooks during normal use.
 
 ## Install
 
@@ -38,13 +38,19 @@ Invoke the Skill explicitly with:
 
 ## Runtime Behavior
 
-The project-scoped `UserPromptSubmit` hook identifies a small set of strong prompt signals and injects a selected pre-action route: project inspection, focused evidence research, or bounded context discovery. Direct and explicitly controller-owned workflow requests produce no hook context. A leading slash is not treated as ownership evidence by itself: Claude Code expands actual slash commands through its own command lifecycle, while slash-prefixed natural language can be an endpoint, path, or part of the task. The hook itself never launches agents, creates project state, or blocks a final response; its selected route is a pre-action contract that the active controller must execute once before material work, or report the route's bounded skip or unavailable-evidence outcome. The controller may carry a light, transient acceptance seed with that route; fixed direct tasks may keep it implicit, and it does not create a verifier or completion gate. `SubagentStop` validates the output contract of a Harness agent that the active controller has already selected.
+The project-scoped `UserPromptSubmit` hook adds the same brief route reminder to every nonempty prompt except an explicit opt-out, a pure greeting, or a recognized host command. It does not classify the request or select a route: the active controller treats the reminder as options, may proceed directly, and avoids unrelated agents or a second controller. A leading slash is not ownership evidence by itself; actual command handling belongs to Claude Code's command lifecycle. The hook never launches agents, creates project state, or blocks completion. Fixed direct tasks may keep the Acceptance Seed implicit even when uniform hook context is present. `SubagentStop` validates the return contract of a Harness leaf agent already selected by the controller.
 
 For open-ended or unfamiliar work selected for context discovery, the active controller invokes `context-scout` once before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
 
 The command hooks require a Python 3.9 or later executable named `python` on `PATH`. The checked-in Hook configuration invokes that exact command; a host that exposes Python only as `python3` or `py` must provide a compatible `python` launcher before enabling the plugin. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
 
 The JSON cases under `skills/capability-harness/evals/` are maintenance calibration data, not automated Hook tests and not the `claude plugin eval` early-access format. Acceptance-seed cases cover the controller handoff and direct-path boundary; they do not require every task to emit a full acceptance form.
+
+## Maintainer References
+
+- [Routing and operations](references/routing-and-operations.md)
+- [Capability contracts](references/capability-contracts.md)
+- [Evidence, evaluation, and recovery](references/evidence-evaluation-recovery.md)
 
 ## Manual Calibration
 

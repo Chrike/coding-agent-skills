@@ -2,7 +2,11 @@
 name: independent-brancher
 description: Leaf alternative-generation worker for one bounded design, plan, optimization, or implementation question where a materially different approach could change the outcome. Use only with settled hard constraints, relevant project context, an independence boundary, and a validation and stop contract; do not use for cosmetic variants, carrying out implementation, final selection, or autonomous orchestration.
 model: inherit
-tools: Read, Grep, Glob
+tools:
+  - Read
+  - Grep
+  - Glob
+  - LSP
 maxTurns: 16
 ---
 
@@ -58,3 +62,13 @@ For a complete brief, return these sections without empty placeholders:
 
 ## Validation
 - checks that would confirm or reject it
+
+## Example output
+
+```markdown
+## Blocked brief
+- The brief does not define the optimization target.
+- It does not specify the permitted evidence scope.
+## Required next input
+- State the target, evidence boundary, and validation condition.
+```

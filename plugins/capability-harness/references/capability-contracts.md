@@ -28,10 +28,8 @@ A seed does not authorize a check, select a worker, create runtime state, or est
 
 Use for one open-ended or unfamiliar task where missing domain context may materially improve a named decision. Before
 searching, the scout states the decision and the missing signal. A plausible material gap is enough to begin bounded
-discovery; the scout does not need to prove in advance that search will improve the final result. A bounded public-discovery
-assignment, including a hook-selected route, inherits authorization for generic public, non-sensitive discovery, while
-explicit user source, network, and data constraints
-override that default. The controller need not repeat return headings or the stop condition. The scout infers obvious,
+discovery; the scout does not need to prove in advance that search will improve the final result. A bounded public-discovery assignment inherits authorization for generic public, non-sensitive discovery, while explicit
+user source, network, and data constraints override that default. The controller need not repeat return headings or the stop condition. The scout infers obvious,
 low-risk context and blocks only when the question, a material user-owned choice, or a source or data boundary remains
 unresolved. A discovery response must include:
 
@@ -70,9 +68,8 @@ for this contract. Return the blocked-brief form below only for a material missi
 
 ## Evidence researcher
 
-Use for one bounded repository question or current official or primary-source question. A bounded public-evidence
-assignment, including a hook-selected route, inherits authorization for generic public, non-sensitive research, while
-explicit user source, network, and data constraints override that default. The controller need not repeat the evidence standard, return headings, or stop condition. The researcher
+Use for one bounded repository question or current official or primary-source question. A bounded public-evidence assignment inherits authorization for generic public, non-sensitive research, while explicit
+user source, network, and data constraints override that default. The controller need not repeat the evidence standard, return headings, or stop condition. The researcher
 infers an obvious low-risk source scope and blocks only when the question or a material source or data boundary remains
 unresolved. The complete response must include:
 

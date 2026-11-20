@@ -1,11 +1,11 @@
 ---
 name: capability-harness
-description: Apply a decision-first capability-harness pass to substantive work when a model may miss context, evidence, an observable check, or a materially different alternative. When the prompt hook selects a pre-action route, execute exactly that one route before material work and integrate its bounded result. Do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
+description: Apply a decision-first capability-harness pass to substantive work when missing context, evidence, an observable check, or a materially different alternative could improve the result. Treat prompt-hook context as input, not an obligation to invoke a module; proceed directly when no bounded action will change an important decision. Do not use for routine direct work, fixed pipelines, cosmetic variants, or work already owned by another controller.
 ---
 
 # Capability Harness
 
-The project-scoped prompt hook selects one strong pre-action route when the prompt makes the next source of task context clear. It never launches workers, records hidden reasoning, or blocks completion. The selected route is a binding handoff for this turn: this Skill or the active controller executes it exactly once before material work, then integrates the bounded result or explicit skip. It does not replace the active domain method or make every task a multi-step workflow.
+The project-scoped prompt hook adds the same brief route reminder to every nonempty request except an explicit `[harness:off]`, a pure greeting, or a recognized host command. The reminder lists options; it does not classify the task, select a route, launch workers, record hidden reasoning, or block completion. Treat it as input to the Capability Decision. The active controller owns routing and may proceed directly. This Skill supplements, but does not replace, the active domain method or make every task a multi-step workflow.
 
 ## Capability Decision
 
@@ -17,7 +17,7 @@ Before materially generating, modifying, or recommending, identify:
 - the smallest action that can obtain that signal, or the reason to proceed directly;
 - the permission, data, side-effect, and stop boundary.
 
-Make this decision before implementation. A candidate signal that the hook has not named as a selected route is not a requirement. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
+Make this decision before implementation. The uniform hook reminder lists possible routes, not a task-specific recommendation or mandate. Do not search, delegate, or review merely because a tool or worker exists, but do allow bounded search when a plausible unfamiliar-domain gap could materially improve the task. Search does not need advance proof of success; its findings must simply be bounded, relevant, and integrated into the next plan. If no available action can supply useful context, use the direct path and state the intrinsic limitation or remaining uncertainty when material.
 
 ## Acceptance Seed
 
@@ -28,13 +28,13 @@ Before material work, establish the lightest applicable acceptance seed:
 - **Evidence path** — how that signal can be observed, such as a focused test, build, render, runtime check, comparison, or source check;
 - **Unresolved preference or risk** — a user-owned choice, subjective criterion, or material uncertainty that remains, or `none`.
 
-Reuse the requested outcome and hard constraints from the Capability Decision; do not create a second task specification. A fixed, low-risk, direct task may keep this seed implicit and must not receive extra hook context, search, delegation, or verification merely to fill the fields. For substantive implementation, modification, external delivery, or a claim that needs observation, make at least the outcome and minimum signal explicit before acting when they are not already clear. Infer obvious, low-risk criteria rather than blocking for formatting or non-material preference details.
+Reuse the requested outcome and hard constraints from the Capability Decision; do not create a second task specification. A fixed, low-risk, direct task may keep this seed implicit; uniform hook context may still be present, but it must not trigger search, delegation, or verification merely to fill the fields. For substantive implementation, modification, external delivery, or a claim that needs observation, make at least the outcome and minimum signal explicit before acting when they are not already clear. Infer obvious, low-risk criteria rather than blocking for formatting or non-material preference details.
 
 Block or ask only when a missing user-owned choice, target boundary, evidence path, or side-effect authorization would change the direction or invalidate the result. The seed is provisional controller data, not a new route, worker, persisted state, or completion gate. Keep `defined`, `verified`, `evaluated`, and `complete` distinct: an observed signal supports its claim, but does not by itself establish overall task completion.
 
 Carry the applicable seed into any selected pre-action route and into a verifier brief. The active controller and domain Skill remain responsible for interpreting it, choosing the exact check, integrating evidence, and making the final acceptance decision.
 
-When the prompt hook names `project inspection`, `focused evidence research`, or `bounded context discovery` as the selected route, perform that one route before material work. Do not silently replace it with a direct response because it is faster. Direct and explicitly controller-owned workflow prompts receive no additional hook context. A selected `context-scout` may return its bounded direct-route skip, and unavailable or unsafe evidence may be reported as such; those are the valid reasons to continue without discovery. A leading slash alone is not a controller boundary.
+The uniform hook prompt lists project inspection, focused evidence research, bounded context discovery, and direct execution as options; assess whether any non-direct action can change the requested decision. Select only a useful, permitted action; context alone does not require a module call. The model may proceed directly and must not add unrelated workers or a second controller. A `context-scout` may return its bounded direct-route skip; unavailable or unsafe evidence may also limit discovery. A leading slash alone is not a controller boundary.
 
 ## Context Discovery
 
@@ -48,7 +48,7 @@ implications. The active controller must consume that Brief before material gene
 search results into the task, copy an existing artifact, or treat the scout as the final evaluator. Verification and
 evaluation remain optional downstream capabilities.
 
-For a bounded public-discovery assignment, including a hook-selected route, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
+For a bounded public-discovery assignment, public and non-sensitive search is authorized by this project capability. Search queries must not include private prompt content, repository source, identifiers, credentials, or other protected data. Ask for direction when resolving the uncertainty would require crossing that boundary.
 
 An explicit source or network constraint in the current user request overrides this generic route authorization. Do not invoke external discovery under that constraint; use only explicitly permitted local evidence or take the direct path. This is a per-request boundary, not a default project policy.
 
@@ -56,12 +56,9 @@ An explicit source or network constraint in the current user request overrides t
 
 Read only the references that bear on the current decision:
 
-- [routing policy](../../references/routing-policy.md) before selecting a module;
+- [routing and operations](../../references/routing-and-operations.md) before selecting a module or when checking plugin boundaries, installation, or calibration;
 - [capability contracts](../../references/capability-contracts.md) before writing a leaf-agent brief or interpreting its result;
-- [evidence policy](../../references/evidence-policy.md) for WebSearch/WebFetch or repository evidence;
-- [evaluation policy](../../references/evaluation-policy.md) when comparing capability choices, candidates, or revisions;
-- [failure recovery](../../references/failure-recovery.md) when a tool, agent, source, or decision route fails;
-- [architecture](../../references/architecture.md), [design intent](../../references/design-intent.md), and [installation](../../references/installation.md) for plugin boundaries and maintenance.
+- [evidence, evaluation, and recovery](../../references/evidence-evaluation-recovery.md) for source assessment, candidate comparisons, tool failures, or stop decisions.
 
 These references describe the current project plugin. The current agent files and `SubagentStop` minimum headings take precedence over older or external harness examples.
 

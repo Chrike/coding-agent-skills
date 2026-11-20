@@ -3,145 +3,75 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
-from typing import Optional
 
 
 LIB = Path(__file__).resolve().parent / "lib"
 sys.path.insert(0, str(LIB))
 
-from common import (  # noqa: E402
-    classify_prompt,
-    json_output,
-    read_stdin_json,
-    select_pre_action_route,
+from common import has_harness_opt_out, json_output, read_stdin_json  # noqa: E402  # type: ignore[reportMissingImports]
+
+
+PURE_GREETINGS = frozenset(
+    {
+        "hi",
+        "hello",
+        "hey",
+        "thanks",
+        "thank you",
+        "ok",
+        "okay",
+        "yes",
+        "no",
+        "你好",
+        "嗨",
+        "谢谢",
+        "好的",
+        "可以",
+        "是",
+        "否",
+    }
+)
+HOST_COMMANDS = ("/security-review", "/code-review", "/adaptive-long-horizon")
+ADDITIONAL_CONTEXT = (
+    "Capability Harness — choose one route:\n"
+    "- Direct: proceed when no independent signal will change the result.\n"
+    "- Project inspection: inspect local files, configuration, or history when they control the decision.\n"
+    "- Evidence: ask evidence-researcher one bounded evidence question.\n"
+    "- Context: ask context-scout one missing-context question before creation or recommendation.\n"
+    "- Before material work, briefly state your route and why; use at most one route.\n"
+    "- Honor explicit no-search, no-network, and no-agent limits; never disclose private prompts, project data/source code, "
+    "identifiers, or secrets to external services."
 )
 
 
-def route_context(route: str, reason: str, external_discovery_disallowed: bool = False) -> str:
-    contract = (
-        "This is a selected pre-action route, not a generic suggestion. Before material work, the active controller "
-        "must execute exactly this one route once. If the route is unavailable, unsafe, or its bounded result is not useful, "
-        "return the route's explicit skip or unavailable-evidence outcome and then continue; do not silently omit it, "
-        "and do not add unrelated workers or a post-hoc completion gate. Carry the light, controller-owned acceptance "
-        "seed into this route when material work needs one: the intended outcome and target, minimum observable signal, "
-        "and any material unresolved choice or risk. This is handoff data, not a new worker or completion gate. "
-    )
-    if route == "project_inspection":
-        external_follow_up = (
-            "External discovery is disabled for this prompt; use local project evidence only."
-            if external_discovery_disallowed
-            else "If the minimum local inspection exposes one remaining current external uncertainty, use one bounded "
-            "capability-harness:evidence-researcher brief for that exact question."
-        )
-        return (
-            "Capability-harness selected pre-action route: project inspection. "
-            f"Reason: {reason} {contract}Before materially generating, modifying, or recommending, inspect only the "
-            "current files, configuration, history, or local conventions that can change the decision. Do not broaden "
-            "inspection mechanically, and do not substitute generic web guidance for repository evidence. "
-            f"{external_follow_up}"
-        )
-    if route == "evidence_research":
-        return (
-            "Capability-harness selected pre-action route: focused evidence research. "
-            f"Reason: {reason} {contract}Before materially generating or recommending, invoke "
-            "capability-harness:evidence-researcher once for the one fact that can change the approach. Give it the "
-            "original task, exact evidence question, and any explicit source or data constraints. This selected route "
-            "authorizes public, non-sensitive research from current official or primary sources; an explicit user source "
-            "or network constraint overrides that default. The agent's own contract supplies its return format and stop "
-            "condition. Never include private prompts, source code, identifiers, credentials, or repository data in a "
-            "query. Use the finding to make the decision, not as a post-hoc citation."
-        )
-    if route == "context_discovery":
-        return (
-            "Capability-harness selected pre-action route: bounded context discovery. "
-            f"Reason: {reason} {contract}Before material generation or recommendation, invoke "
-            "capability-harness:context-scout once with the original request, the one construction, design, or selection "
-            "decision it must inform, and any explicit source or data constraints. This selected route authorizes public, "
-            "non-sensitive discovery; an explicit user source or network constraint overrides that default. The agent's "
-            "own contract supplies its Pre-action Decision Brief format and stop condition. A plausible material "
-            "context gap is enough "
-            "to search; do not require advance proof that search will improve the result. Use only searches or repository "
-            "inspections that inform the selected decision, stop as soon as the Brief has actionable input or information "
-            "value is clearly diminishing, and use five focused searches or inspections as an upper bound rather than a "
-            "target. Search across direct, component, and adjacent-principle evidence. Do not put private prompt or "
-            "repository details into queries. Feed the returned Brief into the construction or selection plan before "
-            "material work; do not merely cite it or paste raw results. A scout direct-route skip is the valid basis for "
-            "proceeding without search; do not silently downgrade this route because direct generation is faster."
-        )
-    return (
-        "Capability harness routing: this prompt appears adequately specified for a direct path. "
-        "Do not add search, subagents, or review unless the request itself makes them necessary."
-    )
+def is_pure_greeting(prompt: str) -> bool:
+    return prompt.strip().rstrip(" .!?。！？").casefold() in PURE_GREETINGS
 
 
-def has_harness_opt_out(prompt: str) -> bool:
-    quote: Optional[str] = None
-    closing_quotes = {"“": "”", "‘": "’"}
-    token = "[harness:off]"
-    index = 0
-    while index < len(prompt):
-        character = prompt[index]
-        if quote is not None:
-            if quote.startswith("`"):
-                if prompt.startswith(quote, index):
-                    index += len(quote)
-                    quote = None
-                else:
-                    index += 1
-                continue
-            if character == "\\":
-                index += 2
-                continue
-            if character == quote:
-                quote = None
-            index += 1
-            continue
-        if character == "`":
-            run_length = len(prompt[index:]) - len(prompt[index:].lstrip("`"))
-            quote = "`" * run_length
-            index += run_length
-            continue
-        if character in {'"', "“", "‘"}:
-            quote = closing_quotes.get(character, character)
-            index += 1
-            continue
-        if character == "'":
-            previous = prompt[index - 1] if index else ""
-            following = prompt[index + 1] if index + 1 < len(prompt) else ""
-            if not previous.isalnum() and not following.isalnum():
-                quote = "'"
-                index += 1
-                continue
-        if prompt[index : index + len(token)].casefold() == token:
-            previous = prompt[index - 1] if index else ""
-            following_index = index + len(token)
-            following = prompt[following_index] if following_index < len(prompt) else ""
-            if not previous.isalnum() and not following.isalnum():
-                return True
-        index += 1
-    return False
+def starts_host_command(prompt: str) -> bool:
+    stripped = prompt.lstrip().casefold()
+    return any(
+        stripped == command or (stripped.startswith(command) and stripped[len(command)].isspace())
+        for command in HOST_COMMANDS
+    )
 
 
 def main() -> int:
     event = read_stdin_json()
     prompt = str(event.get("prompt") or "")
-    if has_harness_opt_out(prompt):
-        return 0
-
-    classification = classify_prompt(prompt)
-    route, reason = select_pre_action_route(classification)
-    if route == "direct":
+    if (
+        not prompt.strip()
+        or has_harness_opt_out(prompt)
+        or is_pure_greeting(prompt)
+        or starts_host_command(prompt)
+    ):
         return 0
 
     json_output(
         {
             "hookSpecificOutput": {
                 "hookEventName": "UserPromptSubmit",
-                "additionalContext": route_context(
-                    route,
-                    reason,
-                    bool(classification.get("external_discovery_disallowed")),
-                ),
+                "additionalContext": ADDITIONAL_CONTEXT,
             }
         }
     )
