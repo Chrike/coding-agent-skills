@@ -47,7 +47,7 @@
 
 组装宿主常驻指令时，以 `prompts/CLAUDE.fragment.md` 为维护源码。对 Claude Code，应将其组装到适用的 `CLAUDE.md` 指令范围。
 
-可选插件应作为完整单元安装。Marketplace manifest 当前只列出 `capability-harness`；`plugins/simplify-protected-blocks/` 是独立的可选源码，不代表它已安装或启用。其能力范围见 [plugins/capability-harness/README.md](plugins/capability-harness/README.md)。
+可选插件应作为完整单元安装。Marketplace manifest 当前只列出 `capability-harness`。其能力范围见 [plugins/capability-harness/README.md](plugins/capability-harness/README.md)。
 
 要使用 saved workflow，先审阅源码，再复制到一个明确选择的目标，例如项目级 `.claude/workflows/` 或用户级 `~/.claude/workflows/`，然后调用安装后的名称。报告运行时证据时，应能区分源码与已安装副本的版本。
 

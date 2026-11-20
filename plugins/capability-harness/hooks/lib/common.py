@@ -14,7 +14,7 @@ CURRENT_PATTERNS = [
     r"\b(?:what|which)\s+(?:version|release)\s+(?:does|is)\s+(?:this|the|it)\b",
     r"\b(?:version|release)\s+(?:of|for|used by|supported by)\b",
     r"\b(?:api|model|product|library|package|tool|server)\s+version\b",
-    r"\b(release notes?|price|pricing|context window|model limits?|api behavior|compatib\w*|official (?:docs?|documentation))\b",
+    r"\b(release notes?|context window|model limits?|api behavior|compatib\w*|official (?:docs?|documentation))\b",
     r"(?:最新|当前|目前|现在|截至|今天|最近|支持的|安装的)(?:.{0,12})(?:版本|发布|价格|定价|API|接口|行为|文档|模型参数|上下文窗口|兼容性)",
     r"(?:版本号|版本更新|发布说明|定价|价格|模型参数|上下文窗口|兼容性|官方(?:最新)?文档|(?:API|模型|软件|工具|库)(?:的)?版本)",
 ]
@@ -35,11 +35,11 @@ EXTERNAL_GUIDANCE_PATTERNS = [
     r"(规范|标准|指导|参考|基准|灵感|调研|搜索)",
 ]
 PROJECT_PATTERNS = [
-    r"\b(?:this|current|existing|our)\s+(?:repo(?:sitory)?|project|codebase|file|module|package|configuration|config|test suite)\b",
+    r"\b(?:this|current|existing|our)\s+(?:repo(?:sitory)?|project|codebase|module|package|configuration|config|test suite)\b",
     r"\b(?:in|within|from|against)\s+(?:this|the current|our|existing)\s+(?:repo(?:sitory)?|project|codebase)\b",
     r"\b(?:repo(?:sitory)?|codebase)\s+(?:files?|history|configuration|conventions?|state)\b",
     r"\b(?:package\.json|pyproject\.toml|tsconfig\.json|cargo\.toml|go\.mod|pom\.xml)\b",
-    r"(?:当前|本|这个|现有|已有)(?:项目|仓库|代码库|文件|模块|配置|测试(?:套件|集)?)",
+    r"(?:当前|本|这个|现有|已有)(?:项目|仓库|代码库|模块|配置|测试(?:套件|集)?)",
     r"(?:项目|仓库|代码库)(?:中的|里的)(?:文件|模块|配置|测试|约定|历史|状态)",
 ]
 NO_PROJECT_CONTEXT_PATTERNS = [
@@ -48,7 +48,7 @@ NO_PROJECT_CONTEXT_PATTERNS = [
     r"(无|没有|不涉及|不依赖)(?:当前)?(?:项目|仓库|代码库)(?:上下文|背景)?",
 ]
 HIGH_CONSEQUENCE_PATTERNS = [
-    r"\b(security|vulnerability|legal|medical|financial|production|data loss|privacy|compliance)\b",
+    r"\b(security|vulnerability|legal|medical|financial|data loss|privacy|compliance|production\s+(?:environment|system|deployment|database|service|data|incident))\b",
     r"(安全|漏洞|法律|医疗|金融|生产环境|数据丢失|隐私|合规)",
 ]
 TRIVIAL_PATTERNS = [
@@ -89,6 +89,9 @@ CONTROLLER_OWNED_PATTERNS = [
 EXPLICIT_HARNESS_PATTERNS = [
     r"(?:/capability-harness(?::capability-harness)?\b|capability-harness:capability-harness\b)",
 ]
+EXPLICIT_HOST_COMMAND_PATTERNS = [
+    r"(?:^|\s)/(?:security-review|code-review|adaptive-long-horizon)\b",
+]
 
 
 def read_stdin_json() -> dict[str, Any]:
@@ -120,6 +123,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
     external_discovery_disallowed = any_match(stripped, NO_EXTERNAL_DISCOVERY_PATTERNS)
     delegation_disallowed = any_match(stripped, DELEGATION_DISALLOWED_PATTERNS)
     explicit_harness = any_match(stripped, EXPLICIT_HARNESS_PATTERNS)
+    explicit_host_command = any_match(stripped, EXPLICIT_HOST_COMMAND_PATTERNS)
     controller_owned = any_match(stripped, CONTROLLER_OWNED_PATTERNS) and not explicit_harness
     project = any_match(stripped, PROJECT_PATTERNS) and not any_match(stripped, NO_PROJECT_CONTEXT_PATTERNS)
     high_consequence = any_match(stripped, HIGH_CONSEQUENCE_PATTERNS)
@@ -152,6 +156,7 @@ def classify_prompt(prompt: str) -> dict[str, bool]:
         "open_ended_signal": open_ended_signal,
         "controller_owned": controller_owned,
         "explicit_harness": explicit_harness,
+        "explicit_host_command": explicit_host_command,
     }
 
 
@@ -195,6 +200,8 @@ def select_pre_action_route(classification: dict[str, bool]) -> tuple[str, str]:
     """
     if not classification.get("substantive"):
         return "direct", "The request is low-complexity."
+    if classification.get("explicit_host_command"):
+        return "direct", "An explicit host command owns this invocation."
     if classification.get("controller_owned"):
         return "direct", "An explicit controller boundary owns this invocation."
     if classification.get("delegation_disallowed"):

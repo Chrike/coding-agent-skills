@@ -182,6 +182,31 @@ class RoutingHookTests(unittest.TestCase):
     def test_simple_spelling_fix_is_silent(self) -> None:
         self.assertIsNone(self.submit("Fix this obvious spelling mistake in one Markdown heading."))
 
+    def test_isolated_file_and_unqualified_price_or_production_terms_stay_direct(self) -> None:
+        for prompt in (
+            "Fix the typo in this file.",
+            "请帮我修改当前文件里的一个拼写错误。",
+            "Fix a production typo in the footer.",
+            "What is the price field type in our JSON schema?",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
+
+    def test_current_module_security_review_selects_local_project_inspection(self) -> None:
+        context = self.context_for("Review the current module for security issues.")
+        self.assertIn("selected pre-action route: project inspection", context)
+        self.assertNotIn("focused evidence research", context)
+
+    def test_explicit_host_commands_bypass_pre_action_routes(self) -> None:
+        for prompt in (
+            "/security-review on this PR",
+            "Run /security-review on this PR.",
+            "/code-review",
+            "Run /adaptive-long-horizon on this codebase.",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertIsNone(self.submit(prompt))
+
     def test_known_bug_with_existing_plan_is_silent(self) -> None:
         self.assertIsNone(
             self.submit("Fix this coherent bug. The cause and exact focused regression test are already known.")

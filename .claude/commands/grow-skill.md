@@ -45,6 +45,7 @@ Then verify the applicable local evidence without target scripts, hooks, browser
 - `python -B tests/validate_suite.py --strict`
 - `python -B tests/check_routing_contract.py`
 - `python -B -m unittest discover -s tests -p "test_*.py"`
+- `python -B -m unittest discover -s plugins/capability-harness/tests -p "test_*.py"`
 - `git diff --check`
 
 Report changed paths, selected owner, official-source facts, checks and observed results, and any `UNVERIFIED`, `BLOCKED`, `FAILED`, or skipped evidence. Exit when the smallest owner is implemented and its routing, documentation, and maintenance checks are consistent. If the request is not clearly lightweight or a material owner/authorization decision cannot be settled from current evidence, ask only that one question; do not broaden the investigation.

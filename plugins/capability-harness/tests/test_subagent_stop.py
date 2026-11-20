@@ -111,6 +111,55 @@ class SubagentStopHookTests(unittest.TestCase):
             }
         )
 
+    def test_accepts_all_execution_result_enums(self) -> None:
+        for status in ("supports-claim", "mismatch", "no-issue-found", "blocked", "failed", "stale", "unverified"):
+            with self.subTest(status=status):
+                self.assert_allowed({
+                    "agent_type": "capability-harness:execution-verifier",
+                    "last_assistant_message": (
+                        "## Verification target\n- claim\n## Checks executed\n- check\n"
+                        f"## Evidence result\n- {status}; result details"
+                    ),
+                })
+
+    def test_blocks_invalid_execution_result_enum(self) -> None:
+        self.assert_blocked({
+            "agent_type": "capability-harness:execution-verifier",
+            "last_assistant_message": (
+                "## Verification target\n- claim\n## Checks executed\n- check\n"
+                "## Evidence result\n- totally-made-up-status"
+            ),
+        })
+
+    def test_blocks_invalid_skeptical_evaluator_enum(self) -> None:
+        self.assert_blocked({
+            "agent_type": "capability-harness:skeptical-evaluator",
+            "last_assistant_message": (
+                "## Hard-constraint verdict\n- maybe\n"
+                "## Comparative judgment\n- keep\n## Decisive evidence\n- result"
+            ),
+        })
+
+    def test_accepts_each_skeptical_evaluator_enum(self) -> None:
+        for status in ("pass", "fail", "unverified"):
+            with self.subTest(status=status):
+                self.assert_allowed({
+                    "agent_type": "capability-harness:skeptical-evaluator",
+                    "last_assistant_message": (
+                        f"## Hard-constraint verdict\n- {status}: constraint\n"
+                        "## Comparative judgment\n- keep\n## Decisive evidence\n- result"
+                    ),
+                })
+
+    def test_blocks_empty_list_items_in_required_sections(self) -> None:
+        self.assert_blocked({
+            "agent_type": "capability-harness:execution-verifier",
+            "last_assistant_message": (
+                "## Verification target\n- claim\n## Checks executed\n- check\n"
+                "## Evidence result\n- supports-claim\n- "
+            ),
+        })
+
     def test_blocks_missing_headings(self) -> None:
         output = self.assert_blocked(
             {

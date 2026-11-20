@@ -19,9 +19,15 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: "3.13"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Validate Skill suite
         run: python -B tests/validate_suite.py --strict
       - name: Check routing contract
         run: python -B tests/check_routing_contract.py
       - name: Run repository tests
         run: python -B -m unittest discover -s tests -p "test_*.py"
+      - name: Run capability-harness tests
+        run: python -B -m unittest discover -s plugins/capability-harness/tests -p "test_*.py"

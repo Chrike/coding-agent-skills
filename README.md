@@ -47,7 +47,7 @@ Install only the skill folders you want from `skills/`. In Claude Code, runtime 
 
 Use `prompts/CLAUDE.fragment.md` as the maintained source when assembling the host's always-on instruction file. For Claude Code, assemble it into the applicable `CLAUDE.md` instruction scope.
 
-Optional plugins are installed as complete units. The marketplace manifest currently lists `capability-harness`; `plugins/simplify-protected-blocks/` is separate optional source and is not implied to be installed or enabled. See [plugins/capability-harness/README.md](plugins/capability-harness/README.md) for that plugin's scope.
+Optional plugins are installed as complete units. The marketplace manifest currently lists `capability-harness`. See [plugins/capability-harness/README.md](plugins/capability-harness/README.md) for its scope.
 
 To use a saved workflow, review its source and copy it to one explicitly chosen target, such as project `.claude/workflows/` or user `~/.claude/workflows/`, then invoke the installed name. Keep source and installed revisions identifiable when reporting runtime evidence.
 

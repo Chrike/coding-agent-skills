@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from typing import Any
 
@@ -41,6 +42,33 @@ BLOCKABLE = {
     "independent-brancher",
     "skeptical-evaluator",
 }
+ENUMS = {
+    "execution-verifier": ("## Evidence result", {"supports-claim", "mismatch", "no-issue-found", "blocked", "failed", "stale", "unverified"}),
+    "skeptical-evaluator": ("## Hard-constraint verdict", {"pass", "fail", "unverified"}),
+}
+
+
+def invalid_enum(lines: list[str], heading: str, allowed: set[str]) -> bool:
+    body = section_body(lines, heading)
+    if not body:
+        return True
+    if heading == "## Evidence result":
+        body = body[:1]
+    for line in body:
+        value = re.sub(r"[*_`]", "", re.sub(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)", "", line)).strip().lower()
+        if not any(re.match(rf"^{re.escape(item)}(?:$|[\s:;,.—–])", value) for item in allowed):
+            return True
+    return False
+
+
+def empty_list_item(lines: list[str]) -> bool:
+    in_section = False
+    for line in lines:
+        if is_top_level_heading(line):
+            in_section = True
+        elif in_section and re.fullmatch(r"\s*(?:[-*+]\s*|\d+[.)]\s*)", line):
+            return True
+    return False
 
 
 def read_event() -> dict[str, Any]:
@@ -117,6 +145,8 @@ def contract_problems(lines: list[str], headings: list[str]) -> list[str]:
     ]
     if positions != sorted(positions):
         problems.append("Required headings are out of order")
+    if empty_list_item(lines):
+        problems.append("Sections cannot contain an empty list item")
 
     empty = [heading for heading in headings if has_heading(lines, heading) and not section_body(lines, heading)]
     if empty:
@@ -172,6 +202,10 @@ def main() -> int:
         return 0
 
     problems = contract_problems(lines, EXPECTED[local_name])
+    if not problems and local_name in ENUMS:
+        heading, allowed = ENUMS[local_name]
+        if invalid_enum(lines, heading, allowed):
+            problems.append(f"{heading} must begin with one of: {', '.join(sorted(allowed))}")
     if not problems:
         return 0
 
