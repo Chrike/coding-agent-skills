@@ -3,7 +3,7 @@
   "name": "capability-harness",
   "version": "0.6.5",
   "displayName": "Capability Harness",
-  "description": "Adds a project-scoped decision-first capability control plane and five focused leaf agents for Claude Code.",
+  "description": "Adds a project-scoped decision-first capability control plane and three focused leaf agents for Claude Code.",
   "author": {
     "name": "Chrike"
   }

@@ -1,35 +1,54 @@
 {
-  "description": "Project-scoped decision-first routing and leaf-agent contract checks.",
+  "description": "Project-scoped decision-first routing with read-only research and tolerant leaf checks.",
   "hooks": {
-    "UserPromptSubmit": [
+    "SessionStart": [
       {
+        "matcher": "startup|resume|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell",
+            "args": [
+              "-NoLogo",
+              "-NoProfile",
+              "-NonInteractive",
+              "-File",
+              "${CLAUDE_PLUGIN_ROOT}/hooks/session_start.ps1"
+            ],
+            "timeout": 10,
+            "statusMessage": "Preparing capability route card"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|SubagentHandback",
         "hooks": [
           {
             "type": "command",
             "command": "python",
             "args": [
               "-B",
-              "${CLAUDE_PLUGIN_ROOT}/hooks/user_prompt_submit.py"
+              "-X",
+              "utf8",
+              "${CLAUDE_PLUGIN_ROOT}/hooks/pre_tool_use.py"
             ],
-            "timeout": 5,
-            "statusMessage": "Preparing capability decision"
+            "timeout": 10,
+            "onFailure": "block",
+            "statusMessage": "Checking research command and handback boundary"
           }
         ]
       }
     ],
     "SubagentStop": [
       {
-        "matcher": "^capability-harness:(context-scout|evidence-researcher|independent-brancher|execution-verifier|skeptical-evaluator)$",
+        "matcher": "^capability-harness:(research-scout|execution-verifier|skeptical-evaluator)$",
         "hooks": [
           {
-            "type": "command",
-            "command": "python",
-            "args": [
-              "-B",
-              "${CLAUDE_PLUGIN_ROOT}/hooks/subagent_stop.py"
-            ],
-            "timeout": 5,
-            "statusMessage": "Validating capability result"
+            "type": "prompt",
+            "prompt": "你是 Capability Harness 的子代理报告验收器。事件输入是：$ARGUMENTS。若 stop_hook_active 为 true，直接返回 {\"ok\":true} 以避免循环。SubagentStop 的报告正文读取 last_assistant_message；其事件不包含 SubagentHandback 的 tool_input.message，交接正文已在对应 PreToolUse 检查。无论 last_assistant_message 是否包含“Handback 已交付：”，都必须验收完整消息；收尾标记本身不是报告或通过依据。只验收 last_assistant_message：报告需非空、直接回答委托问题，并包含至少两个有意义的结构区块或清晰段落及相关依据（路径、URL、命令输出或无法取得依据的说明）。direct-route/skip、blocked、failed、stale、unverified 需说明边界和下一步。若 agent_type 为 capability-harness:execution-verifier，Evidence result 必须明确使用 supports-claim、mismatch、no-issue-found、blocked、failed、stale 或 unverified 之一。允许中文/中英标题、H2/H3、冒号、粗体、序号、表格、代码块和重复章节；不要因排版差异误杀。若不足，返回 {\"ok\":false,\"reason\":\"请补充直接结论、相关依据以及仍未验证的边界，并保持报告结构清晰。\"}；否则返回 {\"ok\":true}。只输出 JSON。",
+            "timeout": 30
           }
         ]
       }

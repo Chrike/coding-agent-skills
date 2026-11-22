@@ -1,26 +1,39 @@
 # Capability Harness
 
-A self-contained Claude Code plugin for project-scoped, decision-first capability amplification. Before a material generation, implementation, or recommendation, it helps the active controller obtain missing context, current evidence, project inspection, an alternative, an observable check, or an independent evaluation when that input can improve the next decision.
-
-The plugin is a bounded control plane. Existing domain Skills keep implementation and repair ownership, and `agent-workflow` keeps multi-agent coordination ownership when it is already active. Plugin components are namespaced, so they do not replace the repository's standalone Skills or user-level agents.
-
-The three maintainer references cover routing and operations, canonical capability contracts, and evidence, evaluation, and recovery; they are not an additional runtime instruction layer. `tests/` contains deterministic maintenance tests, while `skills/capability-harness/evals/` contains calibration cases; neither directory launches agents or hooks during normal use.
+一个项目范围的 Claude Code 插件：在实质工作前帮助主控判断是否需要当前证据、局部代码核查、可观察验证或独立评估。它不替代领域 Skill、宿主权限或用户已选择的工作流。
 
 ## Install
 
-For an installation limited to the current project, run from the repository root:
+从仓库根目录执行：
 
 ```powershell
 claude plugin marketplace add . --scope local
 claude plugin install capability-harness@coding-agent-skills --scope local
 ```
 
-Keep `--scope local` unless you intentionally want the marketplace and plugin available to every Claude Code project for that user. This repository does not install or modify the user's global Claude Code configuration.
-After installing in an existing Claude Code session, run `/reload-plugins`; alternatively start a new session.
+现有会话安装后执行 `/reload-plugins`，或启动新会话。一次性验证可使用：
 
-## Local Validation
+```powershell
+claude --plugin-dir .\plugins\capability-harness
+```
 
-From the repository root:
+插件只修改当前项目范围的安装，不修改用户全局配置。
+
+## Runtime behavior
+
+`SessionStart` 在 startup、resume、compact 时注入当天日期和中文路由卡。`PreToolUse` 仅对 research-scout 的 Bash 限制为只读 `gh`/`git` 命令；守卫只约束请求形式、不判断仓库可见性，私有仓库须由主控在任务中明确授权；GH 查询拒绝 `--jq`/`-q` 和 `--template`/`-t` 输出过滤器，避免表达式读取进程环境；`gh api` 仅接受相对 GitHub API endpoint，拒绝绝对 URL 与 `//host`，避免请求本机或内网服务；含 `--web`/`-w` 的浏览器开关及单横线组合/附值短选项也会拒绝；Git 检查必须关闭 fsmonitor、pager、外部 diff、textconv 和可选锁写入，并拒绝 `diff --no-index`、带 `--` 路径分隔符及两个位置参数的 diff，避免读取仓库外路径。它也在 `SubagentHandback` 收到报告时检查非空结构；通过的 Bash 调用仍交给宿主权限流。该 hook 使用 `onFailure: block`：脚本启动失败或超时时，所有匹配的 Bash/Handback 调用都会 fail-closed，而不只 research-scout 的命令。research-scout 禁用独立的 PowerShell、Monitor 和委派工具；MCP 工具的只读边界由角色指令与工具自身权限约束，PreToolUse 不硬拦截其副作用。`SubagentStop` 只读取文档提供的 `last_assistant_message`；Handback 正文在对应的 `PreToolUse` 阶段处理。
+
+不设置 Edit/Write 的无状态“先调研”硬拦截：PreToolUse 事件不携带本轮工具历史，提示钩子也不能读取完整对话，因此无法可靠判断是否已核查。主 Skill 仍要求按需检查本地依据。
+
+保留的代理是：
+
+- `capability-harness:research-scout` — 当前资料、代码事实和外部公开证据；
+- `capability-harness:execution-verifier` — 一条边界清楚的可观察检查；
+- `capability-harness:skeptical-evaluator` — 对实际候选或结果做独立挑刺。
+
+直接、低风险任务不需要调用代理。复杂任务可显式使用 `/capability-harness:deep`。同一代理返回 Blocked 最多补派一次。
+
+## Local validation
 
 ```powershell
 claude plugin validate .\plugins\capability-harness --strict
@@ -28,51 +41,4 @@ $env:PYTHONDONTWRITEBYTECODE = "1"
 python -B -m unittest discover -s .\plugins\capability-harness\tests -v
 ```
 
-For an explicitly authorized runtime check, load the source for one session with `claude --plugin-dir .\plugins\capability-harness`, then verify the Skill in `/context`, the five `capability-harness:*` agents in the Custom Agents section, and the two scoped hooks in `/hooks`.
-
-Invoke the Skill explicitly with:
-
-```text
-/capability-harness:capability-harness <task>
-```
-
-## Runtime Behavior
-
-The project-scoped `UserPromptSubmit` hook adds the same brief route reminder to every nonempty prompt except an explicit opt-out, a pure greeting, or a recognized host command. It does not classify the request or select a route: the active controller treats the reminder as options, may proceed directly, and avoids unrelated agents or a second controller. A leading slash is not ownership evidence by itself; actual command handling belongs to Claude Code's command lifecycle. The hook never launches agents, creates project state, or blocks completion. Fixed direct tasks may keep the Acceptance Seed implicit even when uniform hook context is present. `SubagentStop` validates the return contract of a Harness leaf agent already selected by the controller.
-
-For open-ended or unfamiliar work selected for context discovery, the active controller invokes `context-scout` once before material generation or recommendation. It identifies a concrete decision and a plausible missing context signal, then performs bounded direct, component, and adjacent WebSearch/WebFetch work. It returns a compact Pre-action Decision Brief with findings and explicit plan implications; it does not need to prove in advance that search will improve the final result. Public, non-sensitive discovery is permitted for the selected route; queries must never expose private prompt or repository data. The plugin never requires every worker, every search, or a post-hoc review merely because a request is long, visual, or quality-sensitive.
-
-The command hooks require a Python 3.9 or later executable named `python` on `PATH`. The checked-in Hook configuration invokes that exact command; a host that exposes Python only as `python3` or `py` must provide a compatible `python` launcher before enabling the plugin. This repository validates the plugin schema against Claude Code 2.1.220 and runs deterministic Hook tests with Python 3.14.6 on Windows.
-
-The JSON cases under `skills/capability-harness/evals/` are maintenance calibration data, not automated Hook tests and not the `claude plugin eval` early-access format. Acceptance-seed cases cover the controller handoff and direct-path boundary; they do not require every task to emit a full acceptance form.
-
-## Maintainer References
-
-- [Routing and operations](references/routing-and-operations.md)
-- [Capability contracts](references/capability-contracts.md)
-- [Evidence, evaluation, and recovery](references/evidence-evaluation-recovery.md)
-
-## Manual Calibration
-
-Start a fresh session with the project plugin loaded, then submit the same short prompt without adding hidden design details:
-
-```text
-Create a non-trivial artifact with unresolved structural and medium-specific decisions.
-```
-
-This is an optional human calibration example, not a required workflow or an automated test. In a loaded session, the
-expected first step is a pre-action decision: identify which omitted signal could improve the construction plan and use
-bounded discovery when a plausible gap exists. The active controller should execute the selected route once and integrate
-the resulting Pre-action Decision Brief before generation; artifact checks and skeptical evaluation remain optional
-downstream modules. The user prompt remains unchanged.
-
-For a negative control, use:
-
-```text
-Create a fixed-size artifact with an exact color and no visual innovation.
-```
-
-This fully specified task should remain direct unless the user asks for a concrete check. Optional calibration can compare a
-small number of paired, real tasks with a plugin-disabled session using the identical original prompt. Record the route,
-the one signal sought, and the plan implication; this is for tuning the plugin, not a prerequisite for using search and not
-a catalogue of all task types.
+SessionStart 使用 Windows 自带的 PowerShell 输出动态路由卡，不依赖 Python 启动器。PreToolUse 的只读 Bash 守卫需要 `PATH` 中名为 `python` 的 Python 3.9+ 启动器，并要求 Claude Code v2.1.295+ 支持 `onFailure: block`；旧版上不要授予 research-scout Bash。宿主权限、用户授权和安全策略始终优先。
